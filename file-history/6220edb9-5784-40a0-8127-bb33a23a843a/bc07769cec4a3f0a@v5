@@ -1,0 +1,98 @@
+---
+import Container from "../ui/Container.astro";
+import HeroAnimation from "./HeroAnimation";
+import ScrollIndicator from "../ui/ScrollIndicator";
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  backgroundImage?: string;
+  showScrollIndicator?: boolean;
+  scrollTargetId?: string;
+}
+
+const {
+  title,
+  subtitle,
+  backgroundImage = "/images/hero-bg.png",
+  showScrollIndicator = true,
+  scrollTargetId = "services",
+} = Astro.props;
+
+// Convert \n to <br> for HTML rendering
+const formattedTitle = title.replace(/\n/g, "<br>");
+const formattedSubtitle = subtitle?.replace(/\n/g, "<br>");
+---
+
+<section
+  class="relative min-h-screen flex items-center justify-center overflow-hidden"
+  aria-label="ヒーローセクション"
+>
+  {/* Background Image with Overlay */}
+  <div class="absolute inset-0 z-0">
+    <div
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      style={`background-image: url('${backgroundImage}')`}
+      role="img"
+      aria-label="背景画像"
+    >
+    </div>
+    {/* Gradient Overlay for contrast */}
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"></div>
+  </div>
+
+  {/* Content */}
+  <Container class="relative z-10 text-center py-20">
+    <HeroAnimation client:visible>
+      <h1 class="hero-title text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white leading-relaxed mb-8" set:html={formattedTitle} />
+      {formattedSubtitle && (
+        <p class="hero-subtitle text-lg sm:text-xl md:text-2xl text-white/95 max-w-4xl mx-auto mb-8" set:html={formattedSubtitle} />
+      )}
+      <slot />
+    </HeroAnimation>
+  </Container>
+
+  <style>
+    .hero-title {
+      font-family: 'Zen Kurenaido', sans-serif;
+      font-weight: 400;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4);
+      animation: float 3s ease-in-out infinite, fadeInUp 1s ease-out;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-subtitle {
+      font-family: 'Zen Kurenaido', sans-serif;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+      letter-spacing: 0.03em;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+
+  {/* Scroll Indicator */}
+  {showScrollIndicator && (
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+      <ScrollIndicator client:visible targetId={scrollTargetId} />
+    </div>
+  )}
+</section>

@@ -1,0 +1,131 @@
+---
+import ServiceLayout from "../../layouts/ServiceLayout.astro";
+import Container from "../../components/ui/Container.astro";
+import CTASection from "../../components/sections/CTASection.astro";
+import FadeInSection from "../../components/ui/FadeInSection";
+import CountUp from "../../components/ui/CountUp";
+import { Briefcase, Users, TrendingUp } from "lucide-react";
+---
+
+<ServiceLayout
+  title="産業ケアマネサービス | SHIRO CARE合同会社"
+  description="企業の介護離職防止を支援する産業ケアマネサービス。従業員向け相談窓口、介護離職防止コンサルティング、介護休業取得支援を提供します。"
+  heroTitle="産業ケアマネ"
+  heroSubtitle="企業の介護離職防止を支援。従業員と企業の両方をサポートし、安心して働き続けられる環境づくりをお手伝いします。"
+>
+  {/* Service Overview */}
+  <section class="py-16 md:py-20">
+    <Container>
+      <FadeInSection client:idle>
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-4">
+            産業ケアマネとは
+          </h2>
+          <p class="text-neutral-600 leading-relaxed">
+            産業ケアマネージャーは、企業で働く従業員の介護に関する相談に対応し、
+            仕事と介護の両立を支援する専門家です。企業と従業員の間に立ち、
+            介護離職を防ぐためのサポートを行います。
+          </p>
+        </div>
+      </FadeInSection>
+
+      {/* Service Features */}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          {
+            icon: "users",
+            title: "従業員向け相談窓口",
+            description: "介護に関する不安や悩みを気軽に相談できる窓口を設置。専門家が親身に対応します。",
+          },
+          {
+            icon: "briefcase",
+            title: "介護離職防止コンサルティング",
+            description: "企業の人事制度や働き方改革を支援。介護と仕事を両立できる環境づくりをサポート。",
+          },
+          {
+            icon: "trending-up",
+            title: "介護休業取得支援",
+            description: "介護休業制度の活用方法をアドバイス。スムーズな休業取得と復帰をサポートします。",
+          },
+        ].map((item, index) => (
+          <FadeInSection client:idle delay={index * 0.1}>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100 h-full">
+              <div class="w-12 h-12 rounded-xl bg-sakura-50 flex items-center justify-center mb-4">
+                {item.icon === "users" && <Users className="w-6 h-6 text-sakura-600" />}
+                {item.icon === "briefcase" && <Briefcase className="w-6 h-6 text-sakura-600" />}
+                {item.icon === "trending-up" && <TrendingUp className="w-6 h-6 text-sakura-600" />}
+              </div>
+              <h3 class="text-lg font-bold text-neutral-900 mb-2">{item.title}</h3>
+              <p class="text-neutral-600 text-sm leading-relaxed">{item.description}</p>
+            </div>
+          </FadeInSection>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  {/* Statistics Section */}
+  <section class="py-16 md:py-20 bg-neutral-50">
+    <Container>
+      <FadeInSection client:idle>
+        <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-12 text-center">
+          介護離職の現状
+        </h2>
+      </FadeInSection>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          { number: 10, suffix: "万人", label: "年間の介護離職者数" },
+          { number: 9.2, suffix: "兆円", label: "経済損失（2030年予測）" },
+          { number: 318, suffix: "万人", label: "両立が必要な人数（2030年予測）" },
+        ].map((item, index) => (
+          <FadeInSection client:idle delay={index * 0.1}>
+            <div class="bg-white rounded-2xl p-8 text-center shadow-sm border border-neutral-100">
+              <div class="text-4xl md:text-5xl font-bold text-sakura-600 mb-2">
+                <CountUp client:idle end={item.number} suffix={item.suffix} decimals={item.number % 1 !== 0 ? 1 : 0} />
+              </div>
+              <p class="text-neutral-600 font-medium">{item.label}</p>
+            </div>
+          </FadeInSection>
+        ))}
+      </div>
+      <p class="text-center text-neutral-500 text-sm mt-6">
+        出典：<a href="https://www.mhlw.go.jp/content/12300000/001435891.pdf" target="_blank" rel="noopener noreferrer" class="underline hover:text-sakura-600">経済産業省「介護分野の取組について」（2025年3月）</a>
+      </p>
+    </Container>
+  </section>
+
+  {/* Flow Section */}
+  <section class="py-16 md:py-20">
+    <Container>
+      <FadeInSection client:idle>
+        <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-12 text-center">
+          導入までの流れ
+        </h2>
+      </FadeInSection>
+
+      <div class="max-w-3xl mx-auto">
+        {[
+          { step: 1, title: "お問い合わせ", description: "LINEまたはお電話でお気軽にご連絡ください。" },
+          { step: 2, title: "ヒアリング", description: "貴社の課題や状況を詳しくお聞きします。" },
+          { step: 3, title: "プラン提案", description: "最適なサポートプランをご提案します。" },
+          { step: 4, title: "導入開始", description: "サービスを開始し、継続的にサポートします。" },
+        ].map((item, index) => (
+          <FadeInSection client:idle delay={index * 0.1}>
+            <div class="flex gap-4 mb-8 last:mb-0">
+              <div class="flex-shrink-0 w-10 h-10 rounded-full bg-sakura-500 text-white flex items-center justify-center font-bold">
+                {item.step}
+              </div>
+              <div class="flex-1 pb-8 border-b border-neutral-200 last:border-0">
+                <h3 class="text-lg font-bold text-neutral-900 mb-1">{item.title}</h3>
+                <p class="text-neutral-600 text-sm">{item.description}</p>
+              </div>
+            </div>
+          </FadeInSection>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <CTASection />
+</ServiceLayout>

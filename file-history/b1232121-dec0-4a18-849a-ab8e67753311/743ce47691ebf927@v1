@@ -1,0 +1,60 @@
+---
+name: testing-rules
+description: Apply testing rules when writing tests or reviewing test code. Triggers on "write tests", "TDD", "test coverage", "review test quality".
+---
+
+# Testing Rules
+
+## TDD Cycle
+
+```
+RED → GREEN → REFACTOR
+```
+
+1. Write a failing test
+2. Minimal implementation to pass
+3. Improve the code
+
+## Best Practices
+
+- Test names describe behavior
+- One assertion per test
+- Arrange-Act-Assert pattern
+- Test behavior, not implementation
+
+## Test Naming
+
+```javascript
+// Good
+it('should return empty array when no items match')
+it('should throw error when input is invalid')
+
+// Bad
+it('test1')
+it('works')
+```
+
+## Before Commit
+
+```bash
+npm test
+npm run lint
+npm run type-check
+npm run build
+```
+
+## Before Push
+
+```bash
+npm test -- --coverage
+npm run test:e2e
+```
+
+## Coverage Targets
+
+| Type | Target |
+|------|--------|
+| Statements | 80% |
+| Branches | 75% |
+| Functions | 80% |
+| Lines | 80% |

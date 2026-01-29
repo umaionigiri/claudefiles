@@ -1,0 +1,10 @@
+# {{FEATURE_NAME}} - 要件定義
+
+> ステータス: 未作成
+> 作成日時: {{TIMESTAMP}}
+
+## プロジェクト概要
+{{PROJECT_DESCRIPTION}}
+
+## 要件
+*`/kiro:spec-requirements` コマンドで要件を生成してください*

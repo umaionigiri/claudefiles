@@ -1,0 +1,121 @@
+2026-01-25T16:26:18.465Z    Initializing build environment...
+2026-01-25T16:26:20.519Z    Success: Finished initializing build environment
+2026-01-25T16:26:20.934Z    Cloning repository...
+2026-01-25T16:26:22.654Z    Detected the following tools from environment: npm@10.9.2, nodejs@22.16.0
+2026-01-25T16:26:22.655Z    Restoring from dependencies cache
+2026-01-25T16:26:22.657Z    Restoring from build output cache
+2026-01-25T16:26:22.814Z    Installing project dependencies: npm clean-install --progress=false
+2026-01-25T16:26:34.953Z    
+2026-01-25T16:26:34.953Z    added 610 packages, and audited 611 packages in 11s
+2026-01-25T16:26:34.953Z    
+2026-01-25T16:26:34.953Z    283 packages are looking for funding
+2026-01-25T16:26:34.954Z      run `npm fund` for details
+2026-01-25T16:26:34.954Z    
+2026-01-25T16:26:34.954Z    found 0 vulnerabilities
+2026-01-25T16:26:35.161Z    Executing user build command: npm run build
+2026-01-25T16:26:35.558Z    
+2026-01-25T16:26:35.559Z    > care-inomi@0.0.1 build
+2026-01-25T16:26:35.559Z    > astro build
+2026-01-25T16:26:35.559Z    
+2026-01-25T16:26:35.161Z    Executing user build command: npm run build
+2026-01-25T16:26:35.558Z    
+2026-01-25T16:26:35.559Z    > care-inomi@0.0.1 build
+2026-01-25T16:26:35.559Z    > astro build
+2026-01-25T16:26:35.559Z    
+2026-01-25T16:26:46.822Z    16:26:46 [content] Syncing content
+2026-01-25T16:26:46.828Z    16:26:46 [content] Synced content
+2026-01-25T16:26:46.829Z    16:26:46 [types] Generated 578ms
+2026-01-25T16:26:46.829Z    16:26:46 [build] output: "static"
+2026-01-25T16:26:46.829Z    16:26:46 [build] mode: "static"
+2026-01-25T16:26:46.829Z    16:26:46 [build] directory: /opt/buildhome/repo/dist/
+2026-01-25T16:26:46.830Z    16:26:46 [build] Collecting build info...
+2026-01-25T16:26:46.830Z    16:26:46 [build] ✓ Completed in 621ms.
+2026-01-25T16:26:46.832Z    16:26:46 [build] Building static entrypoints...
+2026-01-25T16:26:48.917Z    16:26:48 [vite] ✓ built in 2.02s
+2026-01-25T16:26:48.918Z    16:26:48 [build] ✓ Completed in 2.09s.
+2026-01-25T16:26:48.919Z    
+2026-01-25T16:26:48.919Z     building client (vite) 
+2026-01-25T16:26:48.928Z    16:26:48 [vite] transforming...
+2026-01-25T16:26:52.987Z    16:26:52 [vite] ✓ 2006 modules transformed.
+2026-01-25T16:26:53.155Z    16:26:53 [vite] rendering chunks...
+2026-01-25T16:26:53.381Z    16:26:53 [vite] computing gzip size...
+2026-01-25T16:26:53.400Z    16:26:53 [vite] dist/_astro/CountUp.CXhC_b8O.js             0.13 kB │ gzip:  0.12 kB
+2026-01-25T16:26:53.401Z    16:26:53 [vite] dist/_astro/animations.BbJpu-fb.js          0.35 kB │ gzip:  0.26 kB
+2026-01-25T16:26:53.401Z    16:26:53 [vite] dist/_astro/index.DZcF7D62.js               0.53 kB │ gzip:  0.35 kB
+2026-01-25T16:26:53.401Z    16:26:53 [vite] dist/_astro/FadeInSection.Ccw1AuFk.js       0.69 kB │ gzip:  0.44 kB
+2026-01-25T16:26:53.401Z    16:26:53 [vite] dist/_astro/jsx-runtime.D_zvdyIk.js         0.73 kB │ gzip:  0.46 kB
+2026-01-25T16:26:53.401Z    16:26:53 [vite] dist/_astro/ScrollIndicator.DTUJH1rs.js     0.73 kB │ gzip:  0.54 kB
+2026-01-25T16:26:53.402Z    16:26:53 [vite] dist/_astro/HeroAnimation.DKzFyJIY.js       0.92 kB │ gzip:  0.58 kB
+2026-01-25T16:26:53.402Z    16:26:53 [vite] dist/_astro/FAQ.C9QPv1TP.js                 1.90 kB │ gzip:  1.01 kB
+2026-01-25T16:26:53.402Z    16:26:53 [vite] dist/_astro/CountUp.CHO9bbr1.js             2.17 kB │ gzip:  1.19 kB
+2026-01-25T16:26:53.402Z    16:26:53 [vite] dist/_astro/createLucideIcon.D2Af0O2z.js    2.58 kB │ gzip:  0.81 kB
+2026-01-25T16:26:53.402Z    16:26:53 [vite] dist/_astro/MobileMenu.CDitFZWZ.js          2.59 kB │ gzip:  1.09 kB
+2026-01-25T16:26:53.402Z    16:26:53 [vite] dist/_astro/AnimatedCard.wE-Tcbzl.js        3.22 kB │ gzip:  1.39 kB
+2026-01-25T16:26:53.402Z    16:26:53 [vite] dist/_astro/index.WFquGv8Z.js               7.85 kB │ gzip:  3.05 kB
+2026-01-25T16:26:53.403Z    16:26:53 [vite] dist/_astro/ScrollTrigger.CrR5uyL1.js      43.66 kB │ gzip: 18.16 kB
+2026-01-25T16:26:53.403Z    16:26:53 [vite] dist/_astro/index.BmSPZwJQ.js              58.73 kB │ gzip: 20.76 kB
+2026-01-25T16:26:53.403Z    16:26:53 [vite] dist/_astro/index.tUWw1UFN.js              70.70 kB │ gzip: 27.91 kB
+2026-01-25T16:26:53.403Z    16:26:53 [vite] dist/_astro/client.9unXo8s5.js            186.62 kB │ gzip: 58.54 kB
+2026-01-25T16:26:53.403Z    16:26:53 [vite] ✓ built in 4.48s
+2026-01-25T16:26:53.434Z    
+2026-01-25T16:26:53.435Z     generating static routes 
+2026-01-25T16:26:53.997Z    16:26:53 ▶ src/pages/about.astro
+2026-01-25T16:26:54.051Z    16:26:53   └─ /about/index.html (+54ms) 
+2026-01-25T16:26:54.066Z    16:26:54 ▶ src/pages/contact.astro
+2026-01-25T16:26:54.073Z    16:26:54   └─ /contact/index.html (+10ms) 
+2026-01-25T16:26:54.094Z    16:26:54 ▶ src/pages/services/care-management.astro
+2026-01-25T16:26:54.118Z    16:26:54   └─ /services/care-management/index.html (+25ms) 
+2026-01-25T16:26:54.127Z    16:26:54 ▶ src/pages/services/industrial-care.astro
+2026-01-25T16:26:54.139Z    16:26:54   └─ /services/industrial-care/index.html (+12ms) 
+2026-01-25T16:26:54.149Z    16:26:54 ▶ src/pages/services/training.astro
+2026-01-25T16:26:54.155Z    16:26:54   └─ /services/training/index.html (+11ms) 
+2026-01-25T16:26:54.164Z    16:26:54 ▶ src/pages/services/index.astro
+2026-01-25T16:26:54.172Z    16:26:54   └─ /services/index.html (+7ms) 
+2026-01-25T16:26:54.177Z    16:26:54 ▶ src/pages/index.astro
+2026-01-25T16:26:54.184Z    16:26:54   └─ /index.html (+7ms) 
+2026-01-25T16:26:54.184Z    16:26:54 ✓ Completed in 777ms.
+2026-01-25T16:26:54.184Z    
+2026-01-25T16:26:54.209Z    16:26:54 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`
+2026-01-25T16:26:54.209Z    16:26:54 [build] 7 page(s) built in 8.00s
+2026-01-25T16:26:54.209Z    16:26:54 [build] Complete!
+2026-01-25T16:26:54.288Z    Success: Build command completed
+2026-01-25T16:26:54.409Z    Executing user deploy command: npx wrangler versions upload
+2026-01-25T16:26:55.955Z    npm warn exec The following package was not found and will be installed: wrangler@4.60.0
+2026-01-25T16:27:16.853Z    
+2026-01-25T16:27:16.853Z     ⛅️ wrangler 4.60.0
+2026-01-25T16:27:16.853Z    ───────────────────
+2026-01-25T16:27:16.871Z    
+2026-01-25T16:27:16.951Z    ✘ [ERROR] Missing entry-point to Worker script or to assets directory
+2026-01-25T16:27:16.951Z    
+2026-01-25T16:27:16.951Z      
+2026-01-25T16:27:16.951Z      If there is code to deploy, you can either:
+2026-01-25T16:27:16.951Z      - Specify an entry-point to your Worker script via the command line (ex: `npx wrangler versions upload src/index.ts`)
+2026-01-25T16:27:16.951Z      - Or create a "wrangler.jsonc" file containing:
+2026-01-25T16:27:16.951Z      
+2026-01-25T16:27:16.951Z      ```
+2026-01-25T16:27:16.951Z      {
+2026-01-25T16:27:16.951Z        "name": "worker-name",
+2026-01-25T16:27:16.951Z        "compatibility_date": "2026-01-25",
+2026-01-25T16:27:16.951Z        "main": "src/index.ts"
+2026-01-25T16:27:16.951Z      }
+2026-01-25T16:27:16.951Z      ```
+2026-01-25T16:27:16.951Z      
+2026-01-25T16:27:16.951Z      
+2026-01-25T16:27:16.951Z      If are uploading a directory of assets, you can either:
+2026-01-25T16:27:16.951Z      - Specify the path to the directory of assets via the command line: (ex: `npx wrangler versions upload --assets=./dist`)
+2026-01-25T16:27:16.952Z      - Or create a "wrangler.jsonc" file containing:
+2026-01-25T16:27:16.952Z      
+2026-01-25T16:27:16.952Z      ```
+2026-01-25T16:27:16.952Z      {
+2026-01-25T16:27:16.952Z        "name": "worker-name",
+2026-01-25T16:27:16.952Z        "compatibility_date": "2026-01-25",
+2026-01-25T16:27:16.952Z        "assets": {
+2026-01-25T16:27:16.952Z          "directory": "./dist"
+2026-01-25T16:27:16.952Z        }
+2026-01-25T16:27:16.952Z      }
+2026-01-25T16:27:16.952Z      ```
+2026-01-25T16:27:16.952Z      
+2026-01-25T16:27:16.952Z    
+2026-01-25T16:27:16.952Z    
+2026-01-25T16:27:16.993Z    🪵  Logs were written to "/opt/buildhome/.config/.wrangler/logs/wrangler-2026-01-25_16-27-15_770.log"
+2026-01-25T16:27:20.464Z    Failed: error occurred while running deploy command

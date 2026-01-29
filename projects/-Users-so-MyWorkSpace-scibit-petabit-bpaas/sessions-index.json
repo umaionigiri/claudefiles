@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "sessionId": "e0c27161-8c65-41cb-a7bc-ad42791eba96",
+      "fullPath": "/Users/so/.claude/projects/-Users-so-MyWorkSpace-scibit-petabit-bpaas/e0c27161-8c65-41cb-a7bc-ad42791eba96.jsonl",
+      "fileMtime": 1768992409648,
+      "firstPrompt": "<ide_opened_file>The user opened the file /Users/so/MyWorkSpace/scibit/petabit-bpaas/messenger-log.txt in the IDE. This may or may not be related to the current task.</ide_opened_file>",
+      "summary": "EC BPaaS事業化検討：AI自動最適化サービス企画",
+      "messageCount": 5,
+      "created": "2026-01-21T03:45:29.358Z",
+      "modified": "2026-01-21T03:46:15.414Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so/MyWorkSpace/scibit/petabit-bpaas",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "81ce7288-7563-4e08-a86b-ef78fcec7aa3",
+      "fullPath": "/Users/so/.claude/projects/-Users-so-MyWorkSpace-scibit-petabit-bpaas/81ce7288-7563-4e08-a86b-ef78fcec7aa3.jsonl",
+      "fileMtime": 1769004735441,
+      "firstPrompt": "<ide_opened_file>The user opened the file Untitled-1 in the IDE. This may or may not be related to the current task.</ide_opened_file>",
+      "summary": "Estimate revision: executive summary and cost disclosure standards",
+      "messageCount": 34,
+      "created": "2026-01-21T11:49:44.661Z",
+      "modified": "2026-01-21T12:00:58.142Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so/MyWorkSpace/scibit/petabit-bpaas",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "6b80d12b-9425-49d5-b1ee-7e0b5f11d1bd",
+      "fullPath": "/Users/so/.claude/projects/-Users-so-MyWorkSpace-scibit-petabit-bpaas/6b80d12b-9425-49d5-b1ee-7e0b5f11d1bd.jsonl",
+      "fileMtime": 1769004736637,
+      "firstPrompt": "outputs/estimate-ec-bpaas.mdをドキュメントコンバートエージェントを用いてdocxファイルに変換して",
+      "summary": "Markdown to DOCX with Mermaid diagram conversion",
+      "messageCount": 20,
+      "created": "2026-01-21T13:42:48.921Z",
+      "modified": "2026-01-21T14:08:09.398Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so/MyWorkSpace/scibit/petabit-bpaas",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "b221ef0e-34d2-448f-a538-5086a7c21196",
+      "fullPath": "/Users/so/.claude/projects/-Users-so-MyWorkSpace-scibit-petabit-bpaas/b221ef0e-34d2-448f-a538-5086a7c21196.jsonl",
+      "fileMtime": 1769004737886,
+      "firstPrompt": "[Request interrupted by user]",
+      "summary": "EC BPaaS estimate: Mermaid diagrams to SVG conversion",
+      "messageCount": 6,
+      "created": "2026-01-21T13:39:53.334Z",
+      "modified": "2026-01-21T13:40:28.449Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so/MyWorkSpace/scibit/petabit-bpaas/outputs",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "ebe7a325-5356-4d0f-8fcc-d58fbccdee19",
+      "fullPath": "/Users/so/.claude/projects/-Users-so-MyWorkSpace-scibit-petabit-bpaas/ebe7a325-5356-4d0f-8fcc-d58fbccdee19.jsonl",
+      "fileMtime": 1769004739455,
+      "firstPrompt": "システム構成図をもっとわかりやすくするために、最適なシステム構成図を調査し、nano-banana-pro mcpにシステム構成図の作成を依頼して",
+      "summary": "EC BPaaS MVP見積・計画作成＆システム構成図生成",
+      "messageCount": 16,
+      "created": "2026-01-21T11:40:06.895Z",
+      "modified": "2026-01-21T12:03:33.986Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so/MyWorkSpace/scibit/petabit-bpaas/outputs",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "8644509b-d0c8-4483-a40f-55adc11ec0c4",
+      "fullPath": "/Users/so/.claude/projects/-Users-so-MyWorkSpace-scibit-petabit-bpaas/8644509b-d0c8-4483-a40f-55adc11ec0c4.jsonl",
+      "fileMtime": 1769004740788,
+      "firstPrompt": "<ide_opened_file>The user opened the file /Users/so/MyWorkSpace/scibit/petabit-bpaas/outputs/estimate-ec-bpaas.md in the IDE. This may or may not be related to the current task.</ide_opened_file>",
+      "summary": "Auto Strategy Optimization 7-Step Phase Breakdown",
+      "messageCount": 29,
+      "created": "2026-01-21T12:22:06.353Z",
+      "modified": "2026-01-21T12:34:43.026Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so/MyWorkSpace/scibit/petabit-bpaas",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "add5a55a-8f34-40a9-a8e8-f889c46bbd66",
+      "fullPath": "/Users/so/.claude/projects/-Users-so-MyWorkSpace-scibit-petabit-bpaas/add5a55a-8f34-40a9-a8e8-f889c46bbd66.jsonl",
+      "fileMtime": 1769004742406,
+      "firstPrompt": "[Request interrupted by user for tool use]",
+      "summary": "EC BPaaS 7-Step Phase Alignment Modification",
+      "messageCount": 4,
+      "created": "2026-01-21T12:15:22.835Z",
+      "modified": "2026-01-21T12:15:48.671Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so/MyWorkSpace/scibit/petabit-bpaas",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "907043b8-ef9a-49a7-9fde-94d391d40736",
+      "fullPath": "/Users/so/.claude/projects/-Users-so-MyWorkSpace-scibit-petabit-bpaas/907043b8-ef9a-49a7-9fde-94d391d40736.jsonl",
+      "fileMtime": 1769004743509,
+      "firstPrompt": "<ide_opened_file>The user opened the file /Users/so/MyWorkSpace/scibit/petabit-bpaas/outputs/estimate-ec-bpaas.md in the IDE. This may or may not be related to the current task.</ide_opened_file>",
+      "summary": "Technical stack flexibility analysis and past discussion review",
+      "messageCount": 5,
+      "created": "2026-01-21T12:17:40.037Z",
+      "modified": "2026-01-21T12:18:26.067Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so/MyWorkSpace/scibit/petabit-bpaas",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "cb306285-2469-400a-94bd-9fcf9df90369",
+      "fullPath": "/Users/so/.claude/projects/-Users-so-MyWorkSpace-scibit-petabit-bpaas/cb306285-2469-400a-94bd-9fcf9df90369.jsonl",
+      "fileMtime": 1769007805991,
+      "firstPrompt": "[Request interrupted by user]",
+      "messageCount": 20,
+      "created": "2026-01-21T14:49:36.537Z",
+      "modified": "2026-01-21T15:03:25.966Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so/MyWorkSpace/scibit/petabit-bpaas/outputs",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "e6274afe-d3c3-43e7-9eb6-c26e2da1161c",
+      "fullPath": "/Users/so/.claude/projects/-Users-so-MyWorkSpace-scibit-petabit-bpaas/e6274afe-d3c3-43e7-9eb6-c26e2da1161c.jsonl",
+      "fileMtime": 1769006075622,
+      "firstPrompt": "No prompt",
+      "messageCount": 2,
+      "created": "2026-01-21T14:34:35.584Z",
+      "modified": "2026-01-21T14:34:35.584Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so/MyWorkSpace/scibit/petabit-bpaas",
+      "isSidechain": false
+    }
+  ]
+}

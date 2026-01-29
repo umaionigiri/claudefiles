@@ -1,0 +1,65 @@
+---
+name: git-workflow
+description: Apply git workflow rules for branch management and commits. Triggers on "create branch", "git workflow", "commit changes", "create PR", "worktree".
+---
+
+# Git Workflow Rules
+
+## Worktree Policy
+
+- **MUST create worktree before starting any work** (mandatory first step)
+- Feature development in `.worktrees/` directory
+- Branch names: `feature/<name>`, `fix/<name>`, `test/<name>`
+- Delete worktree after completion
+
+### Worktree Creation
+
+```bash
+# Create worktree
+git worktree add .worktrees/<branch-name> -b <branch-name>
+
+# Move to worktree
+cd .worktrees/<branch-name>
+```
+
+## Branch Naming
+
+| Type | Pattern | Example |
+|------|---------|---------|
+| Feature | `feature/<name>` | `feature/user-auth` |
+| Bugfix | `fix/<name>` | `fix/login-error` |
+| Test | `test/<name>` | `test/api-coverage` |
+| Refactor | `refactor/<name>` | `refactor/cleanup` |
+
+## Commit Messages
+
+```
+<type>: <description>
+
+[optional body]
+```
+
+Types:
+- `feat`: New feature
+- `fix`: Bug fix
+- `refactor`: Refactoring
+- `test`: Add/modify tests
+- `docs`: Documentation
+- `chore`: Other changes
+
+## PR Workflow
+
+1. Run tests locally
+2. Create PR
+3. Confirm CI passes
+4. Address review comments
+5. Merge
+6. Delete worktree
+
+## Safety Rules
+
+- No direct push to `main`/`master`
+- Use `--force` with caution
+- CI must pass before merge
+- Merge only after approval
+- Use GitHub MCP for GitHub operations

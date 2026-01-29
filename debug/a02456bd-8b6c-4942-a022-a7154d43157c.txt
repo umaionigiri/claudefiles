@@ -1,0 +1,2 @@
+2026-01-25T13:55:10.646Z [DEBUG] High write ratio: blit=27650, write=33853 (55.0% writes), screen=317x214
+2026-01-25T13:55:18.557Z [DEBUG] [REPL:unmount] REPL unmounting

@@ -1,0 +1,171 @@
+---
+import ServiceLayout from "../../layouts/ServiceLayout.astro";
+import Container from "../../components/ui/Container.astro";
+import CTASection from "../../components/sections/CTASection.astro";
+import FadeInSection from "../../components/ui/FadeInSection";
+import FAQ from "../../components/sections/FAQ";
+import { ClipboardList, Users, Calendar, MapPin, CheckCircle } from "lucide-react";
+---
+
+<ServiceLayout
+  title="ケアマネジメント | SHIRO CARE合同会社"
+  description="神戸市西区・明石市でケアプラン作成からサービス調整まで。経験豊富なケアマネージャーが親身にサポートします。"
+  heroTitle="ケアマネジメント"
+  heroSubtitle="ご本人・ご家族の想いに寄り添いながら、最適な介護サービスをコーディネートします。"
+>
+  {/* Service Overview */}
+  <section class="py-16 md:py-20">
+    <Container>
+      <FadeInSection client:idle>
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-4">
+            ケアマネジメントとは
+          </h2>
+          <p class="text-neutral-600 leading-relaxed">
+            ケアマネジメントは、介護が必要な方が適切なサービスを受けられるよう、
+            ケアプランの作成からサービス事業者との調整まで、一貫してサポートするサービスです。
+          </p>
+        </div>
+      </FadeInSection>
+
+      {/* Service Flow */}
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {[
+          { icon: "clipboard", title: "ご相談・アセスメント", description: "ご本人・ご家族のご要望や状況を詳しくお聞きします" },
+          { icon: "users", title: "ケアプラン作成", description: "最適なサービスの組み合わせをご提案します" },
+          { icon: "calendar", title: "サービス調整", description: "各サービス事業者との連絡調整を行います" },
+          { icon: "check", title: "モニタリング", description: "定期的に状況を確認し、必要に応じてプランを見直します" },
+        ].map((item, index) => (
+          <FadeInSection client:idle delay={index * 0.1}>
+            <div class="text-center">
+              <div class="w-16 h-16 rounded-full bg-sakura-50 flex items-center justify-center mx-auto mb-4">
+                {item.icon === "clipboard" && <ClipboardList className="w-8 h-8 text-sakura-600" />}
+                {item.icon === "users" && <Users className="w-8 h-8 text-sakura-600" />}
+                {item.icon === "calendar" && <Calendar className="w-8 h-8 text-sakura-600" />}
+                {item.icon === "check" && <CheckCircle className="w-8 h-8 text-sakura-600" />}
+              </div>
+              <div class="text-sm text-sakura-600 font-medium mb-2">STEP {index + 1}</div>
+              <h3 class="text-lg font-bold text-neutral-900 mb-2">{item.title}</h3>
+              <p class="text-neutral-600 text-sm">{item.description}</p>
+            </div>
+          </FadeInSection>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  {/* Service Area */}
+  <section class="py-16 md:py-20 bg-neutral-50">
+    <Container>
+      <FadeInSection client:idle>
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-8 text-center">
+            対応エリア
+          </h2>
+
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-neutral-100">
+            <div class="flex items-center gap-3 mb-6">
+              <MapPin className="w-6 h-6 text-sakura-600" />
+              <span class="text-lg font-bold text-neutral-900">サービス提供地域</span>
+            </div>
+
+            {/* Map Image */}
+            <div class="mb-6">
+              <img
+                src="/images/area-map.png"
+                alt="対応エリア地図 - 神戸市西区と明石市がハイライトされています"
+                class="w-full max-w-2xl mx-auto rounded-lg"
+              />
+            </div>
+
+            {/* Area List */}
+            <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+              {["神戸市西区", "明石市"].map((area) => (
+                <div class="flex items-center gap-2 p-3 bg-sakura-50 rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-sakura-600" />
+                  <span class="font-medium text-neutral-800">{area}</span>
+                </div>
+              ))}
+            </div>
+
+            <p class="mt-6 text-sm text-neutral-500 text-center">
+              ※ 上記以外の地域についてはご相談ください
+            </p>
+          </div>
+        </div>
+      </FadeInSection>
+    </Container>
+  </section>
+
+  {/* Important Documents Section */}
+  <section class="py-16 md:py-20 bg-sakura-50">
+    <Container>
+      <FadeInSection client:idle>
+        <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-8 text-center">
+          重要書類
+        </h2>
+        <div class="max-w-xl mx-auto">
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
+            <ul class="space-y-4">
+              <li class="p-3 bg-neutral-50 rounded-lg">
+                <a
+                  href="/documents/重要事項説明書.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-between hover:text-sakura-600 transition-colors"
+                >
+                  <span class="font-medium text-neutral-800">重要事項説明書</span>
+                  <span class="text-sm text-sakura-600">PDF</span>
+                </a>
+              </li>
+              <li class="p-3 bg-neutral-50 rounded-lg">
+                <a
+                  href="/documents/運営規定.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-between hover:text-sakura-600 transition-colors"
+                >
+                  <span class="font-medium text-neutral-800">運営規程</span>
+                  <span class="text-sm text-sakura-600">PDF</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </FadeInSection>
+    </Container>
+  </section>
+
+  {/* FAQ Section */}
+  <section class="py-16 md:py-20">
+    <Container>
+      <FadeInSection client:idle>
+        <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-12 text-center">
+          よくあるご質問
+        </h2>
+      </FadeInSection>
+
+      <div class="max-w-3xl mx-auto">
+        <FAQ
+          client:idle
+          items={[
+            {
+              question: "ケアマネジャーの費用はかかりますか？",
+              answer: "居宅介護支援（ケアマネジメント）は介護保険が適用されるため、利用者の自己負担はありません。",
+            },
+            {
+              question: "どのような方が利用できますか？",
+              answer: "要介護認定を受けた方（要介護1〜5）が対象となります。要支援の方は地域包括支援センターが担当します。",
+            },
+            {
+              question: "サービス開始までどのくらいかかりますか？",
+              answer: "ご相談から約1〜2週間でサービスを開始できます。緊急の場合はご相談ください。",
+            },
+          ]}
+        />
+      </div>
+    </Container>
+  </section>
+
+  <CTASection />
+</ServiceLayout>

@@ -1,0 +1,9 @@
+{
+  "id": "1",
+  "subject": "Astroプロジェクトを初期化",
+  "description": "Astro 5.x + React 19 + Tailwind CSS v4でプロジェクトを初期化し、基本構造を作成",
+  "activeForm": "Astroプロジェクトを初期化中",
+  "status": "pending",
+  "blocks": [],
+  "blockedBy": []
+}

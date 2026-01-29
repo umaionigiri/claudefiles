@@ -1,0 +1,126 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "sessionId": "78bb7f09-6c33-448a-8533-f3f35bd01655",
+      "fullPath": "/Users/so/.claude/projects/-Users-so/78bb7f09-6c33-448a-8533-f3f35bd01655.jsonl",
+      "fileMtime": 1767106741217,
+      "firstPrompt": "画像をLLMで自動ダウンロードするMCPはあるか",
+      "messageCount": 5,
+      "created": "2025-12-30T14:54:40.450Z",
+      "modified": "2025-12-30T14:59:01.191Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "4c0a7b85-20ea-44a1-870d-a77bb2695d15",
+      "fullPath": "/Users/so/.claude/projects/-Users-so/4c0a7b85-20ea-44a1-870d-a77bb2695d15.jsonl",
+      "fileMtime": 1766234747695,
+      "firstPrompt": "hooksに以下を追加して {   \"hooks\": {     \"PostToolUse\": [{       \"matcher\": \"Write|Edit|MultiEdit\",       \"hooks\": [{         \"type\": \"command\",         \"command\": \"jq -r '.tool_input.file_path | select(endsw…",
+      "messageCount": 29,
+      "created": "2025-12-20T12:37:19.419Z",
+      "modified": "2025-12-20T12:45:47.670Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "85e62e27-1e6e-420e-8e84-c9b59f32b259",
+      "fullPath": "/Users/so/.claude/projects/-Users-so/85e62e27-1e6e-420e-8e84-c9b59f32b259.jsonl",
+      "fileMtime": 1766904818027,
+      "firstPrompt": "### ゴール 今年2025年の有馬記念の最新情報を調査して、勝ちそうな組み合わせを考えて。  ### 制約 ・最新情報はgemini mcpを使って調査すること。 ・過去レースの情報も考慮して予想すること ・予算は5000円。 ・ワイド、３連単、３連複、単勝、複勝、馬単、馬連の中から最適な組み合わせを検討すること。 ・タスクの依存関係を考慮して、可能な限り同時並行で作業すること ・予想結果はo3…",
+      "messageCount": 15,
+      "created": "2025-12-28T06:16:39.706Z",
+      "modified": "2025-12-28T06:53:37.940Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "f00a5a55-f6f8-4c96-bfd6-66d04591c0a6",
+      "fullPath": "/Users/so/.claude/projects/-Users-so/f00a5a55-f6f8-4c96-bfd6-66d04591c0a6.jsonl",
+      "fileMtime": 1766214045036,
+      "firstPrompt": "ClaudeCodeのスラッシュコマンド（/clear,/resume等）の全てについて解説しta",
+      "messageCount": 8,
+      "created": "2025-12-20T06:58:06.721Z",
+      "modified": "2025-12-20T07:00:45.011Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "81789e1f-71cb-4faf-8451-b3ad7ff08eb9",
+      "fullPath": "/Users/so/.claude/projects/-Users-so/81789e1f-71cb-4faf-8451-b3ad7ff08eb9.jsonl",
+      "fileMtime": 1766218548278,
+      "firstPrompt": "o3 mcpが利用できるかサンプルで何かやってみて",
+      "messageCount": 11,
+      "created": "2025-12-20T08:09:48.926Z",
+      "modified": "2025-12-20T08:15:48.257Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "04384ce5-eb25-409b-abba-2b946b5487ce",
+      "fullPath": "/Users/so/.claude/projects/-Users-so/04384ce5-eb25-409b-abba-2b946b5487ce.jsonl",
+      "fileMtime": 1766210983118,
+      "firstPrompt": "/Users/so/.claude/settings.json   └ Invalid or malformed JSON   Files with errors are skipped entirely, not just the invalid settings. このエラーを解消して",
+      "messageCount": 5,
+      "created": "2025-12-20T06:09:20.394Z",
+      "modified": "2025-12-20T06:09:43.093Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "72cb222b-6439-45e3-95b2-e390c3229ada",
+      "fullPath": "/Users/so/.claude/projects/-Users-so/72cb222b-6439-45e3-95b2-e390c3229ada.jsonl",
+      "fileMtime": 1766246826481,
+      "firstPrompt": "グローバル設定でgithub mcpを設定して",
+      "summary": "GitHub MCP Server グローバル設定完了",
+      "messageCount": 6,
+      "created": "2025-12-20T14:01:07.854Z",
+      "modified": "2025-12-20T14:06:22.336Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "67df740f-eccf-4252-9f5c-e1be006795e4",
+      "fullPath": "/Users/so/.claude/projects/-Users-so/67df740f-eccf-4252-9f5c-e1be006795e4.jsonl",
+      "fileMtime": 1766213227479,
+      "firstPrompt": "No prompt",
+      "messageCount": 8,
+      "created": "2025-12-20T06:10:38.903Z",
+      "modified": "2025-12-20T06:47:07.454Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "e89e1f10-ab26-49ce-a1fe-6ad1a560d705",
+      "fullPath": "/Users/so/.claude/projects/-Users-so/e89e1f10-ab26-49ce-a1fe-6ad1a560d705.jsonl",
+      "fileMtime": 1766818640225,
+      "firstPrompt": "gemini mcp が利用できるか確認して",
+      "messageCount": 8,
+      "created": "2025-12-27T06:53:39.826Z",
+      "modified": "2025-12-27T06:57:20.185Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "ac5fbe93-e0ea-4514-832f-3e9333a28fb3",
+      "fullPath": "/Users/so/.claude/projects/-Users-so/ac5fbe93-e0ea-4514-832f-3e9333a28fb3.jsonl",
+      "fileMtime": 1766234131280,
+      "firstPrompt": "thinking mode のそれぞれもモードについて作業の複雑度に応じて適切に使い分けができるようにルール化して",
+      "messageCount": 15,
+      "created": "2025-12-20T12:13:44.254Z",
+      "modified": "2025-12-20T12:35:31.247Z",
+      "gitBranch": "",
+      "projectPath": "/Users/so",
+      "isSidechain": false
+    }
+  ]
+}

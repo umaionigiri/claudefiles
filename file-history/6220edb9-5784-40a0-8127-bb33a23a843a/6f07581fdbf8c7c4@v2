@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/common/Header.astro";
+import Footer from "../../components/common/Footer.astro";
+import Container from "../../components/ui/Container.astro";
+import ServiceCards from "../../components/sections/ServiceCards.astro";
+import CTASection from "../../components/sections/CTASection.astro";
+---
+
+<BaseLayout
+  title="サービス一覧 | SHIRO CARE合同会社"
+  description="SHIRO CARE合同会社が提供するサービス一覧。産業ケアマネ、ケアマネジメント、研修・講演の3つのサービスで仕事と介護の両立を支援します。"
+>
+  <Header />
+
+  <section class="py-16 md:py-24 bg-gradient-to-br from-sakura-50 to-white">
+    <Container>
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-neutral-900 mb-4 text-center">
+        サービス一覧
+      </h1>
+      <p class="text-lg text-neutral-600 max-w-2xl mx-auto text-center">
+        仕事と介護の両立に関するあらゆるお悩みに対応します
+      </p>
+    </Container>
+  </section>
+
+  <ServiceCards class="bg-white" />
+
+  <CTASection />
+
+  <Footer />
+</BaseLayout>

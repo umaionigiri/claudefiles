@@ -1,0 +1,1529 @@
+2026-01-29T10:24:23.600Z [DEBUG] Failed to check enabledPlatforms: TypeError: undefined is not an object (evaluating 'lZ.join')
+2026-01-29T10:24:23.648Z [DEBUG] Watching for changes in setting files /Users/so/.claude, /Users/so/MyWorkSpace/scibit/wmg2027-ai-chatbot/.claude...
+2026-01-29T10:24:23.650Z [DEBUG] [init] configureGlobalMTLS starting
+2026-01-29T10:24:23.650Z [DEBUG] [init] configureGlobalMTLS complete
+2026-01-29T10:24:23.650Z [DEBUG] [init] configureGlobalAgents starting
+2026-01-29T10:24:23.650Z [DEBUG] [init] configureGlobalAgents complete
+2026-01-29T10:24:23.653Z [DEBUG] Applying permission update: Adding 7 allow rule(s) to destination 'userSettings': ["Bash(npm run *)","Bash(pnpm *)","Bash(git status*)","Bash(git diff*)","Bash(git log*)","Bash(git branch*)","Bash(git worktree*)"]
+2026-01-29T10:24:23.653Z [DEBUG] Applying permission update: Adding 10 allow rule(s) to destination 'localSettings': ["Bash(brew install:*)","Bash(pandoc:*)","Bash(ls:*)","Bash(rm:*)","Bash(git add:*)","Bash(git commit:*)","Bash(git push:*)","Bash(pnpm install:*)","Bash(pnpm vitest run:*)","Bash(git checkout:*)"]
+2026-01-29T10:24:23.653Z [DEBUG] [STARTUP] Loading MCP configs...
+2026-01-29T10:24:23.654Z [DEBUG] [ToolSearch:optimistic] mode=tst-auto, ENABLE_TOOL_SEARCH=undefined, result=true
+2026-01-29T10:24:23.654Z [DEBUG] [STARTUP] Running setup()...
+2026-01-29T10:24:23.654Z [DEBUG] Found 0 plugins (0 enabled, 0 disabled)
+2026-01-29T10:24:23.654Z [DEBUG] Loading skills from: managed=/Library/Application Support/ClaudeCode/.claude/skills, user=/Users/so/.claude/skills, project=[]
+2026-01-29T10:24:23.658Z [DEBUG] Passes: Cache stale, returning cached data and refreshing in background
+2026-01-29T10:24:23.658Z [ERROR] Error: Error: ENOENT: no such file or directory, scandir '/Library/Application Support/ClaudeCode/.claude/skills'
+    at readdirSync (unknown)
+    at <anonymous> (/$bunfs/root/claude:12:2063)
+    at rW (/$bunfs/root/claude:11:35454)
+    at readdirSync (/$bunfs/root/claude:12:2024)
+    at DQR (/$bunfs/root/claude:1758:380)
+    at DQR (/$bunfs/root/claude:1758:1350)
+    at <anonymous> (/$bunfs/root/claude:1758:4670)
+    at <anonymous> (/$bunfs/root/claude:1758:5401)
+    at A (/$bunfs/root/claude:11:7259)
+    at mb8 (/$bunfs/root/claude:4820:4342)
+2026-01-29T10:24:23.658Z [DEBUG] Error log sink initialized
+2026-01-29T10:24:23.664Z [DEBUG] getPluginSkills: Processing 0 enabled plugins
+2026-01-29T10:24:23.664Z [DEBUG] Total plugin skills loaded: 0
+2026-01-29T10:24:23.664Z [DEBUG] Total plugin commands loaded: 0
+2026-01-29T10:24:23.664Z [DEBUG] Registered 0 hooks from 0 plugins
+2026-01-29T10:24:23.664Z [DEBUG] [STARTUP] setup() completed in 10ms
+2026-01-29T10:24:23.664Z [DEBUG] [STARTUP] Loading commands and agents...
+2026-01-29T10:24:23.667Z [DEBUG] Acquired PID lock for 2.1.22 (PID 11392)
+2026-01-29T10:24:23.667Z [DEBUG] Acquired PID lock on running version: /Users/so/.local/share/claude/versions/2.1.22
+2026-01-29T10:24:23.668Z [DEBUG] [Claude in Chrome] Found chrome profiles: Profile 1, Default
+2026-01-29T10:24:23.668Z [DEBUG] [Claude in Chrome] Extension fcoeoabgfenejglbffodgkkbkcdhcgfn found in chrome Profile 1
+2026-01-29T10:24:23.669Z [DEBUG] Watching for changes in skill/command directories: /Users/so/.claude/skills, /Users/so/.claude/commands...
+2026-01-29T10:24:23.674Z [DEBUG] Agent file /Users/so/.claude/agents/code-reviewer.md is missing required 'name' in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Failed to parse agent from /Users/so/.claude/agents/code-reviewer.md: Missing required "name" field in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Agent file /Users/so/.claude/agents/test-runner.md is missing required 'name' in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Failed to parse agent from /Users/so/.claude/agents/test-runner.md: Missing required "name" field in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Agent file /Users/so/.claude/agents/devops-problem-solver.md is missing required 'name' in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Failed to parse agent from /Users/so/.claude/agents/devops-problem-solver.md: Missing required "name" field in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Agent file /Users/so/.claude/agents/task-decomposer.md is missing required 'name' in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Failed to parse agent from /Users/so/.claude/agents/task-decomposer.md: Missing required "name" field in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Agent file /Users/so/.claude/agents/estimation-agent.md is missing required 'name' in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Failed to parse agent from /Users/so/.claude/agents/estimation-agent.md: Missing required "name" field in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Agent file /Users/so/.claude/agents/senior-consultant-reviewer.md is missing required 'name' in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Failed to parse agent from /Users/so/.claude/agents/senior-consultant-reviewer.md: Missing required "name" field in frontmatter
+2026-01-29T10:24:23.674Z [DEBUG] Total plugin agents loaded: 0
+2026-01-29T10:24:23.675Z [DEBUG] Loaded 19 unique skills (managed: 0, user: 7, project: 0, legacy commands: 12)
+2026-01-29T10:24:23.675Z [DEBUG] getSkills returning: 19 skill dir commands, 0 plugin skills, 1 bundled skills
+2026-01-29T10:24:23.675Z [DEBUG] [STARTUP] Commands and agents loaded in 11ms
+2026-01-29T10:24:23.675Z [DEBUG] [STARTUP] Running showSetupScreens()...
+2026-01-29T10:24:23.677Z [DEBUG] [Perfetto] initializePerfettoTracing called, env value: undefined
+2026-01-29T10:24:23.678Z [DEBUG] Grove: Cache stale, returning cached data and refreshing in background
+2026-01-29T10:24:23.678Z [DEBUG] [render] initLayout starting
+2026-01-29T10:24:23.678Z [DEBUG] Layout engine: yoga
+2026-01-29T10:24:23.694Z [DEBUG] [render] initLayout complete
+2026-01-29T10:24:23.694Z [DEBUG] [render] first ink render: 298ms since process start
+2026-01-29T10:24:23.699Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-01-29T10:24:23.703Z [DEBUG] Git remote URL: https://github.com/kgkgzrtk/wmg2027-ai-chatbot.git
+2026-01-29T10:24:23.703Z [DEBUG] Parsed repository: kgkgzrtk/wmg2027-ai-chatbot from https://github.com/kgkgzrtk/wmg2027-ai-chatbot.git
+2026-01-29T10:24:23.703Z [DEBUG] Parsed repository: kgkgzrtk/wmg2027-ai-chatbot from URL: https://github.com/kgkgzrtk/wmg2027-ai-chatbot.git
+2026-01-29T10:24:23.703Z [DEBUG] Path /Users/so/MyWorkSpace/scibit/wmg2027-ai-chatbot already tracked for repo kgkgzrtk/wmg2027-ai-chatbot
+2026-01-29T10:24:23.704Z [DEBUG] [keybindings] Skipping file watcher - user customization disabled
+2026-01-29T10:24:23.715Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682263715
+2026-01-29T10:24:23.715Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:23.716Z [DEBUG] Temp file written successfully, size: 31308 bytes
+2026-01-29T10:24:23.716Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:23.716Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682263715 to /Users/so/.claude.json
+2026-01-29T10:24:23.716Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:23.872Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682263872
+2026-01-29T10:24:23.872Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:23.872Z [DEBUG] Temp file written successfully, size: 31340 bytes
+2026-01-29T10:24:23.872Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:23.872Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682263872 to /Users/so/.claude.json
+2026-01-29T10:24:23.872Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:23.873Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682263873
+2026-01-29T10:24:23.873Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:23.873Z [DEBUG] Temp file written successfully, size: 31373 bytes
+2026-01-29T10:24:23.873Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:23.873Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682263873 to /Users/so/.claude.json
+2026-01-29T10:24:23.874Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:23.875Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682263875
+2026-01-29T10:24:23.875Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:23.875Z [DEBUG] Temp file written successfully, size: 31425 bytes
+2026-01-29T10:24:23.875Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:23.875Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682263875 to /Users/so/.claude.json
+2026-01-29T10:24:23.875Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:23.950Z [DEBUG] Failed to fetch and cache passes eligibility
+2026-01-29T10:24:23.950Z [ERROR] AxiosError: Error
+    at gy (/$bunfs/root/claude:42:1144)
+    at <anonymous> (/$bunfs/root/claude:47:10093)
+    at emit (node:events:92:22)
+    at endReadableNT (internal:streams/readable:861:50)
+    at processTicksAndRejections (native:7:39)
+    at request (/$bunfs/root/claude:49:2149)
+    at processTicksAndRejections (native:7:39)
+2026-01-29T10:24:25.016Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682265016
+2026-01-29T10:24:25.016Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:25.016Z [DEBUG] Temp file written successfully, size: 31425 bytes
+2026-01-29T10:24:25.017Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:25.017Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682265016 to /Users/so/.claude.json
+2026-01-29T10:24:25.017Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:25.385Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682265385
+2026-01-29T10:24:25.385Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:25.386Z [DEBUG] Temp file written successfully, size: 31425 bytes
+2026-01-29T10:24:25.386Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:25.386Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682265385 to /Users/so/.claude.json
+2026-01-29T10:24:25.386Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:25.941Z [DEBUG] [STARTUP] showSetupScreens() completed in 2266ms
+2026-01-29T10:24:25.941Z [DEBUG] [LSP MANAGER] initializeLspServerManager() called
+2026-01-29T10:24:25.941Z [DEBUG] [LSP MANAGER] Created manager instance, state=pending
+2026-01-29T10:24:25.941Z [DEBUG] [LSP MANAGER] Starting async initialization (generation 1)
+2026-01-29T10:24:25.942Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:25.942Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:25.943Z [DEBUG] Passes: Cache stale, returning cached data and refreshing in background
+2026-01-29T10:24:25.944Z [DEBUG] Total LSP servers loaded: 0
+2026-01-29T10:24:25.944Z [DEBUG] [STARTUP] MCP configs loaded in 2291ms
+2026-01-29T10:24:25.948Z [DEBUG] MCP server "serena": Starting connection with timeout of 30000ms
+2026-01-29T10:24:25.952Z [DEBUG] MCP server "playwright": Starting connection with timeout of 30000ms
+2026-01-29T10:24:25.955Z [DEBUG] MCP server "filesystem": Starting connection with timeout of 30000ms
+2026-01-29T10:24:25.955Z [DEBUG] MCP server "context7": Initializing HTTP transport to https://mcp.context7.com/mcp
+2026-01-29T10:24:25.955Z [DEBUG] MCP server "context7": Node version: v24.3.0, Platform: darwin
+2026-01-29T10:24:25.955Z [DEBUG] MCP server "context7": Environment: {"NODE_OPTIONS":"not set","UV_THREADPOOL_SIZE":"default","HTTP_PROXY":"not set","HTTPS_PROXY":"not set","NO_PROXY":"not set"}
+2026-01-29T10:24:25.970Z [DEBUG] [Reconnection] computeInitialTeamContext: No teammate context set (not a teammate)
+2026-01-29T10:24:25.971Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682265971
+2026-01-29T10:24:25.971Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:25.971Z [DEBUG] Temp file written successfully, size: 31425 bytes
+2026-01-29T10:24:25.971Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:25.971Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682265971 to /Users/so/.claude.json
+2026-01-29T10:24:25.971Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:25.972Z [DEBUG] [LSP SERVER MANAGER] getAllLspServers returned 0 server(s)
+2026-01-29T10:24:25.972Z [DEBUG] LSP manager initialized with 0 servers
+2026-01-29T10:24:25.973Z [DEBUG] Loaded 0 installed plugins from /Users/so/.claude/plugins/installed_plugins.json
+2026-01-29T10:24:25.973Z [DEBUG] Initialized versioned plugins system with 0 plugins
+2026-01-29T10:24:25.973Z [DEBUG] Getting matching hook commands for SessionStart with query: startup
+2026-01-29T10:24:25.973Z [DEBUG] Found 0 hook matchers in settings
+2026-01-29T10:24:25.973Z [DEBUG] Matched 0 unique hooks for query "startup" (0 before deduplication)
+2026-01-29T10:24:25.973Z [DEBUG] LSP server manager initialized successfully
+2026-01-29T10:24:25.973Z [DEBUG] LSP notification handlers registered successfully for all 0 server(s)
+2026-01-29T10:24:25.973Z [DEBUG] MCP server "context7": Proxy options: default
+2026-01-29T10:24:25.973Z [DEBUG] MCP server "context7": HTTP transport options: {"url":"https://mcp.context7.com/mcp","headers":{"User-Agent":"claude-code/2.1.22","CONTEXT7_API_KEY":"ctx7sk-42b28cd0-9c44-49c9-b8d5-f5f4b79cbed6"},"hasAuthProvider":true,"timeoutMs":60000}
+2026-01-29T10:24:25.973Z [DEBUG] MCP server "context7": HTTP transport created successfully
+2026-01-29T10:24:25.974Z [DEBUG] MCP server "context7": Client created, setting up request handler
+2026-01-29T10:24:25.974Z [DEBUG] MCP server "context7": Starting connection with timeout of 30000ms
+2026-01-29T10:24:25.974Z [DEBUG] MCP server "context7": Testing basic HTTP connectivity to https://mcp.context7.com/mcp
+2026-01-29T10:24:25.974Z [DEBUG] MCP server "context7": Parsed URL: host=mcp.context7.com, port=default, protocol=https:
+2026-01-29T10:24:25.974Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:25.976Z [DEBUG] MCP server "context7": No token data found
+2026-01-29T10:24:25.976Z [DEBUG] [render] initLayout starting
+2026-01-29T10:24:25.977Z [DEBUG] [render] initLayout complete
+2026-01-29T10:24:25.977Z [DEBUG] [render] first ink render: 2581ms since process start
+2026-01-29T10:24:25.991Z [DEBUG] [keybindings] KeybindingSetup initialized with 99 bindings, 0 warnings
+2026-01-29T10:24:26.009Z [DEBUG] High write ratio: blit=0, write=1517 (100.0% writes), screen=18x214
+2026-01-29T10:24:26.014Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682266014
+2026-01-29T10:24:26.014Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:26.014Z [DEBUG] Temp file written successfully, size: 31458 bytes
+2026-01-29T10:24:26.014Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:26.014Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682266014 to /Users/so/.claude.json
+2026-01-29T10:24:26.014Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:26.022Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682266022
+2026-01-29T10:24:26.022Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:26.022Z [DEBUG] Temp file written successfully, size: 31458 bytes
+2026-01-29T10:24:26.022Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:26.022Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682266022 to /Users/so/.claude.json
+2026-01-29T10:24:26.022Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:26.023Z [DEBUG] [REPL:mount] REPL mounted, disabled=false
+2026-01-29T10:24:26.024Z [DEBUG] Official marketplace auto-install skipped: already_attempted
+2026-01-29T10:24:26.024Z [DEBUG] performStartupChecks called
+2026-01-29T10:24:26.025Z [DEBUG] Starting background plugin installations
+2026-01-29T10:24:26.025Z [DEBUG] performBackgroundPluginInstallations called
+2026-01-29T10:24:26.171Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-01-29T10:24:26.171Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-01-29T10:24:26.171Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-01-29T10:24:26.171Z [DEBUG] Setting installation status: 0 marketplaces, 0 installable plugins, 0 uninstallable plugins
+2026-01-29T10:24:26.171Z [DEBUG] Loaded plugins - Enabled: 0, Disabled: 0, Commands: 0, Agents: 0, Errors: 0
+2026-01-29T10:24:26.172Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-01-29T10:24:26.176Z [DEBUG] [keybindings] Watching for changes to /Users/so/.claude/keybindings.json
+2026-01-29T10:24:26.178Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682266178
+2026-01-29T10:24:26.178Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:26.178Z [DEBUG] Temp file written successfully, size: 31458 bytes
+2026-01-29T10:24:26.178Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:26.178Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682266178 to /Users/so/.claude.json
+2026-01-29T10:24:26.178Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:26.179Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682266179
+2026-01-29T10:24:26.179Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:26.180Z [DEBUG] Temp file written successfully, size: 31458 bytes
+2026-01-29T10:24:26.180Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:26.180Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682266179 to /Users/so/.claude.json
+2026-01-29T10:24:26.180Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:26.181Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682266181
+2026-01-29T10:24:26.181Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:26.181Z [DEBUG] Temp file written successfully, size: 31458 bytes
+2026-01-29T10:24:26.181Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:26.181Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682266181 to /Users/so/.claude.json
+2026-01-29T10:24:26.181Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:26.196Z [DEBUG] MCP server "ide": Starting connection with timeout of 30000ms
+2026-01-29T10:24:26.196Z [DEBUG] [claudeai-mcp] Checking gate (cached)...
+2026-01-29T10:24:26.196Z [DEBUG] [claudeai-mcp] Gate returned: false
+2026-01-29T10:24:26.196Z [DEBUG] [claudeai-mcp] Disabled via gate
+2026-01-29T10:24:26.207Z [DEBUG] MCP server "ide": Successfully connected to ws-ide server in 12ms
+2026-01-29T10:24:26.207Z [DEBUG] MCP server "ide": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"Claude Code VSCode MCP","version":"2.1.19"}}
+2026-01-29T10:24:26.253Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682266253
+2026-01-29T10:24:26.253Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:26.254Z [DEBUG] Temp file written successfully, size: 31458 bytes
+2026-01-29T10:24:26.254Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:26.254Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682266253 to /Users/so/.claude.json
+2026-01-29T10:24:26.254Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:26.254Z [DEBUG] Passes eligibility cached for org 7b1c7f34-e33a-47b7-b725-62eabc4eeb02: true
+2026-01-29T10:24:26.502Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T10:24:26.503Z [DEBUG] Downloading native installer version 2.1.23
+2026-01-29T10:24:26.686Z [DEBUG] MCP server "context7": No token data found
+2026-01-29T10:24:26.909Z [DEBUG] MCP server "context7": No token data found
+2026-01-29T10:24:26.909Z [DEBUG] MCP server "context7": Successfully connected to http server in 954ms
+2026-01-29T10:24:26.909Z [DEBUG] MCP server "context7": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"Context7","version":"2.0.2"}}
+2026-01-29T10:24:26.909Z [DEBUG] MCP server "context7": No token data found
+2026-01-29T10:24:27.181Z [DEBUG] Ripgrep first use test: PASSED (mode=builtin, path=/Users/so/.local/share/claude/versions/2.1.22)
+2026-01-29T10:24:27.195Z [DEBUG] Applying permission update: Setting mode to 'default'
+2026-01-29T10:24:27.376Z [DEBUG] Applying permission update: Setting mode to 'acceptEdits'
+2026-01-29T10:24:27.473Z [ERROR] MCP server "filesystem" Server stderr: Secure MCP Filesystem Server running on stdio
+2026-01-29T10:24:27.473Z [DEBUG] MCP server "filesystem": Successfully connected to stdio server in 1519ms
+2026-01-29T10:24:27.474Z [DEBUG] MCP server "filesystem": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"secure-filesystem-server","version":"0.2.0"}}
+2026-01-29T10:24:27.476Z [DEBUG] MCP server "filesystem": Received ListRoots request from server
+2026-01-29T10:24:27.632Z [DEBUG] MCP server "playwright": Successfully connected to stdio server in 1680ms
+2026-01-29T10:24:27.632Z [DEBUG] MCP server "playwright": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"Playwright","version":"0.0.61"}}
+2026-01-29T10:24:27.747Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682267746
+2026-01-29T10:24:27.747Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:27.747Z [DEBUG] Temp file written successfully, size: 31458 bytes
+2026-01-29T10:24:27.747Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:27.747Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682267746 to /Users/so/.claude.json
+2026-01-29T10:24:27.747Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:27.747Z [DEBUG] Applying permission update: Setting mode to 'plan'
+2026-01-29T10:24:31.845Z [ERROR] MCP server "serena" Server stderr:    Updating https://github.com/oraios/serena (HEAD)
+Downloading cryptography (6.8MiB)
+ Downloading cryptography
+    Updated https://github.com/oraios/serena (f14faa12d0af5eb3eebbef3e5d07069a596f994d)
+   Building serena-agent @ git+https://github.com/oraios/serena@f14faa12d0af5eb3eebbef3e5d07069a596f994d
+      Built serena-agent @ git+https://github.com/oraios/serena@f14faa12d0af5eb3eebbef3e5d07069a596f994d
+Installed 64 packages in 199ms
+INFO  2026-01-29 19:24:31,758 [MainThread] serena.cli:start_mcp_server:253 - Initializing Serena MCP server
+INFO  2026-01-29 19:24:31,758 [MainThread] serena.cli:start_mcp_server:254 - Storing logs in /Users/so/.serena/logs/2026-01-29/mcp_20260129-192431.txt
+WARNING 2026-01-29 19:24:31,758 [MainThread] serena.config.context_mode:from_name:225 - Context name 'ide-assistant' is deprecated and has been renamed to 'claude-code'. Please update your configuration; refer to the configuration guide for more details: https://oraios.github.io/serena/02-usage/050_configuration.html#contexts
+INFO  2026-01-29 19:24:31,759 [MainThread] serena.config.serena_config:from_config_file:522 - Loading Serena configuration from /Users/so/.serena/serena_config.yml
+INFO  2026-01-29 19:24:31,765 [MainThread] serena.agent:__init__:247 - Will record tool usage statistics with token count estimator: CHAR_COUNT.
+INFO  2026-01-29 19:24:31,811 [MainThread] serena.agent:__init__:251 - Starting Serena server (version=0.1.4-7e849bd2-dirty, process id=11515, parent process id=11411; language backend=LSP)
+INFO  2026-01-29 19:24:31,811 [MainThread] serena.agent:__init__:255 - Configuration file: /Users/so/.serena/serena_config.yml
+INFO  2026-01-29 19:24:31,811 [MainThread] serena.agent:__init__:256 - Available projects: wmg2027-ai-chatbot
+INFO  2026-01-29 19:24:31,811 [MainThread] serena.agent:__init__:257 - Loaded tools (40): read_file, create_text_file, list_dir, find_file, replace_content, delete_lines, replace_lines, insert_at_line, search_for_pattern, restart_language_server, get_symbols_overview, find_symbol, find_referencing_symbols, replace_symbol_body, insert_after_symbol, insert_before_symbol, rename_symbol, write_memory, read_memory, list_memories, delete_memory, edit_memory, execute_shell_command, open_dashboard, activate_project, remove_project, switch_modes, get_current_config, check_onboarding_performed, onboarding, think_about_collected_information, think_about_task_adherence, think_about_whether_you_are_done, summarize_changes, prepare_for_new_conversation, initial_instructions, jet_brains_find_symbol, jet_brains_find_referencing_symbols, jet_brains_get_symbols_overview, jet_brains_type_hierarchy
+INFO  2026-01-29 19:24:31,812 [MainThread] serena.agent:apply:144 - SerenaAgentContext[name='claude-code'] excluded 5 tools: create_text_file, read_file, execute_shell_command, prepare_for_new_conversation, replace_content
+INFO  2026-01-29 19:24:31,812 [MainThread] serena.agent:__init__:283 - Number of exposed tools: 23
+INFO  2026-01-29 19:24:31,819 [MainThread] serena.agent:_update_active_tools:536 - Active tools (23): activate_project, check_onboarding_performed, delete_memory, edit_memory, find_file, find_referencing_symbols, find_symbol, get_current_config, get_symbols_overview, initial_instructions, insert_after_symbol, insert_before_symbol, list_dir, list_memories, onboarding, read_memory, rename_symbol, replace_symbol_body, search_for_pattern, think_about_collected_information, think_about_task_adherence, think_about_whether_you_are_done, write_memory
+INFO  2026-01-29 19:24:31,819 [MainThread] serena.agent:create_system_prompt:503 - Generating system prompt with available_tools=(see active tools), available_markers={'EditMemoryTool', 'GetSymbolsOverviewTool', 'InsertAfterSymbolTool', 'RenameSymbolTool', 'ActivateProjectTool', 'ToolMarkerSymbolicEdit', 'ReplaceSymbolBodyTool', 'ToolMarkerSymbolicRead', 'InitialInstructionsTool', 'FindSymbolTool', 'DeleteMemoryTool', 'FindReferencingSymbolsTool', 'ToolMarkerDoesNotRequireActiveProject', 'WriteMemoryTool', 'ToolMarkerCanEdit', 'InsertBeforeSymbolTool'}
+INFO  2026-01-29 19:24:31,820 [MainThread] serena.agent:create_system_prompt:515 - System prompt:
+You are a professional coding agent. 
+You have access to semantic coding tools upon which you rely heavily for all your work.
+You operate in a resource-efficient and intelligent manner, always keeping in mind to not read or generate
+content that is not needed for the task at hand.
+
+Some tasks may require you to understand the architecture of large parts of the codebase, while for others,
+it may be enough to read a small set of symbols or a single file.
+You avoid reading entire files unless it is absolutely necessary, instead relying on intelligent step-by-step 
+acquisition of information. Once you have read a full file, it does not make
+sense to analyse it with the symbolic read tools; you already have the information.
+
+You can achieve intelligent reading of code by using the symbolic tools for getting an overview of symbols and
+the relations between them, and then only reading the bodies of symbols that are necessary to complete the task at hand. 
+You can use the standard tools like list_dir, find_file and search_for_pattern if you need to.
+Where appropriate, you pass the `relative_path` parameter to restrict the search to a specific file or directory.
+
+If you are unsure about a symbol's name or location (to the extent that substring_matching for the symbol name is not enough), you can use the `search_for_pattern` tool, which allows fast
+and flexible search for patterns in the codebase. In this way, you can first find candidates for symbols or files,
+and then proceed with the symbolic tools.
+
+
+
+Symbols are identified by their `name_path` and `relative_path` (see the description of the `find_symbol` tool).
+You can get information about the symbols in a file by using the `get_symbols_overview` tool or use the `find_symbol` to search. 
+You only read the bodies of symbols when you need to (e.g. if you want to fully understand or edit it).
+For example, if you are working with Python code and already know that you need to read the body of the constructor of the class Foo, you can directly
+use `find_symbol` with name path pattern `Foo/__init__` and `include_body=True`. If you don't know yet which methods in `Foo` you need to read or edit,
+you can use `find_symbol` with name path pattern `Foo`, `include_body=False` and `depth=1` to get all (top-level) methods of `Foo` before proceeding
+to read the desired methods with `include_body=True`.
+You can understand relationships between symbols by using the `find_referencing_symbols` tool.
+
+
+
+You generally have access to memories and it may be useful for you to read them.
+You infer whether memories are relevant based on their names.
+
+
+The context and modes of operation are described below. These determine how to interact with your user
+and which kinds of interactions are expected of you.
+
+Context description:
+You are running in a CLI coding agent context where file operations, basic (line-based) edits and reads 
+as well as shell commands are handled by your own, internal tools.
+
+If Serena's tools can be used to achieve your task, you should prioritize them.
+In particular, it is important that you avoid reading entire source code files unless it is strictly necessary!
+Instead, for exploring and reading code in a token-efficient manner, use Serena's overview and symbolic search tools.
+For non-code files or for reads where you don't know the symbol's name path, you can use the pattern search tool.
+
+Modes descriptions:
+
+You are operating in interactive mode. You should engage with the user throughout the task, asking for clarification
+whenever anything is unclear, insufficiently specified, or ambiguous.
+
+Break down complex tasks into smaller steps and explain your thinking at each stage. When you're uncertain about
+a decision, present options to the user and ask for guidance rather than making assumptions.
+
+Focus on providing informative results for intermediate steps, such that the user can follow along with your progress and
+provide feedback as needed.
+
+You are operating in editing mode. You can edit files with the provided tools.
+You adhere to the project's code style and patterns.
+
+Use symbolic editing tools whenever possible for precise code modifications.
+If no explicit editing task has yet been provided, wait for the user to provide one. Do not be overly eager.
+
+When writing new code, think about where it belongs best. Don't generate new files if you don't plan on actually
+properly integrating them into the codebase.
+
+You have two main approaches for editing code: (a) editing at the symbol level and (b) file-based editing.
+The symbol-based approach is appropriate if you need to adjust an entire symbol, e.g. a method, a class, a function, etc.
+It is not appropriate if you need to adjust just a few lines of code within a larger symbol.
+
+**Symbolic editing**
+Use symbolic retrieval tools to identify the symbols you need to edit.
+If you need to replace the definition of a symbol, use the `replace_symbol_body` tool.
+If you want to add some new code at the end of the file, use the `insert_after_symbol` tool with the last top-level symbol in the file. 
+Similarly, you can use `insert_before_symbol` with the first top-level symbol in the file to insert code at the beginning of a file.
+You can understand relationships between symbols by using the `find_referencing_symbols` tool. If not explicitly requested otherwise by the user,
+you make sure that when you edit a symbol, the change is either backward-compatible or you find and update all references as needed.
+The `find_referencing_symbols` tool will give you code snippets around the references as well as symbolic information.
+You can assume that all symbol editing tools are reliable, so you never need to verify the results if the tools return without error.
+
+
+
+
+You have hereby read the 'Serena Instructions Manual' and do not need to read it again.
+INFO  2026-01-29 19:24:31,821 [MainThread] serena.cli:start_mcp_server:282 - Starting MCP server …
+INFO  2026-01-29 19:24:31,843 [MainThread] serena.mcp:_set_mcp_tools:261 - Starting MCP server with 23 tools: ['list_dir', 'find_file', 'search_for_pattern', 'get_symbols_overview', 'find_symbol', 'find_referencing_symbols', 'replace_symbol_body', 'insert_after_symbol', 'insert_before_symbol', 'rename_symbol', 'write_memory', 'read_memory', 'list_memories', 'delete_memory', 'edit_memory', 'activate_project', 'get_current_config', 'check_onboarding_performed', 'onboarding', 'think_about_collected_information', 'think_about_task_adherence', 'think_about_whether_you_are_done', 'initial_instructions']
+INFO  2026-01-29 19:24:31,844 [MainThread] serena.mcp:server_lifespan:341 - MCP server lifetime setup complete
+2026-01-29T10:24:31.845Z [DEBUG] MCP server "serena": Successfully connected to stdio server in 5901ms
+2026-01-29T10:24:31.845Z [DEBUG] MCP server "serena": Connection established with capabilities: {"hasTools":true,"hasPrompts":true,"hasResources":true,"serverVersion":{"name":"FastMCP","version":"1.23.0"}}
+2026-01-29T10:24:31.849Z [DEBUG] MCP server "gemini": Starting connection with timeout of 30000ms
+2026-01-29T10:24:31.850Z [DEBUG] MCP server "o3": Starting connection with timeout of 30000ms
+2026-01-29T10:24:31.850Z [DEBUG] MCP server "cipher": Starting connection with timeout of 30000ms
+2026-01-29T10:24:33.228Z [ERROR] MCP server "o3" Server stderr: Starting o3 MCP server...
+Script directory: /Users/so/.npm/_npx/8dee5480332a6c72/node_modules/o3-mcp
+Working directory: /Users/so/MyWorkSpace/scibit/wmg2027-ai-chatbot
+API Key present: true
+API Key length: 164
+OpenAI o3 MCP Server running on stdio
+2026-01-29T10:24:33.228Z [DEBUG] MCP server "o3": Successfully connected to stdio server in 1378ms
+2026-01-29T10:24:33.228Z [DEBUG] MCP server "o3": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"o3-mcp","version":"0.2.1"}}
+2026-01-29T10:24:34.071Z [DEBUG] MCP server "gemini": Successfully connected to stdio server in 2223ms
+2026-01-29T10:24:34.071Z [DEBUG] MCP server "gemini": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"gemini-cli-mcp","version":"0.1.1"}}
+2026-01-29T10:24:34.078Z [DEBUG] Atomically installed binary to /Users/so/.local/share/claude/versions/2.1.23
+2026-01-29T10:24:34.082Z [DEBUG] Created directory /Users/so/.local/bin for symlink
+2026-01-29T10:24:34.082Z [DEBUG] Atomically updated symlink /Users/so/.local/bin/claude -> /Users/so/.local/share/claude/versions/2.1.23
+2026-01-29T10:24:34.082Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T10:24:34.363Z [ERROR] MCP server "cipher" Server stderr: [CIPHER-MCP] Log redirection activated: /var/folders/t8/8hsns0117dlgntphjw9w5dv00000gn/T/cipher-mcp.log
+19:24:34 INFO: MCP Manager: MCPManager initialized
+19:24:34 INFO: MCP Manager: Initializing 0 servers (0 disabled)
+19:24:34 INFO: MCP Manager: Initialization complete
+19:24:34 INFO: [VectorStoreFactory] Creating dual collection vector storage from environment
+19:24:34 INFO: DualCollectionVectorManager: Initialized with dual collections
+19:24:34 INFO: DualCollectionVectorManager: Connecting collections...
+19:24:34 INFO: [VectorStoreManager] Vector storage system connected
+19:24:34 INFO: DualCollectionVectorManager: Knowledge collection connected
+19:24:34 INFO: [VectorStoreManager] Vector storage system connected
+19:24:34 INFO: DualCollectionVectorManager: Reflection collection connected
+19:24:34 INFO: [KG-Factory] Knowledge graph is disabled in environment
+19:24:34 INFO: [StorageManager] Initialized with configuration
+19:24:34 INFO: [StorageManager] Starting connection attempt 1
+19:24:34 INFO: InMemoryBackend connected
+19:24:34 INFO: [StorageManager:Cache] Connected successfully
+19:24:34 INFO: SQLite backend connected successfully
+19:24:34 INFO: [StorageManager:Database] Connected successfully
+19:24:34 INFO: [StorageManager] Storage system connected
+2026-01-29T10:24:34.363Z [DEBUG] MCP server "cipher": Successfully connected to stdio server in 2513ms
+2026-01-29T10:24:34.363Z [DEBUG] MCP server "cipher": Connection established with capabilities: {"hasTools":true,"hasPrompts":true,"hasResources":true,"serverVersion":{"name":"cipher","version":"1.0.0"}}
+2026-01-29T10:24:34.366Z [DEBUG] MCP server "github": Starting connection with timeout of 30000ms
+2026-01-29T10:24:34.367Z [DEBUG] MCP server "notion": Starting connection with timeout of 30000ms
+2026-01-29T10:24:35.421Z [ERROR] MCP server "github" Server stderr: GitHub MCP Server running on stdio
+2026-01-29T10:24:35.421Z [DEBUG] MCP server "github": Successfully connected to stdio server in 1055ms
+2026-01-29T10:24:35.421Z [DEBUG] MCP server "github": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"github-mcp-server","version":"0.6.2"}}
+2026-01-29T10:24:35.659Z [DEBUG] MCP server "notion": Successfully connected to stdio server in 1292ms
+2026-01-29T10:24:35.659Z [DEBUG] MCP server "notion": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"Notion API","version":"1.0.0"}}
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:35.663Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:35.664Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:38.333Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:38.333Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:38.333Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:39.135Z [DEBUG] Auto tool search enabled: 38611 tokens (threshold: 20000, 10% of context) [source: analyzeMcp]
+2026-01-29T10:24:39.144Z [DEBUG] Skills and commands included in Skill tool: gemini-research, development-rules, serena-codebase, git-workflow, testing-rules, document-converter, rough-estimate, kiro:validate-design, kiro:validate-gap, kiro:validate-impl, kiro:spec-requirements, kiro:spec-status, kiro:spec-init, kiro:spec-design, kiro:steering-custom, kiro:spec-impl, kiro:steering, kiro:spec-tasks, slash-guide
+2026-01-29T10:24:39.146Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682279146
+2026-01-29T10:24:39.146Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:39.147Z [DEBUG] Temp file written successfully, size: 31490 bytes
+2026-01-29T10:24:39.147Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:39.147Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682279146 to /Users/so/.claude.json
+2026-01-29T10:24:39.147Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:39.149Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682279149
+2026-01-29T10:24:39.149Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:39.149Z [DEBUG] Temp file written successfully, size: 31525 bytes
+2026-01-29T10:24:39.149Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:39.149Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682279149 to /Users/so/.claude.json
+2026-01-29T10:24:39.149Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:39.149Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:24:39.149Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:24:39.149Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:24:47.339Z [DEBUG] High write ratio: blit=0, write=1653 (100.0% writes), screen=25x214
+2026-01-29T10:24:47.344Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682287344
+2026-01-29T10:24:47.344Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:47.344Z [DEBUG] Temp file written successfully, size: 31525 bytes
+2026-01-29T10:24:47.344Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:47.344Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682287344 to /Users/so/.claude.json
+2026-01-29T10:24:47.344Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:24:47.347Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682287347
+2026-01-29T10:24:47.347Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:24:47.347Z [DEBUG] Temp file written successfully, size: 31525 bytes
+2026-01-29T10:24:47.347Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:24:47.347Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682287347 to /Users/so/.claude.json
+2026-01-29T10:24:47.347Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:25.755Z [DEBUG] High write ratio: blit=0, write=1985 (100.0% writes), screen=19x214
+2026-01-29T10:25:25.762Z [DEBUG] Writing to temp file: /Users/so/.claude/todos/9adb7017-908a-4974-924c-d295b9959e16-agent-9adb7017-908a-4974-924c-d295b9959e16.json.tmp.11392.1769682325762
+2026-01-29T10:25:25.762Z [DEBUG] Temp file written successfully, size: 2 bytes
+2026-01-29T10:25:25.762Z [DEBUG] Renaming /Users/so/.claude/todos/9adb7017-908a-4974-924c-d295b9959e16-agent-9adb7017-908a-4974-924c-d295b9959e16.json.tmp.11392.1769682325762 to /Users/so/.claude/todos/9adb7017-908a-4974-924c-d295b9959e16-agent-9adb7017-908a-4974-924c-d295b9959e16.json
+2026-01-29T10:25:25.762Z [DEBUG] File /Users/so/.claude/todos/9adb7017-908a-4974-924c-d295b9959e16-agent-9adb7017-908a-4974-924c-d295b9959e16.json written atomically
+2026-01-29T10:25:25.765Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-29T10:25:25.765Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-29T10:25:25.765Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-29T10:25:25.765Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-29T10:25:25.765Z [DEBUG] AutoUpdaterWrapper: Installation type: native
+2026-01-29T10:25:25.772Z [DEBUG] Summarizing all 68 messages (~41290 tokens)
+2026-01-29T10:25:25.773Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:25.774Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.63b; cc_entrypoint=cli;
+2026-01-29T10:25:25.774Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:25.774Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:25.775Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:25.784Z [DEBUG] Cleaned up old staging directory: 2.1.22.56941.1769585215626
+2026-01-29T10:25:25.785Z [DEBUG] Cleaned up old staging directory: 2.1.23.56941.1769656091521
+2026-01-29T10:25:25.785Z [DEBUG] Stats cache stale (2026-01-26), processing 2026-01-27 to 2026-01-28 in background
+2026-01-29T10:25:25.785Z [DEBUG] Cleaned up old staging directory: 2.1.23.56941.1769651412577
+2026-01-29T10:25:25.785Z [DEBUG] Cleaned up 3 orphaned staging directories
+2026-01-29T10:25:25.789Z [DEBUG] Getting matching hook commands for UserPromptSubmit with query: undefined
+2026-01-29T10:25:25.789Z [DEBUG] Found 0 hook matchers in settings
+2026-01-29T10:25:25.789Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-29T10:25:25.794Z [DEBUG] Started caffeinate to prevent sleep
+2026-01-29T10:25:25.794Z [DEBUG] FileHistory: Added snapshot for 54e474a6-907b-40e3-af1e-0d8a92c77aee, tracking 0 files
+2026-01-29T10:25:25.799Z [DEBUG] MCP server "ide": Calling MCP tool: closeAllDiffTabs
+2026-01-29T10:25:25.799Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:25.801Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.a1d; cc_entrypoint=cli;
+2026-01-29T10:25:25.801Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:25.801Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:25.801Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:25.801Z [DEBUG] Total plugin output styles loaded: 0
+2026-01-29T10:25:25.802Z [DEBUG] MCP server "ide": Tool 'closeAllDiffTabs' completed successfully in 3ms
+2026-01-29T10:25:25.804Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682325804
+2026-01-29T10:25:25.804Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:25.804Z [DEBUG] Temp file written successfully, size: 31556 bytes
+2026-01-29T10:25:25.804Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:25.804Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682325804 to /Users/so/.claude.json
+2026-01-29T10:25:25.804Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:25.805Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682325805
+2026-01-29T10:25:25.805Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:25.806Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:25.806Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:25.806Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682325805 to /Users/so/.claude.json
+2026-01-29T10:25:25.806Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:25.807Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:25.807Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:25.807Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:25.813Z [DEBUG] High write ratio: blit=0, write=2025 (100.0% writes), screen=20x214
+2026-01-29T10:25:25.819Z [DEBUG] Acquired PID lock for 2.1.19 (PID 11392)
+2026-01-29T10:25:25.820Z [DEBUG] Released PID lock for 2.1.19
+2026-01-29T10:25:25.820Z [DEBUG] Acquired PID lock for 2.1.17 (PID 11392)
+2026-01-29T10:25:25.820Z [DEBUG] Released PID lock for 2.1.17
+2026-01-29T10:25:25.821Z [DEBUG] Stats cache saved successfully (lastComputedDate: 2026-01-28)
+2026-01-29T10:25:25.821Z [DEBUG] Stats cache lastComputedDate updated (no new data)
+2026-01-29T10:25:25.821Z [DEBUG] Acquired PID lock for 2.1.16 (PID 11392)
+2026-01-29T10:25:25.821Z [DEBUG] Released PID lock for 2.1.16
+2026-01-29T10:25:26.030Z [DEBUG] Checking for native installer update to version 2.1.23
+2026-01-29T10:25:26.031Z [DEBUG] Version 2.1.23 already installed, updating symlink
+2026-01-29T10:25:26.031Z [DEBUG] Created directory /Users/so/.local/bin for symlink
+2026-01-29T10:25:26.031Z [DEBUG] Successfully updated to version 2.1.23
+2026-01-29T10:25:26.233Z [DEBUG] Auto tool search enabled: 38896 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-29T10:25:26.235Z [DEBUG] Dynamic tool loading: 0/114 deferred tools included
+2026-01-29T10:25:26.236Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.057; cc_entrypoint=cli;
+2026-01-29T10:25:26.236Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:26.236Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:26.236Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:26.264Z [DEBUG] High write ratio: blit=0, write=2017 (100.0% writes), screen=20x214
+2026-01-29T10:25:26.473Z [DEBUG] Successfully refreshed marketplace: claude-plugins-official
+2026-01-29T10:25:26.473Z [DEBUG] Plugin autoupdate: checking installed plugins
+2026-01-29T10:25:26.930Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:26.936Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:27.435Z [DEBUG] Generated summary for session c979cd50-3e7e-4543-a6e4-12389b2a8826: "WMG2027 ログ外部保管機能の技術仕様最適化"
+2026-01-29T10:25:27.448Z [DEBUG] Summarizing all 287 messages (~85253 tokens)
+2026-01-29T10:25:27.448Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:27.449Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.63b; cc_entrypoint=cli;
+2026-01-29T10:25:27.449Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:27.449Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:27.449Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:28.404Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:29.294Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:29.663Z [DEBUG] Generated summary for session e897f7f9-fe45-4286-9a0f-2171140f349e: "WMG2027ログ提供オプション整理と提案書修正"
+2026-01-29T10:25:29.671Z [DEBUG] Summarizing all 73 messages (~51215 tokens)
+2026-01-29T10:25:29.672Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:29.672Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.63b; cc_entrypoint=cli;
+2026-01-29T10:25:29.672Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:29.672Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:29.672Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:30.597Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:30.932Z [DEBUG] Generated summary for session b93bc551-296a-4402-839f-f70f0213fbde: "WMG2027 Log Analysis Proposal Restructure"
+2026-01-29T10:25:30.939Z [DEBUG] Summarizing all 117 messages (~97678 tokens)
+2026-01-29T10:25:30.939Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:30.939Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.63b; cc_entrypoint=cli;
+2026-01-29T10:25:30.939Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:30.939Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:30.940Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:31.122Z [DEBUG] High write ratio: blit=0, write=2029 (100.0% writes), screen=20x214
+2026-01-29T10:25:31.609Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:31.711Z [DEBUG] High write ratio: blit=0, write=2309 (100.0% writes), screen=32x214
+2026-01-29T10:25:32.038Z [DEBUG] High write ratio: blit=0, write=2339 (100.0% writes), screen=34x214
+2026-01-29T10:25:32.081Z [DEBUG] Generated summary for session 4d8a4664-40fc-4aa7-8394-e5b9671c558b: "WMG2027ログ解析提案書オプション再構成"
+2026-01-29T10:25:32.091Z [DEBUG] Summarizing all 19 messages (~16160 tokens)
+2026-01-29T10:25:32.091Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:32.091Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.63b; cc_entrypoint=cli;
+2026-01-29T10:25:32.091Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:32.091Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:32.092Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:33.205Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:33.460Z [DEBUG] Generated summary for session a02456bd-8b6c-4942-a022-a7154d43157c: "WMG2027提案書セクション6横展開戦略更新"
+2026-01-29T10:25:33.466Z [DEBUG] Summarizing all 21 messages (~15865 tokens)
+2026-01-29T10:25:33.466Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:33.467Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.63b; cc_entrypoint=cli;
+2026-01-29T10:25:33.467Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:33.467Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:33.467Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:34.421Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:34.716Z [DEBUG] Generated summary for session 04580f2f-7825-451b-ade9-76b1b0b9ce0a: "Log Analysis Proposal Restructuring with Subagent Planning"
+2026-01-29T10:25:34.719Z [DEBUG] Session index: added 6, updated 0, removed 0, summaries generated 6 (total: 34)
+2026-01-29T10:25:36.636Z [DEBUG] High write ratio: blit=0, write=2362 (100.0% writes), screen=36x214
+2026-01-29T10:25:36.661Z [DEBUG] executePreToolHooks called for tool: Task
+2026-01-29T10:25:36.667Z [DEBUG] Getting matching hook commands for PreToolUse with query: Task
+2026-01-29T10:25:36.667Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:36.667Z [DEBUG] Matched 0 unique hooks for query "Task" (0 before deduplication)
+2026-01-29T10:25:36.671Z [DEBUG] High write ratio: blit=0, write=2380 (100.0% writes), screen=37x214
+2026-01-29T10:25:36.682Z [DEBUG] Getting matching hook commands for SubagentStart with query: Explore
+2026-01-29T10:25:36.682Z [DEBUG] Found 0 hook matchers in settings
+2026-01-29T10:25:36.682Z [DEBUG] Matched 0 unique hooks for query "Explore" (0 before deduplication)
+2026-01-29T10:25:36.692Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:36.694Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.10a; cc_entrypoint=cli;
+2026-01-29T10:25:36.694Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:36.694Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:36.694Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:36.714Z [DEBUG] High write ratio: blit=0, write=2820 (100.0% writes), screen=52x214
+2026-01-29T10:25:39.080Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:39.583Z [DEBUG] High write ratio: blit=0, write=2847 (100.0% writes), screen=53x214
+2026-01-29T10:25:39.985Z [DEBUG] High write ratio: blit=0, write=2892 (100.0% writes), screen=54x214
+2026-01-29T10:25:40.212Z [DEBUG] High write ratio: blit=0, write=2927 (100.0% writes), screen=55x214
+2026-01-29T10:25:40.521Z [DEBUG] High write ratio: blit=0, write=2957 (100.0% writes), screen=56x214
+2026-01-29T10:25:40.678Z [DEBUG] High write ratio: blit=0, write=2992 (100.0% writes), screen=57x214
+2026-01-29T10:25:40.715Z [DEBUG] High write ratio: blit=0, write=2992 (100.0% writes), screen=57x214
+2026-01-29T10:25:40.753Z [DEBUG] High write ratio: blit=0, write=3025 (100.0% writes), screen=58x214
+2026-01-29T10:25:40.754Z [DEBUG] executePreToolHooks called for tool: Grep
+2026-01-29T10:25:40.754Z [DEBUG] executePreToolHooks called for tool: Grep
+2026-01-29T10:25:40.754Z [DEBUG] executePreToolHooks called for tool: Grep
+2026-01-29T10:25:40.754Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-29T10:25:40.754Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-29T10:25:40.754Z [DEBUG] Getting matching hook commands for PreToolUse with query: Grep
+2026-01-29T10:25:40.754Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:40.754Z [DEBUG] Matched 0 unique hooks for query "Grep" (0 before deduplication)
+2026-01-29T10:25:40.757Z [DEBUG] Getting matching hook commands for PreToolUse with query: Grep
+2026-01-29T10:25:40.757Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:40.757Z [DEBUG] Matched 0 unique hooks for query "Grep" (0 before deduplication)
+2026-01-29T10:25:40.757Z [DEBUG] Getting matching hook commands for PreToolUse with query: Grep
+2026-01-29T10:25:40.757Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:40.757Z [DEBUG] Matched 0 unique hooks for query "Grep" (0 before deduplication)
+2026-01-29T10:25:40.757Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-29T10:25:40.757Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:40.757Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-29T10:25:40.757Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-29T10:25:40.757Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:40.757Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-29T10:25:40.796Z [DEBUG] High write ratio: blit=0, write=3025 (100.0% writes), screen=58x214
+2026-01-29T10:25:42.001Z [DEBUG] rg error (signal=null, code=2, stderr: rg: unrecognized file type: ts,tsx,js,jsx,json,md
+), 0 results
+2026-01-29T10:25:42.011Z [DEBUG] High write ratio: blit=0, write=3025 (100.0% writes), screen=58x214
+2026-01-29T10:25:42.011Z [DEBUG] Getting matching hook commands for PostToolUse with query: Grep
+2026-01-29T10:25:42.011Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:42.011Z [DEBUG] Matched 1 unique hooks for query "Grep" (1 before deduplication)
+2026-01-29T10:25:42.013Z [DEBUG] rg error (signal=null, code=2, stderr: rg: unrecognized file type: ts,tsx,js,jsx,json
+), 0 results
+2026-01-29T10:25:42.014Z [DEBUG] rg error (signal=null, code=2, stderr: rg: unrecognized file type: ts,tsx,js,jsx,json
+), 0 results
+2026-01-29T10:25:42.021Z [DEBUG] Getting matching hook commands for PostToolUse with query: Grep
+2026-01-29T10:25:42.021Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:42.021Z [DEBUG] Matched 1 unique hooks for query "Grep" (1 before deduplication)
+2026-01-29T10:25:42.021Z [DEBUG] Getting matching hook commands for PostToolUse with query: Grep
+2026-01-29T10:25:42.021Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:42.021Z [DEBUG] Matched 1 unique hooks for query "Grep" (1 before deduplication)
+2026-01-29T10:25:42.048Z [DEBUG] High write ratio: blit=0, write=3025 (100.0% writes), screen=60x214
+2026-01-29T10:25:42.092Z [DEBUG] High write ratio: blit=0, write=3025 (100.0% writes), screen=61x214
+2026-01-29T10:25:42.336Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-29T10:25:42.336Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:42.336Z [DEBUG] Matched 1 unique hooks for query "Glob" (1 before deduplication)
+2026-01-29T10:25:42.337Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-29T10:25:42.337Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:42.337Z [DEBUG] Matched 1 unique hooks for query "Glob" (1 before deduplication)
+2026-01-29T10:25:42.371Z [DEBUG] High write ratio: blit=0, write=3025 (100.0% writes), screen=63x214
+2026-01-29T10:25:42.376Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:42.378Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.10a; cc_entrypoint=cli;
+2026-01-29T10:25:42.379Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:42.379Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:42.379Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:42.433Z [DEBUG] High write ratio: blit=0, write=3025 (100.0% writes), screen=63x214
+2026-01-29T10:25:44.182Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:45.058Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682345058
+2026-01-29T10:25:45.058Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:45.058Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:45.058Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:45.058Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682345058 to /Users/so/.claude.json
+2026-01-29T10:25:45.059Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:45.067Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682345067
+2026-01-29T10:25:45.067Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:45.067Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:45.067Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:45.067Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682345067 to /Users/so/.claude.json
+2026-01-29T10:25:45.068Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:45.087Z [DEBUG] High write ratio: blit=0, write=3096 (100.0% writes), screen=64x214
+2026-01-29T10:25:45.236Z [DEBUG] High write ratio: blit=0, write=3130 (100.0% writes), screen=65x214
+2026-01-29T10:25:45.354Z [DEBUG] High write ratio: blit=0, write=3165 (100.0% writes), screen=66x214
+2026-01-29T10:25:45.637Z [DEBUG] High write ratio: blit=0, write=3203 (100.0% writes), screen=67x214
+2026-01-29T10:25:45.638Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-29T10:25:45.638Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-29T10:25:45.638Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-29T10:25:45.643Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-29T10:25:45.643Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:45.643Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-29T10:25:45.643Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-29T10:25:45.643Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:45.643Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-29T10:25:45.643Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-29T10:25:45.643Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:45.643Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-29T10:25:45.643Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:25:45.643Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:25:45.643Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:45.643Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:25:45.662Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:25:45.662Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:45.662Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:25:45.680Z [DEBUG] High write ratio: blit=0, write=3203 (100.0% writes), screen=68x214
+2026-01-29T10:25:47.289Z [DEBUG] High write ratio: blit=0, write=3203 (100.0% writes), screen=68x214
+2026-01-29T10:25:47.289Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-29T10:25:47.289Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:47.289Z [DEBUG] Matched 1 unique hooks for query "Glob" (1 before deduplication)
+2026-01-29T10:25:47.348Z [DEBUG] High write ratio: blit=0, write=3203 (100.0% writes), screen=69x214
+2026-01-29T10:25:47.363Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-29T10:25:47.363Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:47.363Z [DEBUG] Matched 1 unique hooks for query "Glob" (1 before deduplication)
+2026-01-29T10:25:47.399Z [DEBUG] High write ratio: blit=0, write=3203 (100.0% writes), screen=70x214
+2026-01-29T10:25:47.474Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-29T10:25:47.474Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:47.474Z [DEBUG] Matched 1 unique hooks for query "Glob" (1 before deduplication)
+2026-01-29T10:25:47.490Z [DEBUG] High write ratio: blit=0, write=3203 (100.0% writes), screen=71x214
+2026-01-29T10:25:47.503Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:47.505Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.10a; cc_entrypoint=cli;
+2026-01-29T10:25:47.505Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:47.505Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:47.505Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:47.551Z [DEBUG] High write ratio: blit=0, write=3203 (100.0% writes), screen=71x214
+2026-01-29T10:25:48.646Z [DEBUG] MCP server "ide": WebSocket transport closed/disconnected, attempting automatic reconnection
+2026-01-29T10:25:48.647Z [DEBUG] MCP server "ide": Starting connection with timeout of 30000ms
+2026-01-29T10:25:48.653Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682348653
+2026-01-29T10:25:48.653Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:48.653Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:48.653Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:48.653Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682348653 to /Users/so/.claude.json
+2026-01-29T10:25:48.653Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:48.662Z [DEBUG] High write ratio: blit=0, write=3221 (100.0% writes), screen=72x214
+2026-01-29T10:25:48.668Z [DEBUG] MCP server "ide": Successfully connected to ws-ide server in 22ms
+2026-01-29T10:25:48.668Z [DEBUG] MCP server "ide": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"Claude Code VSCode MCP","version":"2.1.19"}}
+2026-01-29T10:25:48.670Z [DEBUG] MCP server "ide": WebSocket reconnection successful after 24ms (attempt 1)
+2026-01-29T10:25:48.671Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682348671
+2026-01-29T10:25:48.671Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:48.672Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:48.672Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:48.672Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682348671 to /Users/so/.claude.json
+2026-01-29T10:25:48.672Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:48.679Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682348679
+2026-01-29T10:25:48.679Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:48.679Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:48.679Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:48.679Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682348679 to /Users/so/.claude.json
+2026-01-29T10:25:48.679Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:48.682Z [DEBUG] MCP server "ide": WebSocket transport closed/disconnected, attempting automatic reconnection
+2026-01-29T10:25:48.682Z [DEBUG] MCP server "ide": Starting connection with timeout of 30000ms
+2026-01-29T10:25:48.699Z [DEBUG] High write ratio: blit=0, write=3221 (100.0% writes), screen=72x214
+2026-01-29T10:25:48.704Z [DEBUG] MCP server "ide": Successfully connected to ws-ide server in 22ms
+2026-01-29T10:25:48.705Z [DEBUG] MCP server "ide": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"Claude Code VSCode MCP","version":"2.1.19"}}
+2026-01-29T10:25:48.706Z [DEBUG] MCP server "ide": WebSocket reconnection successful after 24ms (attempt 1)
+2026-01-29T10:25:48.710Z [DEBUG] MCP server "ide": WebSocket transport closed/disconnected, attempting automatic reconnection
+2026-01-29T10:25:48.711Z [DEBUG] MCP server "ide": Starting connection with timeout of 30000ms
+2026-01-29T10:25:48.712Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682348712
+2026-01-29T10:25:48.712Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:48.712Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:48.712Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:48.712Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682348712 to /Users/so/.claude.json
+2026-01-29T10:25:48.712Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:48.721Z [DEBUG] MCP server "ide": Successfully connected to ws-ide server in 10ms
+2026-01-29T10:25:48.721Z [DEBUG] MCP server "ide": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"Claude Code VSCode MCP","version":"2.1.19"}}
+2026-01-29T10:25:48.724Z [DEBUG] MCP server "ide": WebSocket reconnection successful after 13ms (attempt 1)
+2026-01-29T10:25:48.731Z [DEBUG] MCP server "ide": WebSocket transport closed/disconnected, attempting automatic reconnection
+2026-01-29T10:25:48.732Z [DEBUG] MCP server "ide": Starting connection with timeout of 30000ms
+2026-01-29T10:25:48.739Z [DEBUG] High write ratio: blit=0, write=3221 (100.0% writes), screen=72x214
+2026-01-29T10:25:48.747Z [DEBUG] MCP server "ide": Successfully connected to ws-ide server in 16ms
+2026-01-29T10:25:48.747Z [DEBUG] MCP server "ide": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"Claude Code VSCode MCP","version":"2.1.19"}}
+2026-01-29T10:25:48.748Z [DEBUG] MCP server "ide": WebSocket reconnection successful after 17ms (attempt 1)
+2026-01-29T10:25:48.754Z [DEBUG] MCP server "ide": WebSocket transport closed/disconnected, attempting automatic reconnection
+2026-01-29T10:25:48.755Z [DEBUG] MCP server "ide": Starting connection with timeout of 30000ms
+2026-01-29T10:25:48.767Z [DEBUG] MCP server "ide": Successfully connected to ws-ide server in 13ms
+2026-01-29T10:25:48.767Z [DEBUG] MCP server "ide": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"Claude Code VSCode MCP","version":"2.1.19"}}
+2026-01-29T10:25:48.768Z [DEBUG] MCP server "ide": WebSocket reconnection successful after 14ms (attempt 1)
+2026-01-29T10:25:48.776Z [DEBUG] High write ratio: blit=0, write=3221 (100.0% writes), screen=72x214
+2026-01-29T10:25:48.777Z [DEBUG] MCP server "ide": WebSocket transport closed/disconnected, attempting automatic reconnection
+2026-01-29T10:25:48.778Z [DEBUG] MCP server "ide": Starting connection with timeout of 30000ms
+2026-01-29T10:25:48.788Z [DEBUG] MCP server "ide": Successfully connected to ws-ide server in 11ms
+2026-01-29T10:25:48.790Z [DEBUG] MCP server "ide": Connection established with capabilities: {"hasTools":true,"hasPrompts":false,"hasResources":false,"serverVersion":{"name":"Claude Code VSCode MCP","version":"2.1.19"}}
+2026-01-29T10:25:48.791Z [DEBUG] MCP server "ide": WS-IDE connection closed after 0s (cleanly)
+2026-01-29T10:25:48.791Z [DEBUG] MCP server "ide": Cleared connection cache for reconnection
+2026-01-29T10:25:48.791Z [ERROR] MCP server "ide" Failed to fetch tools: MCP error -32000: Connection closed
+2026-01-29T10:25:48.791Z [DEBUG] MCP server "ide": WebSocket reconnection successful after 14ms (attempt 1)
+2026-01-29T10:25:48.830Z [DEBUG] High write ratio: blit=0, write=3221 (100.0% writes), screen=72x214
+2026-01-29T10:25:49.355Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:49.635Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682349635
+2026-01-29T10:25:49.635Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:49.635Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:49.635Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:49.635Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682349635 to /Users/so/.claude.json
+2026-01-29T10:25:49.635Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:49.641Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682349641
+2026-01-29T10:25:49.641Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:49.641Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:49.641Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:49.641Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682349641 to /Users/so/.claude.json
+2026-01-29T10:25:49.641Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:49.663Z [DEBUG] High write ratio: blit=0, write=3221 (100.0% writes), screen=72x214
+2026-01-29T10:25:50.003Z [DEBUG] High write ratio: blit=0, write=3300 (100.0% writes), screen=73x214
+2026-01-29T10:25:50.005Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682350005
+2026-01-29T10:25:50.005Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:50.005Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:50.005Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:50.005Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682350005 to /Users/so/.claude.json
+2026-01-29T10:25:50.005Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:50.012Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682350012
+2026-01-29T10:25:50.012Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:50.012Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:50.012Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:50.012Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682350012 to /Users/so/.claude.json
+2026-01-29T10:25:50.013Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:50.359Z [DEBUG] High write ratio: blit=0, write=3385 (100.0% writes), screen=74x214
+2026-01-29T10:25:50.792Z [DEBUG] High write ratio: blit=0, write=3426 (100.0% writes), screen=75x214
+2026-01-29T10:25:50.801Z [DEBUG] executePreToolHooks called for tool: Grep
+2026-01-29T10:25:50.802Z [DEBUG] Getting matching hook commands for PreToolUse with query: Grep
+2026-01-29T10:25:50.802Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:50.802Z [DEBUG] Matched 0 unique hooks for query "Grep" (0 before deduplication)
+2026-01-29T10:25:50.805Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:25:50.805Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:25:50.805Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:25:50.805Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:50.805Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:25:50.809Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:25:50.809Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:50.809Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:25:50.820Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:25:50.820Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:50.820Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:25:50.830Z [DEBUG] High write ratio: blit=0, write=3426 (100.0% writes), screen=75x214
+2026-01-29T10:25:50.831Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:25:50.831Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:50.831Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:25:50.867Z [DEBUG] High write ratio: blit=0, write=3426 (100.0% writes), screen=77x214
+2026-01-29T10:25:51.659Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682351659
+2026-01-29T10:25:51.659Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:51.659Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:51.659Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:51.659Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682351659 to /Users/so/.claude.json
+2026-01-29T10:25:51.659Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:51.671Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682351671
+2026-01-29T10:25:51.671Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:51.671Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:51.671Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:51.671Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682351671 to /Users/so/.claude.json
+2026-01-29T10:25:51.672Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:51.698Z [DEBUG] High write ratio: blit=0, write=3426 (100.0% writes), screen=77x214
+2026-01-29T10:25:52.005Z [DEBUG] High write ratio: blit=0, write=3426 (100.0% writes), screen=77x214
+2026-01-29T10:25:52.006Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682352006
+2026-01-29T10:25:52.006Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:52.006Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:52.006Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:52.007Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682352006 to /Users/so/.claude.json
+2026-01-29T10:25:52.007Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:52.007Z [DEBUG] Getting matching hook commands for PostToolUse with query: Grep
+2026-01-29T10:25:52.007Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:52.007Z [DEBUG] Matched 1 unique hooks for query "Grep" (1 before deduplication)
+2026-01-29T10:25:52.013Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682352013
+2026-01-29T10:25:52.013Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:52.014Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:52.014Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:52.014Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682352013 to /Users/so/.claude.json
+2026-01-29T10:25:52.014Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:52.037Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:52.039Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.10a; cc_entrypoint=cli;
+2026-01-29T10:25:52.039Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:52.039Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:52.039Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:52.066Z [DEBUG] High write ratio: blit=0, write=3426 (100.0% writes), screen=78x214
+2026-01-29T10:25:53.825Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:25:54.701Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682354701
+2026-01-29T10:25:54.701Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:54.701Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:54.701Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:54.701Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682354701 to /Users/so/.claude.json
+2026-01-29T10:25:54.701Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:54.714Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682354714
+2026-01-29T10:25:54.714Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:54.714Z [DEBUG] Temp file written successfully, size: 31555 bytes
+2026-01-29T10:25:54.714Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:54.714Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682354714 to /Users/so/.claude.json
+2026-01-29T10:25:54.714Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:54.738Z [DEBUG] High write ratio: blit=0, write=3501 (100.0% writes), screen=79x214
+2026-01-29T10:25:55.347Z [DEBUG] High write ratio: blit=0, write=3586 (100.0% writes), screen=80x214
+2026-01-29T10:25:55.947Z [DEBUG] Full reset (scrollback changes): scrollbackRows=28, firstChangeY=27
+  prev: "  Explore(アクセス制御コードの調査)                                                                                                                                                                                   "
+  next: "⏺ Explore(アクセス制御コードの調査)                                                                                                                                                                                   "
+2026-01-29T10:25:56.080Z [DEBUG] High write ratio: blit=0, write=3673 (100.0% writes), screen=81x214
+2026-01-29T10:25:56.273Z [DEBUG] executePreToolHooks called for tool: Grep
+2026-01-29T10:25:56.288Z [DEBUG] High write ratio: blit=0, write=3673 (100.0% writes), screen=81x214
+2026-01-29T10:25:56.289Z [DEBUG] Getting matching hook commands for PreToolUse with query: Grep
+2026-01-29T10:25:56.289Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:56.289Z [DEBUG] Matched 0 unique hooks for query "Grep" (0 before deduplication)
+2026-01-29T10:25:56.289Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:25:56.289Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:25:56.289Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:25:56.289Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:56.289Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:25:56.293Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:25:56.293Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:25:56.293Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:25:56.311Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:25:56.311Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:56.311Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:25:56.315Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:25:56.315Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:56.315Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:25:56.328Z [DEBUG] High write ratio: blit=0, write=3673 (100.0% writes), screen=81x214
+2026-01-29T10:25:56.366Z [DEBUG] High write ratio: blit=0, write=3673 (100.0% writes), screen=83x214
+2026-01-29T10:25:56.680Z [DEBUG] High write ratio: blit=0, write=3655 (100.0% writes), screen=82x214
+2026-01-29T10:25:57.479Z [DEBUG] rg error (signal=null, code=2, stderr: rg: unrecognized file type: ts,tsx
+), 0 results
+2026-01-29T10:25:57.485Z [DEBUG] Getting matching hook commands for PostToolUse with query: Grep
+2026-01-29T10:25:57.485Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:25:57.485Z [DEBUG] Matched 1 unique hooks for query "Grep" (1 before deduplication)
+2026-01-29T10:25:57.487Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682357487
+2026-01-29T10:25:57.487Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:57.487Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:25:57.487Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:57.487Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682357487 to /Users/so/.claude.json
+2026-01-29T10:25:57.487Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:57.498Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682357498
+2026-01-29T10:25:57.498Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:25:57.498Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:25:57.498Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:25:57.498Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682357498 to /Users/so/.claude.json
+2026-01-29T10:25:57.498Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:25:57.524Z [DEBUG] High write ratio: blit=0, write=3655 (100.0% writes), screen=83x214
+2026-01-29T10:25:57.525Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:25:57.527Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.10a; cc_entrypoint=cli;
+2026-01-29T10:25:57.527Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:25:57.527Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:25:57.527Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:25:57.573Z [DEBUG] High write ratio: blit=0, write=3655 (100.0% writes), screen=83x214
+2026-01-29T10:26:00.349Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:26:01.021Z [DEBUG] High write ratio: blit=0, write=3701 (100.0% writes), screen=84x214
+2026-01-29T10:26:01.213Z [DEBUG] High write ratio: blit=0, write=3753 (100.0% writes), screen=85x214
+2026-01-29T10:26:01.221Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-29T10:26:01.221Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-29T10:26:01.221Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-29T10:26:01.221Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:26:01.221Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-29T10:26:01.225Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-29T10:26:01.225Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:26:01.225Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-29T10:26:01.251Z [DEBUG] High write ratio: blit=0, write=3753 (100.0% writes), screen=85x214
+2026-01-29T10:26:02.411Z [DEBUG] High write ratio: blit=0, write=3753 (100.0% writes), screen=85x214
+2026-01-29T10:26:02.412Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-29T10:26:02.412Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:02.412Z [DEBUG] Matched 1 unique hooks for query "Glob" (1 before deduplication)
+2026-01-29T10:26:02.423Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-29T10:26:02.423Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:02.423Z [DEBUG] Matched 1 unique hooks for query "Glob" (1 before deduplication)
+2026-01-29T10:26:02.464Z [DEBUG] High write ratio: blit=0, write=3753 (100.0% writes), screen=87x214
+2026-01-29T10:26:02.472Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:26:02.474Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.10a; cc_entrypoint=cli;
+2026-01-29T10:26:02.474Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:26:02.474Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:26:02.474Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:26:02.518Z [DEBUG] High write ratio: blit=0, write=3753 (100.0% writes), screen=87x214
+2026-01-29T10:26:05.100Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:26:05.500Z [DEBUG] High write ratio: blit=0, write=4731 (100.0% writes), screen=97x214
+2026-01-29T10:26:05.510Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682365510
+2026-01-29T10:26:05.510Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:26:05.510Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:26:05.510Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:26:05.510Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682365510 to /Users/so/.claude.json
+2026-01-29T10:26:05.511Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:26:05.518Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682365518
+2026-01-29T10:26:05.518Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:26:05.518Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:26:05.518Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:26:05.518Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682365518 to /Users/so/.claude.json
+2026-01-29T10:26:05.519Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:26:05.771Z [DEBUG] High write ratio: blit=0, write=3918 (100.0% writes), screen=89x214
+2026-01-29T10:26:05.771Z [DEBUG] Full reset (scrollback changes): scrollbackRows=45, firstChangeY=1
+  prev: "╭─── Claude Code v2.1.22 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╮"
+  next: " ▐▛███▜▌   Claude Code v2.1.22                                                                                                                                                                                        "
+2026-01-29T10:26:05.816Z [DEBUG] High write ratio: blit=0, write=3918 (100.0% writes), screen=89x214
+2026-01-29T10:26:05.998Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:26:06.009Z [DEBUG] High write ratio: blit=0, write=4004 (100.0% writes), screen=90x214
+2026-01-29T10:26:06.010Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:26:06.010Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:26:06.010Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:26:06.010Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:26:06.010Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:26:06.010Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:26:06.010Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:26:06.010Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:26:06.018Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:26:06.018Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:26:06.018Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:26:06.029Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:26:06.029Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:06.029Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:26:06.039Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:26:06.039Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:06.039Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:26:06.047Z [DEBUG] High write ratio: blit=0, write=4004 (100.0% writes), screen=90x214
+2026-01-29T10:26:06.048Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:26:06.048Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:06.048Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:26:06.087Z [DEBUG] High write ratio: blit=0, write=4004 (100.0% writes), screen=93x214
+2026-01-29T10:26:06.103Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:26:06.105Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.10a; cc_entrypoint=cli;
+2026-01-29T10:26:06.105Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:26:06.105Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:26:06.105Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:26:06.125Z [DEBUG] High write ratio: blit=0, write=4004 (100.0% writes), screen=93x214
+2026-01-29T10:26:08.648Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:26:09.054Z [DEBUG] High write ratio: blit=0, write=4029 (100.0% writes), screen=94x214
+2026-01-29T10:26:09.241Z [DEBUG] High write ratio: blit=0, write=4059 (100.0% writes), screen=95x214
+2026-01-29T10:26:09.765Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-29T10:26:09.765Z [DEBUG] executePreToolHooks called for tool: Glob
+2026-01-29T10:26:09.765Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-29T10:26:09.765Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:26:09.765Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-29T10:26:09.769Z [DEBUG] Getting matching hook commands for PreToolUse with query: Glob
+2026-01-29T10:26:09.769Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:26:09.769Z [DEBUG] Matched 0 unique hooks for query "Glob" (0 before deduplication)
+2026-01-29T10:26:09.769Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:26:09.769Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:26:09.769Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:26:09.769Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:26:09.788Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:26:09.788Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:09.788Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:26:09.799Z [DEBUG] High write ratio: blit=0, write=4125 (100.0% writes), screen=96x214
+2026-01-29T10:26:09.837Z [DEBUG] High write ratio: blit=0, write=4125 (100.0% writes), screen=97x214
+2026-01-29T10:26:10.632Z [DEBUG] High write ratio: blit=0, write=4125 (100.0% writes), screen=97x214
+2026-01-29T10:26:10.969Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-29T10:26:10.969Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:10.969Z [DEBUG] Matched 1 unique hooks for query "Glob" (1 before deduplication)
+2026-01-29T10:26:10.969Z [DEBUG] Getting matching hook commands for PostToolUse with query: Glob
+2026-01-29T10:26:10.969Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:10.969Z [DEBUG] Matched 1 unique hooks for query "Glob" (1 before deduplication)
+2026-01-29T10:26:11.007Z [DEBUG] High write ratio: blit=0, write=4125 (100.0% writes), screen=99x214
+2026-01-29T10:26:11.013Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:26:11.015Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.10a; cc_entrypoint=cli;
+2026-01-29T10:26:11.015Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:26:11.015Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:26:11.015Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:26:11.057Z [DEBUG] High write ratio: blit=0, write=4125 (100.0% writes), screen=99x214
+2026-01-29T10:26:12.509Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:26:13.351Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682373351
+2026-01-29T10:26:13.351Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:26:13.351Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:26:13.351Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:26:13.351Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682373351 to /Users/so/.claude.json
+2026-01-29T10:26:13.351Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:26:13.362Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682373362
+2026-01-29T10:26:13.362Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:26:13.362Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:26:13.362Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:26:13.362Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682373362 to /Users/so/.claude.json
+2026-01-29T10:26:13.362Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:26:13.391Z [DEBUG] High write ratio: blit=0, write=4190 (100.0% writes), screen=100x214
+2026-01-29T10:26:13.779Z [DEBUG] High write ratio: blit=0, write=4290 (100.0% writes), screen=101x214
+2026-01-29T10:26:13.780Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:26:13.788Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:26:13.789Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:26:13.789Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:26:13.789Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:26:13.793Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:26:13.793Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:26:13.793Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:26:13.804Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:26:13.804Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:13.804Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:26:13.818Z [DEBUG] High write ratio: blit=0, write=4290 (100.0% writes), screen=101x214
+2026-01-29T10:26:13.827Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:26:13.827Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:13.827Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:26:13.856Z [DEBUG] High write ratio: blit=0, write=4290 (100.0% writes), screen=103x214
+2026-01-29T10:26:13.873Z [DEBUG] Tool search disabled for model 'claude-haiku-4-5-20251001': model does not support tool_reference blocks. This feature is only available on Claude Sonnet 4+, Opus 4+, and newer models.
+2026-01-29T10:26:13.875Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.10a; cc_entrypoint=cli;
+2026-01-29T10:26:13.875Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:26:13.875Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:26:13.875Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:26:13.901Z [DEBUG] High write ratio: blit=0, write=4290 (100.0% writes), screen=103x214
+2026-01-29T10:26:14.081Z [DEBUG] High write ratio: blit=0, write=4290 (100.0% writes), screen=103x214
+2026-01-29T10:26:15.461Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:26:17.324Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682377324
+2026-01-29T10:26:17.324Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:26:17.324Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:26:17.324Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:26:17.324Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682377324 to /Users/so/.claude.json
+2026-01-29T10:26:17.325Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:26:17.337Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682377337
+2026-01-29T10:26:17.337Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:26:17.338Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:26:17.338Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:26:17.338Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682377337 to /Users/so/.claude.json
+2026-01-29T10:26:17.338Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:26:17.395Z [DEBUG] High write ratio: blit=0, write=4290 (100.0% writes), screen=103x214
+2026-01-29T10:26:18.317Z [DEBUG] High write ratio: blit=0, write=5188 (100.0% writes), screen=112x214
+2026-01-29T10:26:18.328Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682378328
+2026-01-29T10:26:18.328Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:26:18.328Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:26:18.328Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:26:18.328Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682378328 to /Users/so/.claude.json
+2026-01-29T10:26:18.328Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:26:18.333Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682378333
+2026-01-29T10:26:18.333Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:26:18.334Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:26:18.334Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:26:18.334Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682378333 to /Users/so/.claude.json
+2026-01-29T10:26:18.334Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:26:37.362Z [DEBUG] High write ratio: blit=0, write=5191 (100.0% writes), screen=112x214
+2026-01-29T10:26:37.363Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682397363
+2026-01-29T10:26:37.363Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:26:37.364Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:26:37.364Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:26:37.364Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682397363 to /Users/so/.claude.json
+2026-01-29T10:26:37.364Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:26:37.365Z [DEBUG] Getting matching hook commands for SubagentStop with query: undefined
+2026-01-29T10:26:37.365Z [DEBUG] Found 0 hook matchers in settings
+2026-01-29T10:26:37.365Z [DEBUG] Matched 0 unique hooks for query "no match query" (0 before deduplication)
+2026-01-29T10:26:37.377Z [DEBUG] Getting matching hook commands for PostToolUse with query: Task
+2026-01-29T10:26:37.377Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:37.377Z [DEBUG] Matched 0 unique hooks for query "Task" (0 before deduplication)
+2026-01-29T10:26:37.410Z [DEBUG] High write ratio: blit=0, write=14598 (100.0% writes), screen=387x214
+2026-01-29T10:26:37.440Z [DEBUG] MCP server "ide": Calling MCP tool: getDiagnostics
+2026-01-29T10:26:37.440Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-29T10:26:37.440Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-29T10:26:37.440Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-29T10:26:37.440Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-29T10:26:37.441Z [DEBUG] MCP server "ide": Tool 'getDiagnostics' failed after 0s: Not connected
+2026-01-29T10:26:37.455Z [DEBUG] Auto tool search enabled: 38896 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-29T10:26:37.465Z [DEBUG] Dynamic tool loading: 0/114 deferred tools included
+2026-01-29T10:26:37.465Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.057; cc_entrypoint=cli;
+2026-01-29T10:26:37.465Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:26:37.465Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:26:37.466Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:26:37.501Z [DEBUG] High write ratio: blit=0, write=14598 (100.0% writes), screen=387x214
+2026-01-29T10:26:37.505Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682397505
+2026-01-29T10:26:37.505Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:26:37.505Z [DEBUG] Temp file written successfully, size: 31616 bytes
+2026-01-29T10:26:37.505Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:26:37.505Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682397505 to /Users/so/.claude.json
+2026-01-29T10:26:37.505Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:26:39.375Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:26:49.956Z [DEBUG] High write ratio: blit=0, write=15536 (100.0% writes), screen=420x214
+2026-01-29T10:26:50.310Z [DEBUG] High write ratio: blit=0, write=15563 (100.0% writes), screen=420x214
+2026-01-29T10:26:50.331Z [DEBUG] executePreToolHooks called for tool: Read
+2026-01-29T10:26:50.342Z [DEBUG] Getting matching hook commands for PreToolUse with query: Read
+2026-01-29T10:26:50.342Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:26:50.342Z [DEBUG] Matched 0 unique hooks for query "Read" (0 before deduplication)
+2026-01-29T10:26:50.365Z [DEBUG] High write ratio: blit=0, write=15563 (100.0% writes), screen=420x214
+2026-01-29T10:26:50.386Z [DEBUG] Getting matching hook commands for PostToolUse with query: Read
+2026-01-29T10:26:50.386Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:26:50.386Z [DEBUG] Matched 1 unique hooks for query "Read" (1 before deduplication)
+2026-01-29T10:26:50.394Z [DEBUG] MCP server "ide": Calling MCP tool: getDiagnostics
+2026-01-29T10:26:50.394Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-29T10:26:50.394Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-29T10:26:50.394Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-29T10:26:50.394Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-29T10:26:50.394Z [DEBUG] MCP server "ide": Tool 'getDiagnostics' failed after 0s: Not connected
+2026-01-29T10:26:50.419Z [DEBUG] High write ratio: blit=0, write=15630 (100.0% writes), screen=422x214
+2026-01-29T10:26:50.421Z [DEBUG] Auto tool search enabled: 38896 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-29T10:26:50.434Z [DEBUG] Dynamic tool loading: 0/114 deferred tools included
+2026-01-29T10:26:50.434Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.057; cc_entrypoint=cli;
+2026-01-29T10:26:50.434Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:26:50.434Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:26:50.434Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:26:50.473Z [DEBUG] High write ratio: blit=0, write=15630 (100.0% writes), screen=422x214
+2026-01-29T10:26:52.309Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:26:58.037Z [DEBUG] High write ratio: blit=0, write=16327 (100.0% writes), screen=452x214
+2026-01-29T10:26:58.560Z [DEBUG] High write ratio: blit=0, write=16351 (100.0% writes), screen=454x214
+2026-01-29T10:27:08.550Z [DEBUG] High write ratio: blit=0, write=16364 (100.0% writes), screen=456x214
+2026-01-29T10:27:08.553Z [DEBUG] executePreToolHooks called for tool: Write
+2026-01-29T10:27:08.566Z [DEBUG] Getting matching hook commands for PreToolUse with query: Write
+2026-01-29T10:27:08.566Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:27:08.566Z [DEBUG] Matched 0 unique hooks for query "Write" (0 before deduplication)
+2026-01-29T10:27:08.575Z [DEBUG] MCP server "ide": Calling MCP tool: getDiagnostics
+2026-01-29T10:27:08.575Z [DEBUG] MCP server "ide": Tool 'getDiagnostics' failed after 0s: Not connected
+2026-01-29T10:27:08.579Z [DEBUG] FileHistory: Tracked file modification for /Users/so/.claude/plans/piped-exploring-fairy.md
+2026-01-29T10:27:08.603Z [DEBUG] High write ratio: blit=0, write=16364 (100.0% writes), screen=456x214
+2026-01-29T10:27:08.604Z [DEBUG] [lspRecommendation] Looking for LSP plugins for .md
+2026-01-29T10:27:09.579Z [DEBUG] rg error (signal=undefined, code=ABORT_ERR, stderr: ), 204 results
+2026-01-29T10:27:09.579Z [ERROR] AbortError: AbortError: The operation was aborted.
+    at unknown
+    at abortChildProcess (node:child_process:935:42)
+    at onAbortListener2 (node:child_process:35:24)
+    at abort (unknown)
+    at <anonymous> (/$bunfs/root/claude:5176:2153)
+2026-01-29T10:27:09.580Z [DEBUG] Writing to temp file: /Users/so/.claude/plans/piped-exploring-fairy.md.tmp.11392.1769682429580
+2026-01-29T10:27:09.580Z [DEBUG] Temp file written successfully, size: 1235 bytes
+2026-01-29T10:27:09.580Z [DEBUG] Renaming /Users/so/.claude/plans/piped-exploring-fairy.md.tmp.11392.1769682429580 to /Users/so/.claude/plans/piped-exploring-fairy.md
+2026-01-29T10:27:09.580Z [DEBUG] File /Users/so/.claude/plans/piped-exploring-fairy.md written atomically
+2026-01-29T10:27:09.595Z [DEBUG] Getting matching hook commands for PostToolUse with query: Write
+2026-01-29T10:27:09.595Z [DEBUG] Found 4 hook matchers in settings
+2026-01-29T10:27:09.595Z [DEBUG] Matched 1 unique hooks for query "Write" (1 before deduplication)
+2026-01-29T10:27:09.606Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-01-29T10:27:09.607Z [DEBUG] MCP server "ide": Calling MCP tool: getDiagnostics
+2026-01-29T10:27:09.607Z [DEBUG] LSP Diagnostics: getLSPDiagnosticAttachments called
+2026-01-29T10:27:09.607Z [DEBUG] LSP Diagnostics: Checking registry - 0 pending
+2026-01-29T10:27:09.607Z [DEBUG] Hooks: Found 0 total hooks in registry
+2026-01-29T10:27:09.607Z [DEBUG] Hooks: checkForNewResponses returning 0 responses
+2026-01-29T10:27:09.607Z [DEBUG] MCP server "ide": Tool 'getDiagnostics' failed after 0s: Not connected
+2026-01-29T10:27:09.652Z [DEBUG] High write ratio: blit=0, write=17884 (100.0% writes), screen=517x214
+2026-01-29T10:27:09.660Z [DEBUG] Auto tool search enabled: 38896 tokens (threshold: 20000, 10% of context) [source: query]
+2026-01-29T10:27:09.674Z [DEBUG] Dynamic tool loading: 0/114 deferred tools included
+2026-01-29T10:27:09.675Z [DEBUG] attribution header x-anthropic-billing-header: cc_version=2.1.22.057; cc_entrypoint=cli;
+2026-01-29T10:27:09.675Z [DEBUG] [API:request] Creating client, ANTHROPIC_CUSTOM_HEADERS present: false, has Authorization header: false
+2026-01-29T10:27:09.675Z [DEBUG] [API:auth] OAuth token check starting
+2026-01-29T10:27:09.675Z [DEBUG] [API:auth] OAuth token check complete
+2026-01-29T10:27:09.708Z [DEBUG] High write ratio: blit=0, write=17884 (100.0% writes), screen=517x214
+2026-01-29T10:27:11.706Z [DEBUG] Stream started - received first chunk
+2026-01-29T10:27:18.490Z [DEBUG] High write ratio: blit=0, write=18485 (100.0% writes), screen=540x214
+2026-01-29T10:27:18.935Z [DEBUG] High write ratio: blit=0, write=18514 (100.0% writes), screen=542x214
+2026-01-29T10:27:20.221Z [DEBUG] High write ratio: blit=0, write=18514 (100.0% writes), screen=542x214
+2026-01-29T10:27:20.238Z [DEBUG] executePreToolHooks called for tool: ExitPlanMode
+2026-01-29T10:27:20.238Z [DEBUG] Getting matching hook commands for PreToolUse with query: ExitPlanMode
+2026-01-29T10:27:20.238Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:27:20.238Z [DEBUG] Matched 0 unique hooks for query "ExitPlanMode" (0 before deduplication)
+2026-01-29T10:27:20.275Z [DEBUG] High write ratio: blit=0, write=18514 (100.0% writes), screen=542x214
+2026-01-29T10:27:20.277Z [DEBUG] executePermissionRequestHooks called for tool: ExitPlanMode
+2026-01-29T10:27:20.291Z [DEBUG] Stopped caffeinate, allowing sleep
+2026-01-29T10:27:20.293Z [DEBUG] Getting matching hook commands for PermissionRequest with query: ExitPlanMode
+2026-01-29T10:27:20.293Z [DEBUG] Found 0 hook matchers in settings
+2026-01-29T10:27:20.293Z [DEBUG] Matched 0 unique hooks for query "ExitPlanMode" (0 before deduplication)
+2026-01-29T10:27:20.347Z [DEBUG] High write ratio: blit=0, write=20173 (100.0% writes), screen=613x214
+2026-01-29T10:27:26.293Z [DEBUG] Getting matching hook commands for Notification with query: permission_prompt
+2026-01-29T10:27:26.293Z [DEBUG] Found 1 hook matchers in settings
+2026-01-29T10:27:26.293Z [DEBUG] Matched 1 unique hooks for query "permission_prompt" (1 before deduplication)
+2026-01-29T10:27:26.303Z [DEBUG] Notification:permission_prompt [echo "Claude Code: $(jq -r '.message')" | terminal-notifier -title 'Claude Code'] completed with status 127
+2026-01-29T10:27:26.303Z [DEBUG] Hook output does not start with {, treating as plain text
+2026-01-29T10:29:05.496Z [DEBUG] High write ratio: blit=0, write=20173 (100.0% writes), screen=613x214
+2026-01-29T10:29:05.499Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682545499
+2026-01-29T10:29:05.499Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:29:05.499Z [DEBUG] Temp file written successfully, size: 31691 bytes
+2026-01-29T10:29:05.499Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:29:05.499Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682545499 to /Users/so/.claude.json
+2026-01-29T10:29:05.499Z [DEBUG] File /Users/so/.claude.json written atomically
+2026-01-29T10:29:05.505Z [DEBUG] Writing to temp file: /Users/so/.claude.json.tmp.11392.1769682545505
+2026-01-29T10:29:05.505Z [DEBUG] Preserving file permissions: 100600
+2026-01-29T10:29:05.505Z [DEBUG] Temp file written successfully, size: 31691 bytes
+2026-01-29T10:29:05.505Z [DEBUG] Applied original permissions to temp file
+2026-01-29T10:29:05.505Z [DEBUG] Renaming /Users/so/.claude.json.tmp.11392.1769682545505 to /Users/so/.claude.json
+2026-01-29T10:29:05.505Z [DEBUG] File /Users/so/.claude.json written atomically

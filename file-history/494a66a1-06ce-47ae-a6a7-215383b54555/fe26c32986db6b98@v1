@@ -1,0 +1,51 @@
+# 合同会社あいのみ 企業ホームページ - プロジェクト進捗
+
+## 完了フェーズ
+
+### ✅ Phase 1: 要件定義（完了）
+- `.kiro/specs/corporate-website/requirements.md` を EARS 形式で生成（100件）
+- o3 MCP レビュー完了、指摘事項修正済み
+- `spec.json` ステータス: `requirements-generated`
+
+---
+
+## 次のアクション
+
+### Phase 2: 技術設計（design）
+
+**実行コマンド**:
+```bash
+/kiro:spec-design corporate-website -y
+```
+
+**生成される成果物**:
+- `.kiro/specs/corporate-website/design.md`
+  - コンポーネント設計
+  - ディレクトリ構造
+  - データフロー
+  - API設計（該当する場合）
+
+**技術スタック（確定）**:
+| カテゴリ | 選定 |
+|---------|------|
+| SSG | Astro |
+| Animation | Motion.dev + GSAP |
+| CSS | Tailwind CSS v4 |
+| Hosting | Cloudflare Pages |
+
+---
+
+## 全体フロー
+
+```
+[✅] 要件定義 → [▶️ 次] 技術設計 → [ ] タスク分解 → [ ] 実装
+     ↑完了        ↑今ここ
+```
+
+---
+
+## 選択肢
+
+1. **技術設計に進む** → `/kiro:spec-design corporate-website -y`
+2. **要件定義を見直す** → requirements.md の修正
+3. **Astroプロジェクトを先に初期化** → `npm create astro@latest`

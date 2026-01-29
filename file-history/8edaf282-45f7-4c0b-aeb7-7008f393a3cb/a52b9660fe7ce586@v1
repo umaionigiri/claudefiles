@@ -1,0 +1,13 @@
+{
+  "name": "{{FEATURE_NAME}}",
+  "description": "{{PROJECT_DESCRIPTION}}",
+  "status": "initialized",
+  "language": "ja",
+  "createdAt": "{{TIMESTAMP}}",
+  "phases": {
+    "requirements": "pending",
+    "design": "pending",
+    "tasks": "pending",
+    "implementation": "pending"
+  }
+}

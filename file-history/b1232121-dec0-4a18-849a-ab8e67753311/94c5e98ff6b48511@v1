@@ -1,0 +1,52 @@
+---
+name: development-rules
+description: Apply development rules when writing or reviewing code. Triggers on "implement feature", "write code", "review code quality", "apply SOLID principles".
+---
+
+# Development Rules
+
+## Pre-Implementation Research
+
+- **MUST research with Context7 before implementation** to find latest best practices
+- Query library/framework documentation for up-to-date APIs and patterns
+- Implement with minimal code based on research findings
+
+## Parallel Task Execution
+
+- Analyze dependencies when tasks are identified; process independent tasks in parallel using Subagents
+- Actively use Task tool to maximize context efficiency
+- Execute dependent tasks sequentially, independent tasks in parallel
+
+## SOLID Principles
+
+- **SRP**: Each class/function has single responsibility
+- **OCP**: Open for extension, closed for modification
+- **LSP**: Derived classes must be substitutable for base classes
+- **ISP**: Keep interfaces small and focused
+- **DIP**: Depend on abstractions, not concretions
+
+## YAGNI
+
+- Don't implement until actually needed
+- Avoid "just in case" features
+- Choose the simplest solution
+
+## DRY
+
+- Avoid duplication of knowledge
+- But also avoid over-abstraction
+- Consider abstraction after 3 repetitions
+
+## KISS
+
+- Prefer simple solutions
+- Complex code is refactoring target
+- Aim for code that's understandable at a glance
+
+## Code Quality
+
+- Meaningful naming
+- Appropriate error handling
+- Comments explain "why", not "what"
+- Avoid magic numbers
+- Add brief Japanese comments for supplementary explanations in code

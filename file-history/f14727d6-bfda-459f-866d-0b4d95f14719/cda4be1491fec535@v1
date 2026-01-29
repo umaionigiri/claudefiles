@@ -1,0 +1,13 @@
+{
+  "name": "corporate-website",
+  "description": "合同会社あいのみの公式企業ホームページ。静的サイトとして構築し、LINE公式アカウントへの誘導によるお問い合わせ機能を実装する。",
+  "status": "initialized",
+  "language": "ja",
+  "createdAt": "2026-01-25T00:00:00+09:00",
+  "phases": {
+    "requirements": "pending",
+    "design": "pending",
+    "tasks": "pending",
+    "implementation": "pending"
+  }
+}

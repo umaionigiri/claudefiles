@@ -1,0 +1,242 @@
+---
+import ServiceLayout from "../../layouts/ServiceLayout.astro";
+import Container from "../../components/ui/Container.astro";
+import CTASection from "../../components/sections/CTASection.astro";
+import FadeInSection from "../../components/ui/FadeInSection";
+import FAQ from "../../components/sections/FAQ";
+import { ClipboardList, Users, Calendar, MapPin, CheckCircle } from "lucide-react";
+---
+
+<ServiceLayout
+  title="ケアマネジメント | SHIRO CARE合同会社"
+  description="神戸市西区・明石市でケアプラン作成からサービス調整まで。経験豊富なケアマネージャーが親身にサポートします。"
+  heroTitle="ケアマネジメント"
+  heroSubtitle="ご本人・ご家族の想いに寄り添いながら、最適な介護サービスをコーディネートします。"
+>
+  {/* Service Overview */}
+  <section class="py-16 md:py-20">
+    <Container>
+      <FadeInSection client:idle>
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-4">
+            ケアマネジメントとは
+          </h2>
+          <p class="text-neutral-600 leading-relaxed">
+            ケアマネジメントは、介護が必要な方が適切なサービスを受けられるよう、
+            ケアプランの作成からサービス事業者との調整まで、一貫してサポートするサービスです。
+          </p>
+        </div>
+      </FadeInSection>
+
+      {/* Service Flow */}
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {[
+          { icon: "clipboard", title: "ご相談・アセスメント", description: "ご本人・ご家族のご要望や状況を詳しくお聞きします" },
+          { icon: "users", title: "ケアプラン作成", description: "最適なサービスの組み合わせをご提案します" },
+          { icon: "calendar", title: "サービス調整", description: "各サービス事業者との連絡調整を行います" },
+          { icon: "check", title: "モニタリング", description: "定期的に状況を確認し、必要に応じてプランを見直します" },
+        ].map((item, index) => (
+          <FadeInSection client:idle delay={index * 0.1}>
+            <div class="text-center">
+              <div class="w-16 h-16 rounded-full bg-sakura-50 flex items-center justify-center mx-auto mb-4">
+                {item.icon === "clipboard" && <ClipboardList className="w-8 h-8 text-sakura-600" />}
+                {item.icon === "users" && <Users className="w-8 h-8 text-sakura-600" />}
+                {item.icon === "calendar" && <Calendar className="w-8 h-8 text-sakura-600" />}
+                {item.icon === "check" && <CheckCircle className="w-8 h-8 text-sakura-600" />}
+              </div>
+              <div class="text-sm text-sakura-600 font-medium mb-2">STEP {index + 1}</div>
+              <h3 class="text-lg font-bold text-neutral-900 mb-2">{item.title}</h3>
+              <p class="text-neutral-600 text-sm">{item.description}</p>
+            </div>
+          </FadeInSection>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  {/* Service Area */}
+  <section class="py-16 md:py-20 bg-neutral-50">
+    <Container>
+      <FadeInSection client:idle>
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-8 text-center">
+            対応エリア
+          </h2>
+
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-neutral-100">
+            <div class="flex items-center gap-3 mb-6">
+              <MapPin className="w-6 h-6 text-sakura-600" />
+              <span class="text-lg font-bold text-neutral-900">サービス提供地域</span>
+            </div>
+
+            {/* Map Image */}
+            <div class="mb-6">
+              <svg viewBox="0 0 500 400" class="w-full max-w-2xl mx-auto" role="img" aria-label="対応エリア地図">
+                {/* 三田市 */}
+                <path d="M200,20 L280,15 L320,40 L310,90 L260,110 L200,100 L170,60 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="245" y="60" font-size="12" fill="#737373" text-anchor="middle">三田市</text>
+
+                {/* 宝塚市 */}
+                <path d="M320,40 L380,50 L400,100 L370,140 L310,130 L310,90 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="355" y="95" font-size="12" fill="#737373" text-anchor="middle">宝塚市</text>
+
+                {/* 三木市 */}
+                <path d="M100,60 L170,60 L200,100 L180,140 L120,150 L80,120 L80,80 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="135" y="110" font-size="12" fill="#737373" text-anchor="middle">三木市</text>
+
+                {/* 北区 */}
+                <path d="M170,60 L200,100 L260,110 L310,90 L310,130 L290,170 L240,190 L180,180 L150,150 L180,140 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="235" y="145" font-size="14" fill="#737373" text-anchor="middle">北区</text>
+
+                {/* 西区 - Highlighted */}
+                <path d="M80,120 L120,150 L150,150 L180,180 L170,230 L130,260 L70,250 L40,200 L50,160 Z" fill="#f9a8d4" stroke="#ec4899" stroke-width="2" />
+                <text x="115" y="205" font-size="14" fill="#be185d" font-weight="bold" text-anchor="middle">西区</text>
+
+                {/* 稲美町 */}
+                <path d="M40,200 L70,250 L50,290 L20,280 L10,240 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="38" y="265" font-size="10" fill="#737373" text-anchor="middle">稲美町</text>
+
+                {/* 明石市 - Highlighted */}
+                <path d="M50,160 L40,200 L10,240 L5,290 L30,320 L90,330 L130,300 L130,260 L70,250 Z" fill="#f9a8d4" stroke="#ec4899" stroke-width="2" />
+                <text x="70" y="295" font-size="14" fill="#be185d" font-weight="bold" text-anchor="middle">明石市</text>
+
+                {/* 垂水区 */}
+                <path d="M130,260 L170,230 L190,270 L170,310 L130,300 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="158" y="285" font-size="11" fill="#737373" text-anchor="middle">垂水区</text>
+
+                {/* 須磨区 */}
+                <path d="M170,230 L180,180 L220,200 L230,250 L190,270 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="200" y="235" font-size="11" fill="#737373" text-anchor="middle">須磨区</text>
+
+                {/* 長田区 */}
+                <path d="M220,200 L240,190 L260,210 L250,240 L230,250 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="242" y="225" font-size="10" fill="#737373" text-anchor="middle">長田区</text>
+
+                {/* 兵庫区 */}
+                <path d="M260,210 L280,200 L295,220 L280,245 L250,240 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="272" y="228" font-size="10" fill="#737373" text-anchor="middle">兵庫区</text>
+
+                {/* 中央区 */}
+                <path d="M280,200 L310,190 L330,210 L310,240 L280,245 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="302" y="220" font-size="10" fill="#737373" text-anchor="middle">中央区</text>
+
+                {/* 灘区 */}
+                <path d="M310,190 L340,175 L365,195 L350,225 L330,210 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="340" y="205" font-size="11" fill="#737373" text-anchor="middle">灘区</text>
+
+                {/* 東灘区 */}
+                <path d="M340,175 L370,140 L400,160 L395,200 L365,195 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="375" y="178" font-size="10" fill="#737373" text-anchor="middle">東灘区</text>
+
+                {/* 芦屋市 */}
+                <path d="M400,100 L430,110 L440,160 L400,160 L370,140 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="412" y="138" font-size="11" fill="#737373" text-anchor="middle">芦屋市</text>
+
+                {/* 西宮市 */}
+                <path d="M430,110 L470,100 L485,150 L460,180 L440,160 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="460" y="145" font-size="11" fill="#737373" text-anchor="middle">西宮市</text>
+
+                {/* 尼崎市 */}
+                <path d="M470,100 L495,95 L500,160 L485,180 L460,180 L485,150 Z" fill="#d4d4d4" stroke="#fff" stroke-width="2" />
+                <text x="485" y="140" font-size="10" fill="#737373" text-anchor="middle">尼崎市</text>
+
+                {/* Legend */}
+                <rect x="360" y="280" width="130" height="60" fill="white" stroke="#e5e5e5" rx="6" />
+                <rect x="372" y="295" width="16" height="16" fill="#f9a8d4" stroke="#ec4899" stroke-width="1" rx="2" />
+                <text x="395" y="307" font-size="11" fill="#525252">対応エリア</text>
+                <rect x="372" y="318" width="16" height="16" fill="#d4d4d4" stroke="#a3a3a3" stroke-width="1" rx="2" />
+                <text x="395" y="330" font-size="11" fill="#525252">その他の地域</text>
+              </svg>
+            </div>
+
+            {/* Area List */}
+            <div class="grid grid-cols-2 gap-4 max-w-md mx-auto">
+              {["神戸市西区", "明石市"].map((area) => (
+                <div class="flex items-center gap-2 p-3 bg-sakura-50 rounded-lg">
+                  <CheckCircle className="w-5 h-5 text-sakura-600" />
+                  <span class="font-medium text-neutral-800">{area}</span>
+                </div>
+              ))}
+            </div>
+
+            <p class="mt-6 text-sm text-neutral-500 text-center">
+              ※ 上記以外の地域についてはご相談ください
+            </p>
+          </div>
+        </div>
+      </FadeInSection>
+    </Container>
+  </section>
+
+  {/* Important Documents Section */}
+  <section class="py-16 md:py-20 bg-sakura-50">
+    <Container>
+      <FadeInSection client:idle>
+        <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-8 text-center">
+          重要書類
+        </h2>
+        <div class="max-w-xl mx-auto">
+          <div class="bg-white rounded-2xl p-6 shadow-sm border border-neutral-100">
+            <ul class="space-y-4">
+              <li class="p-3 bg-neutral-50 rounded-lg">
+                <a
+                  href="/documents/重要事項説明書.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-between hover:text-sakura-600 transition-colors"
+                >
+                  <span class="font-medium text-neutral-800">重要事項説明書</span>
+                  <span class="text-sm text-sakura-600">PDF</span>
+                </a>
+              </li>
+              <li class="p-3 bg-neutral-50 rounded-lg">
+                <a
+                  href="/documents/運営規定.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-between hover:text-sakura-600 transition-colors"
+                >
+                  <span class="font-medium text-neutral-800">運営規程</span>
+                  <span class="text-sm text-sakura-600">PDF</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </FadeInSection>
+    </Container>
+  </section>
+
+  {/* FAQ Section */}
+  <section class="py-16 md:py-20">
+    <Container>
+      <FadeInSection client:idle>
+        <h2 class="text-2xl md:text-3xl font-bold text-neutral-900 mb-12 text-center">
+          よくあるご質問
+        </h2>
+      </FadeInSection>
+
+      <div class="max-w-3xl mx-auto">
+        <FAQ
+          client:idle
+          items={[
+            {
+              question: "ケアマネジャーの費用はかかりますか？",
+              answer: "居宅介護支援（ケアマネジメント）は介護保険が適用されるため、利用者の自己負担はありません。",
+            },
+            {
+              question: "どのような方が利用できますか？",
+              answer: "要介護認定を受けた方（要介護1〜5）が対象となります。要支援の方は地域包括支援センターが担当します。",
+            },
+            {
+              question: "サービス開始までどのくらいかかりますか？",
+              answer: "ご相談から約1〜2週間でサービスを開始できます。緊急の場合はご相談ください。",
+            },
+          ]}
+        />
+      </div>
+    </Container>
+  </section>
+
+  <CTASection />
+</ServiceLayout>

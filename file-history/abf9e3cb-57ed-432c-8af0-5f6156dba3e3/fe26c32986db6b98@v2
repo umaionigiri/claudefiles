@@ -1,0 +1,97 @@
+# 合同会社あいのみ 企業ホームページ - プロジェクト進捗
+
+## 完了フェーズ
+
+### ✅ Phase 1: 要件定義（完了）
+- `.kiro/specs/corporate-website/requirements.md` を EARS 形式で生成（91件）
+- o3 MCP レビュー完了、指摘事項修正済み
+
+### ✅ Phase 2: 技術設計（完了）
+- `.kiro/specs/corporate-website/design.md` 生成済み
+- `.kiro/specs/corporate-website/research.md` 調査ログ作成済み
+- Context7 による最新ドキュメント調査完了（Astro 5, Motion.dev, Tailwind v4, GSAP）
+
+### ✅ Phase 3: 設計バリデーション（完了・GO判定）
+- o3 MCP による徹底レビュー実施
+- 12件の指摘事項を修正後、GO判定取得
+
+### ✅ Phase 4: タスク生成（完了）
+- `.kiro/specs/corporate-website/tasks.md` 生成済み
+- 21 メジャータスク、約80サブタスク
+- 91/91 要件カバレッジ (100%)
+
+### ✅ Phase 5: PR作成・マージ（完了）
+- develop ブランチへ PR #1 作成・マージ済み
+- README.md、CLAUDE.md 更新済み
+
+---
+
+## 現在の状態
+
+```
+[✅] 要件定義 → [✅] 技術設計 → [✅] タスク生成 → [▶️] 実装
+                                                    ↑今ここ
+```
+
+### 作業環境
+- **Worktree**: `.worktrees/feature/initial-setup` 作成済み
+- **ブランチ**: `feature/initial-setup` (develop からの最新コミット)
+
+---
+
+## 実装フェーズ計画
+
+### タスク実行方針
+
+tasks.md の21メジャータスクを順次実行する。並列実行可能タスクには `(P)` マーカーが付与されている。
+
+### 実行順序
+
+| 優先度 | タスク | 概要 |
+|--------|--------|------|
+| 1 | Task 1 | プロジェクト基盤セットアップ |
+| 2 | Task 2 | 共通レイアウトコンポーネント |
+| 3 | Task 3 | ヘッダー・フッターコンポーネント |
+| 4 | Task 4-10 | 各ページ実装 |
+| 5 | Task 11-15 | アニメーション・インタラクション |
+| 6 | Task 16-19 | SEO・パフォーマンス最適化 |
+| 7 | Task 20-21 | デプロイ・最終検証 |
+
+### 最初のタスク: Task 1 - プロジェクト基盤セットアップ
+
+**サブタスク**:
+1. **1.1** Astro 5.x プロジェクト初期化、React・Tailwind CSS v4 追加
+2. **1.2** ディレクトリ構造作成
+3. **1.3** Tailwind CSS v4 テーマ設定（@theme ディレクティブ）
+4. **1.4** フォントセットアップ（@fontsource/noto-sans-jp）
+
+**要件カバレッジ**: NF-001, NF-002, NF-003, NF-004, NF-012, NF-017, UI-014, UI-015, UI-016, UI-017
+
+---
+
+## 技術スタック（確定）
+
+| カテゴリ | 選定 | バージョン |
+|---------|------|-----------|
+| SSG | Astro | ^5.0 |
+| UI Framework | React | ^19.0 |
+| Animation | Motion.dev | ^11.0 |
+| Animation（動的） | GSAP | ^3.12 |
+| CSS | Tailwind CSS | ^4.0 |
+| Fonts | @fontsource/noto-sans-jp | - |
+| Icons | Lucide Icons | ^0.300 |
+| Hosting | Cloudflare Pages | - |
+
+---
+
+## 検証方法
+
+各タスク完了後:
+1. `npm run dev` で開発サーバー確認
+2. `npm run build` でビルド成功確認
+3. `npm run lint && npm run type-check` でコード品質確認
+
+最終検証:
+1. Lighthouse スコア確認（Performance 90+, Accessibility 100, SEO 100）
+2. WCAG 2.1 AA 準拠チェック
+3. Core Web Vitals 達成確認（LCP < 2.5s, FID < 100ms, CLS < 0.1）
