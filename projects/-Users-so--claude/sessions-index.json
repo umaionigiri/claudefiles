@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "sessionId": "b1232121-dec0-4a18-849a-ab8e67753311",
+      "fullPath": "/Users/so/.claude/projects/-Users-so--claude/b1232121-dec0-4a18-849a-ab8e67753311.jsonl",
+      "fileMtime": 1769354006412,
+      "firstPrompt": "Implement the following plan:  # ~/.claude 設定ファイル改善計画  公式ベストプラクティス（https://code.claude.com/docs/en/best-practices）との差分分析結果  ---  ## 改善点サマリー  | 優先度 | 対象 | 問題 | 改善内容 | |--------|------|------|----------…",
+      "messageCount": 15,
+      "created": "2026-01-25T15:07:23.880Z",
+      "modified": "2026-01-25T15:13:26.386Z",
+      "gitBranch": "main",
+      "projectPath": "/Users/so/.claude",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "ae9b566f-0cd3-4a9a-9547-9a1ef1dbcd51",
+      "fullPath": "/Users/so/.claude/projects/-Users-so--claude/ae9b566f-0cd3-4a9a-9547-9a1ef1dbcd51.jsonl",
+      "fileMtime": 1769349264569,
+      "firstPrompt": "! ls",
+      "messageCount": 9,
+      "created": "2026-01-25T13:47:02.429Z",
+      "modified": "2026-01-25T13:54:24.556Z",
+      "gitBranch": "main",
+      "projectPath": "/Users/so/.claude",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "263b5cef-f22a-49f3-833b-265e43996650",
+      "fullPath": "/Users/so/.claude/projects/-Users-so--claude/263b5cef-f22a-49f3-833b-265e43996650.jsonl",
+      "fileMtime": 1769350310571,
+      "firstPrompt": "Implement the following plan:  # ~/.claude 不要ファイル削除計画  ## 調査結果サマリー  | カテゴリ | サイズ | ファイル数 | 削除推奨度 | 理由 | |----------|--------|-----------|-----------|------| | **debug/** | 26 MB | 71 | 🔴 高 | 自動生成デバッグ…",
+      "messageCount": 17,
+      "created": "2026-01-25T13:54:30.015Z",
+      "modified": "2026-01-25T14:11:50.557Z",
+      "gitBranch": "main",
+      "projectPath": "/Users/so/.claude",
+      "isSidechain": false
+    },
+    {
+      "sessionId": "d5a75c99-f96a-4804-bc96-58785c4f359f",
+      "fullPath": "/Users/so/.claude/projects/-Users-so--claude/d5a75c99-f96a-4804-bc96-58785c4f359f.jsonl",
+      "fileMtime": 1769572373798,
+      "firstPrompt": "Implement the following plan:  # Skills 改善計画  rough-estimate スキルと公式ベストプラクティスを基準に、他のスキルを改善する計画。  ---  ## 現状分析  ### rough-estimate の優れた構造  | 要素 | 内容 | |------|------| | description | 複数行、トリガーフレーズ含む | |…",
+      "messageCount": 5,
+      "created": "2026-01-25T15:15:05.856Z",
+      "modified": "2026-01-25T15:19:28.752Z",
+      "gitBranch": "main",
+      "projectPath": "/Users/so/.claude",
+      "isSidechain": false
+    }
+  ],
+  "originalPath": "/Users/so/.claude"
+}
