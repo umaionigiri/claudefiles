@@ -1,0 +1,115 @@
+# 合同会社あいのみ サイト - 写真追加計画
+
+## 作業環境
+
+**Worktree**: `/Users/so/MyWorkSpace/personal/care-inomi/.worktrees/feature/initial-setup`
+
+---
+
+## 概要
+
+サイトの視覚的インパクトを向上させるため、背景やカード部分に写真を配置する。**gemini-imagen4 MCPサーバー**（Imagen 4.0）で画像を生成し、既存コンポーネントに組み込む。
+
+---
+
+## 事前準備（完了済み）
+
+1. ✅ gemini-imagen4 MCP設定ファイル作成済み
+   - `/Users/so/.claude/plugins/marketplaces/claude-plugins-official/external_plugins/gemini-imagen4/.mcp.json`
+
+2. 🔲 APIキーを.mcp.jsonに直接設定（Claude Code再起動後に利用可能）
+
+---
+
+## Phase 1: 必須画像（4枚）
+
+### 1. hero-bg.jpg - ホームヒーロー背景
+- **保存先**: `public/images/hero-bg.jpg`
+- **サイズ**: 1920x1080
+- **プロンプト**: Bright and warm office scene, professional care manager consulting with employees about elderly care support, natural lighting, clean modern Japanese office environment, people smiling and having positive conversation, high quality realistic photograph
+
+### 2. service-industrial.jpg - 産業ケアマネカード
+- **保存先**: `public/images/service-industrial.jpg`
+- **サイズ**: 800x600
+- **プロンプト**: Modern Japanese corporate meeting room, HR professional and care consultant discussing employee support program, documents on table, bright professional atmosphere, warm natural light, realistic photograph
+
+### 3. service-care.jpg - ケアマネジメントカード
+- **保存先**: `public/images/service-care.jpg`
+- **サイズ**: 800x600
+- **プロンプト**: Care manager creating care plan with elderly person's family, warm home-like office setting, documents and tablet on table, compassionate professional atmosphere, natural lighting, realistic photograph
+
+### 4. service-training.jpg - 研修カード
+- **保存先**: `public/images/service-training.jpg`
+- **サイズ**: 800x600
+- **プロンプト**: Corporate training seminar in bright Japanese conference room, professional presenter with slides, engaged business audience, modern office environment, natural lighting, realistic photograph
+
+---
+
+## 修正ファイル
+
+### 1. AnimatedCard.tsx - 画像プロップ追加
+**パス**: `src/components/sections/AnimatedCard.tsx`
+
+```tsx
+// Props に image?: string を追加
+// カード上部に画像表示領域を追加
+// 画像がない場合は現状のアイコン表示を維持
+```
+
+### 2. constants.ts - SERVICE_CARDSに画像パス追加
+**パス**: `src/lib/constants.ts`
+
+```ts
+// SERVICE_CARDS に image プロパティを追加
+{
+  id: "industrial-care",
+  icon: "Briefcase",
+  image: "/images/service-industrial.jpg",
+  ...
+}
+```
+
+### 3. index.astro - ヒーロー背景指定（現状で対応済み）
+**パス**: `src/pages/index.astro`
+
+Hero.astroのデフォルト値が`/images/hero-bg.jpg`のため、画像を配置すれば自動適用。
+
+---
+
+## 実装手順
+
+### Step 1: MCP設定にAPIキーを設定
+`.mcp.json`を更新してAPIキーを直接設定後、Claude Code再起動
+
+### Step 2: 画像生成（gemini-imagen4使用）
+`mcp__gemini-imagen4__generate_image_from_text` で4枚を順次生成:
+- hero-bg.jpg (16:9)
+- service-industrial.jpg (4:3)
+- service-care.jpg (4:3)
+- service-training.jpg (4:3)
+
+生成された画像を `public/images/` に移動
+
+### Step 3: AnimatedCard.tsx を修正
+- `image?: string` プロップを追加
+- カード上部に画像表示領域を追加（aspect-ratio: 4/3）
+- 画像がない場合は現状のアイコンのみ表示
+
+### Step 4: constants.ts を修正
+`SERVICE_CARDS` に `image` プロパティを追加
+
+### Step 5: 動作確認
+`npm run dev` で表示確認
+
+---
+
+## 検証方法
+
+```bash
+cd /Users/so/MyWorkSpace/personal/care-inomi/.worktrees/feature/initial-setup
+npm run dev
+```
+
+- ホームページでヒーロー背景画像が表示されること
+- サービスカードに画像が表示されること
+- モバイル表示で適切にレスポンシブ対応されていること
