@@ -6,8 +6,9 @@ Claude Code（`~/.claude/`）の設定ファイルを管理するリポジトリ
 
 ```
 ~/.claude/
+├── .gitignore             # ランタイムデータ除外
 ├── CLAUDE.md              # グローバル指示（全プロジェクト共通）
-├── settings.json          # 権限・Hooks・MCP設定
+├── settings.json          # 権限・Hooks・環境変数・MCP設定
 ├── agents/                # カスタムエージェント（6種）
 ├── commands/              # スラッシュコマンド
 │   ├── slash-guide.md
@@ -42,7 +43,14 @@ Git 読み取り系（`status`, `diff`, `log`, `branch`, `worktree`）、`npm ru
 |--------|------|
 | **PreToolUse** | `rm -rf` 等の危険コマンド・`git push --force` をブロック |
 | **PostToolUse** | `.js/.ts/.jsx/.tsx` ファイル保存時に prettier 自動整形 |
+| **Stop** | タスク完了時の通知 |
 | **Notification** | terminal-notifier でデスクトップ通知 |
+
+### Environment
+
+| 変数 | 値 | 説明 |
+|------|-----|------|
+| `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` | `70` | コンテキスト70%でオートコンパクション |
 
 ### MCP 連携
 

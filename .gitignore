@@ -1,0 +1,38 @@
+# ===== Runtime data (auto-generated, no tracking needed) =====
+debug/
+projects/
+file-history/
+session-env/
+shell-snapshots/
+downloads/
+telemetry/
+paste-cache/
+backups/
+ide/
+todos/
+tasks/
+plans/
+data/
+statsig/
+cache/
+
+# Plugin runtime
+plugins/blocklist.json*
+plugins/marketplaces/
+
+# Session state
+history.jsonl
+stats-cache.json
+mcp-needs-auth-cache.json
+
+# Local settings (environment-specific)
+settings.local.json
+
+# System files
+.DS_Store
+*.lock
+
+# ===== Tracked files =====
+# CLAUDE.md, README.md, settings.json
+# agents/, commands/, skills/
+# plugins/known_marketplaces.json

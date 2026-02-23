@@ -1,379 +1,141 @@
-# Rough Estimate Document Structure
+# 概算見積書 ドキュメント構成
 
-Standard section structure and guidelines for rough estimates.
+## セクション構成
 
-## Table of Contents
-
-- Section Structure (1-19)
-- Value Proposition Structure
-- Role Assignment (Joint Projects)
-- Next Steps
-- Mermaid Diagram Usage Guide
-
-## Section Structure
-
-### 1. Header Information
+### 1. ヘッダー情報
 ```markdown
-# {{Project Name}} Rough Estimate
+# {{案件名}} 概算見積書
 
-| Item | Content |
+| 項目 | 内容 |
+|------|------|
+| 作成日 | {{日付}} |
+| 版数 | v1.0 |
+| 有効期限 | {{有効期限（通常1ヶ月）}} |
+| 提出者 | 合同会社サイビット |
+```
+
+### 2. 概算見積り注意書き
+```markdown
+## 本見積書について
+- 本見積書は**概算見積り**であり、正式なお見積りは別途ご提示いたします
+- 金額はすべて**税抜き**表示です
+- 詳細なヒアリング・要件定義後、正式見積りにて変動する可能性があります
+```
+
+### 3. エグゼクティブサマリー
+- 1〜2段落で概要
+- 主要な価値提案と期待される効果
+
+### 4. 現状分析
+```markdown
+| # | 課題 | 影響 | 優先度 |
+|---|------|------|--------|
+| 1 | ... | ... | 高/中/低 |
+```
+
+### 5. ソリューション概要
+- 技術説明（適切なレベル）、導入効果、事例（あれば）
+
+### 6. アーキテクチャ選択肢（該当時）
+```markdown
+| 観点 | オプションA | オプションB | オプションC |
+|------|-------------|-------------|-------------|
+| 初期コスト | ◎ 低い | ○ 中程度 | △ 高い |
+| ランニング | △ 高い | ○ 中程度 | ◎ 低い |
+```
+
+Mermaid 図はシステム構成図（`graph TB` + subgraph）、ガント（`gantt`）、シーケンス図（`sequenceDiagram`）を案件に応じて使用。
+
+### 7. 推奨アーキテクチャ
+- 推奨理由を明記
+
+### 8. 技術設計詳細（該当時）
+- プロセスフロー、セキュリティ設計、非機能要件
+
+### 9. 導入ロードマップ
+Gantt チャートで表示。`axisFormat %m/%d` で日付表示を簡潔に。
+
+### 9.5. 技術実現性（該当時）
+本文にはサマリーのみ、詳細は別ドキュメントで。
+```markdown
+| 技術 | 検証結果 |
 |------|---------|
-| Date | {{Date}} |
-| Version | v1.0 |
-| Valid Until | {{Validity Date (typically 1 month)}} |
-| Submitted By | Scibit LLC |
+| GA4→BigQuery連携 | ✅ 実現可能 |
+| Claude API | ✅ 実現可能 |
 ```
 
-### 2. Rough Estimate Disclaimer
+### 10. 概算費用
+- 前提条件、オプション別費用内訳、比較サマリー、ROI分析
+
+### 11. リスクと対策
 ```markdown
-## About This Estimate
-
-- This is a **rough estimate**; formal quotation will be provided separately
-- All amounts are **tax-excluded**
-- Final costs may vary after detailed requirements gathering
+| リスク | 影響度 | 発生確率 | 対策 |
+|--------|--------|----------|------|
 ```
 
-### 3. Executive Summary
-- Brief overview in 1-2 paragraphs
-- State key value proposition and expected benefits
+### 12. 成功要因
+- KPI例、重要成功要因
 
-### 4. Current Situation Analysis
-```markdown
-## Current Situation
+### 13-14. 参考情報・付録
 
-### Current Environment
-- Existing systems and operations
+### 15. 価値提案構造
 
-### Challenge List
-| # | Challenge | Impact | Priority |
-|---|-----------|--------|----------|
-| 1 | ... | ... | High/Med/Low |
-```
-
-### 5. Solution Overview
-- Technical explanation (appropriate level)
-- Implementation benefits
-- Case studies (if available)
-
-### 6. Architecture Options (if applicable)
-```markdown
-## Architecture Options
-
-### Comparison Table
-| Aspect | Option A | Option B | Option C |
-|--------|----------|----------|----------|
-| Initial Cost | ◎ Low | ○ Medium | △ High |
-| Running Cost | △ High | ○ Medium | ◎ Low |
-| Scalability | ... | ... | ... |
-```
-
-**Mermaid Diagram Example (System Architecture):**
-```mermaid
-graph TB
-    subgraph Client Layer
-        A[Web Browser]
-    end
-    subgraph Application Layer
-        B[Web App]
-        C[API]
-    end
-    subgraph Data Layer
-        D[(Database)]
-    end
-    A --> B --> C --> D
-```
-
-### 7. Recommended Architecture
-- Clear recommendation rationale
-- Alignment with client requirements
-
-**Selection Guide (Flowchart):**
-```mermaid
-flowchart TD
-    A[Confirm Requirements] --> B{Data Volume}
-    B -->|Large| C[Option A Recommended]
-    B -->|Medium| D[Option B Recommended]
-    B -->|Small| E[Option C Recommended]
-```
-
-### 8. Technical Design Details (if applicable)
-- Process flow (sequence diagram)
-- Security design
-- Non-functional requirements
-
-**Sequence Diagram Example:**
-```mermaid
-sequenceDiagram
-    participant U as User
-    participant A as App
-    participant D as DB
-    U->>A: Request
-    A->>D: Query
-    D-->>A: Result
-    A-->>U: Response
-```
-
-### 9. Implementation Roadmap
-**Gantt Chart:**
-```mermaid
-gantt
-    title Project Schedule
-    dateFormat  YYYY-MM-DD
-    axisFormat  %m/%d
-    section Phase 1
-    Requirements      :a1, 2024-01-01, 2w
-    Design            :a2, after a1, 2w
-    section Phase 2
-    Development       :b1, after a2, 4w
-    Testing           :b2, after b1, 2w
-```
-
-**Gantt Date Display Tips:**
-- Adding `axisFormat %m/%d` displays X-axis dates as `01/15` format without year
-- `dateFormat` is for data definition (YYYY-MM-DD recommended), `axisFormat` is for display
-
-### 9.5. Technical Feasibility (if applicable)
-
-For projects requiring technical validation, specify feasibility. Keep main document as summary only, with details in separate document:
-
-**Main Document Summary Template:**
-```markdown
-### Technical Feasibility
-
-> All technologies verified for feasibility based on latest documentation.
-> See "[Technical Feasibility Report](technical-feasibility-report.md)" for details.
-
-| Technology | Verification Result |
-|------------|---------------------|
-| GA4→BigQuery Integration | ✅ Feasible |
-| E-commerce Admin API (assuming Shopify) | ✅ Feasible |
-| Claude API | ✅ Feasible |
-| Streamlit Dashboard | ✅ Feasible |
-```
-
-**Separate Document (Technical Feasibility Report) Contents:**
-- Verification sources (official documentation, versions)
-- Specific code examples and configurations
-- Technical risks and mitigation strategies
-- Conclusions
-
-### 10. Estimated Costs
-- State assumptions
-- Cost breakdown by option
-- Comparison summary
-- ROI analysis (if applicable)
-
-### 11. Risks and Mitigation
-```markdown
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| ... | High/Med/Low | High/Med/Low | ... |
-```
-
-### 12. Success Factors
-- KPI examples
-- Critical success factors
-
-### 13. Reference Information
-- Technical documentation links
-- Related product information
-
-### 14. Appendix (if applicable)
-- Technical stack details
-- Checklists
-- Detailed specifications
-
-### 15. Value Proposition Structure
-
-Explain value through: Challenge → Solution → Benefit
-
-```mermaid
-flowchart LR
-    A[Target Audience] --> B[Current Challenge]
-    B --> C[Proposed Solution]
-    C --> D[Expected Benefit]
-```
-
-**Value Proposition by Stakeholder:**
-```markdown
-## Value Proposition by Stakeholder
-
-| Stakeholder | Current Challenge | Solution | Expected Benefit |
-|-------------|-------------------|----------|------------------|
-| Executives | Lack of data for investment decisions | Data-driven analysis reports | Faster decision-making |
-| Managers | Declining operational efficiency | Automation system implementation | 30% effort reduction |
-| Operations Staff | Manual work burden | Intuitive UI design | Time savings |
-| End Users | Inconsistent service quality | AI-assisted features | Improved satisfaction |
-```
-
-**Before/After Comparison:**
-```markdown
-### Implementation Benefits (Before/After)
-
-| Aspect | Before | After | Improvement |
-|--------|--------|-------|-------------|
-| Processing Time | XXh/case | XXmin/case | XX% reduction |
-| Accuracy | XX% | XX% | XX% improvement |
-| Cost | ¥XXX/case | ¥XX/case | XX% reduction |
-```
-
-### 16. Role Assignment (for Joint Projects)
-
-For multi-company projects, clarify roles using RACI format:
+課題 → 解決策 → 効果 のフローで説明。
 
 ```markdown
-## Role Assignment
+| 対象者 | 現状の課題 | 解決策 | 期待される効果 |
+|--------|-----------|--------|---------------|
+| 経営層 | ... | ... | ... |
+| 現場担当者 | ... | ... | ... |
+```
 
-### Stakeholders
-| Organization | Contact | Role |
-|--------------|---------|------|
-| End Client | {{Name}} | Client |
-| Prime Contractor | {{Company}} | Overall Development Management |
-| Scibit | - | AI Technical Support |
-
-### RACI Matrix
-| Task | Client | Prime | Scibit |
+Before/After 比較:
+```markdown
+| 観点 | Before | After | 改善率 |
 |------|--------|-------|--------|
-| Requirements Definition | A | R | C |
-| System Design | I | R | C |
-| AI Design & Development | I | A | R |
-| Integration Testing | A | R | C |
-| Operations & Maintenance | I | R | C |
-
-* R=Responsible, A=Accountable, C=Consulted, I=Informed
 ```
 
-### 17. Next Steps
+### 16. 役割分担（協業案件）
 
-Clarify post-submission actions:
-
+RACI 形式:
 ```markdown
-## Next Steps
+| タスク | クライアント | 元請け | サイビット |
+|--------|-------------|--------|-----------|
+| 要件定義 | A | R | C |
+| AI設計・開発 | I | A | R |
 
-### Confirmation Items
-The following items need verification to improve estimate accuracy:
-
-| # | Item | Purpose | Priority |
-|---|------|---------|----------|
-| 1 | {{Item 1}} | Requirements refinement | High |
-| 2 | {{Item 2}} | Technical validation | High |
-| 3 | {{Item 3}} | Scope confirmation | Medium |
-
-### Recommended Actions
-1. **[High]** {{Action 1}} - {{Deadline}}
-2. **[Medium]** {{Action 2}} - {{Deadline}}
-3. **[Low]** {{Action 3}} - Optional
-
-### Timeline
-```mermaid
-gantt
-    title Next Steps
-    dateFormat  YYYY-MM-DD
-    axisFormat  %m/%d
-    section Preparation
-    Hearing           :a1, {{Date}}, 3d
-    Requirements Fix  :a2, after a1, 5d
-    section Quotation
-    Formal Quote      :b1, after a2, 5d
-    Quote Submission  :milestone, after b1, 0d
-```
+※ R=実行責任, A=説明責任, C=相談, I=報告
 ```
 
-### 18. Terms & Disclaimers
-
-Required items:
-- This is a rough estimate
-- Tax-excluded pricing
-- Validity period (typically 1 month)
-- Inclusions/Exclusions
-- Variable factors
-
-* See disclaimers.md via SKILL.md for detailed templates
-
-### 19. Contact Information
+### 17. 次のステップ
 ```markdown
-## Contact
+| # | 確認事項 | 目的 | 優先度 |
+|---|---------|------|--------|
+```
 
-For questions or inquiries regarding this estimate, please contact:
+### 18. 注意事項・免責事項
+※ disclaimers.md の詳細テンプレートを参照
 
-**Scibit LLC**
+### 19. お問い合わせ先
+```markdown
+**合同会社サイビット**
 - Email: contact@scibit.ai
 ```
 
-## Mermaid Diagram Usage Guide
+## Mermaid 図の使い分け
 
-### Diagram Types by Purpose
+| 用途 | 図の種類 |
+|------|---------|
+| システム構成 | `graph TB/LR` + subgraph |
+| プロセスフロー | `flowchart TD` |
+| フェーズ計画 | `timeline` |
+| 処理順序 | `sequenceDiagram` |
+| スケジュール | `gantt` |
+| 状態遷移 | `stateDiagram-v2` |
+| 価値フロー | `flowchart LR` |
 
-| Purpose | Diagram Type | Use Case |
-|---------|--------------|----------|
-| System Architecture | `graph TB/LR` with subgraph | Architecture diagrams, service overview |
-| Process Flow | `flowchart TD` | Decision trees, branching logic |
-| Phase Planning | `timeline` | Feature roadmap by phase |
-| Sequential Processing | `sequenceDiagram` | API integration, user flows |
-| Schedule | `gantt` | Project planning, implementation schedule |
-| State Transitions | `stateDiagram-v2` | Status management |
-| Value Flow | `flowchart LR` | Challenge → Solution → Benefit |
-
-### Extended Patterns
-
-#### Timeline (Phased Planning Visualization)
-```mermaid
-timeline
-    title Feature Roadmap
-    section Phase 1
-        Basic Features : Diagnostics
-                       : Results Display
-    section Phase 2
-        Extended Features : Data Analysis
-                          : Report Output
-    section Phase 3
-        Advanced : AI Learning
-                 : Matching
-```
-
-#### Complex System Architecture (using subgraph)
-```mermaid
-graph TB
-    subgraph Client Layer
-        A[Web App]
-        B[Mobile App]
-    end
-    subgraph Service Layer
-        C[API Gateway]
-        D[Auth Service]
-        E[Business Logic]
-    end
-    subgraph AI Layer
-        F[Inference API]
-        G[Training Pipeline]
-    end
-    subgraph Data Layer
-        H[(Main DB)]
-        I[(Analytics DB)]
-    end
-    A & B --> C
-    C --> D & E
-    E --> F
-    F --> G
-    E --> H
-    G --> I
-```
-
-#### Selection Guide (Flowchart)
-```mermaid
-flowchart TD
-    A[Confirm Project Characteristics] --> B{Budget Scale?}
-    B -->|¥10M+| C{Uncertainty Level?}
-    B -->|Under ¥10M| D[Lump-sum Investment]
-    C -->|High| E[Phased Investment]
-    C -->|Low| D
-    E --> F[Proceed to Phase Division Design]
-    D --> G[Proceed to Standard Estimation]
-```
-
-### Styling Best Practices
-- Use Japanese/English labels appropriate to audience
-- Use subgraph for logical grouping
-- Use colors sparingly (only when emphasis needed)
-- Limit timeline to 3-4 phases
-- Split complex diagrams into multiple explanatory diagrams
+**ベストプラクティス:**
+- 顧客に応じて日本語/英語ラベル使用
+- subgraph で論理グルーピング
+- 色は控えめに（強調時のみ）
+- timeline は3-4フェーズまで

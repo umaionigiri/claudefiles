@@ -1,418 +1,177 @@
-# Cost Estimation Methods
+# 費用算出方法
 
-Standard methods for effort calculation and cost estimation in rough estimates.
+## 基本単価
 
-## Table of Contents
+| 項目 | 原価 | 販売価格 | 備考 |
+|------|------|----------|------|
+| 時間単価 | ¥15,000/h | ¥22,500/h | 1.5倍マージン |
+| 日額 | ¥120,000 | ¥180,000 | 8時間 |
+| 月額 | ¥2,400,000 | ¥3,600,000 | 20日 |
 
-- Base Rates
-- Phase-based Effort Ratios
-- Cost Structure Patterns
-- Multi-layer Cost Structure
-- Cost Breakdown Templates
-- Option Comparison Summary
-- ROI Analysis
-- Phased Investment Pattern (Annual Cost Estimation)
-- Estimation Accuracy Levels
-- Effort Estimation Tips
-- Calculation Verification Flow
-- Checklist
+## 利益率計算
 
-## Base Rates
-
-| Item | Cost Rate | Selling Price | Notes |
-|------|-----------|---------------|-------|
-| Hourly Rate | ¥15,000/h | ¥22,500/h | 1.5x margin |
-| Daily Rate | ¥120,000 | ¥180,000 | 8 hours |
-| Monthly Rate | ¥2,400,000 | ¥3,600,000 | 20 days |
-
-## Profit Margin Calculation
-
-### Development Cost Margin (1.5x)
-
+### 開発費マージン（1.5倍）
 ```
-Selling Price = Cost × 1.5
-Cost = Selling Price ÷ 1.5
-
-Example:
-- Cost: 100h × ¥15,000 = ¥1,500,000
-- Selling Price = ¥1,500,000 × 1.5 = ¥2,250,000
-- Gross Profit = ¥750,000 (33% margin)
+販売価格 = 原価 × 1.5
+例: 100h × ¥15,000 = ¥1,500,000 → 販売価格 ¥2,250,000（粗利 ¥750,000）
 ```
 
-### Running Cost Margin (20%)
-
+### ランニングコストマージン（20%）
 ```
-Selling Price = Cost ÷ (1 - 0.2) = Cost ÷ 0.8 = Cost × 1.25
-
-Example:
-- Cloud Cost: ¥10,000/month
-- Selling Price = ¥10,000 ÷ 0.8 = ¥12,500/month
-- Margin = ¥2,500 (20% margin)
+販売価格 = 原価 ÷ 0.8 = 原価 × 1.25
+例: クラウド ¥10,000/月 → 販売価格 ¥12,500/月
 ```
 
-### Cost Breakdown Template (with profit)
+## フェーズ別工数比率（MVP開発）
+
+| フェーズ | 比率 | 備考 |
+|---------|------|------|
+| PM・顧客調整 | 10-12% | プロジェクト管理、会議 |
+| 要件定義・設計 | 12-16% | 仕様書、アーキテクチャ設計 |
+| 環境構築 | 10-14% | インフラ、CI/CD、開発環境 |
+| データ移行 | 15-20% | 既存データ移行がある場合 |
+| コア開発 | 20-25% | メイン機能実装 |
+| UI開発 | 10-14% | フロントエンド実装 |
+| テスト・調整 | 10-12% | 単体・結合・システムテスト |
+| 引き渡し | 5-6% | ドキュメント・研修・納品 |
+| バッファ | 4-5% | リスクバッファ |
+
+※ データ移行がない場合は他フェーズに再配分
+
+## 多層コスト構造
+
+```
+ランニングコスト = インフラ層 + サービス層 + 運用層
+```
+
+| 層 | 例 | 変動要因 |
+|----|-----|---------|
+| インフラ | クラウド、DB、ストレージ | データ量、トラフィック |
+| サービス | 外部API、SaaS、ライセンス | 利用量、ユーザー数 |
+| 運用 | 保守、監視、改善 | SLA、カバー範囲 |
+
+## 費用テンプレート
+
+### 初期費用
+```markdown
+| 項目 | 工数 | 単価 | 金額 |
+|------|------|------|------|
+| 要件定義・設計 | XXh | ¥15,000 | ¥XXX,XXX |
+| 環境構築 | XXh | ¥15,000 | ¥XXX,XXX |
+| 開発 | XXh | ¥15,000 | ¥XXX,XXX |
+| テスト | XXh | ¥15,000 | ¥XXX,XXX |
+| PM・管理 | XXh | ¥15,000 | ¥XXX,XXX |
+| **小計** | | | **¥X,XXX,XXX** |
+```
+
+### オプション比較サマリー
+```markdown
+| 項目 | オプションA | オプションB | オプションC |
+|------|-------------|-------------|-------------|
+| 初期費用 | ¥X,XXX,XXX | ¥X,XXX,XXX | ¥X,XXX,XXX |
+| 月額費用 | ¥XXX,XXX | ¥XXX,XXX | ¥XXX,XXX |
+| 年間ランニング | ¥X,XXX,XXX | ¥X,XXX,XXX | ¥X,XXX,XXX |
+| 3年間合計 | ¥XX,XXX,XXX | ¥XX,XXX,XXX | ¥XX,XXX,XXX |
+```
+
+## ROI分析
+
+### 計算式
+```
+ROI = (年間削減効果 - 年間コスト) / 初期投資 × 100%
+投資回収期間 = 初期投資 / (年間削減効果 - 年間コスト)
+```
+
+### 前提表記ルール
+
+| 種類 | 表記例 | 説明 |
+|------|--------|------|
+| 実データ | "20時間/月（実績）" | 顧客提供の実データ |
+| 推定値 | "20時間/月（要確認）" | ヒアリング前の仮定 |
+| 業界平均 | "20時間/月（業界平均）" | 公開データ・調査に基づく |
+
+### ROI テンプレート
+```markdown
+## ROI試算
+
+> ⚠️ 以下は**参考試算**であり、実際の効果は運用条件により異なります。
+
+### 前提（推定値）
+- 現状の作業時間: XX時間/月（要確認）
+- 人件費単価: ¥X,XXX/時間（要確認）
+- 導入後削減率: XX%（自動化による推定）
+
+### 効果試算
+| 項目 | 金額 |
+|------|------|
+| 現状コスト（年間） | ¥X,XXX,XXX |
+| 削減効果（年間） | ¥X,XXX,XXX |
+| システムコスト（年間） | ¥X,XXX,XXX |
+| **純効果（年間）** | **¥X,XXX,XXX** |
+| **投資回収期間** | **約Xヶ月** |
+```
+
+## フェーズ分割投資テンプレート
 
 ```markdown
-### Cost Breakdown
-
-| Item | Amount | Notes |
-|------|--------|-------|
-| Cost (XXh × ¥15,000) | ¥X,XXX,XXX | |
-| Gross Profit (Cost × 0.5) | ¥XXX,XXX | 1.5x margin |
-| **Selling Price** | **¥X,XXX,XXX** | Tax excluded |
+### Phase 1: 検証（Xヶ月）
+| 項目 | 内容 | 費用 |
+|------|------|------|
+| 目的 | 技術検証、PoC | - |
+| 初期費用 | 要件定義・開発 | ¥X,XXX,XXX |
+| ランニング | インフラ・API | ¥XX,XXX/月 |
+| Go/No-go基準 | KPI達成率XX%以上 | - |
 ```
 
-### Running Cost Template (with margin)
-
-```markdown
-### Monthly Running Costs
-
-* Selling Price = Cost ÷ (1 - 0.2) (includes 20% margin)
-
-| Item | Cost (tax excl.) | Selling Price (tax excl.) | Notes |
-|------|------------------|---------------------------|-------|
-| Cloud Infrastructure | ¥XX,XXX | ¥XX,XXX | GCP/AWS |
-| External API Usage | ¥XX,XXX | ¥XX,XXX | Usage-based |
-| **Monthly Total** | **¥XX,XXX** | **¥XX,XXX** | |
-```
-
-## Phase-based Effort Ratios (MVP Development)
-
-| Phase | Ratio | Notes |
-|-------|-------|-------|
-| PM & Client Coordination | 10-12% | Project management, meetings |
-| Requirements & Design | 12-16% | Specifications, architecture design |
-| Environment Setup | 10-14% | Infrastructure, CI/CD, dev environment |
-| Data Migration | 15-20% | When existing data migration required |
-| Core Development | 20-25% | Main feature implementation |
-| UI Development | 10-14% | Frontend implementation |
-| Testing & Adjustments | 10-12% | Unit, integration, system testing |
-| Handover | 5-6% | Documentation, training, delivery |
-| Buffer | 4-5% | Risk buffer |
-
-**Note**: If no data migration, redistribute to other phases.
-
-## Cost Structure Patterns
-
-### On-premise
-```
-Initial Cost: High (server purchase, licenses)
-Running Cost: Low (electricity, maintenance)
-Characteristics: Cost-effective for long-term operation, requires initial investment
-```
-
-### Hybrid
-```
-Initial Cost: Medium
-Running Cost: Medium-High
-Characteristics: Balance of flexibility and control
-```
-
-### Cloud
-```
-Initial Cost: Low (pay-as-you-go)
-Running Cost: High (monthly fees)
-Characteristics: Small start possible, scalable
-```
-
-## Multi-layer Cost Structure
-
-Break down running costs by layer:
-
-```
-Running Cost = Infrastructure Layer + Service Layer + Operations Layer
-```
-
-| Layer | Examples | Variable Factors |
-|-------|----------|------------------|
-| Infrastructure | Cloud usage, DB, storage | Data volume, traffic |
-| Service | External APIs, SaaS, licenses | Usage volume, user count |
-| Operations | Maintenance, monitoring, improvement | SLA, coverage scope |
-
-### Multi-layer Cost Breakdown Template
-```markdown
-### Monthly Running Costs (Multi-layer Structure)
-
-| Layer | Item | Content | Monthly (tax excl.) |
-|-------|------|---------|---------------------|
-| **Infrastructure** | | | |
-| | Cloud Platform | AWS/GCP/Azure | ¥XX,XXX-¥XX,XXX |
-| | Database | RDS/Cloud SQL | ¥XX,XXX-¥XX,XXX |
-| | Storage | S3/GCS | ¥X,XXX-¥XX,XXX |
-| **Service** | | | |
-| | External API | OpenAI API etc. | ¥XX,XXX-¥XXX,XXX |
-| | SaaS Integration | Monitoring tools etc. | ¥X,XXX-¥XX,XXX |
-| **Operations** | | | |
-| | Maintenance Support | Inquiry handling | ¥XXX,XXX |
-| | Monitoring & Ops | 24h monitoring | ¥XX,XXX |
-| **Monthly Total** | | | **¥XXX,XXX-¥XXX,XXX** |
-
-* Range shown to account for usage-based variation
-```
-
-### Scaling Projections
-
-| Scale Stage | Users | Infrastructure | Service | Operations |
-|-------------|-------|----------------|---------|------------|
-| Initial | ~100 | ¥Xm | ¥Xm | ¥Xm |
-| Growth | ~1,000 | ¥XXm | ¥XXm | ¥Xm |
-| Expansion | ~10,000 | ¥XXm | ¥XXXm | ¥XXm |
-
-**Note**: Service layer (especially AI API usage) tends to scale rapidly with usage
-
-## Cost Breakdown Templates
-
-### Initial Costs
-```markdown
-### Initial Costs
-
-| Item | Hours | Rate | Amount |
-|------|-------|------|--------|
-| Requirements & Design | XXh | ¥15,000 | ¥XXX,XXX |
-| Environment Setup | XXh | ¥15,000 | ¥XXX,XXX |
-| Development | XXh | ¥15,000 | ¥XXX,XXX |
-| Testing | XXh | ¥15,000 | ¥XXX,XXX |
-| PM & Management | XXh | ¥15,000 | ¥XXX,XXX |
-| **Subtotal** | | | **¥X,XXX,XXX** |
-```
-
-### Running Costs
-```markdown
-### Monthly Running Costs
-
-| Item | Content | Monthly |
-|------|---------|---------|
-| Infrastructure | Cloud usage | ¥XX,XXX |
-| Maintenance Support | Inquiry handling | ¥XX,XXX |
-| Monitoring & Ops | System monitoring | ¥XX,XXX |
-| **Monthly Total** | | **¥XXX,XXX** |
-```
-
-## Option Comparison Summary
-
-```markdown
-## Cost Comparison Summary
-
-| Item | Option A | Option B | Option C |
-|------|----------|----------|----------|
-| Initial Cost | ¥X,XXX,XXX | ¥X,XXX,XXX | ¥X,XXX,XXX |
-| Monthly Cost | ¥XXX,XXX | ¥XXX,XXX | ¥XXX,XXX |
-| Annual Running | ¥X,XXX,XXX | ¥X,XXX,XXX | ¥X,XXX,XXX |
-| 3-Year Total | ¥XX,XXX,XXX | ¥XX,XXX,XXX | ¥XX,XXX,XXX |
-```
-
-## ROI Analysis
-
-### Formulas
-```
-ROI = (Annual Savings - Annual Cost) / Initial Investment × 100%
-
-Payback Period = Initial Investment / (Annual Savings - Annual Cost)
-```
-
-### Client Terminology Adaptation
-
-Adapt job titles and terms in ROI analysis to client context:
-
-| Generic Term | Client Adaptation Examples |
-|--------------|---------------------------|
-| Consultant | Operations staff, team member, operator |
-| Analysis effort | Aggregation work, report creation, data review |
-| Labor rate | Hourly rate, personnel cost |
-
-**Note:** Always mark assumptions with "(TBC)" or "(to be confirmed)"
-
-### Analysis Template
-```markdown
-## ROI Analysis
-
-> ⚠️ **Note**: The following is a **reference estimate** and actual
-> results will vary based on your operational conditions.
-> Formal ROI evaluation recommended after validation.
-
-### Assumptions (Estimated Values)
-- Current operations staff analysis effort: XX hours/month (TBC)
-- Operations staff labor rate: ¥X,XXX/hour (TBC)
-- Post-implementation reduction rate: XX% (estimated from automation)
-
-### Impact Estimate
-| Item | Amount |
-|------|--------|
-| Current Cost (Annual) | ¥X,XXX,XXX |
-| Savings (Annual) | ¥X,XXX,XXX |
-| System Cost (Annual) | ¥X,XXX,XXX |
-| **Net Benefit (Annual)** | **¥X,XXX,XXX** |
-| **Payback Period** | **~X months** |
-
-### Qualitative Benefits (Not included in ROI)
-| Benefit | Description |
-|---------|-------------|
-| Faster Decision-making | Potential Xx+ improvement vs. current |
-| Reduced Opportunity Loss | Shortened lead time |
-```
-
-### Assumption Notation Rules
-
-| Assumption Type | Notation Example | Description |
-|-----------------|------------------|-------------|
-| Actual Data | "20 hours/month (actual)" | Client-provided real data |
-| Estimated Value | "20 hours/month (TBC)" | Pre-hearing assumption |
-| Industry Standard | "20 hours/month (industry avg.)" | Based on published data/research |
-
-## Phased Investment Pattern
-
-For large-scale or high-uncertainty projects, propose phased investment:
-
-```
-Phase 1 (Validation) → Phase 2 (Expansion) → Phase 3 (Full Operation)
-```
-
-### Phase Division Template
-```markdown
-## Phased Investment Plan
-
-### Phase 1: Validation (X months)
-| Item | Content | Cost |
-|------|---------|------|
-| Objective | Technical validation, PoC | - |
-| Initial Cost | Requirements & development | ¥X,XXX,XXX |
-| Running | Infrastructure & API | ¥XX,XXX/month |
-| Go/No-go Criteria | KPI achievement XX%+ | - |
-
-### Phase 2: Expansion (X months)
-| Item | Content | Cost |
-|------|---------|------|
-| Objective | Feature expansion, data accumulation | - |
-| Additional Development | Feature additions | ¥X,XXX,XXX |
-| Running | Scale-up | ¥XXX,XXX/month |
-| Go/No-go Criteria | XXX users achieved | - |
-
-### Phase 3: Full Operation
-| Item | Content | Cost |
-|------|---------|------|
-| Objective | Full deployment, optimization | - |
-| Additional Development | Enhancement & optimization | ¥X,XXX,XXX |
-| Running | Full scale | ¥XXX,XXX/month |
-```
-
-### Annual Cost Estimation Template
-```markdown
-## Annual Cost Estimate
-
-### Assumptions
-- Operation Start: XXXX/XX
-- Expected Usage: XX cases/month
-
-### Estimate
-| Item | Amount |
-|------|--------|
-| Initial Development | ¥X,XXX,XXX |
-| Annual Running | ¥X,XXX,XXX |
-| **Year 1 Total** | **¥X,XXX,XXX** |
-```
-
-## Estimation Accuracy Levels
-
-| Accuracy Level | Variance Range | Use Case |
-|----------------|----------------|----------|
-| Rough (ROM) | ±50% | Early exploration |
-| Budget Estimate | ±25% | Budget planning |
-| Firm Estimate | ±10% | Purchase decision |
-
-**This skill assumes "Rough (ROM)" level.**
-
-## Effort Estimation Tips
-
-### Increase Factors (coefficient 1.2-1.5)
-- Many existing system integrations
-- Large data migration volume
-- Strict security requirements
-- Many stakeholders
-
-### Decrease Factors (coefficient 0.8-0.9)
-- Prior experience with similar projects
-- Standard package usage
-- Clear requirements
-
-## Calculation Verification Flow
-
-Required verification before outputting estimate.
-
-### Step 1: Unit Price Verification
-```
-Each row: Hours × ¥15,000 = Amount
-
-Example:
-- Requirements: 40h × ¥15,000 = ¥600,000 ✓
-- Development: 120h × ¥15,000 = ¥1,800,000 ✓
-```
-
-### Step 2: Total Verification
-```
-Subtotal = Σ(Each row amount)
-Total = Subtotal + Overhead (if any)
-
-Example:
-- Requirements: ¥600,000
-- Development: ¥1,800,000
-- Testing: ¥450,000
-- Subtotal: ¥2,850,000 ✓
-```
-
-### Step 3: Running Cost Verification
-```
-Annual = Monthly × 12
-Year 1 Total = Initial + Annual Running
-
-Example:
-- Monthly: ¥100,000
-- Annual: ¥1,200,000 ✓
-- Initial: ¥3,000,000
-- Year 1 Total: ¥3,000,000 + ¥1,200,000 = ¥4,200,000 ✓
-```
-
-### Step 4: ROI Verification
-```
-Savings = Current Cost × Reduction Rate
-Net Benefit = Savings - System Cost
-Payback = Initial Investment ÷ Annual Net Benefit
-
-Example:
-- Current: 100h/month × ¥5,000 = ¥500,000/month = ¥6,000,000/year
-- 50% reduction: ¥3,000,000/year
-- System cost: ¥1,200,000/year
-- Net benefit: ¥1,800,000/year ✓
-- ¥3,000,000 initial ÷ ¥1,800,000 = ~1.7 years ✓
-```
-
-### Step 5: Comparison Table Consistency
-```
-Verify all options use same calculation logic:
-- Unit rates are consistent
-- Running cost calculation periods are consistent
-```
-
-## Checklist
-
-Verification items when creating estimates:
-
-**Content:**
-- [ ] Stated assumptions
-- [ ] Specified inclusions/exclusions
-- [ ] Provided costs by option
-- [ ] Explained variable factors
-- [ ] Noted tax-excluded pricing
-- [ ] Set validity period
-
-**Calculations:**
-- [ ] Hours × Rate = Amount matches all rows
-- [ ] Subtotals and totals are accurate
-- [ ] Monthly × 12 = Annual running is accurate
-- [ ] ROI assumptions align with results
-- [ ] Comparison table options use consistent logic
-
-**Profit Margins:**
-- [ ] Development costs include 1.5x margin
-- [ ] Cost and selling price are explicit
-- [ ] Running costs include 20% margin
-- [ ] Margin formula (cost ÷ 0.8) is correct
+## 見積精度レベル
+
+| 精度 | 誤差範囲 | 用途 |
+|------|----------|------|
+| 概算（ROM） | ±50% | 初期検討段階 |
+| 予算見積り | ±25% | 予算策定 |
+| 確定見積り | ±10% | 発注判断 |
+
+**本スキルは「概算（ROM）」レベルを前提とする。**
+
+## 工数補正係数
+
+### 増加要因（係数 1.2-1.5）
+- 既存システム連携が多い
+- データ移行量が大きい
+- セキュリティ要件が厳しい
+- ステークホルダーが多い
+
+### 減少要因（係数 0.8-0.9）
+- 類似プロジェクト経験あり
+- 標準パッケージ活用
+- 要件が明確
+
+## 計算検証フロー
+
+1. **単価検証**: 各行 `工数 × ¥15,000 = 金額`
+2. **合計検証**: 小計の合算 = 合計
+3. **ランニング検証**: 月額 × 12 = 年額
+4. **ROI検証**: 前提と結果の整合
+5. **比較表整合**: 全オプション同一ロジック
+
+## チェックリスト
+
+**内容:**
+- [ ] 前提条件を明記
+- [ ] 含む/含まないを指定
+- [ ] オプション別費用を提示
+- [ ] 変動要因を説明
+- [ ] 税抜き表記を明記
+- [ ] 有効期限を設定
+
+**計算:**
+- [ ] 工数 × 単価 = 金額 が全行一致
+- [ ] 小計・合計が正確
+- [ ] 月額 × 12 = 年額が正確
+- [ ] ROI前提と結果が整合
+- [ ] 比較表が同一ロジック
+
+**利益率:**
+- [ ] 開発費に1.5倍マージン
+- [ ] 原価と販売価格が明示
+- [ ] ランニングに20%マージン
