@@ -1,352 +1,159 @@
-# Estimate Types Guide
+# 見積り種別ガイド
 
-Guidelines for creating estimates by project type.
+## 種別選定
 
-## Table of Contents
-
-- Estimate Type Selection Flow
-- System Development
-- Consulting
-- Maintenance & Operations
-- Training
-- Combined Estimate Types
-
-## Estimate Type Selection
-
-```mermaid
-flowchart TD
-    A[Project Type?] --> B{System Development}
-    A --> C{Consulting}
-    A --> D{Maintenance}
-    A --> E{Training}
-
-    B --> B1[New Development]
-    B --> B2[Feature Addition]
-    B --> B3[System Replacement]
-
-    C --> C1[Technical Advisory]
-    C --> C2[Assessment]
-    C --> C3[Strategy Planning]
-
-    D --> D1[Fully Managed]
-    D --> D2[Spot Support]
-
-    E --> E1[On-site Training]
-    E --> E2[Online Training]
-```
+| 種別 | サブタイプ |
+|------|-----------|
+| システム開発 | 新規開発、機能追加、システム更改 |
+| コンサルティング | 技術アドバイザリー、アセスメント、戦略策定 |
+| 保守・運用 | フルマネージド、スポット対応 |
+| 研修 | オンサイト、オンライン |
 
 ---
 
-## 1. System Development
+## 1. システム開発
 
-### Characteristics
-- Clear deliverables (working software)
-- Phase-based effort estimation
-- Architecture options presentation is effective
+**特徴:** 明確な成果物、フェーズ別工数、アーキテクチャ比較が有効
 
-### Platform Abstraction Pattern (for MVP/POC)
+### プラットフォーム抽象化パターン（MVP/PoC向け）
 
-Use abstracted expressions with assumed platform notes when specific platform is not yet confirmed:
+未確定のプラットフォームは抽象表現＋仮定注記:
 
-| Specific Expression | Abstracted Expression |
-|--------------------|----------------------|
-| Shopify Plus | E-commerce platform (assuming Shopify Plus) |
-| Shopify Admin API | E-commerce Admin API (assuming Shopify Admin API) |
-| Salesforce | CRM (assuming Salesforce) |
-| HubSpot | MA (assuming HubSpot) |
+| 具体表現 | 抽象表現 |
+|---------|---------|
+| Shopify Plus | ECプラットフォーム（Shopify Plus想定） |
+| Salesforce | CRM（Salesforce想定） |
 
-**Use Cases:**
-- MVP stage when platform is not yet determined
-- Phase 2 may require different platform support
-- Multiple client environments expected
+### 必須セクション
+1. 現状分析 → ソリューション概要 → アーキテクチャ選択肢
+2. 技術設計 → 導入ロードマップ（Gantt）
+3. 概算費用（フェーズ別） → リスクと対策
 
-**Example:**
+### 費用構成
 ```markdown
-| Layer | Technology | Selection Rationale |
-|-------|------------|---------------------|
-| E-commerce | E-commerce Admin API (assuming Shopify Admin API) | Sales/customer data retrieval |
-| CRM | CRM API (assuming Salesforce) | Customer management integration |
+| フェーズ | 工数 | 金額 |
+|---------|------|------|
+| 要件定義・設計 | XXh | ¥XXX,XXX |
+| 環境構築 | XXh | ¥XXX,XXX |
+| 開発 | XXh | ¥X,XXX,XXX |
+| テスト | XXh | ¥XXX,XXX |
+| 導入・引き渡し | XXh | ¥XXX,XXX |
+| PM・管理 | XXh | ¥XXX,XXX |
+| **合計** | **XXXh** | **¥X,XXX,XXX** |
 ```
 
-### Required Sections
-1. Current situation analysis
-2. Solution overview
-3. Architecture options (if applicable)
-4. Technical design details
-5. Implementation roadmap (Gantt chart)
-6. Estimated costs (phase breakdown)
-7. Risks and mitigation
+### 規模別目安
 
-### Cost Structure
+| 規模 | 工数 | 期間 | 費用目安 |
+|------|------|------|----------|
+| 小規模（LP、簡易ツール） | 40-80h | 2-4週間 | ¥600,000-1,200,000 |
+| 中規模（業務アプリ） | 200-400h | 2-4ヶ月 | ¥3,000,000-6,000,000 |
+| 大規模（基幹システム） | 800h+ | 6ヶ月以上 | ¥12,000,000+ |
+
+### フェーズ分割投資（システム開発）
 ```markdown
-## Estimated Costs
+### Phase 1: MVP開発（3ヶ月）
+- 目的: コア機能検証 / 費用: ¥3,000,000-5,000,000
+- Go/No-go: ユーザー満足度70%+
 
-### Initial Development Costs
-| Phase | Hours | Amount |
-|-------|-------|--------|
-| Requirements & Design | XXh | ¥XXX,XXX |
-| Environment Setup | XXh | ¥XXX,XXX |
-| Development | XXh | ¥X,XXX,XXX |
-| Testing | XXh | ¥XXX,XXX |
-| Deployment & Handover | XXh | ¥XXX,XXX |
-| PM & Management | XXh | ¥XXX,XXX |
-| **Total** | **XXXh** | **¥X,XXX,XXX** |
+### Phase 2: 機能拡充（3-6ヶ月）
+- 目的: 全機能実装 / 費用: ¥5,000,000-8,000,000
+
+### Phase 3: 最適化（継続）
+- 目的: 性能改善・機能強化 / 費用: ¥2,000,000-4,000,000/年
 ```
 
-### Effort Guidelines (by Scale)
+### 協業案件の考慮事項
 
-| Scale | Estimated Hours | Duration | Cost Range |
-|-------|-----------------|----------|------------|
-| Small (LP, simple tools) | 40-80h | 2-4 weeks | ¥600,000-1,200,000 |
-| Medium (business apps) | 200-400h | 2-4 months | ¥3,000,000-6,000,000 |
-| Large (core systems) | 800h+ | 6+ months | ¥12,000,000+ |
-
-### Phased Investment Option (System Development)
-
-For large-scale or high-uncertainty projects, consider phase division:
-
-```markdown
-## Phased Investment Plan
-
-### Phase 1: MVP Development (3 months)
-- Objective: Core functionality validation
-- Cost: ¥3,000,000-5,000,000
-- Deliverable: Minimum viable system
-- Go/No-go Criteria: User satisfaction 70%+
-
-### Phase 2: Feature Expansion (3-6 months)
-- Objective: Full feature implementation
-- Cost: ¥5,000,000-8,000,000
-- Deliverable: Production-ready system
-- Go/No-go Criteria: Production deployment review
-
-### Phase 3: Optimization (Ongoing)
-- Objective: Performance improvement, enhancement
-- Cost: ¥2,000,000-4,000,000/year
-- Deliverable: Continuous improvement
-```
-
-### Joint Project Considerations (System Development)
-
-| Aspect | Content |
-|--------|---------|
-| Estimate Scope | Scibit's portion only (other parties' development separate) |
-| Interface | Prior agreement on API specifications required |
-| Responsibility Boundary | Specify defect isolation method for integration points |
-| Schedule Coordination | Buffer for parallel development with other parties |
+| 観点 | 内容 |
+|------|------|
+| 見積り範囲 | サイビット担当分のみ |
+| インターフェース | API仕様の事前合意が必要 |
+| 責任境界 | 結合部の障害切り分け方法を明記 |
+| スケジュール | 他社並行開発のバッファを確保 |
 
 ---
 
-## 2. Consulting
+## 2. コンサルティング
 
-### Characteristics
-- Deliverables are reports and recommendations
-- Duration/phase-based estimation
-- Value based on expertise
+**特徴:** 成果物はレポート・提言、期間/フェーズベース
 
-### Required Sections
-1. Background & objectives
-2. Scope
-3. Approach & methodology
-4. Deliverables list
-5. Schedule
-6. Estimated costs
+### 必須セクション
+背景・目的 → スコープ → アプローチ → 成果物一覧 → スケジュール → 費用
 
-### Cost Structure
+### 費用構成
 ```markdown
-## Estimated Costs
-
-### Consulting Fees
-| Phase | Duration | Hours | Amount |
-|-------|----------|-------|--------|
-| Current State Analysis | 1 week | 20h | ¥300,000 |
-| Issue Identification | 1 week | 20h | ¥300,000 |
-| Recommendations | 2 weeks | 40h | ¥600,000 |
-| Presentation | - | 4h | ¥60,000 |
-| **Total** | **4 weeks** | **84h** | **¥1,260,000** |
-
-### Deliverables
-- Current state analysis report
-- Issue & improvement recommendations
-- Roadmap proposal
-- Presentation materials
+| フェーズ | 期間 | 工数 | 金額 |
+|---------|------|------|------|
+| 現状分析 | 1週間 | 20h | ¥300,000 |
+| 課題抽出 | 1週間 | 20h | ¥300,000 |
+| 提言作成 | 2週間 | 40h | ¥600,000 |
+| **合計** | **4週間** | **80h** | **¥1,200,000** |
 ```
 
-### Consulting Types
+### コンサルティング種別
 
-| Type | Duration | Deliverables |
-|------|----------|--------------|
-| Quick Assessment | 1-2 weeks | Brief report |
-| Technical Advisory | Ongoing | Weekly advice |
-| Strategy Planning | 1-2 months | Strategy document |
-| PoC Support | 1-3 months | Validation report + prototype |
-
-### Phased Investment Option (Consulting)
-
-For long-term technical support, consider staged engagement:
-
-```markdown
-### Stage 1: Assessment (2-4 weeks)
-- Objective: Current state understanding, issue extraction
-- Cost: ¥500,000-1,000,000
-- Deliverable: Current state analysis report
-- Next Stage Criteria: Issue severity & priority
-
-### Stage 2: Strategy Development (1-2 months)
-- Objective: Solution design
-- Cost: ¥1,000,000-2,000,000
-- Deliverable: Improvement plan, roadmap
-- Next Stage Criteria: Execution approval
-
-### Stage 3: Ongoing Support (Continuous)
-- Objective: Execution support, establishment
-- Cost: ¥300,000-500,000/month
-- Deliverable: Monthly report, ad-hoc advice
-```
-
-### Joint Project Considerations (Consulting)
-
-| Aspect | Content |
-|--------|---------|
-| Scope | Limited to Scibit's expertise (AI/technology) |
-| Deliverables | Alignment process with other parties |
-| Reporting Line | Reporting method to client/prime contractor |
+| 種別 | 期間 | 成果物 |
+|------|------|--------|
+| クイックアセスメント | 1-2週間 | 簡易レポート |
+| 技術アドバイザリー | 継続 | 週次アドバイス |
+| 戦略策定 | 1-2ヶ月 | 戦略ドキュメント |
+| PoC支援 | 1-3ヶ月 | 検証レポート+プロトタイプ |
 
 ---
 
-## 3. Maintenance & Operations
+## 3. 保守・運用
 
-### Characteristics
-- Monthly-based ongoing contract
-- SLA definition is critical
-- Clear coverage scope
+**特徴:** 月額ベースの継続契約、SLA定義が重要
 
-### Required Sections
-1. Target system
-2. Service content
-3. SLA (Service Level)
-4. Support structure
-5. Monthly fees
-6. Contract terms
-
-### Cost Structure
+### 費用構成
 ```markdown
-## Maintenance & Operations Costs
+| プラン | 対応時間 | 月間稼働上限 | 月額 |
+|--------|----------|-------------|------|
+| ライト | 平日 10-18時 | 10hまで | ¥150,000 |
+| スタンダード | 平日 9-21時 | 20hまで | ¥300,000 |
+| プレミアム | 24/7/365 | 40hまで | ¥600,000 |
 
-### Monthly Base Fee
-| Plan | Coverage Hours | Monthly Capacity | Monthly Fee |
-|------|----------------|------------------|-------------|
-| Light | Weekdays 10-18 | Up to 10h | ¥150,000 |
-| Standard | Weekdays 9-21 | Up to 20h | ¥300,000 |
-| Premium | 24/7/365 | Up to 40h | ¥600,000 |
+超過料金: ¥15,000/h、緊急（夜間・休日）: ¥22,500/h
 
-### Overage Fees
-- Monthly capacity exceeded: ¥15,000/h
-- Emergency (nights/weekends): ¥22,500/h (1.5x)
-
-### SLA
-| Item | Light | Standard | Premium |
-|------|-------|----------|---------|
-| Initial Response | Within 4h | Within 2h | Within 30min |
-| Recovery Target | Next business day | 8 hours | 4 hours |
-| Uptime Guarantee | - | 99.5% | 99.9% |
+| SLA項目 | ライト | スタンダード | プレミアム |
+|---------|--------|-------------|-----------|
+| 初回応答 | 4時間以内 | 2時間以内 | 30分以内 |
+| 復旧目標 | 翌営業日 | 8時間 | 4時間 |
+| 稼働保証 | - | 99.5% | 99.9% |
 ```
 
-### Included Services (Example)
-- Inquiry handling (email/chat)
-- Minor fixes & adjustments
-- Regular maintenance
-- Security updates
-- Monthly report
-
-### Excluded Services (Example)
-- New feature development
-- Major modifications
-- Infrastructure costs
-- Third-party service outage response
-
-### Joint Project Considerations (Maintenance)
-
-| Aspect | Content |
-|--------|---------|
-| Coverage | Scibit-responsible components only |
-| Escalation | Contact flow for other parties' components |
-| SLA Alignment | Consistency with other parties' SLAs |
-| Issue Isolation | Clear responsibility boundaries |
+**含む:** 問い合わせ対応、軽微な修正、定期メンテナンス、セキュリティ更新、月次レポート
+**含まない:** 新機能開発、大規模改修、インフラ費用
 
 ---
 
-## 4. Training
+## 4. 研修
 
-### Characteristics
-- Headcount/session-based estimation
-- Curriculum design is important
-- Deliverable is skill acquisition
+**特徴:** 人数・回数ベース、カリキュラム設計が重要
 
-### Required Sections
-1. Training overview & objectives
-2. Target audience
-3. Curriculum
-4. Delivery format
-5. Costs
-
-### Cost Structure
+### 費用構成
 ```markdown
-## Training Costs
-
-### Base Fee Structure
-| Format | Rate | Notes |
-|--------|------|-------|
-| On-site Training | ¥300,000/day | Instructor dispatch, max 20 participants |
-| Online Training | ¥200,000/day | Zoom etc., max 30 participants |
-| Hands-on | ¥400,000/day | Workshop format, max 10 participants |
-
-### Sample Curriculum: {{Training Topic}}
-| Day | Content | Duration |
-|-----|---------|----------|
-| Day 1 | Fundamentals | 6h |
-| Day 2 | Hands-on Practice | 6h |
-| Day 3 | Advanced & Q&A | 4h |
-
-### Total Cost
-| Item | Amount |
-|------|--------|
-| Training Delivery (3 days) | ¥900,000 |
-| Materials Creation | ¥150,000 |
-| **Total** | **¥1,050,000** |
+| 形式 | 単価 | 備考 |
+|------|------|------|
+| オンサイト研修 | ¥300,000/日 | 講師派遣、最大20名 |
+| オンライン研修 | ¥200,000/日 | Zoom等、最大30名 |
+| ハンズオン | ¥400,000/日 | ワークショップ形式、最大10名 |
 ```
 
-### Options
-- Custom curriculum development
-- Pre-assessment
-- Follow-up sessions
-- Recording & archive access
-- Completion certificates
-
-### Joint Project Considerations (Training)
-
-| Aspect | Content |
-|--------|---------|
-| Curriculum Coordination | Alignment with other parties' training |
-| Materials Sharing | IP rights handling |
-| Participant Management | List sharing method |
-| Effectiveness Measurement | Joint evaluation criteria |
+**オプション:** カスタムカリキュラム開発、事前アセスメント、フォローアップ、録画・アーカイブ
 
 ---
 
-## Combined Estimate Types
-
-For composite projects:
+## 複合見積り
 
 ```markdown
-## Cost Summary
+| 項目 | 金額 |
+|------|------|
+| システム開発（初期） | ¥3,000,000 |
+| 保守（月額） | ¥200,000 |
+| 研修（1回） | ¥300,000 |
+| **1年目合計** | **¥5,700,000** |
 
-| Item | Amount |
-|------|--------|
-| System Development (Initial) | ¥3,000,000 |
-| Maintenance (Monthly) | ¥200,000 |
-| Training (1 session) | ¥300,000 |
-| **Year 1 Total** | **¥5,700,000** |
-
-* Maintenance calculated for 12 months
+※ 保守は12ヶ月で計算
 ```

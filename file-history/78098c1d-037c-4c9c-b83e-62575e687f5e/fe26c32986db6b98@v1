@@ -1,9 +1,0 @@
-# 合同会社あいのみ 企業ホームページ開発計画
-
-## 今回のタスク: Worktree作成のみ
-
-```bash
-git worktree add .worktrees/feature/initial-setup -b feature/initial-setup
-```
-
-作成後、作業ディレクトリ: `.worktrees/feature/initial-setup`

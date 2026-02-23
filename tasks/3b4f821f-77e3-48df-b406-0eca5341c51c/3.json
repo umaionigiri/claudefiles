@@ -1,9 +1,0 @@
-{
-  "id": "3",
-  "subject": "Gemini MCPで画像を生成",
-  "description": "Phase 1の4枚（hero-bg, service-industrial, service-care, service-training）を生成",
-  "activeForm": "Gemini MCPで画像を生成中",
-  "status": "pending",
-  "blocks": [],
-  "blockedBy": []
-}

@@ -1,9 +1,0 @@
-{
-  "id": "2",
-  "subject": "基本コンポーネントを作成",
-  "description": "Hero.astro, AnimatedCard.tsx, ServiceCards.astro, CTASection.astro, ServiceLayout.astro, about.astroを作成",
-  "activeForm": "基本コンポーネントを作成中",
-  "status": "pending",
-  "blocks": [],
-  "blockedBy": []
-}

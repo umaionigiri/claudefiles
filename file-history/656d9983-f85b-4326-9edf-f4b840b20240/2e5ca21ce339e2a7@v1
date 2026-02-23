@@ -1,9 +1,0 @@
-{
-  "gemini-imagen4": {
-    "command": "npx",
-    "args": ["-y", "gemini-imagen4"],
-    "env": {
-      "GEMINI_API_KEY": "${GEMINI_API_KEY}"
-    }
-  }
-}
