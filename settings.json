@@ -1,7 +1,6 @@
 {
   "includeCoAuthoredBy": false,
   "permissions": {
-    "defaultMode": "default",
     "allow": [
       "Bash(npm run *)",
       "Bash(pnpm *)",
@@ -9,7 +8,41 @@
       "Bash(git diff*)",
       "Bash(git log*)",
       "Bash(git branch*)",
-      "Bash(git worktree*)"
+      "Bash(git worktree*)",
+      "Bash(ls:*)",
+      "Bash(azd env get-values:*)",
+      "Bash(az account show:*)",
+      "Bash(az login:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__query-docs",
+      "Read(//Users/so/.claude/**)",
+      "mcp__azure__subscription_list",
+      "mcp__azure__documentation",
+      "mcp__o3__o3_chat",
+      "Read(//Users/so/MyWorkSpace/scibit/**)",
+      "WebFetch(domain:wmg2027.jp)",
+      "mcp__azure__search",
+      "mcp__azure__storage",
+      "Bash(curl:*)",
+      "Bash(az search service update:*)",
+      "Bash(az rest:*)",
+      "Bash(python3:*)",
+      "Bash(az account list:*)",
+      "Bash(az resource list:*)",
+      "Bash(az group list:*)",
+      "mcp__azure__role",
+      "Bash(az role assignment list:*)",
+      "Bash(node /tmp/crawl-policy-pages.mjs:*)",
+      "Bash(node:*)",
+      "Bash(az storage account keys list:*)",
+      "Bash(az storage account show:*)",
+      "Bash(az storage account update:*)",
+      "Bash(az storage blob list:*)",
+      "Bash(git restore:*)"
+    ],
+    "defaultMode": "default",
+    "additionalDirectories": [
+      "/tmp"
     ]
   },
   "hooks": {
@@ -49,5 +82,6 @@
         ]
       }
     ]
-  }
+  },
+  "skipDangerousModePermissionPrompt": true
 }
