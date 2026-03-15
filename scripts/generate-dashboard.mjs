@@ -214,22 +214,53 @@ function getDirectoryTree(dir, prefix = '', depth = 0) {
 // Agent full Japanese descriptions
 const agentFullJa = {
   'code-reviewer': {
-    summary: 'コードの品質・セキュリティをレビュー',
-    body: `コード変更を体系的にレビューし、品質を確保するエージェント。
+    summary: 'コードレビューエージェント',
+    body: `コード変更を体系的にレビューし、品質を確保する。
 
-【レビュー手順】git diff で変更内容を確認 → 各ファイルを詳細レビュー → 指摘事項をリスト化 → 重大度でソート
+【レビュー手順】
+1. git diff で変更内容を確認
+2. 各ファイルを詳細レビュー
+3. 指摘事項をリスト化
+4. 重大度でソート
 
-【チェック項目】
-• セキュリティ: SQL インジェクション、XSS、認証・認可、ハードコードされた秘密情報、入力バリデーション
-• パフォーマンス: N+1 クエリ、不要なループ・再計算、メモリリーク、インデックスの適切な使用
-• コード品質: 命名規則、単一責務、DRY 原則、エラーハンドリング
-• テスト: カバレッジ、エッジケーステスト、モックの適切な使用
+【レビューチェックリスト】
 
-【重大度レベル】🔴 Critical（セキュリティ脆弱性）→ 🟠 Major（バグ）→ 🟡 Minor（品質）→ 🔵 Suggestion（ベストプラクティス推奨）`
+【セキュリティ】
+• SQLインジェクション対策
+• XSS対策
+• 認証・認可の適切な実装
+• ハードコードされた秘密情報がないか
+• 入力バリデーション
+
+【パフォーマンス】
+• N+1クエリ
+• 不要なループ・再計算
+• メモリリーク
+• インデックスの適切な使用
+
+【コード品質】
+• 命名規則の遵守
+• 関数の単一責務
+• DRY原則
+• エラーハンドリング
+
+【テスト】
+• テストカバレッジ
+• エッジケーステスト
+• モックの適切な使用
+
+【重大度レベル】
+• 🔴 Critical — セキュリティ脆弱性、データ破損リスク
+• 🟠 Major — バグ、パフォーマンス問題
+• 🟡 Minor — コード品質、可読性
+• 🔵 Suggestion — ベストプラクティス推奨
+
+【出力フォーマット】
+Code Review: [PR/変更サマリ] → サマリ（変更ファイル数、追加/削除行数）→ 指摘事項（重大度別）→ 判定（Approve / Request changes / Comment only）`
   },
   'devops-problem-solver': {
-    summary: 'システム障害・エラーの診断と解決',
-    body: `システム障害や DevOps 問題を体系的に診断・解決するエージェント。
+    summary: 'DevOps 問題解決エージェント',
+    body: `システム障害・DevOps問題を体系的に診断・解決する。
 
 【6フェーズ問題解決】
 1. 情報収集 — エラーメッセージ、発生時刻・頻度、影響範囲、直近の変更履歴
@@ -239,159 +270,547 @@ const agentFullJa = {
 5. 解決 — 修正実施、ロールバック計画の準備、変更を記録
 6. 振り返り — 根本原因の文書化、再発防止策
 
-【対応範囲】アプリケーションエラー（500, タイムアウト, OOM）、データベース問題（接続エラー, スロークエリ, ロック待ち）、CI/CD パイプライン（ビルド/テスト/デプロイ失敗）`
+【よくある問題と確認ポイント】
+
+【アプリケーションエラー】
+• 500エラー — 確認: tail -f error.log — 原因: 例外、設定ミス
+• タイムアウト — 確認: curl -w "%{time_total}" — 原因: DB遅延、外部API
+• メモリ不足 — 確認: free -m, top — 原因: メモリリーク
+
+【データベース問題】
+• 接続エラー — 確認: pg_isready — 対応: コネクション数確認
+• スロークエリ — 確認: EXPLAIN ANALYZE — 対応: インデックス追加
+• ロック待ち — 確認: pg_stat_activity — 対応: トランザクション確認
+
+【CI/CDパイプライン】
+• ビルド失敗 — 確認: 依存関係、環境変数
+• テスト失敗 — 確認: テスト環境、Flakyテスト
+• デプロイ失敗 — 確認: 権限、リソース制限
+
+【出力フォーマット】
+インシデントレポート: サマリ（発生日時・影響・重大度）→ 症状 → 根本原因分析（仮説・検証結果）→ 根本原因 → 実施した対応 → 再発防止策 → タイムライン`
   },
   'estimation-agent': {
-    summary: 'プロジェクトの見積り・見積書作成',
-    body: `ソフトウェア開発プロジェクトの見積りを標準化し、社内向け・顧客向け見積書を作成するエージェント。
+    summary: '見積りエージェント',
+    body: `ソフトウェア開発プロジェクトの見積りを標準化し、社内向け・顧客向け見積書を作成する。
 
-【単価ルール】時間単価 ¥15,000 → 利益率 1.5倍 → 消費税 10%
-【計算式】原価（工数 × ¥15,000）→ 税抜（× 1.5）→ 税込（× 1.1）
+【単価ルール】
+• 時間単価: ¥15,000
+• 利益率: 1.5倍
+• 消費税: 10%
+• 計算式: 原価（工数 × ¥15,000）→ 税抜（× 1.5）→ 税込（× 1.1）
 
-【見積りカテゴリ（10分類）】
-要件定義、設計、インフラ、開発、テスト、移行・リリース、運用設計、ドキュメント、研修、PM工数（全体の15-20%）
+【見積りカテゴリ】
+1. 要件定義 — ヒアリング、分析、仕様書
+2. 設計 — 基本設計、詳細設計、UI/UX
+3. インフラ — 基盤設計、環境構築、CI/CD
+4. 開発 — 実装、コードレビュー、バグ修正
+5. テスト — 単体/結合/E2E/UAT/負荷
+6. 移行・リリース — データ移行、デプロイ、切替
+7. 運用設計 — 監視、障害対応、保守計画
+8. ドキュメント — 技術文書、運用手順書、API仕様
+9. 研修 — ユーザー研修、管理者研修
+10. PM工数 — 会議、進捗管理、リスク管理（全体の15-20%）
 
-【工数比率ガイドライン】要件定義 10-15% / 設計 15-20% / 開発 30-40% / テスト 20-25% / その他 10-15%
+【工数比率ガイドライン】
+• 要件定義: 10-15%
+• 設計: 15-20%
+• 開発: 30-40%
+• テスト: 20-25%
+• その他: 10-15%
 
-【出力】社内向け見積り（原価・利益率含む）と顧客向け見積り（金額のみ）の2種類を同時作成`
+【出力テンプレート】
+
+【社内向け見積り】
+見積書（社内）: 案件名、作成日、有効期限（30日）→ 最終金額（税抜・消費税・合計）→ カテゴリ別内訳（カテゴリ・工数・単価・原価・税抜・税込）→ 社内メモ（利益率・総原価・粗利）
+
+【顧客向け見積り】
+御見積書: 案件名、作成日、有効期限（30日）→ 金額（小計・消費税・合計）→ 明細（項目・税抜・税込）
+
+【ワークフロー】
+1. 要件収集 — プロジェクト概要、機能一覧、制約事項
+2. 工数見積り — カテゴリ別に作業を洗い出し、PM工数を加算
+3. 費用計算 — 原価 → 税抜 → 税込
+4. 文書作成 — 社内向け・顧客向けの2種類を作成
+5. レビュー — 漏れの確認、金額の検算`
   },
   'senior-consultant-reviewer': {
-    summary: '要件・設計・見積りのレビュー',
-    body: `要件・設計・見積り・プロジェクト計画を、シニアコンサルタント/PM 視点でレビューするエージェント。
+    summary: 'シニアコンサルタントレビューエージェント',
+    body: `要件・設計・見積り・プロジェクト計画を、シニアコンサルタント/PM視点でレビューする。
 
-【レビュー対象と観点】
-• 要件レビュー: ビジネス整合、完全性、明確性、スコープ、実現可能性、優先度
-• 設計レビュー: アーキテクチャ、技術選定、セキュリティ（OWASP Top 10）、パフォーマンス、可用性
-• 見積りレビュー: 工数妥当性、完全性、リスクバッファ（10-30%）、前提条件
-• 計画レビュー: マイルストーン、リソース配分、リスク管理、品質管理
+【レビュー対象】
+1. 要件定義書
+2. 設計書
+3. 見積書
+4. プロジェクト計画
 
-【重大度レベル】🔴 Critical（即時対応、却下検討）→ 🟠 Major（再レビュー）→ 🟡 Minor（対応推奨）→ 🔵 Info（任意）
-【承認判定】✅ 承認 / ⚠️ 条件付き承認 / ❌ 却下`
+【レビュー観点】
+
+【要件レビュー】
+• ビジネス整合 — 事業目標との整合、ROI妥当性
+• 完全性 — 機能/非機能要件の網羅性
+• 明確性 — 曖昧な表現がないか、定量的基準
+• スコープ — 境界の明確化、除外事項の明記
+• 実現可能性 — 技術制約、リソース整合
+• 優先度 — 優先順位設定（MoSCoW等）
+
+【設計レビュー】
+• アーキテクチャ — 要件との整合、拡張性、保守性
+• 技術選定 — 技術的妥当性、チームスキルとの適合
+• セキュリティ — OWASP Top 10、認証・認可設計
+• パフォーマンス — レスポンス要件、スループット要件
+• 可用性 — SLA、耐障害性、冗長構成
+
+【見積りレビュー】
+• 工数妥当性 — 類似プロジェクトとの比較、業界標準
+• 完全性 — 全カテゴリの網羅（PM工数含む）
+• リスクバッファ — 不確実性に対するバッファ（10-30%）
+• 前提条件 — 前提の明記、リスクの文書化
+
+【プロジェクト計画レビュー】
+• マイルストーン — 達成可能性、依存関係管理
+• リソース配分 — スキルマッチ、過負荷回避
+• リスク管理 — リスク特定、軽減計画
+• 品質管理 — テスト計画、受入基準
+
+【重大度レベル】
+• 🔴 Critical — プロジェクト失敗リスク → 即時対応必要、却下検討
+• 🟠 Major — 深刻な問題に発展する可能性 → 対応後に再レビュー
+• 🟡 Minor — 品質向上の提案 → 対応推奨
+• 🔵 Info — 参考情報、ベストプラクティス → 任意
+
+【出力テンプレート】
+レビュー結果: 対象・日付 → サマリ（総合評価・指摘件数）→ 指摘事項（箇所・問題・リスク・推奨）→ 承認判定（✅承認 / ⚠️条件付き承認 / ❌却下）`
   },
   'task-decomposer': {
-    summary: 'プロジェクトのタスク分解・計画',
-    body: `複雑なプロジェクトを詳細で実行可能なタスクに分解するエージェント。
+    summary: 'タスク分解エージェント',
+    body: `複雑なプロジェクトを詳細で実行可能なタスクに分解する。
 
 【分解原則】
-• MECE — 漏れなく、ダブりなく
-• 適切な粒度 — 1タスク = 1〜4時間
-• 依存関係の明確化 — 順序と並列化の可能性を特定
-• 検証可能 — 各タスクに完了基準を設定
+1. MECE — 漏れなく、ダブりなく
+2. 適切な粒度 — 1タスク = 1〜4時間
+3. 依存関係の明確化 — 順序と並列化の可能性
+4. 検証可能 — 各タスクに完了基準を設定
 
-【プロセス】要件理解 → 大分類（主要フェーズ分割）→ 詳細化 → 依存関係特定 → 工数見積り → 完了基準定義
+【出力フォーマット】
+タスク分解: [プロジェクト名] → 概要（1-2文）→ タスク一覧（Phase別）→ 各タスク: タスク名(Xh)・内容・依存・完了基準 → 工数サマリ（Phase別・合計）
 
-【タスクサイズ目安】XS ~30分（設定変更）/ S 30分〜1時間（単一関数）/ M 1〜2時間（機能追加）/ L 2〜4時間（API実装）/ XL 4時間+（さらに分解が必要）`
+【分解プロセス】
+1. 要件理解 — 目標と制約の明確化
+2. 大分類 — 主要フェーズへの分割
+3. 詳細化 — 各フェーズをタスクに分解
+4. 依存関係 — 順序と並列化を特定
+5. 見積り — 各タスクの工数見積り
+6. 完了基準 — 各タスクの検証条件を定義
+
+【タスクサイズ目安】
+• XS — ~30分 — 設定変更、ドキュメント更新
+• S — 30分〜1時間 — 単一関数、バグ修正
+• M — 1〜2時間 — 機能追加、コンポーネント作成
+• L — 2〜4時間 — 複数ファイル変更、API実装
+• XL — 4時間+ — さらなる分解が必要`
   },
   'test-runner': {
-    summary: 'テスト実行・カバレッジ分析',
+    summary: 'テストランナーエージェント',
     body: `テスト実行・検証・カバレッジ分析の専門エージェント。
 
-【対応範囲】ユニットテスト / 結合テスト / E2E テスト（Playwright）/ カバレッジ分析 / TDD サイクル支援
+【対応範囲】
+• ユニットテスト / 結合テスト / E2Eテスト（Playwright）
+• カバレッジ分析
+• TDDサイクル支援（Red → Green → Refactor）
 
-【実行手順】テストフレームワーク特定 → 対象スコープのテスト実行 → 失敗テスト分析・報告 → カバレッジレポート生成
+【実行手順】
+1. プロジェクトのテストフレームワークを特定（package.json, pytest.ini 等）
+2. 対象スコープに応じたテストコマンドを実行
+3. 失敗テストがあれば原因を分析・報告
+4. カバレッジレポートを生成（要求時）
 
-【コミット前チェック】テスト → Lint → 型チェック → ビルド
-【プッシュ前チェック】カバレッジ → E2E → デバッグコード検出
+【コミット前チェック】
+テスト → リント → 型チェック → ビルド
+npm test && npm run lint && npm run type-check && npm run build
 
-【TDD コミット規約】Red: test: add failing test / Green: feat: implement / Refactor: refactor: improve`
+【プッシュ前チェック】
+カバレッジ → E2E → デバッグコード検出
+npm test -- --coverage
+npm run test:e2e
+git diff --staged | grep -E "console\\.(log|debug)"
+
+【TDDコミット規約】
+• Red — test: add failing test for <feature>
+• Green — feat: implement <feature>
+• Refactor — refactor: improve <feature>`
   },
 };
 
 // Skill full Japanese descriptions
 const skillFullJa = {
   'development-rules': {
-    summary: 'Context7 リサーチ必須の開発ルール適用',
-    body: `コード実装・レビュー時に適用する開発ルール。
+    summary: '開発ルール',
+    body: `【Step 1: Context7 リサーチ（必須）】
 
-【Step 1: Context7 リサーチ（必須）】実装前に必ず最新 API・パターンを確認。resolve-library-id → query-docs を実行。
+実装前に必ず最新のAPI・パターンを確認する:
+• mcp__context7__resolve-library-id({ libraryName: "フレームワーク名" })
+• mcp__context7__query-docs({ libraryId: "/lib/xxx", topic: "実装パターン" })
 
-【Step 2: 設計検討】要件の明確化 → 既存コードとの整合性確認（Grep/Glob で既存パターン検索）→ 影響範囲の特定
+【Step 2: 設計検討】
+• 要件の明確化
+• 既存コードとの整合性確認（Grep/Glob で既存パターン検索）
+• 影響範囲の特定
+• 依存関係なしのタスクは Task tool で並列実行
 
 【Step 3: コード品質基準】
-• 命名: 意味のある名前、プロジェクト規約に従う
-• エラー処理: 適切なハンドリング
-• コメント: 「なぜ」を説明（「何」ではない）
-• マジックナンバー: 定数化
+• 命名 — 意味のある名前、プロジェクト規約に従う
+• エラー処理 — 適切なハンドリング
+• コメント — 「なぜ」を説明（「何」ではない）
+• マジックナンバー — 定数化
+• 補足説明 — 日本語コメント可
 
-【検証チェックリスト】実装前: Context7 リサーチ済み・既存パターン確認済み・影響範囲特定済み / 実装後: 単一責務・不要機能なし・重複なし・最もシンプルな解・テストあり・セキュリティリスクなし`
+【検証チェックリスト】
+
+実装前:
+• Context7 でリサーチ済み
+• 既存コードのパターンを確認済み
+• 影響範囲を特定済み
+
+実装後:
+• 各関数/クラスは単一責務か
+• 不要な機能を追加していないか
+• 重複コードはないか
+• 最もシンプルな解か
+• テストの有無・カバレッジ
+• セキュリティリスクの有無`
   },
   'document-converter': {
-    summary: 'Markdown → Word/Excel/PDF 変換',
-    body: `ドキュメントフォーマットを標準スタイルで変換するスキル。
+    summary: 'ドキュメント変換スキル',
+    body: `【サポート形式】
+• Markdown → DOCX — pandoc + python-docx
+• Markdown → XLSX — Python (openpyxl)
+• Markdown → PDF — pandoc + LaTeX
+• JSON → XLSX — Python (openpyxl)
+• CSV → XLSX — Python (openpyxl)
 
-【サポート形式】Markdown → DOCX（pandoc + python-docx）/ Markdown → XLSX（openpyxl）/ Markdown → PDF（pandoc + LaTeX）/ JSON → XLSX / CSV → XLSX
+【標準スタイル】
+• 見出し1 — Meiryo UI, 14pt
+• 見出し2-4 — Meiryo UI, 12pt
+• 本文 — Meiryo UI, 10.5pt
+• 表 — Meiryo UI, 10pt
+• ヘッダー行 — 背景色 #F0F0F0
 
-【標準スタイル】フォント: Meiryo UI / 見出し1: 14pt / 見出し2-4: 12pt / 本文: 10.5pt / 表: 10pt / ヘッダー行: 背景色 #F0F0F0
+【変換手順】
 
-【依存関係】pandoc, python-docx, openpyxl, LaTeX（mactex）`
+Markdown → DOCX:
+pandoc input.md -o output.docx --from markdown+pipe_tables+yaml_metadata_block
+python3 scripts/format_docx.py output.docx
+
+Markdown → XLSX:
+python3 scripts/md_to_xlsx.py input.md output.xlsx
+
+JSON → XLSX:
+python3 scripts/json_to_xlsx.py input.json output.xlsx
+
+Markdown → PDF:
+pandoc input.md -o output.pdf --pdf-engine=xelatex -V mainfont="Hiragino Kaku Gothic Pro"
+
+【依存関係】
+• pandoc — brew install pandoc
+• python-docx — pip install python-docx
+• openpyxl — pip install openpyxl
+• LaTeX — brew install --cask mactex
+
+【スクリプト】
+• scripts/format_docx.py — DOCX フォーマット適用
+• scripts/md_to_xlsx.py — Markdown テーブル → Excel
+• scripts/json_to_xlsx.py — JSON → Excel
+
+【トラブルシューティング】
+• 日本語文字化け — フォント未指定 → Meiryo UI を明示的に指定
+• 表が崩れる — pipe_tables 未有効 → +pipe_tables を追加
+• PDF で日本語不可 — 日本語フォント未指定 → xelatex + 日本語フォント指定
+• Excel セルが空 — パース失敗 → Markdown 形式を確認
+
+【詳細ルール参照】
+• DOCX — @docx-rules.md
+• XLSX — @xlsx-rules.md
+
+【検証チェックリスト】
+
+変換前:
+• 入力ファイルが存在し、形式がサポートされている
+• 必要な依存関係がインストール済み
+
+変換後:
+• 出力ファイルが生成された（0バイトでない）
+• テキスト欠落なし、テーブル正しく変換
+• フォント・見出しサイズ・表スタイルが適用済み`
   },
   'gemini-research': {
-    summary: 'Gemini MCP による外部リサーチ',
-    body: `Gemini MCP を通じて外部リサーチを効率的に実行するスキル。
+    summary: 'Gemini リサーチスキル',
+    body: `【いつ使うか】
+• 既知の基本情報 — 内部知識で回答（Gemini 不要）
+• 最新情報が必要 — Gemini でリサーチ
+• 比較検討が必要 — Gemini でリサーチ
+• ベストプラクティス — Gemini でリサーチ
 
-【使い分け】既知の基本情報 → 内部知識で回答（Gemini 不要）/ 最新情報・比較検討・ベストプラクティス → Gemini でリサーチ
+【リサーチ実行】
+mcp__gemini__task({ task: "具体的なリサーチ内容", cwd: "/path/to/project" })
 
-【ユースケース別プロンプト構成】
-• 技術選定: Compare X vs Y for [use case]. Consider: performance, learning curve, ecosystem
-• 設計パターン: Best practices for [pattern] in [framework]. Include code examples
-• セキュリティ: Security considerations for [impl]. Include OWASP guidelines
-• パフォーマンス: Performance optimization for [scenario]. Include benchmarks
+【ユースケース別プロンプト例】
+• 技術選定 — Compare X vs Y for [use case]. Consider: performance, learning curve, ecosystem
+• 設計パターン — Best practices for [pattern] in [language/framework]. Include code examples
+• セキュリティ — Security considerations for [implementation]. Include OWASP guidelines
+• パフォーマンス — Performance optimization for [scenario]. Include benchmarks if available
+• アーキテクチャ — Architecture patterns for [requirement]. Compare trade-offs
 
-【効果的なプロンプト構成】目的 + コンテキスト（技術スタック）+ 制約 + 評価軸 + 出力形式`
+【効果的なプロンプト構成】
+• 目的 — 何を知りたいか（Compare..., Best practices for...）
+• コンテキスト — 技術スタック（in TypeScript, for React app）
+• 制約 — 条件・要件（for high-traffic, with limited budget）
+• 観点 — 評価軸（Consider: X, Y, Z）
+• 出力形式 — 期待する形式（Include code examples, with pros/cons table）
+
+【検証チェックリスト】
+
+リサーチ前:
+• 質問が具体的で、コンテキスト・評価軸が明確
+
+リサーチ後:
+• 結果をプロジェクトに適用可能か評価
+• 推奨事項が明確
+• 追加調査の必要性を判断`
   },
   'git-workflow': {
-    summary: 'Worktree 必須のブランチ管理',
-    body: `ブランチ管理とコミットのための Git ワークフロールール。
+    summary: 'Git ワークフロー',
+    body: `【Step 1: Worktree 作成（必須）】
+git worktree add .worktrees/<branch-name> -b <branch-name>
+cd .worktrees/<branch-name>
 
-【Step 1: Worktree 作成（必須）】git worktree add .worktrees/<branch-name> -b <branch-name>
+【Step 2: ブランチ命名】
+• Feature — feature/<name>（例: feature/user-auth）
+• Bugfix — fix/<name>（例: fix/login-error）
+• Test — test/<name>（例: test/api-coverage）
+• Refactor — refactor/<name>（例: refactor/cleanup）
 
-【Step 2: ブランチ命名】Feature: feature/<name> / Bugfix: fix/<name> / Test: test/<name> / Refactor: refactor/<name>
+【Step 3: コミット（Conventional Commits）】
+• feat — 新機能
+• fix — バグ修正
+• refactor — リファクタリング
+• test — テスト追加・修正
+• docs — ドキュメント
+• chore — その他
 
-【Step 3: コミット（Conventional Commits）】feat（新機能）/ fix（バグ修正）/ refactor / test / docs / chore
+【Step 4: PR 作成（GitHub MCP 使用）】
+mcp__github__create_pull_request({ owner, repo, title, body, head, base: "main" })
 
-【Step 4: PR 作成】GitHub MCP の create_pull_request を使用、base: "main"
+【Step 5: マージ後クリーンアップ】
+git worktree remove .worktrees/<branch-name>
+git branch -d <branch-name>
 
-【Step 5: マージ後クリーンアップ】worktree remove → branch -d
+【禁止事項】
+• main/master 直接プッシュ — レビューなしの変更を防ぐ
+• git push --force — 履歴破壊を防ぐ
+• git reset --hard — 作業内容の消失を防ぐ
+例外: ユーザーが明示的に許可した場合のみ
 
-【禁止事項】main/master 直接プッシュ / git push --force / git reset --hard（ユーザーの明示的許可がある場合のみ例外）`
+【検証チェックリスト】
+
+コミット前:
+• テスト全通過・Lint・型チェック・ビルド成功
+• 意図した変更のみステージング
+• 機密情報を含まない
+
+PR 作成前:
+• ローカルでテスト通過
+• CI が通過してからマージ`
   },
   'rough-estimate': {
-    summary: '合同会社サイビットの概算見積書作成',
-    body: `合同会社サイビット（Scibit LLC）の概算見積書を作成するスキル。
+    summary: '概算見積り作成スキル',
+    body: `【サイビット会社情報】
+• 会社名: 合同会社サイビット（Scibit LLC）
+• 時間単価: ¥15,000/時間（税抜き）
+• 日額: ¥120,000（8時間）
+• 月額: ¥2,400,000（20日）
+• 連絡先: contact@scibit.ai
 
-【単価】時間: ¥15,000 / 日額: ¥120,000（8h）/ 月額: ¥2,400,000（20日）/ 販売単価: ¥180,000/人日（1.5倍）
+【単価表示オプション】
+• 詳細モード — 工数・単価・金額を表示（社内レビュー、透明性重視の顧客）
+• シンプルモード — 工数・金額のみ（一般的な顧客向け）
+• 金額のみモード — 金額のみ（エグゼクティブサマリー）
+検算: 常に 工数 × ¥15,000 = 金額 で内部検証すること
 
-【手順】プロジェクト情報確認 → 見積り種別選定（開発/コンサル/保守/研修）→ ドキュメント構成 → 工数・費用算出 → 内部用見積書の同時作成（必須）→ 計算検証 → 免責事項
+【見積り作成手順】
 
-【フェーズ別工数比率（MVP）】PM 10-12% / 要件定義・設計 12-16% / 環境構築 10-14% / データ移行 15-20% / コア開発 20-25% / UI 10-14% / テスト 10-12% / 引き渡し 5-6% / バッファ 4-5%
+Step 1: プロジェクト情報確認
+1. 顧客名
+2. 案件名
+3. 種別: システム開発 / コンサルティング / 保守 / 研修
+4. 概要: 何を達成するか
+5. 希望時期（あれば）
+6. 予算感（あれば）
+7. 特記事項: 制約条件等
 
-【重要】見積り文書は日本語出力 / 税抜き表記 / 有効期限1ヶ月 / 概算精度 ROM ±25〜50% / 内部用見積書を必ず同時作成`
+Step 2: 見積り種別選定
+• システム開発 — フェーズ別工数、アーキテクチャ比較
+• コンサルティング — 期間・成果物ベース
+• 保守 — 月額、SLA定義
+• 研修 — 人数・回数ベース
+
+Step 3: ドキュメント構成
+必須セクション: ヘッダー情報、概算見積り注意書き、エグゼクティブサマリー、概算費用、含まれるもの/含まれないもの、注意事項・免責事項、お問い合わせ先
+任意セクション: 現状分析、ソリューション概要、アーキテクチャ選択肢、導入ロードマップ（Gantt）、ROI分析、リスクと対策、役割分担表、価値提案表、次のステップ
+
+Step 4: 工数・費用算出
+フェーズ別工数比率（MVP開発）:
+• PM・顧客調整: 10-12%
+• 要件定義・設計: 12-16%
+• 環境構築: 10-14%
+• データ移行: 15-20%
+• コア開発: 20-25%
+• UI開発: 10-14%
+• テスト・調整: 10-12%
+• 引き渡し: 5-6%
+• バッファ: 4-5%
+
+Step 5: 内部用見積書の同時作成（必須）
+ファイル命名規則:
+• クライアント向け: {案件名}_概算見積-{見積タイトル}_{YYYYMMDD}.md
+• 内部用: {案件名}_（内部）概算見積-{見積タイトル}_{YYYYMMDD}.md
+
+内部用見積書の必須セクション:
+1. 社内限定注記（クライアント共有禁止の明示）
+2. 単価設定（販売単価・原価単価・利益率）
+3. パターン/オプション別の工数内訳（販売金額・原価・粗利）
+4. 工数の妥当性分析
+5. 既存見積との対応表（該当する場合）
+6. 収益分析サマリー
+
+計算ルール:
+• 販売金額: 工数 × 販売単価（¥10,000単位に丸め）
+• 原価: 工数 × 原価単価（端数そのまま）
+• 粗利: 販売金額 - 原価
+• 利益率: (販売金額 - 原価) / 販売金額 × 100
+• デフォルト販売単価: ¥180,000/人日（= ¥22,500/h、原価の1.5倍）
+
+Step 6: 計算検証（必須）
+クライアント向け:
+1. 各行の金額が整合している
+2. 小計の合算が合計と一致
+3. 月額 × 12 = 年額（ランニングコスト）
+4. ROI の前提と結果が整合
+5. 比較表の各オプションが同一ロジック
+6. 単価保護違反がないこと
+
+内部用:
+1. 各行: 工数 × 販売単価 ≈ 販売金額（¥10,000丸め許容）
+2. 各行: 工数 × 原価単価 = 原価（完全一致）
+3. 各行: 販売金額 - 原価 = 粗利
+4. クライアント向けと内部用の販売金額が完全一致
+
+Step 7: 免責事項
+常に明記: 概算見積りである旨、税抜き表記、有効期限（通常1ヶ月）、含まれるもの/含まれないもの、変動要因
+
+【重要事項】
+1. 見積り文書は日本語で出力
+2. 概算見積りであることを必ず明記
+3. 税抜き表記
+4. 有効期限を設定（通常1ヶ月）
+5. 含まれないものを明記（インフラ、ライセンス等）
+6. 変動要因を説明
+7. 概算精度（ROM ±25〜50%）を免責事項に明記
+8. 内部用見積書を必ず同時作成（工数・原価・粗利の見積根拠を記録）`
   },
   'serena-codebase': {
-    summary: 'Serena MCP によるコードベース解析',
-    body: `コードベース探索・分析に Serena MCP を使用するスキル。トークン効率を最優先。
+    summary: 'Serena コードベース分析スキル',
+    body: `【Step 1: セッション初期化】
+mcp__serena__check_onboarding_performed()
+mcp__serena__list_memories()
+mcp__serena__list_dir({ relative_path: ".", recursive: false })
 
-【手順】セッション初期化（onboarding 確認 → メモリ確認）→ 概要把握（get_symbols_overview）→ シンボル検索（find_symbol, include_body: false）→ 詳細取得（include_body: true）→ 参照検索（find_referencing_symbols）→ 必要時に編集
+【Step 2: 概要把握】
+mcp__serena__get_symbols_overview({ relative_path: "src" })
 
-【検索優先度】1. find_symbol（シンボル名既知）→ 2. find_file（ファイル名既知）→ 3. search_for_pattern（最終手段）
+【Step 3: シンボル検索（優先）】
+mcp__serena__find_symbol({ symbol_name: "ClassName", include_body: false, depth: 1 })
 
-【トークン最適化】検索パスを絞る（src/services/ > src/）/ include_body: false 先行 / 500行超は分割取得 / 目標: 2000 トークン以下/検索
+【Step 4: 詳細取得】
+mcp__serena__find_symbol({ symbol_name: "ClassName/methodName", include_body: true })
 
-【シンボル操作】概要取得 / 検索 / 参照検索 / 本体置換 / 前後に挿入 / リネーム`
+【Step 5: 参照検索】
+mcp__serena__find_referencing_symbols({ symbol_name: "targetSymbol" })
+
+【Step 6: シンボル編集（必要時）】
+mcp__serena__replace_symbol_body({ symbol_name: "ClassName/methodName", new_body: "..." })
+
+【検索優先度】
+1. find_symbol — シンボル名が分かる場合
+2. find_file — ファイル名が分かる場合
+3. search_for_pattern — 上記で見つからない場合（最終手段）
+
+【トークン最適化】
+• 検索パスを絞る — src/services/ > src/
+• include_body: false 先行 — 概要把握後に詳細取得
+• 500行以上のファイルは分割取得 — 必要部分のみ取得
+• 目標: 2000トークン以下/検索 — 大量結果を回避
+
+【シンボル操作一覧】
+• 概要取得 — get_symbols_overview
+• シンボル検索 — find_symbol
+• 参照検索 — find_referencing_symbols
+• 本体置換 — replace_symbol_body
+• 前に挿入 — insert_before_symbol
+• 後に挿入 — insert_after_symbol
+• リネーム — rename_symbol
+
+【name_path パターン】
+• ClassName — クラス全体
+• ClassName/method — クラス内メソッド
+• ClassName/__init__ — コンストラクタ（Python）
+• function_name — トップレベル関数
+
+【検証チェックリスト】
+• オンボーディング完了確認
+• メモリに関連情報がないか確認
+• シンボル検索を優先している
+• 編集前に参照シンボルを確認（後方互換性）`
   },
   'testing-rules': {
-    summary: 'TDD サイクルに基づくテストルール',
-    body: `テスト作成・レビュー時に適用するテストルール。
+    summary: 'テストルール',
+    body: `【TDD サイクル】
+1. RED: 失敗するテストを書く → テスト失敗を確認
+2. GREEN: テストを通す最小限の実装
+3. REFACTOR: テストが通る状態を維持しつつコード改善
 
-【TDD サイクル】RED: 失敗するテストを書く → GREEN: テストを通す最小限の実装 → REFACTOR: テストが通る状態を維持しつつ改善
+【テスト命名規則】
+• should + 期待動作 — should return user when id exists
+• when + 条件 — when input is empty, should throw error
+• given/when/then — given valid input, when submitted, then saves data
 
-【テスト命名規則】should + 期待動作 / when + 条件 / given/when/then
+【カバレッジ目標】
+• Statements: 80%
+• Branches: 75%
+• Functions: 80%
+• Lines: 80%
 
-【カバレッジ目標】Statements 80% / Branches 75% / Functions 80% / Lines 80%
+【モック使用基準】
+• 外部API — モックする
+• データベース — モックする（ユニットテスト）
+• 時間 — モックする（Date.now 等）
+• 内部ロジック — モックしない
 
-【モック使用基準】外部 API: Yes / データベース: Yes（ユニットテスト）/ 時間: Yes / 内部ロジック: No
+【検証チェックリスト】
 
-【品質チェック】テスト名が振る舞いを説明 / 1テスト = 1アサーション / AAA パターン / 実装ではなく振る舞いをテスト / テストが独立（順序依存なし）`
+テストコード品質:
+• テスト名が振る舞いを説明している
+• 1テスト = 1アサーション（原則）
+• AAA パターン（Arrange-Act-Assert）に従っている
+• 実装ではなく振る舞いをテスト
+• テストが独立している（順序依存なし）
+
+プッシュ前:
+• 全テスト通過
+• カバレッジ目標達成
+• Lint エラーなし
+• 型チェック通過
+• ビルド成功`
   },
 };
 
@@ -447,13 +866,32 @@ function collectCommands() {
       if (entry.isDirectory()) {
         scan(join(d, entry.name), prefix + entry.name + '/');
       } else if (entry.name.endsWith('.md')) {
-        results.push(prefix + entry.name.replace('.md', ''));
+        const name = prefix + entry.name.replace('.md', '');
+        const content = readFile(join(d, entry.name));
+        const { body } = content ? extractFrontmatter(content) : { body: '' };
+        results.push({ name, bodySections: extractSections(body) });
       }
     }
   }
   scan(dir);
   return results;
 }
+
+// Command Japanese descriptions
+const commandDescJa = {
+  'slash-guide': 'Claude Code の全スラッシュコマンド（/help, /compact, /fork, /clear 等）を日本語で解説するガイド。組み込みコマンドの使い方、オプション、ユースケースを網羅。',
+  'kiro/spec-init': '仕様駆動開発の開始点。プロジェクト説明を入力すると、仕様ディレクトリ（.kiro/specs/）を初期化し、要件・設計・タスクの骨格を作成する。',
+  'kiro/spec-requirements': 'プロジェクトの包括的な要件定義を生成。機能要件・非機能要件・制約条件・受入基準を構造化して出力。',
+  'kiro/spec-design': '要件に基づいた技術設計を作成。アーキテクチャ、データモデル、API 設計、技術選定の根拠を文書化。',
+  'kiro/spec-tasks': '技術設計から実装タスクを自動生成。依存関係、優先順位、見積り時間を含むタスクリストを作成。',
+  'kiro/spec-impl': 'TDD（テスト駆動開発）に基づいてタスクを実装。Red → Green → Refactor のサイクルで進行。',
+  'kiro/spec-status': '仕様全体の進捗状況を表示。要件・設計・タスクの完了率、未着手・進行中・完了の内訳を確認。',
+  'kiro/steering': '.kiro/steering/ ディレクトリに永続的なプロジェクト知識を管理。コーディング規約、アーキテクチャ決定、チーム合意事項を記録。',
+  'kiro/steering-custom': '特定のプロジェクトコンテキストに特化したステアリングドキュメントを作成。フレームワーク固有のルールや業界固有の制約を定義。',
+  'kiro/validate-design': '技術設計の品質をインタラクティブにレビュー。整合性、拡張性、セキュリティ、パフォーマンスの観点から評価。',
+  'kiro/validate-gap': '要件定義と既存コードベースのギャップを分析。未実装の要件、乖離している実装、不足しているテストを特定。',
+  'kiro/validate-impl': '実装が要件・設計・タスクと整合しているか検証。コード品質、テストカバレッジ、設計準拠を確認。',
+};
 
 function parseGitignore() {
   const content = readFile(join(ROOT, '.gitignore'));
@@ -472,27 +910,72 @@ function parseGitignore() {
 
 // CLAUDE.md section Japanese descriptions (summary + full)
 const sectionFullJa = {
-  'Global Claude Code Settings': { summary: '全プロジェクト共通の Claude Code 設定', body: '' },
+  'Global Claude Code Settings': { summary: 'グローバル Claude Code 設定', body: '' },
   'Language': { summary: '言語設定',
-    body: '常に日本語で応答する（明示的に英語を指定された場合を除く）。コード・コメント・ドキュメントは英語で記述。技術用語は原語のまま使用（例: API, Docker, Kubernetes）。' },
+    body: `• 常に日本語で応答する（明示的に英語を指定された場合を除く）
+• コード・コメント・ドキュメントは英語で記述
+• 技術用語は原語のまま使用（例: API, Docker, Kubernetes）` },
   'Response Style': { summary: '応答スタイル',
-    body: '結論ファースト（解決策を最初に提示し、詳細は後から）。ユーザー提供のコードは不必要に再表示しない。過度な丁寧語や長い導入は省略し、簡潔でカジュアルに。コード参照は file_path:line_number 形式で記載。' },
+    body: `• 結論ファースト: 解決策を最初に提示し、詳細は後から
+• コード重複を避ける: ユーザー提供のコードは不必要に再表示しない
+• 簡潔でカジュアル: 過度な丁寧語や長い導入は省略
+• コード参照: file_path:line_number 形式で記載` },
   'Pre-Implementation Steps': { summary: '実装前の必須ステップ',
-    body: '1. Context7 で最新 API 確認: フレームワーク/ライブラリ使用時は resolve-library-id → query-docs を実行\n2. 既存パターン確認: Grep/Glob でプロジェクト内の既存実装パターンを確認\n3. 影響範囲の特定: 変更が及ぶファイル・モジュールを事前に洗い出す' },
+    body: `1. Context7 で最新 API 確認: フレームワーク/ライブラリ使用時は resolve-library-id → query-docs を実行
+2. 既存パターン確認: Grep/Glob でプロジェクト内の既存実装パターンを確認
+3. 影響範囲の特定: 変更が及ぶファイル・モジュールを事前に洗い出す` },
   'Pre-Commit Checklist': { summary: 'コミット前チェック',
-    body: 'テスト通過（npm test / pytest / プロジェクト固有コマンド）。Lint/型チェック通過。git diff --staged で意図した変更のみか確認。機密情報（.env, credentials）が含まれていないか確認。' },
+    body: `• テスト通過（npm test / pytest / プロジェクト固有コマンド）
+• Lint/型チェック通過
+• git diff --staged で意図した変更のみか確認
+• 機密情報（.env, credentials）が含まれていないか確認` },
   'MCP Tool Selection': { summary: 'MCP ツール使い分け',
-    body: 'ライブラリ API 確認 → Context7 / 外部リサーチ → Gemini / コード解析 → Serena / GitHub 操作 → GitHub MCP / Azure 操作 → Azure MCP / ブラウザ操作 → Playwright' },
+    body: `• ライブラリ API 確認 → Context7（実装前の最新ドキュメント参照）
+• 外部リサーチ → Gemini（ベストプラクティス・技術比較・トレンド調査）
+• コード解析 → Serena（シンボル検索・依存関係・リファクタ影響調査）
+• GitHub 操作 → GitHub MCP（PR作成・Issue管理・コード検索）
+• Azure 操作 → Azure MCP（リソース管理・ドキュメント参照）
+• ブラウザ操作 → Playwright（E2Eテスト・Webスクレイピング）` },
   'Workflow Principles': { summary: 'ワークフロー原則',
-    body: 'main ブランチ直接作業禁止（全ての変更はフィーチャー/トピックブランチで行い、承認済み PR のマージ時のみ main を更新）。Worktree 必須（git worktree add で分離）。過剰設計禁止（依頼された内容のみ実装）。既存パターン尊重。破壊的操作は確認（force push, reset --hard 等）。' },
+    body: `• main ブランチ直接作業禁止: 全ての変更はフィーチャー/トピックブランチで行い、承認済み PR のマージ時のみ main を更新する
+• Worktree 必須: ブランチ作業は git worktree add で分離。作成先は .git/worktrees/ 配下とする（例: git worktree add .git/worktrees/<name> <branch>）
+• 過剰設計禁止: 依頼された内容のみ実装、「念のため」機能は作らない
+• 既存パターン尊重: プロジェクトのコードスタイル・アーキテクチャに従う
+• 破壊的操作は確認: force push, reset --hard 等は必ずユーザー確認` },
   'Context Management': { summary: 'コンテキスト管理',
-    body: 'タスク開始前に最適な戦略を提案する。大規模探索 → サブエージェントに委譲 / 複数アプローチ → /fork でセッション分岐 / 長い実装 → /compact を60%で実行、Plan Mode 先行 / 簡単な修正 → 直接実行 / コードレビュー → 読み取り専用サブエージェント / 無関係なフォローアップ → /clear で新規開始。テクニック: サブエージェント委譲、/compact、/rewind（Esc×2）、/fork、/btw、Plan Mode（Shift+Tab×2）、/context。' },
+    body: `タスク開始前にリクエストを分析し、最適な戦略を提案する:
+
+• 大規模探索（多数ファイル） → サブエージェントに委譲。親コンテキストにはサマリのみ入る
+• 複数アプローチを試す → /fork でセッションを分岐し、結果を比較
+• 長い実装 → /compact <focus> を約60%で事前実行。Plan Mode を先行
+• 簡単な修正/小さな変更 → 直接実行、特別な管理不要
+• コードレビュー/調査 → 読み取り専用ツールのサブエージェント
+• 無関係なフォローアップタスク → /clear で新規開始
+
+テクニック:
+• サブエージェント委譲: リサーチ/探索を分離されたコンテキストで実行。親はサマリのみ受け取る
+• /compact <focus>: 明示的な保持指示付きの事前圧縮
+• /rewind（Esc×2）: 「会話のみ」はコードを保持してコンテキストをリセット。「ここからまとめる」は部分的なコンパクション
+• /fork: メインセッションを汚さずに代替アプローチを分岐
+• /btw: コンテキストコストゼロの質問（履歴に保存されない）
+• Plan Mode（Shift+Tab×2）: 実装前の読み取り専用探索
+• /context: トークン使用量を定期的に監視` },
   'Session Naming': { summary: 'セッション命名',
-    body: '/rename でタスクを反映した名前（15〜20文字）を付ける。タスクの進行に合わせて更新。形式: <アクション>-<対象>（例: 設定最適化-CLAUDE.md, API実装-認証機能）。セッション開始時、タスク変更時、スコープが明確になった時にリネーム。' },
+    body: `• /rename でタスクを反映した名前（15〜20文字）を付ける
+• タスクの進行に合わせて名前を更新する
+• 形式: <アクション>-<対象>（例: 「設定最適化-CLAUDE.md」「API実装-認証機能」）
+• リネームするタイミング: セッション開始時、大きなタスク変更時、スコープが明確になった時` },
   'Compact Instructions': { summary: 'コンパクション指示',
-    body: 'コンテキスト圧縮時に保持すべき情報: 現在のタスク目標と進捗状況 / 変更済みファイルの一覧と変更内容の要約 / 未解決の問題・ブロッカー / ユーザーの明示的な指示・好み / アーキテクチャ決定とその理由。' },
+    body: `コンパクション時に保持すること:
+• 現在のタスク目標と進捗状況
+• 変更済みファイルのパスと変更内容の要約
+• 未解決の問題・ブロッカー
+• ユーザーの明示的な好み
+• アーキテクチャ決定とその理由` },
   'Important Reminders': { summary: '重要なリマインダー',
-    body: 'ユーザーに聞かれていないファイル作成・ドキュメント生成は行わない。テストコードは振る舞いをテスト（実装詳細はテストしない）。エラー発生時は根本原因を調査、安易なリトライやバイパスは避ける。' },
+    body: `• 明示的に依頼されない限り、ファイル作成やドキュメント生成は行わない
+• テストは振る舞いをテストする。実装詳細はテストしない
+• エラー発生時は根本原因を調査する。安易なリトライやバイパスは避ける` },
 };
 
 // Hook description mapping (Japanese)
@@ -758,6 +1241,17 @@ tr:hover td { background: var(--accent-dim); }
 .stat-num { font-size: 1.75rem; font-weight: 700; color: var(--accent); }
 .stat-label { font-size: .7rem; color: var(--text3); text-transform: uppercase; letter-spacing: .05em; }
 
+/* File block (per-file view) */
+.file-block { background: var(--bg); border: 1px solid var(--surface2); border-radius: .625rem; padding: 1.25rem; margin-bottom: 1rem; }
+.file-block:hover { border-color: var(--border); }
+.file-header { display: flex; align-items: center; gap: .5rem; margin-bottom: .5rem; flex-wrap: wrap; }
+.file-name { font-family: 'SF Mono', Menlo, monospace; font-size: .85rem; font-weight: 600; color: var(--text); }
+.file-meta { color: var(--text3); font-size: .7rem; font-family: 'SF Mono', Menlo, monospace; margin-left: auto; }
+.file-subtitle { font-size: .9rem; font-weight: 600; color: var(--accent); margin-bottom: .75rem; }
+.file-section-label { font-size: .75rem; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: .05em; margin: 1rem 0 .5rem; padding-top: .75rem; border-top: 1px solid var(--surface2); }
+.file-block .ja-body { margin-bottom: .5rem; }
+.file-block .fulltext-block { margin-top: .5rem; }
+
 /* Annotated tree */
 .tree-block { margin: .75rem 0; }
 .tree-pre { background: var(--surface); border: 1px solid var(--surface2); border-radius: .5rem; padding: 1rem; font-size: .75rem; line-height: 1.8; overflow-x: auto; }
@@ -943,45 +1437,21 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
   <h2>agents/ — カスタムエージェント</h2>
   <p class="section-desc">特定タスクに特化した専門エージェント。サブエージェントとして起動され、指定されたツールのみ使用可能。各エージェントはカラーコードで識別。</p>
 
-  <h3>📖 日本語全文</h3>
-  <div class="fulltext-block">
-    ${agents.map(a => {
-      const full = agentFullJa[a.name];
-      if (!full) return '';
-      return `<div class="fulltext-section"><h4><span class="card-dot" style="background:${colorMap[a.color] || colorMap.gray};display:inline-block;vertical-align:middle;margin-right:.5rem;"></span>${esc(a.name)} — ${esc(full.summary)}</h4>${jaBodyToHtml(full.body)}</div>`;
-    }).join('')}
-  </div>
-
-  <div class="sep"></div>
-  <h3>📄 英語全文（原文）</h3>
-  <div class="fulltext-block fulltext-en">
-    ${agents.map(a => {
-      return `<div class="fulltext-section"><h4><span class="card-dot" style="background:${colorMap[a.color] || colorMap.gray};display:inline-block;vertical-align:middle;margin-right:.5rem;"></span>${esc(a.name)}</h4>${a.bodySections.map(s => `<h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">${esc(s.title)}</h5><div style="line-height:1.7;">${mdToHtml(s.content.trim())}</div>`).join('')}</div>`;
-    }).join('')}
-  </div>
-
-  <div class="sep"></div>
-  <h3>📑 エージェント別詳細（日本語 + 英語原文）</h3>
-
   ${agents.map(a => {
     const full = agentFullJa[a.name];
     return `
-    <div class="card" style="margin-bottom:.75rem;">
-      <div class="card-head">
-        <div class="card-dot" style="background:${colorMap[a.color] || colorMap.gray}"></div>
-        <div class="card-name">${esc(a.name)}</div>
-        <span style="color:var(--text3);font-size:.75rem;margin-left:auto;">${esc(a.color)}</span>
+    <div class="file-block">
+      <div class="file-header">
+        <span class="card-dot" style="background:${colorMap[a.color] || colorMap.gray}"></span>
+        <span class="file-name">agents/${esc(a.name)}.md</span>
+        ${a.tools ? `<span class="file-meta">${esc(a.tools)}</span>` : ''}
       </div>
-      <div style="font-weight:600;color:var(--text);font-size:.85rem;margin-bottom:.5rem;">${esc(full?.summary || a.description)}</div>
-      ${full ? `<div class="ja-body" style="margin-bottom:.5rem;">${jaBodyToHtml(full.body)}</div>` : ''}
-      ${a.tools ? `<div class="card-tags" style="margin-top:.5rem;margin-bottom:.5rem;">${a.tools.split(',').map(t => `<span class="tag">${esc(t.trim())}</span>`).join('')}</div>` : ''}
-      ${a.bodySections.length > 0 ? `
-      <details class="card-detail">
-        <summary>英語原文セクション</summary>
-        <div class="card-detail-body">
-          ${a.bodySections.slice(0, 5).map(s => `• ${esc(s.title)}`).join('<br>')}
-        </div>
-      </details>` : ''}
+      <h4 class="file-subtitle">${esc(full?.summary || a.description)}</h4>
+      ${full ? `<div class="file-section-label">📖 日本語全文</div><div class="ja-body">${jaBodyToHtml(full.body)}</div>` : ''}
+      <div class="file-section-label">📄 英語全文（原文）</div>
+      <div class="fulltext-block fulltext-en" style="margin-bottom:0;">
+        ${a.bodySections.map(s => `<h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">${esc(s.title)}</h5><div style="line-height:1.7;">${mdToHtml(s.content.trim())}</div>`).join('')}
+      </div>
     </div>`;
   }).join('')}
 </div>
@@ -991,48 +1461,21 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
   <h2>skills/ — カスタムスキル</h2>
   <p class="section-desc">定型ワークフローをカプセル化したスキル。特定のトリガーワードで自動起動します。各スキルは <code>SKILL.md</code> にルールとチェックリストを定義。</p>
 
-  <h3>📖 日本語全文</h3>
-  <div class="fulltext-block">
-    ${skills.map(s => {
-      const full = skillFullJa[s.name];
-      if (!full) return '';
-      return `<div class="fulltext-section"><h4><span class="card-dot" style="background:var(--accent);display:inline-block;vertical-align:middle;margin-right:.5rem;"></span>${esc(s.name)} — ${esc(full.summary)}</h4>${jaBodyToHtml(full.body)}</div>`;
-    }).join('')}
-  </div>
-
-  <div class="sep"></div>
-  <h3>📄 英語全文（原文）</h3>
-  <div class="fulltext-block fulltext-en">
-    ${skills.map(s => {
-      return `<div class="fulltext-section"><h4><span class="card-dot" style="background:var(--accent);display:inline-block;vertical-align:middle;margin-right:.5rem;"></span>${esc(s.name)}</h4>${s.bodySections.map(sec => `<h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">${esc(sec.title)}</h5><div style="line-height:1.7;">${mdToHtml(sec.content.trim())}</div>`).join('')}</div>`;
-    }).join('')}
-  </div>
-
-  <div class="sep"></div>
-  <h3>📑 スキル別詳細（日本語 + 英語原文）</h3>
-
   ${skills.map(s => {
     const full = skillFullJa[s.name];
     return `
-    <div class="card" style="margin-bottom:.75rem;">
-      <div class="card-head">
-        <div class="card-dot" style="background:var(--accent)"></div>
-        <div class="card-name">${esc(s.name)}</div>
+    <div class="file-block">
+      <div class="file-header">
+        <span class="card-dot" style="background:var(--accent)"></span>
+        <span class="file-name">skills/${esc(s.name)}/SKILL.md</span>
       </div>
-      <div style="font-weight:600;color:var(--text);font-size:.85rem;margin-bottom:.5rem;">${esc(full?.summary || s.description)}</div>
-      ${full ? `<div class="ja-body" style="margin-bottom:.5rem;">${jaBodyToHtml(full.body)}</div>` : ''}
-      ${s.triggers.length > 0 ? `
-      <div class="card-tags" style="margin-top:.5rem;margin-bottom:.5rem;">
-        <span style="color:var(--text3);font-size:.7rem;margin-right:.25rem;">トリガー:</span>
-        ${s.triggers.map(t => `<span class="chip chip-accent">${esc(t)}</span>`).join('')}
-      </div>` : ''}
-      ${s.bodySections.length > 0 ? `
-      <details class="card-detail">
-        <summary>英語原文セクション</summary>
-        <div class="card-detail-body">
-          ${s.bodySections.slice(0, 5).map(sec => `• ${esc(sec.title)}`).join('<br>')}
-        </div>
-      </details>` : ''}
+      <h4 class="file-subtitle">${esc(full?.summary || s.description)}</h4>
+      ${s.triggers.length > 0 ? `<div class="card-tags" style="margin-bottom:.75rem;"><span style="color:var(--text3);font-size:.7rem;margin-right:.25rem;">トリガー:</span>${s.triggers.map(t => `<span class="chip chip-accent">${esc(t)}</span>`).join('')}</div>` : ''}
+      ${full ? `<div class="file-section-label">📖 日本語全文</div><div class="ja-body">${jaBodyToHtml(full.body)}</div>` : ''}
+      <div class="file-section-label">📄 英語全文（原文）</div>
+      <div class="fulltext-block fulltext-en" style="margin-bottom:0;">
+        ${s.bodySections.map(sec => `<h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">${esc(sec.title)}</h5><div style="line-height:1.7;">${mdToHtml(sec.content.trim())}</div>`).join('')}
+      </div>
     </div>`;
   }).join('')}
 </div>
@@ -1042,31 +1485,23 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
   <h2>commands/ — スラッシュコマンド</h2>
   <p class="section-desc">Claude Code で <code>/コマンド名</code> として呼び出せるカスタムコマンド。<code>commands/</code> ディレクトリに <code>.md</code> ファイルとして定義。</p>
 
-  <h3>/slash-guide</h3>
-  <p class="section-desc">Claude Code の全スラッシュコマンドを日本語で解説するガイド。</p>
-
-  <h3>/kiro/* — 仕様駆動開発ワークフロー</h3>
-  <p class="section-desc">要件定義 → 技術設計 → タスク生成 → TDD 実装の一連のフローを段階的に実行。</p>
-  <table>
-    <tr><th>コマンド</th><th>説明</th></tr>
-    <tr><td><code>/kiro/spec-init</code></td><td>仕様の初期化（プロジェクト説明から開始）</td></tr>
-    <tr><td><code>/kiro/spec-requirements</code></td><td>包括的な要件定義の生成</td></tr>
-    <tr><td><code>/kiro/spec-design</code></td><td>技術設計の作成</td></tr>
-    <tr><td><code>/kiro/spec-tasks</code></td><td>実装タスクの生成</td></tr>
-    <tr><td><code>/kiro/spec-impl</code></td><td>TDD に基づく実装実行</td></tr>
-    <tr><td><code>/kiro/spec-status</code></td><td>仕様の進捗確認</td></tr>
-    <tr><td><code>/kiro/steering</code></td><td>プロジェクト知識の管理</td></tr>
-    <tr><td><code>/kiro/steering-custom</code></td><td>カスタムコンテキスト用のステアリング作成</td></tr>
-    <tr><td><code>/kiro/validate-design</code></td><td>技術設計の品質レビュー</td></tr>
-    <tr><td><code>/kiro/validate-gap</code></td><td>要件と実装のギャップ分析</td></tr>
-    <tr><td><code>/kiro/validate-impl</code></td><td>実装の検証（要件・設計・タスクとの整合性）</td></tr>
-  </table>
-
-  <div class="sep"></div>
-  <h3>全コマンド一覧</h3>
-  <div class="chip-list">
-    ${commands.map(c => `<span class="chip chip-accent" style="font-size:.8rem;">/${esc(c)}</span>`).join('\n    ')}
-  </div>
+  ${commands.map(c => {
+    const descJa = commandDescJa[c.name] || '';
+    return `
+    <div class="file-block">
+      <div class="file-header">
+        <span class="card-dot" style="background:var(--purple)"></span>
+        <span class="file-name">commands/${esc(c.name)}.md</span>
+        <span class="chip chip-accent" style="margin-left:auto;">/${esc(c.name)}</span>
+      </div>
+      ${descJa ? `<div class="file-section-label">📖 日本語説明</div><div class="ja-body"><p>${esc(descJa)}</p></div>` : ''}
+      ${c.bodySections.length > 0 ? `
+      <div class="file-section-label">📄 英語全文（原文）</div>
+      <div class="fulltext-block fulltext-en" style="margin-bottom:0;">
+        ${c.bodySections.map(s => `<h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">${esc(s.title)}</h5><div style="line-height:1.7;">${mdToHtml(s.content.trim())}</div>`).join('')}
+      </div>` : ''}
+    </div>`;
+  }).join('')}
 </div>
 
 <!-- ===== Tab: MCP 連携 ===== -->
