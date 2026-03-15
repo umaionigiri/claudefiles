@@ -74,9 +74,20 @@ Preserve on compaction:
 
 ## Task Management
 - 3+ steps → Use TaskCreate/TaskUpdate/TaskList to track progress visibly
-- Independent tasks → Launch SubAgents in parallel (Agent tool with run_in_background)
 - Always update task status: pending → in_progress → completed
 - After completing a task, check TaskList for next available work
+
+### SubAgents vs Agent Teams dispatch
+| Criteria | SubAgents | Agent Teams |
+|----------|-----------|-------------|
+| Result only needed (no discussion) | ✅ | |
+| Research / read-only exploration | ✅ | |
+| Parallel independent tasks | ✅ | |
+| Cross-agent discussion needed | | ✅ |
+| Shared task list coordination | | ✅ |
+| Long-running multi-file implementation | | ✅ |
+| Cost-sensitive | ✅ (lower) | |
+| Speed-sensitive (large project) | | ✅ (faster) |
 
 ## Important Reminders
 - Do not create files or generate documentation unless explicitly asked
