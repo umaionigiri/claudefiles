@@ -857,6 +857,26 @@ function collectSkills() {
     .filter(Boolean);
 }
 
+function collectRules() {
+  const dir = join(ROOT, 'rules');
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).filter(f => f.endsWith('.md')).map(f => {
+    const content = readFile(join(dir, f));
+    if (!content) return null;
+    const sections = extractSections(content);
+    const title = sections[0]?.title || f.replace('.md', '');
+    const desc = sections[0]?.content?.trim().split('\n')[0] || '';
+    return { name: f.replace('.md', ''), filename: f, title, description: desc, bodySections: sections };
+  }).filter(Boolean);
+}
+
+// Rule Japanese descriptions
+const ruleDescJa = {
+  'security': 'シークレット禁止、入力バリデーション、認証・認可のセキュリティルール',
+  'code-quality': '命名規則、関数設計、エラー処理、コメントのコード品質ルール',
+  'pre-commit': 'コミット前に確認すべきチェックリスト',
+};
+
 function collectCommands() {
   const dir = join(ROOT, 'commands');
   if (!existsSync(dir)) return [];
@@ -1099,6 +1119,7 @@ function generateHtml() {
   const agents = collectAgents();
   const skills = collectSkills();
   const commands = collectCommands();
+  const rules = collectRules();
   const gitignore = parseGitignore();
   const tree = getDirectoryTree(ROOT);
   const claudeSections = extractSections(claudeMd);
@@ -1141,6 +1162,7 @@ function generateHtml() {
     { id: 'agents', label: 'agents/', icon: '🤖' },
     { id: 'skills', label: 'skills/', icon: '🛠️' },
     { id: 'commands', label: 'commands/', icon: '⌨️' },
+    { id: 'rules', label: 'rules/', icon: '📏' },
     { id: 'mcp', label: 'MCP 連携', icon: '🔌' },
   ];
 
@@ -1299,10 +1321,7 @@ tr:hover td { background: var(--accent-dim); }
 
 <header>
   <h1>Claude Code 設定ダッシュボード</h1>
-  <div class="sub">
-    <a href="https://github.com/umaionigiri/claudefiles">umaionigiri/claudefiles</a>
-    &nbsp;·&nbsp; 最終生成: ${esc(now)}
-  </div>
+  <div class="sub">最終生成: ${esc(now)}</div>
 </header>
 
 <div class="layout">
@@ -1323,11 +1342,17 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
     <div class="stat"><div class="stat-num">${agents.length}</div><div class="stat-label">エージェント</div></div>
     <div class="stat"><div class="stat-num">${skills.length}</div><div class="stat-label">スキル</div></div>
     <div class="stat"><div class="stat-num">${commands.length}</div><div class="stat-label">コマンド</div></div>
+    <div class="stat"><div class="stat-num">${rules.length}</div><div class="stat-label">Rules</div></div>
     <div class="stat"><div class="stat-num">${mcpServers.length}</div><div class="stat-label">MCP 連携</div></div>
     <div class="stat"><div class="stat-num">${perms.length}</div><div class="stat-label">許可ルール</div></div>
     <div class="stat"><div class="stat-num">${Object.values(hooks).flat().reduce((sum, h) => sum + (h.hooks?.length || 0), 0)}</div><div class="stat-label">Hook</div></div>
   </div>
 
+  <h3>ディレクトリ構成</h3>
+  <p class="section-desc">Git 管理対象のファイルツリー。ランタイムデータ（projects/, debug/ 等）は除外。</p>
+  ${generateAnnotatedTree(agents, skills, commands)}
+
+  <div class="sep"></div>
   <h3>エージェント一覧</h3>
   <p class="section-desc">特定タスクに特化した専門エージェント。サブエージェントとして起動され、指定されたツールのみ使用可能。</p>
   <table>
@@ -1362,9 +1387,12 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
   </table>
 
   <div class="sep"></div>
-  <h3>ディレクトリ構成</h3>
-  <p class="section-desc">Git 管理対象のファイルツリー。ランタイムデータ（projects/, debug/ 等）は除外。</p>
-  ${generateAnnotatedTree(agents, skills, commands)}
+  <h3>ルール一覧</h3>
+  <p class="section-desc">常時適用されるルール。CLAUDE.md とは別に rules/ ディレクトリで管理。</p>
+  <table>
+    <tr><th>ルール</th><th>説明</th></tr>
+    ${rules.map(r => `<tr><td><a href="#" class="nav-link" data-tab="rules" data-target="file-rule-${r.name}"><code>${esc(r.filename)}</code></a></td><td>${esc(ruleDescJa[r.name] || r.description)}</td></tr>`).join('\n    ')}
+  </table>
 
   <div class="sep"></div>
   <h3>.gitignore — 追跡/除外ルール</h3>
@@ -1475,6 +1503,12 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
   <h2>agents/ — カスタムエージェント</h2>
   <p class="section-desc">特定タスクに特化した専門エージェント。サブエージェントとして起動され、指定されたツールのみ使用可能。各エージェントはカラーコードで識別。</p>
 
+  <table class="index-table">
+    <tr><th>エージェント</th><th>用途</th><th>ツール</th></tr>
+    ${agents.map(a => `<tr><td><a href="#" class="nav-link" data-tab="agents" data-target="file-agent-${a.name}"><code>${esc(a.name)}</code></a></td><td>${esc(agentFullJa[a.name]?.summary || a.description)}</td><td style="font-size:.7rem;">${esc(a.tools)}</td></tr>`).join('\n    ')}
+  </table>
+  <div class="sep"></div>
+
   ${agents.map(a => {
     const full = agentFullJa[a.name];
     return `
@@ -1498,6 +1532,12 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
 <div id="tab-skills" class="tab-panel">
   <h2>skills/ — カスタムスキル</h2>
   <p class="section-desc">定型ワークフローをカプセル化したスキル。特定のトリガーワードで自動起動します。各スキルは <code>SKILL.md</code> にルールとチェックリストを定義。</p>
+
+  <table class="index-table">
+    <tr><th>スキル</th><th>用途</th><th>トリガー例</th></tr>
+    ${skills.map(s => `<tr><td><a href="#" class="nav-link" data-tab="skills" data-target="file-skill-${s.name}"><code>${esc(s.name)}</code></a></td><td>${esc(skillFullJa[s.name]?.summary || s.description)}</td><td style="font-size:.7rem;">${s.triggers.slice(0, 2).map(t => esc(t)).join('、') || '—'}</td></tr>`).join('\n    ')}
+  </table>
+  <div class="sep"></div>
 
   ${skills.map(s => {
     const full = skillFullJa[s.name];
@@ -1523,6 +1563,12 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
   <h2>commands/ — スラッシュコマンド</h2>
   <p class="section-desc">Claude Code で <code>/コマンド名</code> として呼び出せるカスタムコマンド。<code>commands/</code> ディレクトリに <code>.md</code> ファイルとして定義。</p>
 
+  <table class="index-table">
+    <tr><th>コマンド</th><th>説明</th></tr>
+    ${commands.map(c => { const cmdId = c.name.split('/').join('-'); return `<tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-${cmdId}"><code>/${esc(c.name)}</code></a></td><td style="font-size:.8rem;">${esc((commandDescJa[c.name] || '').slice(0, 60))}${(commandDescJa[c.name] || '').length > 60 ? '…' : ''}</td></tr>`; }).join('\n    ')}
+  </table>
+  <div class="sep"></div>
+
   ${commands.map(c => {
     const descJa = commandDescJa[c.name] || '';
     return `
@@ -1540,6 +1586,33 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
       </div>` : ''}
     </div>`;
   }).join('')}
+</div>
+
+<!-- ===== Tab: Rules ===== -->
+<div id="tab-rules" class="tab-panel">
+  <h2>rules/ — ルール</h2>
+  <p class="section-desc">常時適用されるルール。CLAUDE.md とは別に <code>rules/</code> ディレクトリで管理し、モジュラーに分割。<code>paths</code> frontmatter でファイル種別ごとのオンデマンドロードも可能。</p>
+
+  <table class="index-table">
+    <tr><th>ルール</th><th>説明</th></tr>
+    ${rules.map(r => `<tr><td><a href="#" class="nav-link" data-tab="rules" data-target="file-rule-${r.name}"><code>${esc(r.filename)}</code></a></td><td>${esc(ruleDescJa[r.name] || r.description)}</td></tr>`).join('\n    ')}
+  </table>
+  <div class="sep"></div>
+
+  ${rules.map(r => `
+    <div class="file-block" id="file-rule-${r.name}">
+      <div class="file-header">
+        <span class="card-dot" style="background:var(--orange)"></span>
+        <span class="file-name">rules/${esc(r.filename)}</span>
+      </div>
+      <h4 class="file-subtitle">${esc(ruleDescJa[r.name] || r.title)}</h4>
+      <div class="file-section-label">📖 日本語説明</div>
+      <div class="ja-body"><p>${esc(ruleDescJa[r.name] || r.description)}</p></div>
+      <div class="file-section-label">📄 英語全文（原文）</div>
+      <div class="fulltext-block fulltext-en" style="margin-bottom:0;">
+        ${r.bodySections.map(s => `<h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">${esc(s.title)}</h5><div style="line-height:1.7;">${mdToHtml(s.content.trim())}</div>`).join('')}
+      </div>
+    </div>`).join('')}
 </div>
 
 <!-- ===== Tab: MCP 連携 ===== -->

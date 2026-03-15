@@ -17,10 +17,7 @@
 3. **Impact analysis**: Identify affected files/modules before making changes
 
 ## Pre-Commit Checklist
-- Tests pass (`npm test` / `pytest` / project-specific command)
-- Lint/type checks pass
-- `git diff --staged` confirms only intended changes
-- No secrets (.env, credentials) included
+→ See `rules/pre-commit.md` for full checklist
 
 ## MCP Tool Selection
 | Purpose | Tool | Use Case |

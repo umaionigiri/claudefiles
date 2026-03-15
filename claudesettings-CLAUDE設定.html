@@ -153,10 +153,7 @@ tr:hover td { background: var(--accent-dim); }
 
 <header>
   <h1>Claude Code 設定ダッシュボード</h1>
-  <div class="sub">
-    <a href="https://github.com/umaionigiri/claudefiles">umaionigiri/claudefiles</a>
-    &nbsp;·&nbsp; 最終生成: 2026/3/16 0:15:50
-  </div>
+  <div class="sub">最終生成: 2026/3/16 0:23:21</div>
 </header>
 
 <div class="layout">
@@ -168,6 +165,7 @@ tr:hover td { background: var(--accent-dim); }
   <div class="tab" role="tab" data-tab="agents"><span class="tab-icon">🤖</span>agents/</div>
   <div class="tab" role="tab" data-tab="skills"><span class="tab-icon">🛠️</span>skills/</div>
   <div class="tab" role="tab" data-tab="commands"><span class="tab-icon">⌨️</span>commands/</div>
+  <div class="tab" role="tab" data-tab="rules"><span class="tab-icon">📏</span>rules/</div>
   <div class="tab" role="tab" data-tab="mcp"><span class="tab-icon">🔌</span>MCP 連携</div>
 </nav>
 
@@ -183,11 +181,75 @@ tr:hover td { background: var(--accent-dim); }
     <div class="stat"><div class="stat-num">6</div><div class="stat-label">エージェント</div></div>
     <div class="stat"><div class="stat-num">7</div><div class="stat-label">スキル</div></div>
     <div class="stat"><div class="stat-num">13</div><div class="stat-label">コマンド</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Rules</div></div>
     <div class="stat"><div class="stat-num">8</div><div class="stat-label">MCP 連携</div></div>
     <div class="stat"><div class="stat-num">50</div><div class="stat-label">許可ルール</div></div>
     <div class="stat"><div class="stat-num">6</div><div class="stat-label">Hook</div></div>
   </div>
 
+  <h3>ディレクトリ構成</h3>
+  <p class="section-desc">Git 管理対象のファイルツリー。ランタイムデータ（projects/, debug/ 等）は除外。</p>
+  <div class="tree-block"><pre class="tree-pre"><span class="tree-line">├── <span class="tree-name tree-dir">agents/</span>  <span class="tree-comment"># カスタムエージェント定義（6種）</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">code-reviewer.md</span>  <span class="tree-comment"># コード品質・セキュリティレビュー</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">devops-problem-solver.md</span>  <span class="tree-comment"># システム障害の診断・解決</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">estimation-agent.md</span>  <span class="tree-comment"># プロジェクト見積り・見積書作成</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">senior-consultant-reviewer.md</span>  <span class="tree-comment"># 要件・設計・見積りのレビュー</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">task-decomposer.md</span>  <span class="tree-comment"># タスク分解・計画作成</span></span>
+<span class="tree-line">│   └── <span class="tree-name">test-runner.md</span>  <span class="tree-comment"># テスト実行・カバレッジ分析</span></span>
+<span class="tree-line">├── <span class="tree-name tree-dir">commands/</span>  <span class="tree-comment"># スラッシュコマンド定義</span></span>
+<span class="tree-line">│   ├── <span class="tree-name tree-dir">kiro/</span>  <span class="tree-comment"># 仕様駆動開発ワークフロー（11コマンド）</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">spec-design.md</span>  <span class="tree-comment"># 技術設計の作成</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">spec-impl.md</span>  <span class="tree-comment"># TDD による実装実行</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">spec-init.md</span>  <span class="tree-comment"># 仕様の初期化</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">spec-requirements.md</span>  <span class="tree-comment"># 要件定義の生成</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">spec-status.md</span>  <span class="tree-comment"># 仕様の進捗確認</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">spec-tasks.md</span>  <span class="tree-comment"># 実装タスクの生成</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">steering-custom.md</span>  <span class="tree-comment"># カスタムステアリング作成</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">steering.md</span>  <span class="tree-comment"># プロジェクト知識の管理</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">validate-design.md</span>  <span class="tree-comment"># 技術設計の品質レビュー</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">validate-gap.md</span>  <span class="tree-comment"># 要件と実装のギャップ分析</span></span>
+<span class="tree-line">│   │   └── <span class="tree-name">validate-impl.md</span>  <span class="tree-comment"># 実装の検証</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">create-pr.md</span></span>
+<span class="tree-line">│   └── <span class="tree-name">slash-guide.md</span>  <span class="tree-comment"># 全スラッシュコマンドの日本語解説</span></span>
+<span class="tree-line">├── <span class="tree-name tree-dir">plugins/</span>  <span class="tree-comment"># プラグイン管理</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">installed_plugins.json</span>  <span class="tree-comment"># インストール済みプラグイン</span></span>
+<span class="tree-line">│   └── <span class="tree-name">known_marketplaces.json</span>  <span class="tree-comment"># 公式マーケットプレイス定義</span></span>
+<span class="tree-line">├── <span class="tree-name tree-dir">rules/</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">code-quality.md</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">naming.md</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">pre-commit.md</span></span>
+<span class="tree-line">│   └── <span class="tree-name">security.md</span></span>
+<span class="tree-line">├── <span class="tree-name tree-dir">scripts/</span>  <span class="tree-comment"># 自動化スクリプト</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">auto-sync.sh</span></span>
+<span class="tree-line">│   └── <span class="tree-name">generate-dashboard.mjs</span>  <span class="tree-comment"># 設定ダッシュボード HTML 生成</span></span>
+<span class="tree-line">├── <span class="tree-name tree-dir">skills/</span>  <span class="tree-comment"># カスタムスキル定義（7種）</span></span>
+<span class="tree-line">│   ├── <span class="tree-name tree-dir">development-rules/</span>  <span class="tree-comment"># Context7 リサーチ必須の開発ルール</span></span>
+<span class="tree-line">│   │   └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
+<span class="tree-line">│   ├── <span class="tree-name tree-dir">document-converter/</span>  <span class="tree-comment"># Markdown → Word/Excel/PDF 変換</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name tree-dir">scripts/</span>  <span class="tree-comment"># 自動化スクリプト</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">docx-rules.md</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
+<span class="tree-line">│   │   └── <span class="tree-name">xlsx-rules.md</span></span>
+<span class="tree-line">│   ├── <span class="tree-name tree-dir">gemini-research/</span>  <span class="tree-comment"># Gemini MCP による外部リサーチ</span></span>
+<span class="tree-line">│   │   └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
+<span class="tree-line">│   ├── <span class="tree-name tree-dir">git-workflow/</span>  <span class="tree-comment"># Worktree 必須のブランチ管理</span></span>
+<span class="tree-line">│   │   └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
+<span class="tree-line">│   ├── <span class="tree-name tree-dir">rough-estimate/</span>  <span class="tree-comment"># 概算見積書作成（Scibit LLC）</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name tree-dir">assets/</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name tree-dir">references/</span></span>
+<span class="tree-line">│   │   └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
+<span class="tree-line">│   ├── <span class="tree-name tree-dir">serena-codebase/</span>  <span class="tree-comment"># Serena MCP によるコード解析</span></span>
+<span class="tree-line">│   │   ├── <span class="tree-name">search-patterns.md</span></span>
+<span class="tree-line">│   │   └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
+<span class="tree-line">│   └── <span class="tree-name tree-dir">testing-rules/</span>  <span class="tree-comment"># TDD サイクルに基づくテストルール</span></span>
+<span class="tree-line">│       └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
+<span class="tree-line">├── <span class="tree-name">CLAUDE.md</span>  <span class="tree-comment"># 全プロジェクト共通のグローバル指示</span></span>
+<span class="tree-line">├── <span class="tree-name">claudesettings-CLAUDE設定.html</span></span>
+<span class="tree-line">├── <span class="tree-name">README.md</span>  <span class="tree-comment"># リポジトリの説明・セットアップ手順</span></span>
+<span class="tree-line">└── <span class="tree-name">settings.json</span>  <span class="tree-comment"># 権限・Hook・環境変数・MCP 設定</span></span>
+</pre></div>
+
+  <div class="sep"></div>
   <h3>エージェント一覧</h3>
   <p class="section-desc">特定タスクに特化した専門エージェント。サブエージェントとして起動され、指定されたツールのみ使用可能。</p>
   <table>
@@ -235,66 +297,15 @@ tr:hover td { background: var(--accent-dim); }
   </table>
 
   <div class="sep"></div>
-  <h3>ディレクトリ構成</h3>
-  <p class="section-desc">Git 管理対象のファイルツリー。ランタイムデータ（projects/, debug/ 等）は除外。</p>
-  <div class="tree-block"><pre class="tree-pre"><span class="tree-line">├── <span class="tree-name tree-dir">agents/</span>  <span class="tree-comment"># カスタムエージェント定義（6種）</span></span>
-<span class="tree-line">│   ├── <span class="tree-name">code-reviewer.md</span>  <span class="tree-comment"># コード品質・セキュリティレビュー</span></span>
-<span class="tree-line">│   ├── <span class="tree-name">devops-problem-solver.md</span>  <span class="tree-comment"># システム障害の診断・解決</span></span>
-<span class="tree-line">│   ├── <span class="tree-name">estimation-agent.md</span>  <span class="tree-comment"># プロジェクト見積り・見積書作成</span></span>
-<span class="tree-line">│   ├── <span class="tree-name">senior-consultant-reviewer.md</span>  <span class="tree-comment"># 要件・設計・見積りのレビュー</span></span>
-<span class="tree-line">│   ├── <span class="tree-name">task-decomposer.md</span>  <span class="tree-comment"># タスク分解・計画作成</span></span>
-<span class="tree-line">│   └── <span class="tree-name">test-runner.md</span>  <span class="tree-comment"># テスト実行・カバレッジ分析</span></span>
-<span class="tree-line">├── <span class="tree-name tree-dir">commands/</span>  <span class="tree-comment"># スラッシュコマンド定義</span></span>
-<span class="tree-line">│   ├── <span class="tree-name tree-dir">kiro/</span>  <span class="tree-comment"># 仕様駆動開発ワークフロー（11コマンド）</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">spec-design.md</span>  <span class="tree-comment"># 技術設計の作成</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">spec-impl.md</span>  <span class="tree-comment"># TDD による実装実行</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">spec-init.md</span>  <span class="tree-comment"># 仕様の初期化</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">spec-requirements.md</span>  <span class="tree-comment"># 要件定義の生成</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">spec-status.md</span>  <span class="tree-comment"># 仕様の進捗確認</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">spec-tasks.md</span>  <span class="tree-comment"># 実装タスクの生成</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">steering-custom.md</span>  <span class="tree-comment"># カスタムステアリング作成</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">steering.md</span>  <span class="tree-comment"># プロジェクト知識の管理</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">validate-design.md</span>  <span class="tree-comment"># 技術設計の品質レビュー</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">validate-gap.md</span>  <span class="tree-comment"># 要件と実装のギャップ分析</span></span>
-<span class="tree-line">│   │   └── <span class="tree-name">validate-impl.md</span>  <span class="tree-comment"># 実装の検証</span></span>
-<span class="tree-line">│   ├── <span class="tree-name">create-pr.md</span></span>
-<span class="tree-line">│   └── <span class="tree-name">slash-guide.md</span>  <span class="tree-comment"># 全スラッシュコマンドの日本語解説</span></span>
-<span class="tree-line">├── <span class="tree-name tree-dir">plugins/</span>  <span class="tree-comment"># プラグイン管理</span></span>
-<span class="tree-line">│   ├── <span class="tree-name">installed_plugins.json</span>  <span class="tree-comment"># インストール済みプラグイン</span></span>
-<span class="tree-line">│   └── <span class="tree-name">known_marketplaces.json</span>  <span class="tree-comment"># 公式マーケットプレイス定義</span></span>
-<span class="tree-line">├── <span class="tree-name tree-dir">rules/</span></span>
-<span class="tree-line">│   ├── <span class="tree-name">code-quality.md</span></span>
-<span class="tree-line">│   ├── <span class="tree-name">pre-commit.md</span></span>
-<span class="tree-line">│   └── <span class="tree-name">security.md</span></span>
-<span class="tree-line">├── <span class="tree-name tree-dir">scripts/</span>  <span class="tree-comment"># 自動化スクリプト</span></span>
-<span class="tree-line">│   ├── <span class="tree-name">auto-sync.sh</span></span>
-<span class="tree-line">│   └── <span class="tree-name">generate-dashboard.mjs</span>  <span class="tree-comment"># 設定ダッシュボード HTML 生成</span></span>
-<span class="tree-line">├── <span class="tree-name tree-dir">skills/</span>  <span class="tree-comment"># カスタムスキル定義（7種）</span></span>
-<span class="tree-line">│   ├── <span class="tree-name tree-dir">development-rules/</span>  <span class="tree-comment"># Context7 リサーチ必須の開発ルール</span></span>
-<span class="tree-line">│   │   └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
-<span class="tree-line">│   ├── <span class="tree-name tree-dir">document-converter/</span>  <span class="tree-comment"># Markdown → Word/Excel/PDF 変換</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name tree-dir">scripts/</span>  <span class="tree-comment"># 自動化スクリプト</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">docx-rules.md</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
-<span class="tree-line">│   │   └── <span class="tree-name">xlsx-rules.md</span></span>
-<span class="tree-line">│   ├── <span class="tree-name tree-dir">gemini-research/</span>  <span class="tree-comment"># Gemini MCP による外部リサーチ</span></span>
-<span class="tree-line">│   │   └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
-<span class="tree-line">│   ├── <span class="tree-name tree-dir">git-workflow/</span>  <span class="tree-comment"># Worktree 必須のブランチ管理</span></span>
-<span class="tree-line">│   │   └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
-<span class="tree-line">│   ├── <span class="tree-name tree-dir">rough-estimate/</span>  <span class="tree-comment"># 概算見積書作成（Scibit LLC）</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name tree-dir">assets/</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name tree-dir">references/</span></span>
-<span class="tree-line">│   │   └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
-<span class="tree-line">│   ├── <span class="tree-name tree-dir">serena-codebase/</span>  <span class="tree-comment"># Serena MCP によるコード解析</span></span>
-<span class="tree-line">│   │   ├── <span class="tree-name">search-patterns.md</span></span>
-<span class="tree-line">│   │   └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
-<span class="tree-line">│   └── <span class="tree-name tree-dir">testing-rules/</span>  <span class="tree-comment"># TDD サイクルに基づくテストルール</span></span>
-<span class="tree-line">│       └── <span class="tree-name">SKILL.md</span>  <span class="tree-comment"># スキル定義ファイル</span></span>
-<span class="tree-line">├── <span class="tree-name">CLAUDE.md</span>  <span class="tree-comment"># 全プロジェクト共通のグローバル指示</span></span>
-<span class="tree-line">├── <span class="tree-name">claudesettings-CLAUDE設定.html</span></span>
-<span class="tree-line">├── <span class="tree-name">README.md</span>  <span class="tree-comment"># リポジトリの説明・セットアップ手順</span></span>
-<span class="tree-line">└── <span class="tree-name">settings.json</span>  <span class="tree-comment"># 権限・Hook・環境変数・MCP 設定</span></span>
-</pre></div>
+  <h3>ルール一覧</h3>
+  <p class="section-desc">常時適用されるルール。CLAUDE.md とは別に rules/ ディレクトリで管理。</p>
+  <table>
+    <tr><th>ルール</th><th>説明</th></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="rules" data-target="file-rule-code-quality"><code>code-quality.md</code></a></td><td>命名規則、関数設計、エラー処理、コメントのコード品質ルール</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="rules" data-target="file-rule-naming"><code>naming.md</code></a></td><td></td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="rules" data-target="file-rule-pre-commit"><code>pre-commit.md</code></a></td><td>コミット前に確認すべきチェックリスト</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="rules" data-target="file-rule-security"><code>security.md</code></a></td><td>シークレット禁止、入力バリデーション、認証・認可のセキュリティルール</td></tr>
+  </table>
 
   <div class="sep"></div>
   <h3>.gitignore — 追跡/除外ルール</h3>
@@ -326,7 +337,7 @@ tr:hover td { background: var(--accent-dim); }
   <div class="sep"></div>
   <h3>📄 英語全文（原文）</h3>
   <div class="fulltext-block fulltext-en">
-    <div class="fulltext-section"><h4>Global Claude Code Settings</h4><div style="line-height:1.7;"></div></div><div class="fulltext-section"><h4>Language</h4><div style="line-height:1.7;"><ul><li>Always respond in Japanese (unless English is explicitly requested)</li><li>Write code, comments, and documentation in English</li><li>Use technical terms in their original form (e.g., API, Docker, Kubernetes)</li></ul></div></div><div class="fulltext-section"><h4>Response Style</h4><div style="line-height:1.7;"><ul><li><strong>Conclusion first</strong>: Present the solution first, details later</li><li><strong>Avoid code duplication</strong>: Do not unnecessarily redisplay user-provided code</li><li><strong>Concise and casual</strong>: Skip excessive politeness and long introductions</li><li><strong>Code references</strong>: Use <code>file_path:line_number</code> format</li></ul></div></div><div class="fulltext-section"><h4>Pre-Implementation Steps</h4><div style="line-height:1.7;"><ol><li><strong>Context7 API check</strong>: Run <code>resolve-library-id</code> → <code>query-docs</code> when using frameworks/libraries</li><li><strong>Existing patterns</strong>: Use Grep/Glob to check existing implementation patterns in the project</li><li><strong>Impact analysis</strong>: Identify affected files/modules before making changes</li></ul></div></div><div class="fulltext-section"><h4>Pre-Commit Checklist</h4><div style="line-height:1.7;"><ul><li>Tests pass (<code>npm test</code> / <code>pytest</code> / project-specific command)</li><li>Lint/type checks pass</li><li><code>git diff --staged</code> confirms only intended changes</li><li>No secrets (.env, credentials) included</li></ul></div></div><div class="fulltext-section"><h4>MCP Tool Selection</h4><div style="line-height:1.7;"><table><tr><th>Purpose</th><th>Tool</th><th>Use Case</th></tr><tr><td>Library API reference</td><td>Context7</td><td>Latest docs before implementation</td></tr><tr><td>External research</td><td>Gemini</td><td>Best practices, tech comparison, trend analysis</td></tr><tr><td>Code analysis</td><td>Serena</td><td>Symbol search, dependency analysis, refactor impact</td></tr><tr><td>GitHub operations</td><td>GitHub MCP</td><td>PR creation, issue management, code search</td></tr><tr><td>Azure operations</td><td>Azure MCP</td><td>Resource management, documentation reference</td></tr><tr><td>Browser automation</td><td>Playwright</td><td>E2E testing, web scraping</td></tr></table></div></div><div class="fulltext-section"><h4>Workflow Principles</h4><div style="line-height:1.7;"><ul><li><strong>No direct work on main</strong>: All changes via feature/topic branches; main updated only through approved PR merges</li><li><strong>Worktree required</strong>: Use <code>git worktree add</code> for branch isolation. Create under <code>.git/worktrees/</code> (e.g., <code>git worktree add .git/worktrees/&lt;name&gt; &lt;branch&gt;</code>)</li><li><strong>No over-engineering</strong>: Implement only what's requested; no &quot;just in case&quot; features</li><li><strong>Respect existing patterns</strong>: Follow the project's code style and architecture</li><li><strong>Confirm destructive operations</strong>: Always ask before force push, reset --hard, etc.</li></ul></div></div><div class="fulltext-section"><h4>Context Management</h4><div style="line-height:1.7;"><p>Before starting any task, analyze the request and propose the optimal strategy:</p><table><tr><th>Task Type</th><th>Recommended Strategy</th></tr><tr><td>Large exploration (many files)</td><td>Delegate to subagents; only summary enters parent context</td></tr><tr><td>Multiple approaches to try</td><td><code>/fork</code> to branch session, compare results</td></tr><tr><td>Long implementation</td><td><code>/compact &lt;focus&gt;</code> proactively at ~60%; Plan Mode first</td></tr><tr><td>Quick fix / small change</td><td>Direct execution, no special management needed</td></tr><tr><td>Code review / investigation</td><td>Subagent with read-only tools</td></tr><tr><td>Unrelated follow-up task</td><td><code>/clear</code> then start fresh</td></tr></table><p>Techniques:</p><ul><li><strong>Subagent delegation</strong>: Research/exploration in isolated context; parent receives summary only</li><li><strong><code>/compact &lt;focus&gt;</code></strong>: Proactive compression with explicit preservation instructions</li><li><strong><code>/rewind</code> (Esc×2)</strong>: &quot;Conversation only&quot; resets context keeping code; &quot;Summarize from here&quot; for partial compaction</li><li><strong><code>/fork</code></strong>: Branch session for alternative approaches without polluting main session</li><li><strong><code>/btw</code></strong>: Side questions with zero context cost (not stored in history)</li><li><strong>Plan Mode (Shift+Tab×2)</strong>: Read-only exploration before implementation</li><li><strong><code>/context</code></strong>: Monitor token usage periodically</li></ul></div></div><div class="fulltext-section"><h4>Session Naming</h4><div style="line-height:1.7;"><ul><li>Rename sessions with <code>/rename</code> to reflect the task (15-20 chars)</li><li>Update the name as the task evolves</li><li>Format: <code>&lt;action&gt;-&lt;target&gt;</code> (e.g., &quot;設定最適化-CLAUDE.md&quot;, &quot;API実装-認証機能&quot;)</li><li>Rename at: session start, major task change, or when scope becomes clear</li></ul></div></div><div class="fulltext-section"><h4>Compact Instructions</h4><div style="line-height:1.7;"><p>Preserve on compaction:</p><ul><li>Current task goal and progress</li><li>Modified file paths with change summaries</li><li>Unresolved issues and blockers</li><li>User's explicit preferences</li><li>Architecture decisions with reasoning</li></ul></div></div><div class="fulltext-section"><h4>Task Management</h4><div style="line-height:1.7;"><ul><li>3+ steps → Use TaskCreate/TaskUpdate/TaskList to track progress visibly</li><li>Independent tasks → Launch SubAgents in parallel (Agent tool with run_in_background)</li><li>Always update task status: pending → in_progress → completed</li><li>After completing a task, check TaskList for next available work</li></ul></div></div><div class="fulltext-section"><h4>Important Reminders</h4><div style="line-height:1.7;"><ul><li>Do not create files or generate documentation unless explicitly asked</li><li>Test behavior, not implementation details</li><li>Investigate root causes on errors; avoid naive retries or bypasses</li></ul></div></div><div class="fulltext-section"><h4>Config Self-Improvement</h4><div style="line-height:1.7;"><p>On every user prompt, silently evaluate:</p><ol><li>Is the user giving an instruction that should become a permanent rule? → Add to appropriate config file</li><li>Does an existing rule conflict with or duplicate this request? → Update/consolidate</li><li>Where does it belong? Use this decision tree:</li></ul><p>   - Mechanically enforced, no exceptions → <code>settings.json</code> hooks</p><p>   - Always apply, short → <code>CLAUDE.md</code></p><p>   - Always apply, long → <code>.claude/rules/*.md</code> (no paths)</p><p>   - File-type specific → <code>.claude/rules/*.md</code> (with paths frontmatter)</p><p>   - Multi-step workflow with checklist → <code>skills/</code></p><p>   - Needs tool restrictions or isolated context → <code>agents/</code></p><ol><li>After adding/updating config, run <code>node ~/.claude/scripts/generate-dashboard.mjs</code> to sync</li></ul></div></div>
+    <div class="fulltext-section"><h4>Global Claude Code Settings</h4><div style="line-height:1.7;"></div></div><div class="fulltext-section"><h4>Language</h4><div style="line-height:1.7;"><ul><li>Always respond in Japanese (unless English is explicitly requested)</li><li>Write code, comments, and documentation in English</li><li>Use technical terms in their original form (e.g., API, Docker, Kubernetes)</li></ul></div></div><div class="fulltext-section"><h4>Response Style</h4><div style="line-height:1.7;"><ul><li><strong>Conclusion first</strong>: Present the solution first, details later</li><li><strong>Avoid code duplication</strong>: Do not unnecessarily redisplay user-provided code</li><li><strong>Concise and casual</strong>: Skip excessive politeness and long introductions</li><li><strong>Code references</strong>: Use <code>file_path:line_number</code> format</li></ul></div></div><div class="fulltext-section"><h4>Pre-Implementation Steps</h4><div style="line-height:1.7;"><ol><li><strong>Context7 API check</strong>: Run <code>resolve-library-id</code> → <code>query-docs</code> when using frameworks/libraries</li><li><strong>Existing patterns</strong>: Use Grep/Glob to check existing implementation patterns in the project</li><li><strong>Impact analysis</strong>: Identify affected files/modules before making changes</li></ul></div></div><div class="fulltext-section"><h4>Pre-Commit Checklist</h4><div style="line-height:1.7;"><p>→ See <code>rules/pre-commit.md</code> for full checklist</p></div></div><div class="fulltext-section"><h4>MCP Tool Selection</h4><div style="line-height:1.7;"><table><tr><th>Purpose</th><th>Tool</th><th>Use Case</th></tr><tr><td>Library API reference</td><td>Context7</td><td>Latest docs before implementation</td></tr><tr><td>External research</td><td>Gemini</td><td>Best practices, tech comparison, trend analysis</td></tr><tr><td>Code analysis</td><td>Serena</td><td>Symbol search, dependency analysis, refactor impact</td></tr><tr><td>GitHub operations</td><td>GitHub MCP</td><td>PR creation, issue management, code search</td></tr><tr><td>Azure operations</td><td>Azure MCP</td><td>Resource management, documentation reference</td></tr><tr><td>Browser automation</td><td>Playwright</td><td>E2E testing, web scraping</td></tr></table></div></div><div class="fulltext-section"><h4>Workflow Principles</h4><div style="line-height:1.7;"><ul><li><strong>No direct work on main</strong>: All changes via feature/topic branches; main updated only through approved PR merges</li><li><strong>Worktree required</strong>: Use <code>git worktree add</code> for branch isolation. Create under <code>.git/worktrees/</code> (e.g., <code>git worktree add .git/worktrees/&lt;name&gt; &lt;branch&gt;</code>)</li><li><strong>No over-engineering</strong>: Implement only what's requested; no &quot;just in case&quot; features</li><li><strong>Respect existing patterns</strong>: Follow the project's code style and architecture</li><li><strong>Confirm destructive operations</strong>: Always ask before force push, reset --hard, etc.</li></ul></div></div><div class="fulltext-section"><h4>Context Management</h4><div style="line-height:1.7;"><p>Before starting any task, analyze the request and propose the optimal strategy:</p><table><tr><th>Task Type</th><th>Recommended Strategy</th></tr><tr><td>Large exploration (many files)</td><td>Delegate to subagents; only summary enters parent context</td></tr><tr><td>Multiple approaches to try</td><td><code>/fork</code> to branch session, compare results</td></tr><tr><td>Long implementation</td><td><code>/compact &lt;focus&gt;</code> proactively at ~60%; Plan Mode first</td></tr><tr><td>Quick fix / small change</td><td>Direct execution, no special management needed</td></tr><tr><td>Code review / investigation</td><td>Subagent with read-only tools</td></tr><tr><td>Unrelated follow-up task</td><td><code>/clear</code> then start fresh</td></tr></table><p>Techniques:</p><ul><li><strong>Subagent delegation</strong>: Research/exploration in isolated context; parent receives summary only</li><li><strong><code>/compact &lt;focus&gt;</code></strong>: Proactive compression with explicit preservation instructions</li><li><strong><code>/rewind</code> (Esc×2)</strong>: &quot;Conversation only&quot; resets context keeping code; &quot;Summarize from here&quot; for partial compaction</li><li><strong><code>/fork</code></strong>: Branch session for alternative approaches without polluting main session</li><li><strong><code>/btw</code></strong>: Side questions with zero context cost (not stored in history)</li><li><strong>Plan Mode (Shift+Tab×2)</strong>: Read-only exploration before implementation</li><li><strong><code>/context</code></strong>: Monitor token usage periodically</li></ul></div></div><div class="fulltext-section"><h4>Session Naming</h4><div style="line-height:1.7;"><ul><li>Rename sessions with <code>/rename</code> to reflect the task (15-20 chars)</li><li>Update the name as the task evolves</li><li>Format: <code>&lt;action&gt;-&lt;target&gt;</code> (e.g., &quot;設定最適化-CLAUDE.md&quot;, &quot;API実装-認証機能&quot;)</li><li>Rename at: session start, major task change, or when scope becomes clear</li></ul></div></div><div class="fulltext-section"><h4>Compact Instructions</h4><div style="line-height:1.7;"><p>Preserve on compaction:</p><ul><li>Current task goal and progress</li><li>Modified file paths with change summaries</li><li>Unresolved issues and blockers</li><li>User's explicit preferences</li><li>Architecture decisions with reasoning</li></ul></div></div><div class="fulltext-section"><h4>Task Management</h4><div style="line-height:1.7;"><ul><li>3+ steps → Use TaskCreate/TaskUpdate/TaskList to track progress visibly</li><li>Independent tasks → Launch SubAgents in parallel (Agent tool with run_in_background)</li><li>Always update task status: pending → in_progress → completed</li><li>After completing a task, check TaskList for next available work</li></ul></div></div><div class="fulltext-section"><h4>Important Reminders</h4><div style="line-height:1.7;"><ul><li>Do not create files or generate documentation unless explicitly asked</li><li>Test behavior, not implementation details</li><li>Investigate root causes on errors; avoid naive retries or bypasses</li></ul></div></div><div class="fulltext-section"><h4>Config Self-Improvement</h4><div style="line-height:1.7;"><p>On every user prompt, silently evaluate:</p><ol><li>Is the user giving an instruction that should become a permanent rule? → Add to appropriate config file</li><li>Does an existing rule conflict with or duplicate this request? → Update/consolidate</li><li>Where does it belong? Use this decision tree:</li></ul><p>   - Mechanically enforced, no exceptions → <code>settings.json</code> hooks</p><p>   - Always apply, short → <code>CLAUDE.md</code></p><p>   - Always apply, long → <code>.claude/rules/*.md</code> (no paths)</p><p>   - File-type specific → <code>.claude/rules/*.md</code> (with paths frontmatter)</p><p>   - Multi-step workflow with checklist → <code>skills/</code></p><p>   - Needs tool restrictions or isolated context → <code>agents/</code></p><ol><li>After adding/updating config, run <code>node ~/.claude/scripts/generate-dashboard.mjs</code> to sync</li></ul></div></div>
   </div>
 
   <div class="sep"></div>
@@ -391,7 +402,7 @@ tr:hover td { background: var(--accent-dim); }
     <div class="ja-body" style="margin-bottom:.5rem;"><ul><li>テスト通過（npm test / pytest / プロジェクト固有コマンド）</li><li>Lint/型チェック通過</li><li>git diff --staged で意図した変更のみか確認</li><li>機密情報（.env, credentials）が含まれていないか確認</li></ul></div>
     <details class="card-detail" open>
       <summary>英語原文</summary>
-      <div class="card-detail-body" style="line-height:1.7;"><ul><li>Tests pass (<code>npm test</code> / <code>pytest</code> / project-specific command)</li><li>Lint/type checks pass</li><li><code>git diff --staged</code> confirms only intended changes</li><li>No secrets (.env, credentials) included</li></ul></div>
+      <div class="card-detail-body" style="line-height:1.7;"><p>→ See <code>rules/pre-commit.md</code> for full checklist</p></div>
     </details>
   </div>
   <div class="card" style="margin-bottom:.75rem;">
@@ -671,6 +682,17 @@ tr:hover td { background: var(--accent-dim); }
   <h2>agents/ — カスタムエージェント</h2>
   <p class="section-desc">特定タスクに特化した専門エージェント。サブエージェントとして起動され、指定されたツールのみ使用可能。各エージェントはカラーコードで識別。</p>
 
+  <table class="index-table">
+    <tr><th>エージェント</th><th>用途</th><th>ツール</th></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="agents" data-target="file-agent-code-reviewer"><code>code-reviewer</code></a></td><td>コードレビューエージェント</td><td style="font-size:.7rem;">Read, Grep, Glob, Bash(git:*)</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="agents" data-target="file-agent-devops-problem-solver"><code>devops-problem-solver</code></a></td><td>DevOps 問題解決エージェント</td><td style="font-size:.7rem;">Read, Glob, Grep, Bash</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="agents" data-target="file-agent-estimation-agent"><code>estimation-agent</code></a></td><td>見積りエージェント</td><td style="font-size:.7rem;">Read, Write, Glob, Grep, Bash</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="agents" data-target="file-agent-senior-consultant-reviewer"><code>senior-consultant-reviewer</code></a></td><td>シニアコンサルタントレビューエージェント</td><td style="font-size:.7rem;">Read, Glob, Grep</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="agents" data-target="file-agent-task-decomposer"><code>task-decomposer</code></a></td><td>タスク分解エージェント</td><td style="font-size:.7rem;">Read, Glob, Grep</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="agents" data-target="file-agent-test-runner"><code>test-runner</code></a></td><td>テストランナーエージェント</td><td style="font-size:.7rem;">Read, Glob, Grep, Bash, mcp__playwright__*</td></tr>
+  </table>
+  <div class="sep"></div>
+
   
     <div class="file-block" id="file-agent-code-reviewer">
       <div class="file-header">
@@ -756,6 +778,18 @@ tr:hover td { background: var(--accent-dim); }
 <div id="tab-skills" class="tab-panel">
   <h2>skills/ — カスタムスキル</h2>
   <p class="section-desc">定型ワークフローをカプセル化したスキル。特定のトリガーワードで自動起動します。各スキルは <code>SKILL.md</code> にルールとチェックリストを定義。</p>
+
+  <table class="index-table">
+    <tr><th>スキル</th><th>用途</th><th>トリガー例</th></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="skills" data-target="file-skill-development-rules"><code>development-rules</code></a></td><td>開発ルール</td><td style="font-size:.7rem;">機能を実装、コードを書く</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="skills" data-target="file-skill-document-converter"><code>document-converter</code></a></td><td>ドキュメント変換スキル</td><td style="font-size:.7rem;">Markdownを Word に変換、Excel に出力</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="skills" data-target="file-skill-gemini-research"><code>gemini-research</code></a></td><td>Gemini リサーチスキル</td><td style="font-size:.7rem;">ベストプラクティスを調査、最新技術トレンド</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="skills" data-target="file-skill-git-workflow"><code>git-workflow</code></a></td><td>Git ワークフロー</td><td style="font-size:.7rem;">ブランチ作成、git workflow</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="skills" data-target="file-skill-rough-estimate"><code>rough-estimate</code></a></td><td>概算見積り作成スキル</td><td style="font-size:.7rem;">見積りを作成、概算見積り</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="skills" data-target="file-skill-serena-codebase"><code>serena-codebase</code></a></td><td>Serena コードベース分析スキル</td><td style="font-size:.7rem;">シンボルを探す、コードベースを検索</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="skills" data-target="file-skill-testing-rules"><code>testing-rules</code></a></td><td>テストルール</td><td style="font-size:.7rem;">テストを書く、TDD</td></tr>
+  </table>
+  <div class="sep"></div>
 
   
     <div class="file-block" id="file-skill-development-rules">
@@ -855,6 +889,24 @@ tr:hover td { background: var(--accent-dim); }
 <div id="tab-commands" class="tab-panel">
   <h2>commands/ — スラッシュコマンド</h2>
   <p class="section-desc">Claude Code で <code>/コマンド名</code> として呼び出せるカスタムコマンド。<code>commands/</code> ディレクトリに <code>.md</code> ファイルとして定義。</p>
+
+  <table class="index-table">
+    <tr><th>コマンド</th><th>説明</th></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-create-pr"><code>/create-pr</code></a></td><td style="font-size:.8rem;"></td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-kiro-spec-design"><code>/kiro/spec-design</code></a></td><td style="font-size:.8rem;">要件に基づいた技術設計を作成。アーキテクチャ、データモデル、API 設計、技術選定の根拠を文書化。</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-kiro-spec-impl"><code>/kiro/spec-impl</code></a></td><td style="font-size:.8rem;">TDD（テスト駆動開発）に基づいてタスクを実装。Red → Green → Refactor のサイクルで進行。</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-kiro-spec-init"><code>/kiro/spec-init</code></a></td><td style="font-size:.8rem;">仕様駆動開発の開始点。プロジェクト説明を入力すると、仕様ディレクトリ（.kiro/specs/）を初期化し、要件・設計・…</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-kiro-spec-requirements"><code>/kiro/spec-requirements</code></a></td><td style="font-size:.8rem;">プロジェクトの包括的な要件定義を生成。機能要件・非機能要件・制約条件・受入基準を構造化して出力。</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-kiro-spec-status"><code>/kiro/spec-status</code></a></td><td style="font-size:.8rem;">仕様全体の進捗状況を表示。要件・設計・タスクの完了率、未着手・進行中・完了の内訳を確認。</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-kiro-spec-tasks"><code>/kiro/spec-tasks</code></a></td><td style="font-size:.8rem;">技術設計から実装タスクを自動生成。依存関係、優先順位、見積り時間を含むタスクリストを作成。</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-kiro-steering-custom"><code>/kiro/steering-custom</code></a></td><td style="font-size:.8rem;">特定のプロジェクトコンテキストに特化したステアリングドキュメントを作成。フレームワーク固有のルールや業界固有の制約を定義…</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-kiro-steering"><code>/kiro/steering</code></a></td><td style="font-size:.8rem;">.kiro/steering/ ディレクトリに永続的なプロジェクト知識を管理。コーディング規約、アーキテクチャ決定、チー…</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-kiro-validate-design"><code>/kiro/validate-design</code></a></td><td style="font-size:.8rem;">技術設計の品質をインタラクティブにレビュー。整合性、拡張性、セキュリティ、パフォーマンスの観点から評価。</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-kiro-validate-gap"><code>/kiro/validate-gap</code></a></td><td style="font-size:.8rem;">要件定義と既存コードベースのギャップを分析。未実装の要件、乖離している実装、不足しているテストを特定。</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-kiro-validate-impl"><code>/kiro/validate-impl</code></a></td><td style="font-size:.8rem;">実装が要件・設計・タスクと整合しているか検証。コード品質、テストカバレッジ、設計準拠を確認。</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-slash-guide"><code>/slash-guide</code></a></td><td style="font-size:.8rem;">Claude Code の全スラッシュコマンド（/help, /compact, /fork, /clear 等）を日本…</td></tr>
+  </table>
+  <div class="sep"></div>
 
   
     <div class="file-block" id="file-cmd-create-pr">
@@ -1024,6 +1076,75 @@ tr:hover td { background: var(--accent-dim); }
       <div class="file-section-label">📄 英語全文（原文）</div>
       <div class="fulltext-block fulltext-en" style="margin-bottom:0;">
         <h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Claude Code スラッシュコマンド完全ガイド</h5><div style="line-height:1.7;"><p>$ARGUMENTS に基づいて、以下の情報から該当する部分を日本語で分かりやすく解説してください。</p><p>引数がない場合は、全体の概要とカテゴリ一覧を表示してください。</p><p>---</p></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">カテゴリ一覧</h5><div style="line-height:1.7;"><ol><li><strong>基本操作</strong> - 会話の管理、終了、ヘルプ</li><li><strong>セッション管理</strong> - 会話の保存、再開、エクスポート</li><li><strong>コンテキスト管理</strong> - メモリ、コンパクト、コンテキスト確認</li><li><strong>開発支援</strong> - コードレビュー、セキュリティ、TODO管理</li><li><strong>設定・構成</strong> - 権限、フック、MCP、プラグイン</li><li><strong>アカウント・プラン</strong> - ログイン、使用量、統計</li><li><strong>環境設定</strong> - IDE連携、ターミナル、ステータスライン</li><li><strong>その他</strong> - 診断、バグ報告、サンドボックス</li></ul><p>---</p></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">全コマンド一覧</h5><div style="line-height:1.7;"></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">基本操作</h5><div style="line-height:1.7;"><table><tr><th>コマンド</th><th>説明</th></tr><tr><td><code>/help</code></td><td>ヘルプを表示。利用可能なコマンド一覧を確認できる</td></tr><tr><td><code>/clear</code></td><td>会話履歴をクリア。新しい会話を開始する</td></tr><tr><td><code>/exit</code></td><td>Claude Code を終了する</td></tr></table></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">セッション管理</h5><div style="line-height:1.7;"><table><tr><th>コマンド</th><th>説明</th></tr><tr><td><code>/resume [session]</code></td><td>過去の会話を再開。IDや名前を指定、または選択画面を表示</td></tr><tr><td><code>/rename &lt;name&gt;</code></td><td>現在のセッションに名前を付けて識別しやすくする</td></tr><tr><td><code>/export [filename]</code></td><td>会話をファイルまたはクリップボードにエクスポート</td></tr><tr><td><code>/rewind</code></td><td>会話やコードを巻き戻す。変更を取り消したい時に使用</td></tr></table></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">コンテキスト管理</h5><div style="line-height:1.7;"><table><tr><th>コマンド</th><th>説明</th></tr><tr><td><code>/memory</code></td><td>CLAUDE.md メモリファイルを編集。プロジェクト固有の指示を保存</td></tr><tr><td><code>/compact [instructions]</code></td><td>会話を要約して圧縮。オプションでフォーカス指示を追加可能</td></tr><tr><td><code>/context</code></td><td>現在のコンテキスト使用量をカラーグリッドで可視化</td></tr><tr><td><code>/cost</code></td><td>トークン使用量の統計を表示</td></tr></table></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">開発支援</h5><div style="line-height:1.7;"><table><tr><th>コマンド</th><th>説明</th></tr><tr><td><code>/review</code></td><td>コードレビューをリクエスト</td></tr><tr><td><code>/security-review</code></td><td>現在のブランチの保留中の変更に対してセキュリティレビューを実行</td></tr><tr><td><code>/todos</code></td><td>現在のTODOアイテム一覧を表示</td></tr><tr><td><code>/pr-comments</code></td><td>プルリクエストのコメントを表示</td></tr><tr><td><code>/init</code></td><td>CLAUDE.md ガイドでプロジェクトを初期化</td></tr></table></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">設定・構成</h5><div style="line-height:1.7;"><table><tr><th>コマンド</th><th>説明</th></tr><tr><td><code>/config</code></td><td>設定画面（Config タブ）を開く</td></tr><tr><td><code>/permissions</code></td><td>権限の表示・更新。ツールの許可設定を管理</td></tr><tr><td><code>/hooks</code></td><td>ツールイベント用のフック設定を管理</td></tr><tr><td><code>/mcp</code></td><td>MCP サーバー接続と OAuth 認証を管理</td></tr><tr><td><code>/plugin</code></td><td>Claude Code プラグインを管理</td></tr><tr><td><code>/agents</code></td><td>カスタム AI サブエージェントを管理</td></tr><tr><td><code>/model</code></td><td>AI モデルを選択・変更</td></tr><tr><td><code>/output-style [style]</code></td><td>出力スタイルを設定（直接指定または選択メニュー）</td></tr><tr><td><code>/add-dir</code></td><td>追加の作業ディレクトリを追加</td></tr></table></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">アカウント・プラン</h5><div style="line-height:1.7;"><table><tr><th>コマンド</th><th>説明</th></tr><tr><td><code>/login</code></td><td>Anthropic アカウントを切り替え</td></tr><tr><td><code>/logout</code></td><td>Anthropic アカウントからサインアウト</td></tr><tr><td><code>/usage</code></td><td>プラン使用制限とレート制限状況を表示（サブスクリプションプランのみ）</td></tr><tr><td><code>/stats</code></td><td>日次使用量、セッション履歴、連続使用日数、モデル設定を可視化</td></tr><tr><td><code>/privacy-settings</code></td><td>プライバシー設定を表示・更新</td></tr></table></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">環境設定</h5><div style="line-height:1.7;"><table><tr><th>コマンド</th><th>説明</th></tr><tr><td><code>/ide</code></td><td>IDE 連携を管理、ステータスを表示</td></tr><tr><td><code>/terminal-setup</code></td><td>Shift+Enter キーバインドをインストール（iTerm2/VSCode のみ）</td></tr><tr><td><code>/statusline</code></td><td>Claude Code のステータスライン UI を設定</td></tr><tr><td><code>/status</code></td><td>設定画面（Status タブ）を開き、バージョン・モデル・アカウント・接続状況を表示</td></tr><tr><td><code>/vim</code></td><td>vim モードに入る。挿入モードとコマンドモードを切り替え</td></tr></table></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">その他</h5><div style="line-height:1.7;"><table><tr><th>コマンド</th><th>説明</th></tr><tr><td><code>/doctor</code></td><td>Claude Code インストールの健全性をチェック</td></tr><tr><td><code>/bug</code></td><td>バグを報告（会話を Anthropic に送信）</td></tr><tr><td><code>/sandbox</code></td><td>ファイルシステムとネットワークを分離したサンドボックス bash ツールを有効化</td></tr><tr><td><code>/bashes</code></td><td>バックグラウンドタスクの一覧表示・管理</td></tr><tr><td><code>/release-notes</code></td><td>リリースノートを表示</td></tr><tr><td><code>/install-github-app</code></td><td>リポジトリに Claude GitHub Actions をセットアップ</td></tr></table><p>---</p></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">使用例</h5><div style="line-height:1.7;"><p><code>`</code></p><p>/resume                    # セッション選択画面を表示</p><p>/resume my-feature         # &quot;my-feature&quot; という名前のセッションを再開</p><p>/compact バグ修正に集中     # バグ修正関連の内容を保持して圧縮</p><p>/export chat.md            # chat.md に会話をエクスポート</p><p>/model                     # モデル選択画面を表示</p><p><code>`</code></p><p>---</p></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">ヒント</h5><div style="line-height:1.7;"><ul><li><strong>Tab 補完</strong>: コマンド入力中に Tab キーで補完できます</li><li><strong>引数のヒント</strong>: <code>/help</code> でコマンドの引数ヒントを確認できます</li><li><strong>カスタムコマンド</strong>: <code>~/.claude/commands/</code> に独自コマンドを追加できます</li><li><strong>プロジェクト固有</strong>: <code>.claude/commands/</code> にプロジェクト専用コマンドを配置できます</li></ul></div>
+      </div>
+    </div>
+</div>
+
+<!-- ===== Tab: Rules ===== -->
+<div id="tab-rules" class="tab-panel">
+  <h2>rules/ — ルール</h2>
+  <p class="section-desc">常時適用されるルール。CLAUDE.md とは別に <code>rules/</code> ディレクトリで管理し、モジュラーに分割。<code>paths</code> frontmatter でファイル種別ごとのオンデマンドロードも可能。</p>
+
+  <table class="index-table">
+    <tr><th>ルール</th><th>説明</th></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="rules" data-target="file-rule-code-quality"><code>code-quality.md</code></a></td><td>命名規則、関数設計、エラー処理、コメントのコード品質ルール</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="rules" data-target="file-rule-naming"><code>naming.md</code></a></td><td></td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="rules" data-target="file-rule-pre-commit"><code>pre-commit.md</code></a></td><td>コミット前に確認すべきチェックリスト</td></tr>
+    <tr><td><a href="#" class="nav-link" data-tab="rules" data-target="file-rule-security"><code>security.md</code></a></td><td>シークレット禁止、入力バリデーション、認証・認可のセキュリティルール</td></tr>
+  </table>
+  <div class="sep"></div>
+
+  
+    <div class="file-block" id="file-rule-code-quality">
+      <div class="file-header">
+        <span class="card-dot" style="background:var(--orange)"></span>
+        <span class="file-name">rules/code-quality.md</span>
+      </div>
+      <h4 class="file-subtitle">命名規則、関数設計、エラー処理、コメントのコード品質ルール</h4>
+      <div class="file-section-label">📖 日本語説明</div>
+      <div class="ja-body"><p>命名規則、関数設計、エラー処理、コメントのコード品質ルール</p></div>
+      <div class="file-section-label">📄 英語全文（原文）</div>
+      <div class="fulltext-block fulltext-en" style="margin-bottom:0;">
+        <h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Code Quality Rules</h5><div style="line-height:1.7;"><p>Always apply these rules when writing or reviewing code.</p></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Naming</h5><div style="line-height:1.7;"><ul><li>Use meaningful, descriptive names</li><li>Follow project conventions (camelCase for JS/TS, snake_case for Python)</li><li>Boolean variables: prefix with is/has/can/should</li></ul></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Functions</h5><div style="line-height:1.7;"><ul><li>Single responsibility per function</li><li>Max 50 lines per function; extract if longer</li><li>Pure functions preferred; minimize side effects</li></ul></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Error Handling</h5><div style="line-height:1.7;"><ul><li>Handle errors at the appropriate level</li><li>Never swallow exceptions silently</li><li>Provide actionable error messages</li></ul></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Comments</h5><div style="line-height:1.7;"><ul><li>Explain &quot;why&quot;, not &quot;what&quot;</li><li>Delete commented-out code (use git history instead)</li><li>Japanese supplementary comments are acceptable</li></ul></div>
+      </div>
+    </div>
+    <div class="file-block" id="file-rule-naming">
+      <div class="file-header">
+        <span class="card-dot" style="background:var(--orange)"></span>
+        <span class="file-name">rules/naming.md</span>
+      </div>
+      <h4 class="file-subtitle">Naming Rules</h4>
+      <div class="file-section-label">📖 日本語説明</div>
+      <div class="ja-body"><p></p></div>
+      <div class="file-section-label">📄 英語全文（原文）</div>
+      <div class="fulltext-block fulltext-en" style="margin-bottom:0;">
+        <h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Naming Rules</h5><div style="line-height:1.7;"></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Directory Naming</h5><div style="line-height:1.7;"><ul><li><code>docs/</code> subdirectories: Use <code>English_日本語</code> format (e.g., <code>docs/Architecture_アーキテクチャ/</code>)</li><li>Code directories: Use lowercase kebab-case (e.g., <code>user-auth/</code>, <code>api-gateway/</code>)</li></ul></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">File Naming</h5><div style="line-height:1.7;"><ul><li>Estimate documents: <code>{project}_概算見積-{title}_{YYYYMMDD}.md</code> (Japanese filenames for client visibility)</li><li>Config files: English lowercase (e.g., <code>settings.json</code>, <code>CLAUDE.md</code>)</li><li>Scripts: English lowercase with extension (e.g., <code>generate-dashboard.mjs</code>)</li></ul></div>
+      </div>
+    </div>
+    <div class="file-block" id="file-rule-pre-commit">
+      <div class="file-header">
+        <span class="card-dot" style="background:var(--orange)"></span>
+        <span class="file-name">rules/pre-commit.md</span>
+      </div>
+      <h4 class="file-subtitle">コミット前に確認すべきチェックリスト</h4>
+      <div class="file-section-label">📖 日本語説明</div>
+      <div class="ja-body"><p>コミット前に確認すべきチェックリスト</p></div>
+      <div class="file-section-label">📄 英語全文（原文）</div>
+      <div class="fulltext-block fulltext-en" style="margin-bottom:0;">
+        <h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Pre-Commit Rules</h5><div style="line-height:1.7;"><p>Apply before every commit.</p><ul><li>[ ] Tests pass (<code>npm test</code> / <code>pytest</code> / project-specific command)</li><li>[ ] Lint and type checks pass</li><li>[ ] <code>git diff --staged</code> shows only intended changes</li><li>[ ] No secrets (.env, credentials, API keys) in staged files</li><li>[ ] No debug code (console.log, debugger, print statements)</li><li>[ ] Commit message follows Conventional Commits format</li></ul></div>
+      </div>
+    </div>
+    <div class="file-block" id="file-rule-security">
+      <div class="file-header">
+        <span class="card-dot" style="background:var(--orange)"></span>
+        <span class="file-name">rules/security.md</span>
+      </div>
+      <h4 class="file-subtitle">シークレット禁止、入力バリデーション、認証・認可のセキュリティルール</h4>
+      <div class="file-section-label">📖 日本語説明</div>
+      <div class="ja-body"><p>シークレット禁止、入力バリデーション、認証・認可のセキュリティルール</p></div>
+      <div class="file-section-label">📄 英語全文（原文）</div>
+      <div class="fulltext-block fulltext-en" style="margin-bottom:0;">
+        <h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Security Rules</h5><div style="line-height:1.7;"><p>Always apply these rules regardless of context.</p></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Secrets</h5><div style="line-height:1.7;"><ul><li>NEVER hardcode API keys, passwords, tokens, or connection strings</li><li>Use environment variables or secret managers</li><li>Check <code>git diff --staged</code> for accidental secret commits</li></ul></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Input Validation</h5><div style="line-height:1.7;"><ul><li>Validate all external input (user input, API responses, file content)</li><li>Sanitize before database queries (parameterized queries only)</li><li>Escape output for XSS prevention</li></ul></div><h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">Authentication &amp; Authorization</h5><div style="line-height:1.7;"><ul><li>Never store passwords in plain text</li><li>Verify authorization on every protected operation</li><li>Use principle of least privilege</li></ul></div>
       </div>
     </div>
 </div>
