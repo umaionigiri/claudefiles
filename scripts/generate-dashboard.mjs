@@ -1324,6 +1324,28 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
     <div class="stat"><div class="stat-num">${Object.values(hooks).flat().reduce((sum, h) => sum + (h.hooks?.length || 0), 0)}</div><div class="stat-label">Hook</div></div>
   </div>
 
+  <h3>エージェント一覧</h3>
+  <p class="section-desc">特定タスクに特化した専門エージェント。サブエージェントとして起動され、指定されたツールのみ使用可能。</p>
+  <table>
+    <tr><th>エージェント</th><th>用途</th><th>使用ツール</th><th>カラー</th></tr>
+    ${agents.map(a => {
+      const full = agentFullJa[a.name];
+      return `<tr><td><code>${esc(a.name)}</code></td><td>${esc(full?.summary || a.description)}</td><td style="font-size:.7rem;">${esc(a.tools)}</td><td><span class="card-dot" style="background:${colorMap[a.color] || colorMap.gray};display:inline-block;vertical-align:middle;margin-right:.25rem;"></span>${esc(a.color)}</td></tr>`;
+    }).join('\n    ')}
+  </table>
+
+  <div class="sep"></div>
+  <h3>スキル一覧</h3>
+  <p class="section-desc">定型ワークフローをカプセル化したスキル。特定のトリガーワードで自動起動。</p>
+  <table>
+    <tr><th>スキル</th><th>用途</th><th>トリガー例</th></tr>
+    ${skills.map(s => {
+      const full = skillFullJa[s.name];
+      return `<tr><td><code>${esc(s.name)}</code></td><td>${esc(full?.summary || s.description)}</td><td style="font-size:.7rem;">${s.triggers.slice(0, 3).map(t => esc(t)).join('、') || '—'}</td></tr>`;
+    }).join('\n    ')}
+  </table>
+
+  <div class="sep"></div>
   <h3>ディレクトリ構成</h3>
   <p class="section-desc">Git 管理対象のファイルツリー。ランタイムデータ（projects/, debug/ 等）は除外。</p>
   ${generateAnnotatedTree(agents, skills, commands)}

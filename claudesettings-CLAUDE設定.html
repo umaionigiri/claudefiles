@@ -151,7 +151,7 @@ tr:hover td { background: var(--accent-dim); }
   <h1>Claude Code 設定ダッシュボード</h1>
   <div class="sub">
     <a href="https://github.com/umaionigiri/claudefiles">umaionigiri/claudefiles</a>
-    &nbsp;·&nbsp; 最終生成: 2026/3/15 23:56:07
+    &nbsp;·&nbsp; 最終生成: 2026/3/15 23:58:36
   </div>
 </header>
 
@@ -184,6 +184,33 @@ tr:hover td { background: var(--accent-dim); }
     <div class="stat"><div class="stat-num">6</div><div class="stat-label">Hook</div></div>
   </div>
 
+  <h3>エージェント一覧</h3>
+  <p class="section-desc">特定タスクに特化した専門エージェント。サブエージェントとして起動され、指定されたツールのみ使用可能。</p>
+  <table>
+    <tr><th>エージェント</th><th>用途</th><th>使用ツール</th><th>カラー</th></tr>
+    <tr><td><code>code-reviewer</code></td><td>コードレビューエージェント</td><td style="font-size:.7rem;">Read, Grep, Glob, Bash(git:*)</td><td><span class="card-dot" style="background:#ef4444;display:inline-block;vertical-align:middle;margin-right:.25rem;"></span>red</td></tr>
+    <tr><td><code>devops-problem-solver</code></td><td>DevOps 問題解決エージェント</td><td style="font-size:.7rem;">Read, Glob, Grep, Bash</td><td><span class="card-dot" style="background:#f97316;display:inline-block;vertical-align:middle;margin-right:.25rem;"></span>orange</td></tr>
+    <tr><td><code>estimation-agent</code></td><td>見積りエージェント</td><td style="font-size:.7rem;">Read, Write, Glob, Grep, Bash</td><td><span class="card-dot" style="background:#22c55e;display:inline-block;vertical-align:middle;margin-right:.25rem;"></span>green</td></tr>
+    <tr><td><code>senior-consultant-reviewer</code></td><td>シニアコンサルタントレビューエージェント</td><td style="font-size:.7rem;">Read, Glob, Grep</td><td><span class="card-dot" style="background:#a855f7;display:inline-block;vertical-align:middle;margin-right:.25rem;"></span>purple</td></tr>
+    <tr><td><code>task-decomposer</code></td><td>タスク分解エージェント</td><td style="font-size:.7rem;">Read, Glob, Grep</td><td><span class="card-dot" style="background:#3b82f6;display:inline-block;vertical-align:middle;margin-right:.25rem;"></span>blue</td></tr>
+    <tr><td><code>test-runner</code></td><td>テストランナーエージェント</td><td style="font-size:.7rem;">Read, Glob, Grep, Bash, mcp__playwright__*</td><td><span class="card-dot" style="background:#06b6d4;display:inline-block;vertical-align:middle;margin-right:.25rem;"></span>cyan</td></tr>
+  </table>
+
+  <div class="sep"></div>
+  <h3>スキル一覧</h3>
+  <p class="section-desc">定型ワークフローをカプセル化したスキル。特定のトリガーワードで自動起動。</p>
+  <table>
+    <tr><th>スキル</th><th>用途</th><th>トリガー例</th></tr>
+    <tr><td><code>development-rules</code></td><td>開発ルール</td><td style="font-size:.7rem;">機能を実装、コードを書く、コード品質レビュー</td></tr>
+    <tr><td><code>document-converter</code></td><td>ドキュメント変換スキル</td><td style="font-size:.7rem;">Markdownを Word に変換、Excel に出力、PDF を作成</td></tr>
+    <tr><td><code>gemini-research</code></td><td>Gemini リサーチスキル</td><td style="font-size:.7rem;">ベストプラクティスを調査、最新技術トレンド、ライブラリを比較</td></tr>
+    <tr><td><code>git-workflow</code></td><td>Git ワークフロー</td><td style="font-size:.7rem;">ブランチ作成、git workflow、コミット</td></tr>
+    <tr><td><code>rough-estimate</code></td><td>概算見積り作成スキル</td><td style="font-size:.7rem;">見積りを作成、概算見積り、費用見積り</td></tr>
+    <tr><td><code>serena-codebase</code></td><td>Serena コードベース分析スキル</td><td style="font-size:.7rem;">シンボルを探す、コードベースを検索、アーキテクチャを分析</td></tr>
+    <tr><td><code>testing-rules</code></td><td>テストルール</td><td style="font-size:.7rem;">テストを書く、TDD、テストカバレッジ</td></tr>
+  </table>
+
+  <div class="sep"></div>
   <h3>ディレクトリ構成</h3>
   <p class="section-desc">Git 管理対象のファイルツリー。ランタイムデータ（projects/, debug/ 等）は除外。</p>
   <div class="tree-block"><pre class="tree-pre"><span class="tree-line">├── <span class="tree-name tree-dir">agents/</span>  <span class="tree-comment"># カスタムエージェント定義（6種）</span></span>
@@ -558,7 +585,7 @@ tr:hover td { background: var(--accent-dim); }
     
     <div style="margin-top:.5rem;">
       
-      <div style="margin-bottom:.375rem;"><div style="color:var(--text2);font-size:.75rem;margin-bottom:.125rem;">→ タスク完了メッセージを出力</div><div class="hook-cmd">jq -r '&quot;Task complete: &quot; + .stop_hook_active'</div></div>
+      <div style="margin-bottom:.375rem;"><div style="color:var(--text2);font-size:.75rem;margin-bottom:.125rem;">→ タスク完了メッセージを出力</div><div class="hook-cmd">jq -r '&quot;Task complete: \(.stop_hook_active)&quot;'</div></div>
     </div>
   </div>
   <div class="hook-card">

@@ -99,7 +99,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '\"Task complete: \" + .stop_hook_active'"
+            "command": "jq -r '\"Task complete: \\(.stop_hook_active)\"'"
           }
         ]
       }
