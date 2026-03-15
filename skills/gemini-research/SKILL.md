@@ -8,52 +8,52 @@ allowed-tools: mcp__gemini__*
 version: 1.0.0
 ---
 
-# Gemini リサーチスキル
+# Gemini Research Skill
 
-## いつ使うか
+## When to Use
 
-| 判断基準 | 対応 |
-|----------|------|
-| 既知の基本情報 | 内部知識で回答（Gemini 不要） |
-| 最新情報が必要 | Gemini でリサーチ |
-| 比較検討が必要 | Gemini でリサーチ |
-| ベストプラクティス | Gemini でリサーチ |
+| Criteria | Action |
+|----------|--------|
+| Known basic information | Answer from internal knowledge (no Gemini needed) |
+| Latest information needed | Research with Gemini |
+| Comparison needed | Research with Gemini |
+| Best practices | Research with Gemini |
 
-## リサーチ実行
+## Research Execution
 
 ```
 mcp__gemini__task({
-  task: "具体的なリサーチ内容",
+  task: "Specific research content",
   cwd: "/path/to/project"
 })
 ```
 
-## ユースケース別プロンプト例
+## Prompt Examples by Use Case
 
-| ユースケース | プロンプト構成 |
-|--------------|---------------|
-| 技術選定 | `Compare X vs Y for [use case]. Consider: performance, learning curve, ecosystem` |
-| 設計パターン | `Best practices for [pattern] in [language/framework]. Include code examples` |
-| セキュリティ | `Security considerations for [implementation]. Include OWASP guidelines` |
-| パフォーマンス | `Performance optimization for [scenario]. Include benchmarks if available` |
-| アーキテクチャ | `Architecture patterns for [requirement]. Compare trade-offs` |
+| Use Case | Prompt Structure |
+|----------|-----------------|
+| Technology selection | `Compare X vs Y for [use case]. Consider: performance, learning curve, ecosystem` |
+| Design patterns | `Best practices for [pattern] in [language/framework]. Include code examples` |
+| Security | `Security considerations for [implementation]. Include OWASP guidelines` |
+| Performance | `Performance optimization for [scenario]. Include benchmarks if available` |
+| Architecture | `Architecture patterns for [requirement]. Compare trade-offs` |
 
-## 効果的なプロンプト構成
+## Effective Prompt Structure
 
-| 要素 | 内容 |
-|------|------|
-| 目的 | 何を知りたいか（`Compare...`, `Best practices for...`） |
-| コンテキスト | 技術スタック（`in TypeScript`, `for React app`） |
-| 制約 | 条件・要件（`for high-traffic`, `with limited budget`） |
-| 観点 | 評価軸（`Consider: X, Y, Z`） |
-| 出力形式 | 期待する形式（`Include code examples`, `with pros/cons table`） |
+| Element | Content |
+|---------|---------|
+| Purpose | What you want to know (`Compare...`, `Best practices for...`) |
+| Context | Tech stack (`in TypeScript`, `for React app`) |
+| Constraints | Conditions/requirements (`for high-traffic`, `with limited budget`) |
+| Perspectives | Evaluation axes (`Consider: X, Y, Z`) |
+| Output format | Expected format (`Include code examples`, `with pros/cons table`) |
 
-## 検証チェックリスト
+## Verification Checklist
 
-**リサーチ前:**
-- [ ] 質問が具体的で、コンテキスト・評価軸が明確
+**Pre-research:**
+- [ ] Question is specific with clear context and evaluation axes
 
-**リサーチ後:**
-- [ ] 結果をプロジェクトに適用可能か評価
-- [ ] 推奨事項が明確
-- [ ] 追加調査の必要性を判断
+**Post-research:**
+- [ ] Results evaluated for project applicability
+- [ ] Recommendations are clear
+- [ ] Need for additional research assessed

@@ -6,75 +6,75 @@ description: |
   トリガー: 「見積りを作成」「概算見積り」「費用見積り」「いくらかかるか」
 ---
 
-# 概算見積り作成スキル
+# Rough Estimate Skill
 
-## サイビット会社情報
+## Company Information (Scibit LLC)
 
-| 項目 | 内容 |
-|------|------|
-| 会社名 | 合同会社サイビット（Scibit LLC） |
-| 時間単価 | ¥15,000/時間（税抜き） |
-| 日額 | ¥120,000（8時間） |
-| 月額 | ¥2,400,000（20日） |
-| 連絡先 | contact@scibit.ai |
+| Item | Value |
+|------|-------|
+| Company | 合同会社サイビット（Scibit LLC） |
+| Hourly rate | ¥15,000/hour (pre-tax) |
+| Daily rate | ¥120,000 (8 hours) |
+| Monthly rate | ¥2,400,000 (20 days) |
+| Contact | contact@scibit.ai |
 
-### 単価表示オプション
+### Pricing Display Options
 
-| モード | 表示内容 | 用途 |
-|--------|----------|------|
-| 詳細モード | 工数・単価・金額を表示 | 社内レビュー、透明性重視の顧客 |
-| シンプルモード | 工数・金額のみ（単価非表示） | 一般的な顧客向け |
-| 金額のみモード | 金額のみ | エグゼクティブサマリー |
+| Mode | Display | Use Case |
+|------|---------|----------|
+| Detailed | Effort, rate, amount | Internal review, transparency-focused clients |
+| Simple | Effort, amount only (no rate) | General client-facing |
+| Amount only | Amount only | Executive summary |
 
-**検算**: 常に `工数 × ¥15,000 = 金額` で内部検証すること
+**Validation**: Always verify internally with `effort × ¥15,000 = amount`
 
-## 見積り作成手順
+## Estimation Workflow
 
-### Step 1: プロジェクト情報確認
+### Step 1: Gather Project Information
 
-1. **顧客名**
-2. **案件名**
+1. **顧客名** (Client name)
+2. **案件名** (Project name)
 3. **種別**: システム開発 / コンサルティング / 保守 / 研修
-4. **概要**: 何を達成するか
-5. **希望時期**（あれば）
-6. **予算感**（あれば）
-7. **特記事項**: 制約条件等
+4. **概要**: What to achieve
+5. **希望時期** (if any)
+6. **予算感** (if any)
+7. **特記事項**: Constraints, etc.
 
-### Step 2: 見積り種別選定
+### Step 2: Select Estimate Type
 
-| 種別 | 参照ファイル | 特徴 |
-|------|--------------|------|
-| システム開発 | @references/estimate-types.md | フェーズ別工数、アーキテクチャ比較 |
-| コンサルティング | @references/estimate-types.md | 期間・成果物ベース |
-| 保守 | @references/estimate-types.md | 月額、SLA定義 |
-| 研修 | @references/estimate-types.md | 人数・回数ベース |
+| Type | Reference | Features |
+|------|-----------|----------|
+| システム開発 | @references/estimate-types.md | Phase-based effort, architecture comparison |
+| コンサルティング | @references/estimate-types.md | Duration/deliverable-based |
+| 保守 | @references/estimate-types.md | Monthly, SLA definition |
+| 研修 | @references/estimate-types.md | Headcount/session-based |
 
-### Step 3: ドキュメント構成
+### Step 3: Document Structure
 
-@references/document-structure.md を参照。
+See @references/document-structure.md.
 
-**必須セクション:**
-1. ヘッダー情報（日付、有効期限、宛先）
-2. 概算見積り注意書き
-3. エグゼクティブサマリー
-4. 概算費用
-5. 含まれるもの/含まれないもの
-6. 注意事項・免責事項
-7. お問い合わせ先
+**Required sections:**
+1. Header (date, validity, addressee)
+2. Rough estimate disclaimer
+3. Executive summary
+4. Estimated costs
+5. Included/excluded items
+6. Notes and disclaimers
+7. Contact information
 
-**任意セクション（案件に応じて）:**
-- 現状分析、ソリューション概要、アーキテクチャ選択肢
-- 導入ロードマップ（Gantt）、ROI分析、リスクと対策
-- 役割分担表（協業案件）、価値提案表、次のステップ
+**Optional sections (as needed):**
+- Current state analysis, solution overview, architecture options
+- Implementation roadmap (Gantt), ROI analysis, risks and countermeasures
+- RACI table (joint projects), value proposition, next steps
 
-### Step 4: 工数・費用算出
+### Step 4: Effort and Cost Calculation
 
-@references/cost-estimation.md を参照。
+See @references/cost-estimation.md.
 
-**フェーズ別工数比率（MVP開発）:**
+**Phase Effort Ratios (MVP development):**
 
-| フェーズ | 比率 |
-|---------|------|
+| Phase | Ratio |
+|-------|-------|
 | PM・顧客調整 | 10-12% |
 | 要件定義・設計 | 12-16% |
 | 環境構築 | 10-14% |
@@ -85,87 +85,145 @@ description: |
 | 引き渡し | 5-6% |
 | バッファ | 4-5% |
 
-### Step 5: 計算検証（必須）
+### Step 5: Internal Estimate (Required)
 
-出力前に以下を検証:
-1. 各行: `工数 × ¥15,000 = 金額` が一致
-2. 小計の合算が合計と一致
-3. 月額 × 12 = 年額（ランニングコスト）
-4. ROI の前提と結果が整合
-5. 比較表の各オプションが同一ロジック
+Always create an internal estimate alongside the client-facing one.
 
-**よくある計算ミス:**
-- 桁ミス（例: 40h → ¥60,000 ではなく ¥600,000）
-- 月額→年額変換漏れ
-- 税込み表記（税抜きが正しい）
+**File naming:**
+- Client: `{project}_概算見積-{title}_{YYYYMMDD}.md`
+- Internal: `{project}_（内部）概算見積-{title}_{YYYYMMDD}.md` (same directory)
 
-### Step 6: 免責事項
+**Template:** @assets/internal-template.md
 
-@references/disclaimers.md を参照。常に明記:
-- **概算見積りである旨**
-- **税抜き表記**
-- **有効期限**（通常1ヶ月）
-- **含まれるもの/含まれないもの**
-- **変動要因**
+**Required internal sections:**
+1. Internal-only notice (no client sharing)
+2. Rate setup (selling rate, cost rate, margin)
+3. Effort breakdown per pattern/option (selling amount, cost, gross profit)
+4. Effort validity analysis (comparison with similar estimates if available)
+5. Mapping to existing estimates (if applicable)
+6. Revenue analysis summary
 
-## フェーズ分割投資
+**Calculation rules:**
+- Selling amount: `effort × selling rate` (rounded to ¥10,000)
+- Cost: `effort × cost rate` (exact)
+- Gross profit: `selling amount - cost`
+- Margin: `(selling amount - cost) / selling amount × 100`
 
-以下の場合にフェーズ分割を提案:
-- 不確実性が高い（技術検証必要、要件流動的）
-- データ蓄積・AI学習が必要
-- 長期プロジェクト（1年以上）
-- 大規模投資（¥10,000,000以上）
+**Selling rate determination:**
+- Default: ¥180,000/person-day (= ¥22,500/h, 1.5x cost)
+- Use project-specific rate if defined (in CLAUDE.md, etc.)
 
-## 協業案件
+### Step 6: Calculation Verification (Required)
 
-複数社プロジェクトでは以下を明確化:
-- 見積り範囲と責任境界
-- RACI 形式の役割分担表
-- インテグレーション仕様
+Verify before output:
 
-## テンプレート
+**Client-facing:**
+1. Each line amount is consistent
+2. Subtotals sum to total
+3. Monthly × 12 = Annual (running costs)
+4. ROI assumptions and results are consistent
+5. Comparison table options use same logic
+6. **No rate exposure** (no effort/rate leaking)
 
-すぐに使えるテンプレート: @assets/template.md
+**Internal:**
+1. Each line: `effort × selling rate ≈ selling amount` (¥10,000 rounding allowed)
+2. Each line: `effort × cost rate = cost` (exact match)
+3. Each line: `selling amount - cost = gross profit`
+4. Client and internal selling amounts match exactly
 
-## クイックリファレンス
+**Common calculation mistakes:**
+- Digit errors (e.g., 40h → ¥60,000 instead of ¥600,000)
+- Monthly-to-annual conversion omission
+- Tax-inclusive notation (pre-tax is correct)
+- Amount mismatch between internal and client
 
-### 規模別目安（システム開発）
+### Step 7: Disclaimers
 
-| 規模 | 工数 | 期間 | 概算費用 |
-|------|------|------|----------|
-| 小規模 | 40-80h | 2-4週間 | ¥600,000-1,200,000 |
-| 中規模 | 200-400h | 2-4ヶ月 | ¥3,000,000-6,000,000 |
-| 大規模 | 800h+ | 6ヶ月以上 | ¥12,000,000+ |
+See @references/disclaimers.md. Always specify:
+- **This is a rough estimate**
+- **Pre-tax pricing**
+- **Validity period** (typically 1 month)
+- **Included/excluded items**
+- **Variable factors**
 
-### コスト構造パターン
+## Phased Investment
 
-| 種別 | 初期費用 | ランニング費用 |
-|------|----------|---------------|
-| オンプレミス | 高 | 低 |
-| ハイブリッド | 中 | 中 |
-| クラウド | 低 | 高 |
+Propose phased approach when:
+- High uncertainty (technical validation needed, fluid requirements)
+- Data accumulation / AI training required
+- Long-term project (1+ years)
+- Large investment (¥10,000,000+)
 
-### 保守プラン目安
+## Joint Projects
 
-| プラン | 対応時間 | 月額 |
-|--------|----------|------|
-| ライト | 平日 10-18時 | ¥150,000+ |
-| スタンダード | 平日 9-21時 | ¥300,000+ |
-| プレミアム | 24/7/365 | ¥600,000+ |
+For multi-company projects, clarify:
+- Estimate scope and responsibility boundaries
+- RACI-format role assignment table
+- Integration specifications
 
-## 重要事項
+## Templates
 
-1. **見積り文書は日本語で出力**
-2. **概算見積りであることを必ず明記**
-3. **税抜き表記**
-4. **有効期限を設定**（通常1ヶ月）
-5. **含まれないものを明記**（インフラ、ライセンス等）
-6. **変動要因を説明**
+- Client-facing: @assets/template.md
+- Internal: @assets/internal-template.md
 
-## 参照ドキュメント
+## Quick Reference
 
-- @references/document-structure.md — セクション構成、Mermaid図パターン
-- @references/cost-estimation.md — 算出方法、ROI、多層コスト構造
-- @references/disclaimers.md — 注意書き・免責テンプレート
-- @references/estimate-types.md — 開発/コンサル/保守/研修、フェーズ投資
-- @assets/template.md — コピーして使用
+### Scale Guide (System Development)
+
+| Scale | Effort | Duration | Estimated Cost |
+|-------|--------|----------|---------------|
+| Small | 40-80h | 2-4 weeks | ¥600,000-1,200,000 |
+| Medium | 200-400h | 2-4 months | ¥3,000,000-6,000,000 |
+| Large | 800h+ | 6+ months | ¥12,000,000+ |
+
+### Cost Structure Patterns
+
+| Type | Initial Cost | Running Cost |
+|------|-------------|-------------|
+| On-premises | High | Low |
+| Hybrid | Medium | Medium |
+| Cloud | Low | High |
+
+### Maintenance Plan Guide
+
+| Plan | Support Hours | Monthly |
+|------|-------------|---------|
+| Light | Weekdays 10-18 | ¥150,000+ |
+| Standard | Weekdays 9-21 | ¥300,000+ |
+| Premium | 24/7/365 | ¥600,000+ |
+
+## Running Cost Rules
+
+When including a running cost section, always:
+
+1. **Reference actual data**: Read `docs/billing/` etc. for license cost actuals
+2. **Context7 verification for external services**: Check latest pricing via Context7. Docs/memory info may be stale
+3. **Tax notation consistency**: Main estimate is pre-tax; license actuals may be tax-inclusive. Add notes when mixed
+4. **New infra disclosure**: If new infra (DB, storage, etc.) is needed, specify setup cost in initial and monthly impact in running
+
+## Client Estimate Rate Protection
+
+To prevent rate reverse-engineering:
+
+1. **Cost breakdown shows amounts only**: No effort (person-days/hours). Feature-based amounts only
+2. **Gantt at coarse granularity**: Phase-level ("Design & Implementation", etc.). No per-task day counts
+3. **Schedule consistency**: Verify overview "~X weeks" matches Gantt critical path
+
+## Important Notes
+
+1. **Output estimate documents in Japanese**
+2. **Always state this is a rough estimate**
+3. **Pre-tax pricing**
+4. **Set validity period** (typically 1 month)
+5. **Specify exclusions** (infra, licenses, etc.)
+6. **Explain variable factors**
+7. **State ROM accuracy (±25-50%) in disclaimers**
+8. **Always create internal estimate simultaneously** (record effort, cost, margin rationale)
+
+## Reference Documents
+
+- @references/document-structure.md — Section structure, Mermaid diagram patterns
+- @references/cost-estimation.md — Calculation methods, ROI, multi-layer cost structure
+- @references/disclaimers.md — Notes and disclaimer templates
+- @references/estimate-types.md — Development/consulting/maintenance/training, phased investment
+- @assets/template.md — Copy and use

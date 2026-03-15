@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "70"
+  },
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
@@ -43,16 +46,22 @@
       "Bash(git restore:*)",
       "mcp__filesystem__list_directory",
       "mcp__filesystem__directory_tree",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "mcp__github__list_pull_requests",
+      "mcp__github__create_pull_request",
+      "Bash(git push:*)",
+      "mcp__github__update_issue",
+      "Bash(git fetch:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "defaultMode": "default",
     "additionalDirectories": [
       "/tmp"
     ]
   },
-  "env": {
-    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "70"
-  },
+  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -60,11 +69,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r 'if .tool_input.command | test(\"rm -rf|dd if=|:(){ :|:& };:\") then {\"decision\": \"block\", \"reason\": \"危険なコマンドは実行できません。別の方法を検討してください。\"} else empty end'"
+            "command": "jq -r 'if .tool_input.command | test(\"rm -rf|dd if=|:(){ :|:& };:\") then {\"decision\": \"block\", \"reason\": \"Dangerous command blocked. Consider an alternative approach.\"} else empty end'"
           },
           {
             "type": "command",
-            "command": "jq -r 'if .tool_input.command | test(\"^git push.*(--force|-f)\") then {\"decision\": \"block\", \"reason\": \"force push は危険です。本当に必要な場合は手動で実行してください。\"} else empty end'"
+            "command": "jq -r 'if .tool_input.command | test(\"^git push.*(--force|-f)\") then {\"decision\": \"block\", \"reason\": \"Force push blocked. Run manually if truly needed.\"} else empty end'"
           }
         ]
       }
@@ -76,6 +85,11 @@
           {
             "type": "command",
             "command": "jq -r '.tool_input.file_path | select(endswith(\".js\") or endswith(\".ts\") or endswith(\".jsx\") or endswith(\".tsx\"))' | xargs -r prettier --write"
+          },
+          {
+            "type": "command",
+            "command": "bash /Users/so/.claude/scripts/auto-sync.sh",
+            "async": true
           }
         ]
       }
@@ -85,7 +99,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '\"タスク完了: \" + .stop_hook_active'"
+            "command": "jq -r '\"Task complete: \" + .stop_hook_active'"
           }
         ]
       }
@@ -101,5 +115,6 @@
       }
     ]
   },
+  "language": "japanese",
   "skipDangerousModePermissionPrompt": true
 }

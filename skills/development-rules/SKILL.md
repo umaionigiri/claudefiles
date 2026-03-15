@@ -6,45 +6,45 @@ description: |
   トリガー: 「機能を実装」「コードを書く」「コード品質レビュー」
 ---
 
-# 開発ルール
+# Development Rules
 
-## Step 1: Context7 リサーチ（必須）
+## Step 1: Context7 Research (Required)
 
-実装前に必ず最新 API・パターンを確認:
+Always check latest API/patterns before implementation:
 
 ```
 mcp__context7__resolve-library-id({ libraryName: "framework-name" })
 mcp__context7__query-docs({ libraryId: "/lib/xxx", topic: "implementation pattern" })
 ```
 
-## Step 2: 設計検討
+## Step 2: Design Considerations
 
-- 要件の明確化
-- 既存コードとの整合性確認（Grep/Glob で既存パターン検索）
-- 影響範囲の特定
-- 依存関係なしのタスクは Task tool で並列実行
+- Clarify requirements
+- Verify consistency with existing code (search existing patterns via Grep/Glob)
+- Identify impact scope
+- Parallelize independent tasks with Task tool
 
-## Step 3: コード品質基準
+## Step 3: Code Quality Standards
 
-| 項目 | 基準 |
-|------|------|
-| 命名 | 意味のある名前、プロジェクト規約に従う |
-| エラー処理 | 適切なハンドリング |
-| コメント | 「なぜ」を説明（「何」ではない） |
-| マジックナンバー | 定数化 |
-| 補足説明 | 日本語コメント可 |
+| Item | Standard |
+|------|----------|
+| Naming | Meaningful names, follow project conventions |
+| Error handling | Appropriate handling |
+| Comments | Explain "why" (not "what") |
+| Magic numbers | Extract to constants |
+| Supplementary notes | Japanese comments acceptable |
 
-## 検証チェックリスト
+## Verification Checklist
 
-**実装前:**
-- [ ] Context7 でリサーチ済み
-- [ ] 既存コードのパターンを確認済み
-- [ ] 影響範囲を特定済み
+**Pre-implementation:**
+- [ ] Context7 research completed
+- [ ] Existing code patterns reviewed
+- [ ] Impact scope identified
 
-**実装後:**
-- [ ] 各関数/クラスは単一責務か
-- [ ] 不要な機能を追加していないか
-- [ ] 重複コードはないか
-- [ ] 最もシンプルな解か
-- [ ] テストの有無・カバレッジ
-- [ ] セキュリティリスクの有無
+**Post-implementation:**
+- [ ] Each function/class has single responsibility
+- [ ] No unnecessary features added
+- [ ] No duplicated code
+- [ ] Simplest possible solution
+- [ ] Tests present with adequate coverage
+- [ ] No security risks

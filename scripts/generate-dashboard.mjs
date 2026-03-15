@@ -1,0 +1,1129 @@
+#!/usr/bin/env node
+
+// Dashboard generator for Claude Code settings
+// Reads config files and generates a single-file HTML dashboard
+// Node.js standard APIs only — no external dependencies
+
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
+
+const ROOT = join(import.meta.dirname, '..');
+const OUTPUT = join(ROOT, 'claudesettings-CLAUDE設定.html');
+
+// --- Helpers ---
+
+function readFile(path) {
+  try { return readFileSync(path, 'utf-8'); } catch { return null; }
+}
+
+function readJson(path) {
+  const raw = readFile(path);
+  return raw ? JSON.parse(raw) : null;
+}
+
+function esc(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+/** Convert simple Markdown content to HTML (tables, lists, bold, code, paragraphs) */
+function mdToHtml(md) {
+  const lines = md.split('\n');
+  let html = '';
+  let i = 0;
+  let inList = false;
+
+  while (i < lines.length) {
+    const line = lines[i];
+
+    // Markdown table
+    if (line.match(/^\|.+\|$/)) {
+      const tableLines = [];
+      while (i < lines.length && lines[i].match(/^\|.+\|$/)) {
+        tableLines.push(lines[i]);
+        i++;
+      }
+      if (tableLines.length >= 2) {
+        // Close any open list
+        if (inList) { html += '</ul>'; inList = false; }
+        html += '<table>';
+        const headerCells = tableLines[0].split('|').filter(c => c.trim()).map(c => c.trim());
+        html += '<tr>' + headerCells.map(c => `<th>${renderInline(esc(c))}</th>`).join('') + '</tr>';
+        // Skip separator row (index 1)
+        for (let r = 2; r < tableLines.length; r++) {
+          const cells = tableLines[r].split('|').filter(c => c.trim()).map(c => c.trim());
+          html += '<tr>' + cells.map(c => `<td>${renderInline(esc(c))}</td>`).join('') + '</tr>';
+        }
+        html += '</table>';
+      }
+      continue;
+    }
+
+    // List items
+    if (line.match(/^[-*]\s+/)) {
+      if (!inList) { html += '<ul>'; inList = true; }
+      html += `<li>${renderInline(esc(line.replace(/^[-*]\s+/, '')))}</li>`;
+      i++;
+      continue;
+    }
+    if (line.match(/^\d+\.\s+/)) {
+      if (!inList) { html += '<ol>'; inList = true; }
+      html += `<li>${renderInline(esc(line.replace(/^\d+\.\s+/, '')))}</li>`;
+      i++;
+      continue;
+    }
+
+    // End list if non-list line
+    if (inList && line.trim() !== '') {
+      html += inList === true ? '</ul>' : '</ol>';
+      inList = false;
+    }
+
+    // Empty line
+    if (line.trim() === '') { i++; continue; }
+
+    // Regular paragraph
+    html += `<p>${renderInline(esc(line))}</p>`;
+    i++;
+  }
+
+  if (inList) html += '</ul>';
+  return html;
+}
+
+/** Render inline Markdown: **bold**, `code`, [link](url) */
+function renderInline(str) {
+  return str
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`(.+?)`/g, '<code>$1</code>');
+}
+
+/** Convert Japanese body text to HTML with proper lists and paragraphs */
+function jaBodyToHtml(text) {
+  const lines = text.split('\n');
+  let html = '';
+  let inUl = false;
+  let inOl = false;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    // Bullet list item (• or ・)
+    if (trimmed.match(/^[•・]\s*/)) {
+      if (inOl) { html += '</ol>'; inOl = false; }
+      if (!inUl) { html += '<ul>'; inUl = true; }
+      html += `<li>${esc(trimmed.replace(/^[•・]\s*/, ''))}</li>`;
+      continue;
+    }
+
+    // Ordered list item (1. 2. etc)
+    if (trimmed.match(/^\d+\.\s+/)) {
+      if (inUl) { html += '</ul>'; inUl = false; }
+      if (!inOl) { html += '<ol>'; inOl = true; }
+      html += `<li>${esc(trimmed.replace(/^\d+\.\s+/, ''))}</li>`;
+      continue;
+    }
+
+    // Close open lists
+    if (inUl) { html += '</ul>'; inUl = false; }
+    if (inOl) { html += '</ol>'; inOl = false; }
+
+    // Empty line = paragraph break
+    if (trimmed === '') {
+      continue;
+    }
+
+    // Heading-like line with 【】
+    if (trimmed.match(/^【.+?】/)) {
+      html += `<p><strong>${esc(trimmed.match(/^【.+?】/)[0])}</strong>${esc(trimmed.replace(/^【.+?】/, ''))}</p>`;
+      continue;
+    }
+
+    // Regular paragraph
+    html += `<p>${esc(trimmed)}</p>`;
+  }
+
+  if (inUl) html += '</ul>';
+  if (inOl) html += '</ol>';
+  return html;
+}
+
+function extractFrontmatter(md) {
+  const match = md.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+  if (!match) return { meta: {}, body: md };
+  const meta = {};
+  let currentKey = null;
+  for (const line of match[1].split('\n')) {
+    const kv = line.match(/^(\w[\w-]*):\s*(.*)$/);
+    if (kv) {
+      currentKey = kv[1];
+      meta[currentKey] = kv[2].replace(/^\|$/, '').trim();
+    } else if (currentKey && line.match(/^\s/)) {
+      meta[currentKey] = ((meta[currentKey] || '') + '\n' + line.trim()).trim();
+    }
+  }
+  return { meta, body: match[2] };
+}
+
+function extractSections(md) {
+  const sections = [];
+  let current = null;
+  for (const line of md.split('\n')) {
+    const heading = line.match(/^(#{1,3})\s+(.+)$/);
+    if (heading) {
+      if (current) sections.push(current);
+      current = { level: heading[1].length, title: heading[2], content: '' };
+    } else if (current) {
+      current.content += line + '\n';
+    }
+  }
+  if (current) sections.push(current);
+  return sections;
+}
+
+// --- Data Collection ---
+
+function getDirectoryTree(dir, prefix = '', depth = 0) {
+  if (depth > 3) return '';
+  let result = '';
+  const ignoreList = ['.git', '.playwright-mcp', 'node_modules', 'projects', 'debug', 'sessions',
+    'file-history', 'session-env', 'shell-snapshots', 'downloads', 'telemetry', 'paste-cache',
+    'backups', 'ide', 'todos', 'tasks', 'plans', 'data', 'statsig', 'cache'];
+  try {
+    const entries = readdirSync(dir, { withFileTypes: true })
+      .filter(e => !ignoreList.includes(e.name) && !e.name.startsWith('.DS_Store'))
+      .sort((a, b) => {
+        if (a.isDirectory() && !b.isDirectory()) return -1;
+        if (!a.isDirectory() && b.isDirectory()) return 1;
+        return a.name.localeCompare(b.name);
+      });
+    entries.forEach((entry, i) => {
+      const isLast = i === entries.length - 1;
+      const connector = isLast ? '└── ' : '├── ';
+      const childPrefix = isLast ? '    ' : '│   ';
+      if (entry.isDirectory()) {
+        result += `${prefix}${connector}${entry.name}/\n`;
+        result += getDirectoryTree(join(dir, entry.name), prefix + childPrefix, depth + 1);
+      } else {
+        result += `${prefix}${connector}${entry.name}\n`;
+      }
+    });
+  } catch { /* skip */ }
+  return result;
+}
+
+// Agent full Japanese descriptions
+const agentFullJa = {
+  'code-reviewer': {
+    summary: 'コードの品質・セキュリティをレビュー',
+    body: `コード変更を体系的にレビューし、品質を確保するエージェント。
+
+【レビュー手順】git diff で変更内容を確認 → 各ファイルを詳細レビュー → 指摘事項をリスト化 → 重大度でソート
+
+【チェック項目】
+• セキュリティ: SQL インジェクション、XSS、認証・認可、ハードコードされた秘密情報、入力バリデーション
+• パフォーマンス: N+1 クエリ、不要なループ・再計算、メモリリーク、インデックスの適切な使用
+• コード品質: 命名規則、単一責務、DRY 原則、エラーハンドリング
+• テスト: カバレッジ、エッジケーステスト、モックの適切な使用
+
+【重大度レベル】🔴 Critical（セキュリティ脆弱性）→ 🟠 Major（バグ）→ 🟡 Minor（品質）→ 🔵 Suggestion（ベストプラクティス推奨）`
+  },
+  'devops-problem-solver': {
+    summary: 'システム障害・エラーの診断と解決',
+    body: `システム障害や DevOps 問題を体系的に診断・解決するエージェント。
+
+【6フェーズ問題解決】
+1. 情報収集 — エラーメッセージ、発生時刻・頻度、影響範囲、直近の変更履歴
+2. 症状分析 — エラーパターン特定、正常状態との差分、影響コンポーネント
+3. 仮説立案 — 原因候補のリスト化、可能性順にランク付け
+4. 検証 — 仮説を一つずつテスト、結果を記録
+5. 解決 — 修正実施、ロールバック計画の準備、変更を記録
+6. 振り返り — 根本原因の文書化、再発防止策
+
+【対応範囲】アプリケーションエラー（500, タイムアウト, OOM）、データベース問題（接続エラー, スロークエリ, ロック待ち）、CI/CD パイプライン（ビルド/テスト/デプロイ失敗）`
+  },
+  'estimation-agent': {
+    summary: 'プロジェクトの見積り・見積書作成',
+    body: `ソフトウェア開発プロジェクトの見積りを標準化し、社内向け・顧客向け見積書を作成するエージェント。
+
+【単価ルール】時間単価 ¥15,000 → 利益率 1.5倍 → 消費税 10%
+【計算式】原価（工数 × ¥15,000）→ 税抜（× 1.5）→ 税込（× 1.1）
+
+【見積りカテゴリ（10分類）】
+要件定義、設計、インフラ、開発、テスト、移行・リリース、運用設計、ドキュメント、研修、PM工数（全体の15-20%）
+
+【工数比率ガイドライン】要件定義 10-15% / 設計 15-20% / 開発 30-40% / テスト 20-25% / その他 10-15%
+
+【出力】社内向け見積り（原価・利益率含む）と顧客向け見積り（金額のみ）の2種類を同時作成`
+  },
+  'senior-consultant-reviewer': {
+    summary: '要件・設計・見積りのレビュー',
+    body: `要件・設計・見積り・プロジェクト計画を、シニアコンサルタント/PM 視点でレビューするエージェント。
+
+【レビュー対象と観点】
+• 要件レビュー: ビジネス整合、完全性、明確性、スコープ、実現可能性、優先度
+• 設計レビュー: アーキテクチャ、技術選定、セキュリティ（OWASP Top 10）、パフォーマンス、可用性
+• 見積りレビュー: 工数妥当性、完全性、リスクバッファ（10-30%）、前提条件
+• 計画レビュー: マイルストーン、リソース配分、リスク管理、品質管理
+
+【重大度レベル】🔴 Critical（即時対応、却下検討）→ 🟠 Major（再レビュー）→ 🟡 Minor（対応推奨）→ 🔵 Info（任意）
+【承認判定】✅ 承認 / ⚠️ 条件付き承認 / ❌ 却下`
+  },
+  'task-decomposer': {
+    summary: 'プロジェクトのタスク分解・計画',
+    body: `複雑なプロジェクトを詳細で実行可能なタスクに分解するエージェント。
+
+【分解原則】
+• MECE — 漏れなく、ダブりなく
+• 適切な粒度 — 1タスク = 1〜4時間
+• 依存関係の明確化 — 順序と並列化の可能性を特定
+• 検証可能 — 各タスクに完了基準を設定
+
+【プロセス】要件理解 → 大分類（主要フェーズ分割）→ 詳細化 → 依存関係特定 → 工数見積り → 完了基準定義
+
+【タスクサイズ目安】XS ~30分（設定変更）/ S 30分〜1時間（単一関数）/ M 1〜2時間（機能追加）/ L 2〜4時間（API実装）/ XL 4時間+（さらに分解が必要）`
+  },
+  'test-runner': {
+    summary: 'テスト実行・カバレッジ分析',
+    body: `テスト実行・検証・カバレッジ分析の専門エージェント。
+
+【対応範囲】ユニットテスト / 結合テスト / E2E テスト（Playwright）/ カバレッジ分析 / TDD サイクル支援
+
+【実行手順】テストフレームワーク特定 → 対象スコープのテスト実行 → 失敗テスト分析・報告 → カバレッジレポート生成
+
+【コミット前チェック】テスト → Lint → 型チェック → ビルド
+【プッシュ前チェック】カバレッジ → E2E → デバッグコード検出
+
+【TDD コミット規約】Red: test: add failing test / Green: feat: implement / Refactor: refactor: improve`
+  },
+};
+
+// Skill full Japanese descriptions
+const skillFullJa = {
+  'development-rules': {
+    summary: 'Context7 リサーチ必須の開発ルール適用',
+    body: `コード実装・レビュー時に適用する開発ルール。
+
+【Step 1: Context7 リサーチ（必須）】実装前に必ず最新 API・パターンを確認。resolve-library-id → query-docs を実行。
+
+【Step 2: 設計検討】要件の明確化 → 既存コードとの整合性確認（Grep/Glob で既存パターン検索）→ 影響範囲の特定
+
+【Step 3: コード品質基準】
+• 命名: 意味のある名前、プロジェクト規約に従う
+• エラー処理: 適切なハンドリング
+• コメント: 「なぜ」を説明（「何」ではない）
+• マジックナンバー: 定数化
+
+【検証チェックリスト】実装前: Context7 リサーチ済み・既存パターン確認済み・影響範囲特定済み / 実装後: 単一責務・不要機能なし・重複なし・最もシンプルな解・テストあり・セキュリティリスクなし`
+  },
+  'document-converter': {
+    summary: 'Markdown → Word/Excel/PDF 変換',
+    body: `ドキュメントフォーマットを標準スタイルで変換するスキル。
+
+【サポート形式】Markdown → DOCX（pandoc + python-docx）/ Markdown → XLSX（openpyxl）/ Markdown → PDF（pandoc + LaTeX）/ JSON → XLSX / CSV → XLSX
+
+【標準スタイル】フォント: Meiryo UI / 見出し1: 14pt / 見出し2-4: 12pt / 本文: 10.5pt / 表: 10pt / ヘッダー行: 背景色 #F0F0F0
+
+【依存関係】pandoc, python-docx, openpyxl, LaTeX（mactex）`
+  },
+  'gemini-research': {
+    summary: 'Gemini MCP による外部リサーチ',
+    body: `Gemini MCP を通じて外部リサーチを効率的に実行するスキル。
+
+【使い分け】既知の基本情報 → 内部知識で回答（Gemini 不要）/ 最新情報・比較検討・ベストプラクティス → Gemini でリサーチ
+
+【ユースケース別プロンプト構成】
+• 技術選定: Compare X vs Y for [use case]. Consider: performance, learning curve, ecosystem
+• 設計パターン: Best practices for [pattern] in [framework]. Include code examples
+• セキュリティ: Security considerations for [impl]. Include OWASP guidelines
+• パフォーマンス: Performance optimization for [scenario]. Include benchmarks
+
+【効果的なプロンプト構成】目的 + コンテキスト（技術スタック）+ 制約 + 評価軸 + 出力形式`
+  },
+  'git-workflow': {
+    summary: 'Worktree 必須のブランチ管理',
+    body: `ブランチ管理とコミットのための Git ワークフロールール。
+
+【Step 1: Worktree 作成（必須）】git worktree add .worktrees/<branch-name> -b <branch-name>
+
+【Step 2: ブランチ命名】Feature: feature/<name> / Bugfix: fix/<name> / Test: test/<name> / Refactor: refactor/<name>
+
+【Step 3: コミット（Conventional Commits）】feat（新機能）/ fix（バグ修正）/ refactor / test / docs / chore
+
+【Step 4: PR 作成】GitHub MCP の create_pull_request を使用、base: "main"
+
+【Step 5: マージ後クリーンアップ】worktree remove → branch -d
+
+【禁止事項】main/master 直接プッシュ / git push --force / git reset --hard（ユーザーの明示的許可がある場合のみ例外）`
+  },
+  'rough-estimate': {
+    summary: '合同会社サイビットの概算見積書作成',
+    body: `合同会社サイビット（Scibit LLC）の概算見積書を作成するスキル。
+
+【単価】時間: ¥15,000 / 日額: ¥120,000（8h）/ 月額: ¥2,400,000（20日）/ 販売単価: ¥180,000/人日（1.5倍）
+
+【手順】プロジェクト情報確認 → 見積り種別選定（開発/コンサル/保守/研修）→ ドキュメント構成 → 工数・費用算出 → 内部用見積書の同時作成（必須）→ 計算検証 → 免責事項
+
+【フェーズ別工数比率（MVP）】PM 10-12% / 要件定義・設計 12-16% / 環境構築 10-14% / データ移行 15-20% / コア開発 20-25% / UI 10-14% / テスト 10-12% / 引き渡し 5-6% / バッファ 4-5%
+
+【重要】見積り文書は日本語出力 / 税抜き表記 / 有効期限1ヶ月 / 概算精度 ROM ±25〜50% / 内部用見積書を必ず同時作成`
+  },
+  'serena-codebase': {
+    summary: 'Serena MCP によるコードベース解析',
+    body: `コードベース探索・分析に Serena MCP を使用するスキル。トークン効率を最優先。
+
+【手順】セッション初期化（onboarding 確認 → メモリ確認）→ 概要把握（get_symbols_overview）→ シンボル検索（find_symbol, include_body: false）→ 詳細取得（include_body: true）→ 参照検索（find_referencing_symbols）→ 必要時に編集
+
+【検索優先度】1. find_symbol（シンボル名既知）→ 2. find_file（ファイル名既知）→ 3. search_for_pattern（最終手段）
+
+【トークン最適化】検索パスを絞る（src/services/ > src/）/ include_body: false 先行 / 500行超は分割取得 / 目標: 2000 トークン以下/検索
+
+【シンボル操作】概要取得 / 検索 / 参照検索 / 本体置換 / 前後に挿入 / リネーム`
+  },
+  'testing-rules': {
+    summary: 'TDD サイクルに基づくテストルール',
+    body: `テスト作成・レビュー時に適用するテストルール。
+
+【TDD サイクル】RED: 失敗するテストを書く → GREEN: テストを通す最小限の実装 → REFACTOR: テストが通る状態を維持しつつ改善
+
+【テスト命名規則】should + 期待動作 / when + 条件 / given/when/then
+
+【カバレッジ目標】Statements 80% / Branches 75% / Functions 80% / Lines 80%
+
+【モック使用基準】外部 API: Yes / データベース: Yes（ユニットテスト）/ 時間: Yes / 内部ロジック: No
+
+【品質チェック】テスト名が振る舞いを説明 / 1テスト = 1アサーション / AAA パターン / 実装ではなく振る舞いをテスト / テストが独立（順序依存なし）`
+  },
+};
+
+function collectAgents() {
+  const dir = join(ROOT, 'agents');
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir).filter(f => f.endsWith('.md')).map(f => {
+    const content = readFile(join(dir, f));
+    const { meta, body } = extractFrontmatter(content);
+    const name = meta.name || f.replace('.md', '');
+    return {
+      name,
+      description: agentFullJa[name]?.summary || name,
+      tools: meta.tools || '',
+      color: meta.color || 'gray',
+      bodySections: extractSections(body)
+    };
+  });
+}
+
+function collectSkills() {
+  const dir = join(ROOT, 'skills');
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir, { withFileTypes: true })
+    .filter(e => e.isDirectory())
+    .map(e => {
+      const skillFile = join(dir, e.name, 'SKILL.md');
+      const content = readFile(skillFile);
+      if (!content) return null;
+      const { meta, body } = extractFrontmatter(content);
+      const name = meta.name || e.name;
+      const triggers = (meta.description || '').split('\n')
+        .find(l => l.startsWith('トリガー'));
+      const triggerList = triggers
+        ? triggers.replace(/^トリガー:\s*/, '').split(/[「」]/).filter(t => t.trim() && t !== ' ')
+        : [];
+      return {
+        name,
+        description: skillFullJa[name]?.summary || name,
+        triggers: triggerList,
+        bodySections: extractSections(body)
+      };
+    })
+    .filter(Boolean);
+}
+
+function collectCommands() {
+  const dir = join(ROOT, 'commands');
+  if (!existsSync(dir)) return [];
+  const results = [];
+  function scan(d, prefix = '') {
+    for (const entry of readdirSync(d, { withFileTypes: true })) {
+      if (entry.isDirectory()) {
+        scan(join(d, entry.name), prefix + entry.name + '/');
+      } else if (entry.name.endsWith('.md')) {
+        results.push(prefix + entry.name.replace('.md', ''));
+      }
+    }
+  }
+  scan(dir);
+  return results;
+}
+
+function parseGitignore() {
+  const content = readFile(join(ROOT, '.gitignore'));
+  if (!content) return { ignored: [], tracked: [] };
+  const ignored = [];
+  const tracked = [];
+  let inTracked = false;
+  for (const line of content.split('\n')) {
+    if (line.includes('Tracked files')) { inTracked = true; continue; }
+    if (line.startsWith('#') || !line.trim()) continue;
+    if (inTracked) tracked.push(line.replace(/^#\s*/, '').trim());
+    else ignored.push(line.trim());
+  }
+  return { ignored, tracked };
+}
+
+// CLAUDE.md section Japanese descriptions (summary + full)
+const sectionFullJa = {
+  'Global Claude Code Settings': { summary: '全プロジェクト共通の Claude Code 設定', body: '' },
+  'Language': { summary: '言語設定',
+    body: '常に日本語で応答する（明示的に英語を指定された場合を除く）。コード・コメント・ドキュメントは英語で記述。技術用語は原語のまま使用（例: API, Docker, Kubernetes）。' },
+  'Response Style': { summary: '応答スタイル',
+    body: '結論ファースト（解決策を最初に提示し、詳細は後から）。ユーザー提供のコードは不必要に再表示しない。過度な丁寧語や長い導入は省略し、簡潔でカジュアルに。コード参照は file_path:line_number 形式で記載。' },
+  'Pre-Implementation Steps': { summary: '実装前の必須ステップ',
+    body: '1. Context7 で最新 API 確認: フレームワーク/ライブラリ使用時は resolve-library-id → query-docs を実行\n2. 既存パターン確認: Grep/Glob でプロジェクト内の既存実装パターンを確認\n3. 影響範囲の特定: 変更が及ぶファイル・モジュールを事前に洗い出す' },
+  'Pre-Commit Checklist': { summary: 'コミット前チェック',
+    body: 'テスト通過（npm test / pytest / プロジェクト固有コマンド）。Lint/型チェック通過。git diff --staged で意図した変更のみか確認。機密情報（.env, credentials）が含まれていないか確認。' },
+  'MCP Tool Selection': { summary: 'MCP ツール使い分け',
+    body: 'ライブラリ API 確認 → Context7 / 外部リサーチ → Gemini / コード解析 → Serena / GitHub 操作 → GitHub MCP / Azure 操作 → Azure MCP / ブラウザ操作 → Playwright' },
+  'Workflow Principles': { summary: 'ワークフロー原則',
+    body: 'main ブランチ直接作業禁止（全ての変更はフィーチャー/トピックブランチで行い、承認済み PR のマージ時のみ main を更新）。Worktree 必須（git worktree add で分離）。過剰設計禁止（依頼された内容のみ実装）。既存パターン尊重。破壊的操作は確認（force push, reset --hard 等）。' },
+  'Context Management': { summary: 'コンテキスト管理',
+    body: 'タスク開始前に最適な戦略を提案する。大規模探索 → サブエージェントに委譲 / 複数アプローチ → /fork でセッション分岐 / 長い実装 → /compact を60%で実行、Plan Mode 先行 / 簡単な修正 → 直接実行 / コードレビュー → 読み取り専用サブエージェント / 無関係なフォローアップ → /clear で新規開始。テクニック: サブエージェント委譲、/compact、/rewind（Esc×2）、/fork、/btw、Plan Mode（Shift+Tab×2）、/context。' },
+  'Session Naming': { summary: 'セッション命名',
+    body: '/rename でタスクを反映した名前（15〜20文字）を付ける。タスクの進行に合わせて更新。形式: <アクション>-<対象>（例: 設定最適化-CLAUDE.md, API実装-認証機能）。セッション開始時、タスク変更時、スコープが明確になった時にリネーム。' },
+  'Compact Instructions': { summary: 'コンパクション指示',
+    body: 'コンテキスト圧縮時に保持すべき情報: 現在のタスク目標と進捗状況 / 変更済みファイルの一覧と変更内容の要約 / 未解決の問題・ブロッカー / ユーザーの明示的な指示・好み / アーキテクチャ決定とその理由。' },
+  'Important Reminders': { summary: '重要なリマインダー',
+    body: 'ユーザーに聞かれていないファイル作成・ドキュメント生成は行わない。テストコードは振る舞いをテスト（実装詳細はテストしない）。エラー発生時は根本原因を調査、安易なリトライやバイパスは避ける。' },
+};
+
+// Hook description mapping (Japanese)
+const hookDescJa = {
+  'PreToolUse': 'ツール実行前のセーフティチェック',
+  'PostToolUse': 'ファイル保存後の自動処理',
+  'Stop': 'タスク完了時の通知',
+  'Notification': 'デスクトップ通知',
+};
+
+const hookDetailJa = {
+  'rm -rf': '破壊的コマンド（rm -rf 等）をブロック',
+  'git push': 'force push をブロック',
+  'prettier': 'JS/TS ファイルを prettier で自動整形',
+  'generate-dashboard': '設定ファイル変更時にダッシュボード HTML を再生成',
+  'Task complete': 'タスク完了メッセージを出力',
+  'terminal-notifier': 'macOS デスクトップ通知を送信',
+};
+
+/** Generate annotated directory tree with Japanese comments */
+function generateAnnotatedTree(agents, skills, commands) {
+  // File/directory comment mapping
+  const comments = {
+    '.gitignore': 'ランタイムデータの除外ルール',
+    'CLAUDE.md': '全プロジェクト共通のグローバル指示',
+    'README.md': 'リポジトリの説明・セットアップ手順',
+    'settings.json': '権限・Hook・環境変数・MCP 設定',
+    'agents/': 'カスタムエージェント定義（6種）',
+    'commands/': 'スラッシュコマンド定義',
+    'skills/': 'カスタムスキル定義（7種）',
+    'scripts/': '自動化スクリプト',
+    'plugins/': 'プラグイン管理',
+    // Agents
+    'code-reviewer.md': 'コード品質・セキュリティレビュー',
+    'devops-problem-solver.md': 'システム障害の診断・解決',
+    'estimation-agent.md': 'プロジェクト見積り・見積書作成',
+    'senior-consultant-reviewer.md': '要件・設計・見積りのレビュー',
+    'task-decomposer.md': 'タスク分解・計画作成',
+    'test-runner.md': 'テスト実行・カバレッジ分析',
+    // Commands
+    'kiro/': '仕様駆動開発ワークフロー（11コマンド）',
+    'slash-guide.md': '全スラッシュコマンドの日本語解説',
+    // Skills directories
+    'development-rules/': 'Context7 リサーチ必須の開発ルール',
+    'document-converter/': 'Markdown → Word/Excel/PDF 変換',
+    'gemini-research/': 'Gemini MCP による外部リサーチ',
+    'git-workflow/': 'Worktree 必須のブランチ管理',
+    'rough-estimate/': '概算見積書作成（Scibit LLC）',
+    'serena-codebase/': 'Serena MCP によるコード解析',
+    'testing-rules/': 'TDD サイクルに基づくテストルール',
+    // Scripts
+    'generate-dashboard.mjs': '設定ダッシュボード HTML 生成',
+    // Skill sub-files
+    'SKILL.md': 'スキル定義ファイル',
+    // Kiro commands
+    'spec-init.md': '仕様の初期化',
+    'spec-requirements.md': '要件定義の生成',
+    'spec-design.md': '技術設計の作成',
+    'spec-tasks.md': '実装タスクの生成',
+    'spec-impl.md': 'TDD による実装実行',
+    'spec-status.md': '仕様の進捗確認',
+    'steering.md': 'プロジェクト知識の管理',
+    'steering-custom.md': 'カスタムステアリング作成',
+    'validate-design.md': '技術設計の品質レビュー',
+    'validate-gap.md': '要件と実装のギャップ分析',
+    'validate-impl.md': '実装の検証',
+    // Other files
+    'known_marketplaces.json': '公式マーケットプレイス定義',
+    'installed_plugins.json': 'インストール済みプラグイン',
+  };
+
+  function buildTree(dir, depth = 0) {
+    if (depth > 2) return [];
+    const ignoreList = ['.git', '.playwright-mcp', 'node_modules', 'projects', 'debug', 'sessions',
+      'file-history', 'session-env', 'shell-snapshots', 'downloads', 'telemetry', 'paste-cache',
+      'backups', 'ide', 'todos', 'tasks', 'plans', 'data', 'statsig', 'cache',
+      'history.jsonl', 'mcp-needs-auth-cache.json', 'stats-cache.json', 'settings.local.json',
+      'blocklist.json', 'marketplaces'];
+    try {
+      const entries = readdirSync(dir, { withFileTypes: true })
+        .filter(e => !ignoreList.includes(e.name) && !e.name.startsWith('.DS_Store')
+          && !e.name.startsWith('blocklist.json.') && !e.name.startsWith('.'))
+        .sort((a, b) => {
+          if (a.isDirectory() && !b.isDirectory()) return -1;
+          if (!a.isDirectory() && b.isDirectory()) return 1;
+          return a.name.localeCompare(b.name);
+        });
+      return entries.map(e => ({
+        name: e.name,
+        isDir: e.isDirectory(),
+        comment: comments[e.name + (e.isDirectory() ? '/' : '')] || comments[e.name] || '',
+        children: e.isDirectory() ? buildTree(join(dir, e.name), depth + 1) : []
+      }));
+    } catch { return []; }
+  }
+
+  function renderTree(nodes, prefix = '') {
+    return nodes.map((node, i) => {
+      const isLast = i === nodes.length - 1;
+      const connector = isLast ? '└── ' : '├── ';
+      const childPrefix = isLast ? '    ' : '│   ';
+      const name = node.isDir ? node.name + '/' : node.name;
+      const comment = node.comment ? `  <span class="tree-comment"># ${esc(node.comment)}</span>` : '';
+      let line = `<span class="tree-line">${esc(prefix + connector)}<span class="tree-name${node.isDir ? ' tree-dir' : ''}">${esc(name)}</span>${comment}</span>\n`;
+      if (node.isDir && node.children.length > 0) {
+        line += renderTree(node.children, prefix + childPrefix);
+      }
+      return line;
+    }).join('');
+  }
+
+  const tree = buildTree(ROOT);
+  return `<div class="tree-block"><pre class="tree-pre">${renderTree(tree)}</pre></div>`;
+}
+
+// --- HTML Generation ---
+
+function generateHtml() {
+  const claudeMd = readFile(join(ROOT, 'CLAUDE.md')) || '';
+  const settings = readJson(join(ROOT, 'settings.json')) || {};
+  const agents = collectAgents();
+  const skills = collectSkills();
+  const commands = collectCommands();
+  const gitignore = parseGitignore();
+  const tree = getDirectoryTree(ROOT);
+  const claudeSections = extractSections(claudeMd);
+  const now = new Date().toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' });
+
+  const colorMap = {
+    red: '#ef4444', orange: '#f97316', green: '#22c55e', blue: '#3b82f6',
+    purple: '#a855f7', cyan: '#06b6d4', gray: '#6b7280'
+  };
+
+  const mcpServers = [
+    { name: 'Azure', desc: 'Azure リソース操作・ドキュメント参照', icon: '☁️' },
+    { name: 'Context7', desc: 'ライブラリの最新ドキュメント検索', icon: '📚' },
+    { name: 'o3', desc: 'OpenAI o3 モデル連携', icon: '🧠' },
+    { name: 'Serena', desc: 'セマンティックコード解析', icon: '🔍' },
+    { name: 'Playwright', desc: 'ブラウザ自動操作・E2E テスト', icon: '🎭' },
+    { name: 'GitHub', desc: 'PR・Issue・コード検索', icon: '🐙' },
+    { name: 'Notion', desc: 'Notion ページ・DB 操作', icon: '📝' },
+    { name: 'Gemini', desc: 'Google Gemini による外部リサーチ', icon: '✨' }
+  ];
+
+  // Categorize permissions
+  const perms = settings.permissions?.allow || [];
+  const permCategories = {
+    'Git 操作': { items: perms.filter(p => p.includes('git')), desc: 'Git の読み取り系コマンドを許可' },
+    'パッケージ管理': { items: perms.filter(p => p.match(/npm|pnpm/)), desc: 'npm / pnpm の実行を許可' },
+    'MCP ツール': { items: perms.filter(p => p.startsWith('mcp__')), desc: '各 MCP サーバーのツール呼び出しを許可' },
+    'CLI ツール': { items: perms.filter(p => p.match(/Bash\((node|python3|curl|az |azd|gh |npx|wc)/)), desc: 'Node.js, Python, Azure CLI 等のコマンドを許可' },
+    'ファイル読み取り': { items: perms.filter(p => p.startsWith('Read(') || p.includes('filesystem')), desc: '指定ディレクトリ配下のファイル読み取りを許可' },
+    'Web アクセス': { items: perms.filter(p => p.startsWith('WebFetch')), desc: '指定ドメインへの Web アクセスを許可' },
+  };
+
+  const hooks = settings.hooks || {};
+
+  // Tab definitions matching file structure
+  const tabs = [
+    { id: 'overview', label: '概要', icon: '📋' },
+    { id: 'claude-md', label: 'CLAUDE.md', icon: '📄' },
+    { id: 'settings', label: 'settings.json', icon: '⚙️' },
+    { id: 'agents', label: 'agents/', icon: '🤖' },
+    { id: 'skills', label: 'skills/', icon: '🛠️' },
+    { id: 'commands', label: 'commands/', icon: '⌨️' },
+    { id: 'mcp', label: 'MCP 連携', icon: '🔌' },
+  ];
+
+  return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code 設定ダッシュボード</title>
+<style>
+:root {
+  --bg: #ffffff; --surface: #f8fafc; --surface2: #e2e8f0;
+  --border: #cbd5e1; --text: #1e293b; --text2: #475569; --text3: #94a3b8;
+  --accent: #2563eb; --accent2: #7c3aed; --accent-dim: rgba(37,99,235,.06);
+  --red: #dc2626; --orange: #ea580c; --green: #16a34a;
+  --blue: #2563eb; --purple: #7c3aed; --cyan: #0891b2;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; line-height: 1.6; }
+
+/* Layout — sidebar tabs + content */
+.container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+.layout { display: flex; gap: 0; min-height: calc(100vh - 8rem); }
+header { text-align: center; padding: 1.5rem 0 1rem; border-bottom: 1px solid var(--surface2); margin-bottom: 1.5rem; }
+header h1 { font-size: 1.6rem; color: var(--accent); margin-bottom: .125rem; }
+header .sub { color: var(--text2); font-size: .8rem; }
+header .sub a { color: var(--accent); text-decoration: none; }
+
+/* Sidebar tabs */
+.tabs { display: flex; flex-direction: column; width: 180px; flex-shrink: 0; border-right: 1px solid var(--surface2); padding-right: 0; }
+.tab { padding: .625rem 1rem; cursor: pointer; color: var(--text2); font-size: .8rem; font-weight: 500; border-right: 3px solid transparent; white-space: nowrap; transition: all .15s; user-select: none; display: flex; align-items: center; gap: .4rem; border-radius: .375rem 0 0 .375rem; }
+.tab:hover { color: var(--text); background: var(--accent-dim); }
+.tab.active { color: var(--accent); border-right-color: var(--accent); background: var(--accent-dim); font-weight: 600; }
+.tab-icon { font-size: .9rem; }
+.content-area { flex: 1; min-width: 0; }
+.tab-panel { display: none; padding-left: 1.5rem; }
+.tab-panel.active { display: block; }
+
+/* Section */
+h2 { font-size: 1.3rem; color: var(--accent); margin: 0 0 .5rem; }
+h3 { font-size: 1rem; color: var(--text); margin: 1.25rem 0 .5rem; }
+.section-desc { color: var(--text2); font-size: .85rem; margin-bottom: 1rem; }
+.sep { border-top: 1px solid var(--surface2); margin: 1.5rem 0; }
+
+/* Cards */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: .75rem; }
+.card { background: var(--bg); border: 1px solid var(--surface2); border-radius: .625rem; padding: 1rem; transition: border-color .15s, box-shadow .15s; }
+.card:hover { border-color: var(--border); box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+.card-head { display: flex; align-items: center; gap: .625rem; margin-bottom: .5rem; }
+.card-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.card-name { font-weight: 600; font-size: .95rem; }
+.card-desc { color: var(--text2); font-size: .8rem; line-height: 1.5; }
+.card-tags { margin-top: .625rem; display: flex; flex-wrap: wrap; gap: .25rem; }
+.tag { background: var(--surface2); color: var(--text3); padding: .125rem .5rem; border-radius: .25rem; font-size: .7rem; font-family: 'SF Mono', Menlo, monospace; }
+.card-detail { margin-top: .5rem; }
+.card-detail summary { color: var(--text2); font-size: .75rem; cursor: pointer; user-select: none; }
+.card-detail-body { margin-top: .375rem; padding: .5rem .75rem; background: var(--surface); border-radius: .375rem; font-size: .75rem; color: var(--text2); border: 1px solid var(--surface2); }
+
+/* Code / Pre */
+pre { background: var(--surface); border: 1px solid var(--surface2); border-radius: .5rem; padding: .875rem; overflow-x: auto; font-size: .75rem; line-height: 1.6; color: var(--text2); font-family: 'SF Mono', Menlo, monospace; }
+code { font-family: 'SF Mono', Menlo, monospace; font-size: .78rem; background: var(--surface); border: 1px solid var(--surface2); padding: .1rem .35rem; border-radius: .2rem; color: var(--accent); }
+
+/* Table */
+table { width: 100%; border-collapse: collapse; font-size: .8rem; border: 1px solid var(--surface2); border-radius: .375rem; overflow: hidden; }
+th { background: var(--surface); color: var(--text); padding: .5rem .75rem; text-align: left; font-weight: 600; font-size: .75rem; letter-spacing: .03em; border-bottom: 2px solid var(--surface2); }
+td { padding: .5rem .75rem; border-bottom: 1px solid var(--surface2); color: var(--text2); }
+tr:hover td { background: var(--accent-dim); }
+
+/* Chips */
+.chip-list { display: flex; flex-wrap: wrap; gap: .375rem; }
+.chip { background: var(--surface); color: var(--text2); padding: .25rem .625rem; border-radius: .375rem; font-size: .7rem; font-family: 'SF Mono', Menlo, monospace; border: 1px solid var(--surface2); }
+.chip-accent { background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(37,99,235,.15); }
+
+/* Perm group */
+.perm-group { margin-bottom: 1rem; }
+.perm-head { display: flex; align-items: baseline; gap: .5rem; margin-bottom: .375rem; }
+.perm-label { font-weight: 600; font-size: .85rem; }
+.perm-sub { color: var(--text3); font-size: .75rem; }
+
+/* Hook */
+.hook-card { background: var(--bg); border: 1px solid var(--surface2); border-radius: .5rem; padding: .875rem; margin-bottom: .625rem; }
+.hook-head { display: flex; align-items: center; gap: .5rem; margin-bottom: .375rem; }
+.hook-type { font-weight: 600; font-size: .9rem; color: var(--accent); }
+.hook-desc { color: var(--text2); font-size: .75rem; font-style: italic; }
+.hook-cmd { color: var(--text3); font-size: .7rem; font-family: 'SF Mono', Menlo, monospace; margin-top: .25rem; padding: .375rem .5rem; background: var(--surface); border-radius: .25rem; word-break: break-all; }
+
+/* MCP */
+.mcp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: .625rem; }
+.mcp-card { background: var(--bg); border: 1px solid var(--surface2); border-radius: .5rem; padding: .875rem; display: flex; align-items: center; gap: .75rem; transition: border-color .15s, box-shadow .15s; }
+.mcp-card:hover { border-color: var(--border); box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+.mcp-icon { font-size: 1.4rem; flex-shrink: 0; }
+.mcp-name { font-weight: 600; font-size: .85rem; }
+.mcp-desc { color: var(--text2); font-size: .75rem; }
+
+/* Stat bar */
+.stat-bar { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 1rem 0; }
+.stat { text-align: center; }
+.stat-num { font-size: 1.75rem; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: .7rem; color: var(--text3); text-transform: uppercase; letter-spacing: .05em; }
+
+/* Annotated tree */
+.tree-block { margin: .75rem 0; }
+.tree-pre { background: var(--surface); border: 1px solid var(--surface2); border-radius: .5rem; padding: 1rem; font-size: .75rem; line-height: 1.8; overflow-x: auto; }
+.tree-line { white-space: pre; }
+.tree-name { color: var(--text); }
+.tree-dir { color: var(--accent); font-weight: 600; }
+.tree-comment { color: var(--text3); font-style: italic; font-size: .7rem; }
+
+/* Full text block */
+.fulltext-block { background: var(--surface); border: 1px solid var(--surface2); border-radius: .625rem; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+.fulltext-section { margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--surface2); }
+.fulltext-section:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.fulltext-section h4 { color: var(--text); font-size: .9rem; font-weight: 600; margin-bottom: .5rem; }
+.fulltext-section p { color: var(--text2); font-size: .8rem; line-height: 1.8; margin-bottom: .25rem; }
+.fulltext-section strong { color: var(--text); }
+.fulltext-section ul, .fulltext-section ol { color: var(--text2); font-size: .8rem; line-height: 1.8; margin: .25rem 0 .5rem 1.25rem; }
+.fulltext-section li { margin-bottom: .125rem; }
+.fulltext-en { border-left: 3px solid var(--accent); }
+
+/* Japanese body text */
+.ja-body { color: var(--text2); font-size: .8rem; line-height: 1.8; padding: .75rem 1rem; background: var(--surface); border-radius: .5rem; border-left: 3px solid var(--accent2); }
+.ja-body p { margin-bottom: .375rem; }
+.ja-body strong { color: var(--text); font-weight: 600; }
+.ja-body ul, .ja-body ol { margin: .25rem 0 .5rem 1.25rem; }
+.ja-body li { margin-bottom: .125rem; line-height: 1.7; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .layout { flex-direction: column; }
+  .tabs { flex-direction: row; width: 100%; border-right: none; border-bottom: 1px solid var(--surface2); overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0; }
+  .tab { border-right: none; border-bottom: 3px solid transparent; border-radius: 0; }
+  .tab.active { border-bottom-color: var(--accent); border-right-color: transparent; }
+  .tab-panel { padding-left: 0; padding-top: 1rem; }
+  .grid, .mcp-grid { grid-template-columns: 1fr; }
+  .container { padding: .75rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Claude Code 設定ダッシュボード</h1>
+  <div class="sub">
+    <a href="https://github.com/umaionigiri/claudefiles">umaionigiri/claudefiles</a>
+    &nbsp;·&nbsp; 最終生成: ${esc(now)}
+  </div>
+</header>
+
+<div class="layout">
+<!-- Sidebar Tab Navigation -->
+<nav class="tabs" role="tablist">
+${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" data-tab="${t.id}"><span class="tab-icon">${t.icon}</span>${t.label}</div>`).join('\n')}
+</nav>
+
+<!-- Content Area -->
+<div class="content-area">
+
+<!-- ===== Tab: 概要 ===== -->
+<div id="tab-overview" class="tab-panel active">
+  <h2>概要</h2>
+  <p class="section-desc">Claude Code（<code>~/.claude/</code>）の設定ファイル構成と各機能の一覧です。タブを切り替えて詳細を確認できます。</p>
+
+  <div class="stat-bar">
+    <div class="stat"><div class="stat-num">${agents.length}</div><div class="stat-label">エージェント</div></div>
+    <div class="stat"><div class="stat-num">${skills.length}</div><div class="stat-label">スキル</div></div>
+    <div class="stat"><div class="stat-num">${commands.length}</div><div class="stat-label">コマンド</div></div>
+    <div class="stat"><div class="stat-num">${mcpServers.length}</div><div class="stat-label">MCP 連携</div></div>
+    <div class="stat"><div class="stat-num">${perms.length}</div><div class="stat-label">許可ルール</div></div>
+    <div class="stat"><div class="stat-num">${Object.values(hooks).flat().reduce((sum, h) => sum + (h.hooks?.length || 0), 0)}</div><div class="stat-label">Hook</div></div>
+  </div>
+
+  <h3>ディレクトリ構成</h3>
+  <p class="section-desc">Git 管理対象のファイルツリー。ランタイムデータ（projects/, debug/ 等）は除外。</p>
+  ${generateAnnotatedTree(agents, skills, commands)}
+
+  <div class="sep"></div>
+  <h3>.gitignore — 追跡/除外ルール</h3>
+  <p class="section-desc">ランタイムで自動生成されるデータを除外し、設定ファイルのみを Git 管理。</p>
+  <table>
+    <tr><th>除外パターン</th><th>種別</th></tr>
+    ${gitignore.ignored.slice(0, 8).map(p => `<tr><td><code>${esc(p)}</code></td><td>ランタイムデータ</td></tr>`).join('\n    ')}
+    ${gitignore.ignored.length > 8 ? `<tr><td colspan="2" style="color:var(--text3)">…他 ${gitignore.ignored.length - 8} パターン</td></tr>` : ''}
+  </table>
+</div>
+
+<!-- ===== Tab: CLAUDE.md ===== -->
+<div id="tab-claude-md" class="tab-panel">
+  <h2>CLAUDE.md — グローバル指示</h2>
+  <p class="section-desc">全プロジェクトに適用されるルール。Claude Code 起動時に自動で読み込まれます。</p>
+
+  <h3>📖 日本語全文</h3>
+  <div class="fulltext-block">
+    ${claudeSections.filter(s => sectionFullJa[s.title]?.body).map(s => {
+      const full = sectionFullJa[s.title];
+      return `<div class="fulltext-section"><h4>${esc(full.summary)}</h4>${jaBodyToHtml(full.body)}</div>`;
+    }).join('')}
+  </div>
+
+  <div class="sep"></div>
+  <h3>📄 英語全文（原文）</h3>
+  <div class="fulltext-block fulltext-en">
+    ${claudeSections.map(s => {
+      return `<div class="fulltext-section"><h4>${esc(s.title)}</h4><div style="line-height:1.7;">${mdToHtml(s.content.trim())}</div></div>`;
+    }).join('')}
+  </div>
+
+  <div class="sep"></div>
+  <h3>📑 セクション別（日本語説明 + 英語原文）</h3>
+  <p class="section-desc">各セクションの日本語説明と、対応する英語原文を並べて表示します。</p>
+
+  ${claudeSections.map(s => {
+    const full = sectionFullJa[s.title];
+    return `
+  <div class="card" style="margin-bottom:.75rem;">
+    <div class="card-head">
+      <div class="card-dot" style="background:var(--accent)"></div>
+      <div class="card-name">${esc(full?.summary || s.title)}</div>
+      <span style="color:var(--text3);font-size:.7rem;margin-left:auto;font-family:monospace;">${esc(s.title)}</span>
+    </div>
+    ${full?.body ? `<div class="ja-body" style="margin-bottom:.5rem;">${jaBodyToHtml(full.body)}</div>` : ''}
+    <details class="card-detail" open>
+      <summary>英語原文</summary>
+      <div class="card-detail-body" style="line-height:1.7;">${mdToHtml(s.content.trim())}</div>
+    </details>
+  </div>`;
+  }).join('')}
+</div>
+
+<!-- ===== Tab: settings.json ===== -->
+<div id="tab-settings" class="tab-panel">
+  <h2>settings.json — 権限・Hook・環境変数</h2>
+  <p class="section-desc">Claude Code の動作を制御する設定ファイル。ツール実行の許可/拒否、自動処理、環境変数を定義。</p>
+
+  <h3>権限（Permissions）</h3>
+  <p class="section-desc">Claude Code が自動実行できるツール・コマンドのホワイトリスト。ここに含まれない操作は実行前に確認が求められます。</p>
+  ${Object.entries(permCategories).filter(([, v]) => v.items.length > 0).map(([cat, { items, desc }]) => `
+  <div class="perm-group">
+    <div class="perm-head">
+      <span class="perm-label">${esc(cat)}</span>
+      <span class="perm-sub">— ${esc(desc)}</span>
+    </div>
+    <div class="chip-list">
+      ${items.map(p => `<span class="chip">${esc(p)}</span>`).join('\n      ')}
+    </div>
+  </div>`).join('')}
+
+  <div class="sep"></div>
+  <h3>Hook（自動処理）</h3>
+  <p class="section-desc">ツール実行やタスク完了時に自動で実行されるコマンド。安全性チェックやコード整形を自動化。</p>
+  ${Object.entries(hooks).map(([type, hookArr]) => `
+  <div class="hook-card">
+    <div class="hook-head">
+      <span class="hook-type">${esc(type)}</span>
+      <span class="hook-desc">${esc(hookDescJa[type] || '')}</span>
+    </div>
+    ${hookArr.map(h => `
+    <div style="margin-top:.5rem;">
+      ${h.matcher ? `<div style="margin-bottom:.25rem;"><span class="chip chip-accent">matcher: ${esc(h.matcher)}</span></div>` : ''}
+      ${(h.hooks || []).map(hk => {
+        const cmd = hk.command || '';
+        const detail = Object.entries(hookDetailJa).find(([k]) => cmd.includes(k));
+        return `<div style="margin-bottom:.375rem;"><div style="color:var(--text2);font-size:.75rem;margin-bottom:.125rem;">${detail ? '→ ' + esc(detail[1]) : ''}</div><div class="hook-cmd">${esc(cmd)}</div></div>`;
+      }).join('')}
+    </div>`).join('')}
+  </div>`).join('')}
+
+  <div class="sep"></div>
+  <h3>環境変数・その他</h3>
+  <p class="section-desc">Claude Code のグローバル動作設定。</p>
+  <table>
+    <tr><th>設定</th><th>値</th><th>説明</th></tr>
+    ${Object.entries(settings.env || {}).map(([k, v]) => `<tr><td><code>${esc(k)}</code></td><td>${esc(String(v))}</td><td>${k === 'CLAUDE_AUTOCOMPACT_PCT_OVERRIDE' ? 'コンテキスト使用量 70% でオートコンパクション' : ''}</td></tr>`).join('\n    ')}
+    <tr><td><code>language</code></td><td>${esc(settings.language || 'N/A')}</td><td>応答言語（日本語）</td></tr>
+    <tr><td><code>model</code></td><td>${esc(settings.model || 'N/A')}</td><td>使用モデル</td></tr>
+    <tr><td><code>includeCoAuthoredBy</code></td><td>${settings.includeCoAuthoredBy ? 'true' : 'false'}</td><td>コミットの Co-authored-by</td></tr>
+    <tr><td><code>defaultMode</code></td><td>${esc(settings.permissions?.defaultMode || 'N/A')}</td><td>権限のデフォルトモード</td></tr>
+  </table>
+</div>
+
+<!-- ===== Tab: Agents ===== -->
+<div id="tab-agents" class="tab-panel">
+  <h2>agents/ — カスタムエージェント</h2>
+  <p class="section-desc">特定タスクに特化した専門エージェント。サブエージェントとして起動され、指定されたツールのみ使用可能。各エージェントはカラーコードで識別。</p>
+
+  <h3>📖 日本語全文</h3>
+  <div class="fulltext-block">
+    ${agents.map(a => {
+      const full = agentFullJa[a.name];
+      if (!full) return '';
+      return `<div class="fulltext-section"><h4><span class="card-dot" style="background:${colorMap[a.color] || colorMap.gray};display:inline-block;vertical-align:middle;margin-right:.5rem;"></span>${esc(a.name)} — ${esc(full.summary)}</h4>${jaBodyToHtml(full.body)}</div>`;
+    }).join('')}
+  </div>
+
+  <div class="sep"></div>
+  <h3>📄 英語全文（原文）</h3>
+  <div class="fulltext-block fulltext-en">
+    ${agents.map(a => {
+      return `<div class="fulltext-section"><h4><span class="card-dot" style="background:${colorMap[a.color] || colorMap.gray};display:inline-block;vertical-align:middle;margin-right:.5rem;"></span>${esc(a.name)}</h4>${a.bodySections.map(s => `<h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">${esc(s.title)}</h5><div style="line-height:1.7;">${mdToHtml(s.content.trim())}</div>`).join('')}</div>`;
+    }).join('')}
+  </div>
+
+  <div class="sep"></div>
+  <h3>📑 エージェント別詳細（日本語 + 英語原文）</h3>
+
+  ${agents.map(a => {
+    const full = agentFullJa[a.name];
+    return `
+    <div class="card" style="margin-bottom:.75rem;">
+      <div class="card-head">
+        <div class="card-dot" style="background:${colorMap[a.color] || colorMap.gray}"></div>
+        <div class="card-name">${esc(a.name)}</div>
+        <span style="color:var(--text3);font-size:.75rem;margin-left:auto;">${esc(a.color)}</span>
+      </div>
+      <div style="font-weight:600;color:var(--text);font-size:.85rem;margin-bottom:.5rem;">${esc(full?.summary || a.description)}</div>
+      ${full ? `<div class="ja-body" style="margin-bottom:.5rem;">${jaBodyToHtml(full.body)}</div>` : ''}
+      ${a.tools ? `<div class="card-tags" style="margin-top:.5rem;margin-bottom:.5rem;">${a.tools.split(',').map(t => `<span class="tag">${esc(t.trim())}</span>`).join('')}</div>` : ''}
+      ${a.bodySections.length > 0 ? `
+      <details class="card-detail">
+        <summary>英語原文セクション</summary>
+        <div class="card-detail-body">
+          ${a.bodySections.slice(0, 5).map(s => `• ${esc(s.title)}`).join('<br>')}
+        </div>
+      </details>` : ''}
+    </div>`;
+  }).join('')}
+</div>
+
+<!-- ===== Tab: Skills ===== -->
+<div id="tab-skills" class="tab-panel">
+  <h2>skills/ — カスタムスキル</h2>
+  <p class="section-desc">定型ワークフローをカプセル化したスキル。特定のトリガーワードで自動起動します。各スキルは <code>SKILL.md</code> にルールとチェックリストを定義。</p>
+
+  <h3>📖 日本語全文</h3>
+  <div class="fulltext-block">
+    ${skills.map(s => {
+      const full = skillFullJa[s.name];
+      if (!full) return '';
+      return `<div class="fulltext-section"><h4><span class="card-dot" style="background:var(--accent);display:inline-block;vertical-align:middle;margin-right:.5rem;"></span>${esc(s.name)} — ${esc(full.summary)}</h4>${jaBodyToHtml(full.body)}</div>`;
+    }).join('')}
+  </div>
+
+  <div class="sep"></div>
+  <h3>📄 英語全文（原文）</h3>
+  <div class="fulltext-block fulltext-en">
+    ${skills.map(s => {
+      return `<div class="fulltext-section"><h4><span class="card-dot" style="background:var(--accent);display:inline-block;vertical-align:middle;margin-right:.5rem;"></span>${esc(s.name)}</h4>${s.bodySections.map(sec => `<h5 style="color:var(--text);font-size:.8rem;margin:.5rem 0 .25rem;">${esc(sec.title)}</h5><div style="line-height:1.7;">${mdToHtml(sec.content.trim())}</div>`).join('')}</div>`;
+    }).join('')}
+  </div>
+
+  <div class="sep"></div>
+  <h3>📑 スキル別詳細（日本語 + 英語原文）</h3>
+
+  ${skills.map(s => {
+    const full = skillFullJa[s.name];
+    return `
+    <div class="card" style="margin-bottom:.75rem;">
+      <div class="card-head">
+        <div class="card-dot" style="background:var(--accent)"></div>
+        <div class="card-name">${esc(s.name)}</div>
+      </div>
+      <div style="font-weight:600;color:var(--text);font-size:.85rem;margin-bottom:.5rem;">${esc(full?.summary || s.description)}</div>
+      ${full ? `<div class="ja-body" style="margin-bottom:.5rem;">${jaBodyToHtml(full.body)}</div>` : ''}
+      ${s.triggers.length > 0 ? `
+      <div class="card-tags" style="margin-top:.5rem;margin-bottom:.5rem;">
+        <span style="color:var(--text3);font-size:.7rem;margin-right:.25rem;">トリガー:</span>
+        ${s.triggers.map(t => `<span class="chip chip-accent">${esc(t)}</span>`).join('')}
+      </div>` : ''}
+      ${s.bodySections.length > 0 ? `
+      <details class="card-detail">
+        <summary>英語原文セクション</summary>
+        <div class="card-detail-body">
+          ${s.bodySections.slice(0, 5).map(sec => `• ${esc(sec.title)}`).join('<br>')}
+        </div>
+      </details>` : ''}
+    </div>`;
+  }).join('')}
+</div>
+
+<!-- ===== Tab: Commands ===== -->
+<div id="tab-commands" class="tab-panel">
+  <h2>commands/ — スラッシュコマンド</h2>
+  <p class="section-desc">Claude Code で <code>/コマンド名</code> として呼び出せるカスタムコマンド。<code>commands/</code> ディレクトリに <code>.md</code> ファイルとして定義。</p>
+
+  <h3>/slash-guide</h3>
+  <p class="section-desc">Claude Code の全スラッシュコマンドを日本語で解説するガイド。</p>
+
+  <h3>/kiro/* — 仕様駆動開発ワークフロー</h3>
+  <p class="section-desc">要件定義 → 技術設計 → タスク生成 → TDD 実装の一連のフローを段階的に実行。</p>
+  <table>
+    <tr><th>コマンド</th><th>説明</th></tr>
+    <tr><td><code>/kiro/spec-init</code></td><td>仕様の初期化（プロジェクト説明から開始）</td></tr>
+    <tr><td><code>/kiro/spec-requirements</code></td><td>包括的な要件定義の生成</td></tr>
+    <tr><td><code>/kiro/spec-design</code></td><td>技術設計の作成</td></tr>
+    <tr><td><code>/kiro/spec-tasks</code></td><td>実装タスクの生成</td></tr>
+    <tr><td><code>/kiro/spec-impl</code></td><td>TDD に基づく実装実行</td></tr>
+    <tr><td><code>/kiro/spec-status</code></td><td>仕様の進捗確認</td></tr>
+    <tr><td><code>/kiro/steering</code></td><td>プロジェクト知識の管理</td></tr>
+    <tr><td><code>/kiro/steering-custom</code></td><td>カスタムコンテキスト用のステアリング作成</td></tr>
+    <tr><td><code>/kiro/validate-design</code></td><td>技術設計の品質レビュー</td></tr>
+    <tr><td><code>/kiro/validate-gap</code></td><td>要件と実装のギャップ分析</td></tr>
+    <tr><td><code>/kiro/validate-impl</code></td><td>実装の検証（要件・設計・タスクとの整合性）</td></tr>
+  </table>
+
+  <div class="sep"></div>
+  <h3>全コマンド一覧</h3>
+  <div class="chip-list">
+    ${commands.map(c => `<span class="chip chip-accent" style="font-size:.8rem;">/${esc(c)}</span>`).join('\n    ')}
+  </div>
+</div>
+
+<!-- ===== Tab: MCP 連携 ===== -->
+<div id="tab-mcp" class="tab-panel">
+  <h2>MCP 連携サーバー</h2>
+  <p class="section-desc">Model Context Protocol (MCP) で接続された外部サービス。Claude Code がリアルタイムでツールとして呼び出し可能。</p>
+
+  <div class="mcp-grid">
+  ${mcpServers.map(s => `
+    <div class="mcp-card">
+      <div class="mcp-icon">${s.icon}</div>
+      <div>
+        <div class="mcp-name">${esc(s.name)}</div>
+        <div class="mcp-desc">${esc(s.desc)}</div>
+      </div>
+    </div>`).join('')}
+  </div>
+
+  <div class="sep"></div>
+  <h3>MCP ツール使い分けガイド</h3>
+  <p class="section-desc">CLAUDE.md で定義された、用途別のツール選択ルール。</p>
+  <table>
+    <tr><th>用途</th><th>ツール</th><th>使用場面</th></tr>
+    <tr><td>ライブラリ API 確認</td><td>Context7</td><td>実装前の最新ドキュメント参照</td></tr>
+    <tr><td>外部リサーチ</td><td>Gemini</td><td>ベストプラクティス・技術比較・トレンド調査</td></tr>
+    <tr><td>コード解析</td><td>Serena</td><td>シンボル検索・依存関係・リファクタ影響調査</td></tr>
+    <tr><td>GitHub 操作</td><td>GitHub MCP</td><td>PR 作成・Issue 管理・コード検索</td></tr>
+    <tr><td>Azure 操作</td><td>Azure MCP</td><td>リソース管理・ドキュメント参照</td></tr>
+    <tr><td>ブラウザ操作</td><td>Playwright</td><td>E2E テスト・Web スクレイピング</td></tr>
+  </table>
+</div>
+
+</div><!-- /.content-area -->
+</div><!-- /.layout -->
+</div><!-- /.container -->
+
+<script>
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>`;
+}
+
+// --- Main ---
+
+try {
+  const html = generateHtml();
+  writeFileSync(OUTPUT, html, 'utf-8');
+  console.log(`Dashboard generated: ${OUTPUT}`);
+} catch (err) {
+  console.error('Dashboard generation failed:', err.message);
+  process.exit(1);
+}

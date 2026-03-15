@@ -8,29 +8,29 @@ allowed-tools: Read, Write, Bash
 version: 1.0.0
 ---
 
-# ドキュメント変換スキル
+# Document Converter Skill
 
-## サポート形式
+## Supported Formats
 
-| From | To | ツール |
-|------|-----|--------|
+| From | To | Tool |
+|------|-----|------|
 | Markdown | DOCX | pandoc + python-docx |
 | Markdown | XLSX | Python (openpyxl) |
 | Markdown | PDF | pandoc + LaTeX |
 | JSON | XLSX | Python (openpyxl) |
 | CSV | XLSX | Python (openpyxl) |
 
-## 標準スタイル
+## Standard Style
 
-| 要素 | フォント | サイズ |
-|------|----------|--------|
-| 見出し1 | Meiryo UI | 14pt |
-| 見出し2-4 | Meiryo UI | 12pt |
-| 本文 | Meiryo UI | 10.5pt |
-| 表 | Meiryo UI | 10pt |
-| ヘッダー行 | 背景色 #F0F0F0 | - |
+| Element | Font | Size |
+|---------|------|------|
+| Heading 1 | Meiryo UI | 14pt |
+| Heading 2-4 | Meiryo UI | 12pt |
+| Body | Meiryo UI | 10.5pt |
+| Table | Meiryo UI | 10pt |
+| Header row | Background #F0F0F0 | - |
 
-## 変換手順
+## Conversion Steps
 
 ### Markdown → DOCX
 ```bash
@@ -56,46 +56,46 @@ pandoc input.md -o output.pdf \
   -V mainfont="Hiragino Kaku Gothic Pro"
 ```
 
-## 依存関係
+## Dependencies
 
-| パッケージ | インストール |
-|------------|--------------|
+| Package | Installation |
+|---------|-------------|
 | pandoc | `brew install pandoc` |
 | python-docx | `pip install python-docx` |
 | openpyxl | `pip install openpyxl` |
 | LaTeX | `brew install --cask mactex` |
 
-## スクリプト
+## Scripts
 
-| スクリプト | 用途 |
-|------------|------|
-| `scripts/format_docx.py` | DOCX フォーマット適用 |
-| `scripts/md_to_xlsx.py` | Markdown テーブル → Excel |
+| Script | Purpose |
+|--------|---------|
+| `scripts/format_docx.py` | Apply DOCX formatting |
+| `scripts/md_to_xlsx.py` | Markdown table → Excel |
 | `scripts/json_to_xlsx.py` | JSON → Excel |
 
-## トラブルシューティング
+## Troubleshooting
 
-| 問題 | 原因 | 対処 |
-|------|------|------|
-| 日本語文字化け | フォント未指定 | Meiryo UI を明示的に指定 |
-| 表が崩れる | pipe_tables 未有効 | `+pipe_tables` を追加 |
-| PDF で日本語不可 | 日本語フォント未指定 | xelatex + 日本語フォント指定 |
-| Excel セルが空 | パース失敗 | Markdown 形式を確認 |
+| Issue | Cause | Fix |
+|-------|-------|-----|
+| Japanese character corruption | Font not specified | Explicitly specify Meiryo UI |
+| Broken tables | pipe_tables not enabled | Add `+pipe_tables` |
+| Japanese not rendering in PDF | Japanese font not specified | Use xelatex + Japanese font |
+| Empty Excel cells | Parse failure | Check Markdown format |
 
-## 詳細ルール参照
+## Detailed Rules Reference
 
-| 形式 | 参照ファイル |
-|------|--------------|
+| Format | Reference File |
+|--------|---------------|
 | DOCX | @docx-rules.md |
 | XLSX | @xlsx-rules.md |
 
-## 検証チェックリスト
+## Verification Checklist
 
-**変換前:**
-- [ ] 入力ファイルが存在し、形式がサポートされている
-- [ ] 必要な依存関係がインストール済み
+**Pre-conversion:**
+- [ ] Input file exists and format is supported
+- [ ] Required dependencies installed
 
-**変換後:**
-- [ ] 出力ファイルが生成された（0バイトでない）
-- [ ] テキスト欠落なし、テーブル正しく変換
-- [ ] フォント・見出しサイズ・表スタイルが適用済み
+**Post-conversion:**
+- [ ] Output file generated (non-zero bytes)
+- [ ] No text loss, tables properly converted
+- [ ] Font, heading sizes, and table styles applied

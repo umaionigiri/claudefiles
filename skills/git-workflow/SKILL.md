@@ -6,40 +6,40 @@ description: |
   トリガー: 「ブランチ作成」「git workflow」「コミット」「PR作成」「worktree」
 ---
 
-# Git ワークフロー
+# Git Workflow
 
-## Step 1: Worktree 作成（必須）
+## Step 1: Create Worktree (Required)
 
 ```bash
 git worktree add .worktrees/<branch-name> -b <branch-name>
 cd .worktrees/<branch-name>
 ```
 
-## Step 2: ブランチ命名
+## Step 2: Branch Naming
 
-| タイプ | パターン | 例 |
-|--------|----------|-----|
+| Type | Pattern | Example |
+|------|---------|---------|
 | Feature | `feature/<name>` | `feature/user-auth` |
 | Bugfix | `fix/<name>` | `fix/login-error` |
 | Test | `test/<name>` | `test/api-coverage` |
 | Refactor | `refactor/<name>` | `refactor/cleanup` |
 
-## Step 3: コミット（Conventional Commits）
+## Step 3: Commit (Conventional Commits)
 
 ```
 <type>: <description>
 ```
 
-| Type | 用途 |
-|------|------|
-| `feat` | 新機能 |
-| `fix` | バグ修正 |
-| `refactor` | リファクタリング |
-| `test` | テスト追加・修正 |
-| `docs` | ドキュメント |
-| `chore` | その他 |
+| Type | Purpose |
+|------|---------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `refactor` | Refactoring |
+| `test` | Add/modify tests |
+| `docs` | Documentation |
+| `chore` | Other |
 
-## Step 4: PR 作成（GitHub MCP 使用）
+## Step 4: Create PR (Using GitHub MCP)
 
 ```
 mcp__github__create_pull_request({
@@ -47,30 +47,30 @@ mcp__github__create_pull_request({
 })
 ```
 
-## Step 5: マージ後クリーンアップ
+## Step 5: Post-Merge Cleanup
 
 ```bash
 git worktree remove .worktrees/<branch-name>
 git branch -d <branch-name>
 ```
 
-## 禁止事項
+## Prohibited Operations
 
-| 操作 | 理由 |
-|------|------|
-| `main`/`master` 直接プッシュ | レビューなしの変更を防ぐ |
-| `git push --force` | 履歴破壊を防ぐ |
-| `git reset --hard` | 作業内容の消失を防ぐ |
+| Operation | Reason |
+|-----------|--------|
+| Direct push to `main`/`master` | Prevents unreviewed changes |
+| `git push --force` | Prevents history corruption |
+| `git reset --hard` | Prevents work loss |
 
-**例外:** ユーザーが明示的に許可した場合のみ
+**Exception:** Only when user explicitly permits
 
-## 検証チェックリスト
+## Verification Checklist
 
-**コミット前:**
-- [ ] テスト全通過・Lint・型チェック・ビルド成功
-- [ ] 意図した変更のみステージング
-- [ ] 機密情報を含まない
+**Pre-commit:**
+- [ ] All tests pass, lint, type check, build successful
+- [ ] Only intended changes staged
+- [ ] No secrets included
 
-**PR 作成前:**
-- [ ] ローカルでテスト通過
-- [ ] CI が通過してからマージ
+**Pre-PR:**
+- [ ] Tests pass locally
+- [ ] Merge only after CI passes

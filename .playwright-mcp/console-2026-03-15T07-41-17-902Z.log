@@ -1,0 +1,2 @@
+[      35ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://localhost:8765/Users/so/.claude/claudesettings-CLAUDE%E8%A8%AD%E5%AE%9A.html:0
+[     103ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://localhost:8765/favicon.ico:0

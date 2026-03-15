@@ -6,52 +6,52 @@ description: |
   トリガー: 「テストを書く」「TDD」「テストカバレッジ」「テスト品質レビュー」
 ---
 
-# テストルール
+# Testing Rules
 
-## TDD サイクル
+## TDD Cycle
 
-1. **RED**: 失敗するテストを書く → テスト失敗を確認
-2. **GREEN**: テストを通す最小限の実装
-3. **REFACTOR**: テストが通る状態を維持しつつコード改善
+1. **RED**: Write a failing test → Confirm test failure
+2. **GREEN**: Minimum implementation to pass the test
+3. **REFACTOR**: Improve code while keeping tests green
 
-## テスト命名規則
+## Test Naming Convention
 
-| パターン | 例 |
-|----------|-----|
-| should + 期待動作 | `should return user when id exists` |
-| when + 条件 | `when input is empty, should throw error` |
+| Pattern | Example |
+|---------|---------|
+| should + expected behavior | `should return user when id exists` |
+| when + condition | `when input is empty, should throw error` |
 | given/when/then | `given valid input, when submitted, then saves data` |
 
-## カバレッジ目標
+## Coverage Targets
 
-| 種別 | 目標 |
-|------|------|
+| Type | Target |
+|------|--------|
 | Statements | 80% |
 | Branches | 75% |
 | Functions | 80% |
 | Lines | 80% |
 
-## モック使用基準
+## Mock Usage Criteria
 
-| 対象 | モック |
-|------|--------|
-| 外部API | Yes |
-| データベース | Yes（ユニットテスト） |
-| 時間 | Yes（`Date.now` 等） |
-| 内部ロジック | No |
+| Target | Mock? |
+|--------|-------|
+| External API | Yes |
+| Database | Yes (unit tests) |
+| Time | Yes (`Date.now`, etc.) |
+| Internal logic | No |
 
-## 検証チェックリスト
+## Verification Checklist
 
-**テストコード品質:**
-- [ ] テスト名が振る舞いを説明している
-- [ ] 1テスト = 1アサーション（原則）
-- [ ] AAA パターン（Arrange-Act-Assert）に従っている
-- [ ] 実装ではなく振る舞いをテスト
-- [ ] テストが独立している（順序依存なし）
+**Test code quality:**
+- [ ] Test names describe behavior
+- [ ] 1 test = 1 assertion (principle)
+- [ ] Follows AAA pattern (Arrange-Act-Assert)
+- [ ] Tests behavior, not implementation
+- [ ] Tests are independent (no order dependency)
 
-**プッシュ前:**
-- [ ] 全テスト通過
-- [ ] カバレッジ目標達成
-- [ ] Lint エラーなし
-- [ ] 型チェック通過
-- [ ] ビルド成功
+**Pre-push:**
+- [ ] All tests pass
+- [ ] Coverage targets met
+- [ ] No lint errors
+- [ ] Type check passes
+- [ ] Build successful

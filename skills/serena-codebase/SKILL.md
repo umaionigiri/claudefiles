@@ -8,9 +8,9 @@ allowed-tools: mcp__serena__*
 version: 1.0.0
 ---
 
-# Serena コードベース分析スキル
+# Serena Codebase Analysis Skill
 
-## Step 1: セッション初期化
+## Step 1: Session Initialization
 
 ```
 mcp__serena__check_onboarding_performed()
@@ -18,77 +18,77 @@ mcp__serena__list_memories()
 mcp__serena__list_dir({ relative_path: ".", recursive: false })
 ```
 
-## Step 2: 概要把握
+## Step 2: Overview
 
 ```
 mcp__serena__get_symbols_overview({ relative_path: "src" })
 ```
 
-## Step 3: シンボル検索（優先）
+## Step 3: Symbol Search (Preferred)
 
 ```
 mcp__serena__find_symbol({ symbol_name: "ClassName", include_body: false, depth: 1 })
 ```
 
-## Step 4: 詳細取得
+## Step 4: Detailed Retrieval
 
 ```
 mcp__serena__find_symbol({ symbol_name: "ClassName/methodName", include_body: true })
 ```
 
-## Step 5: 参照検索
+## Step 5: Reference Search
 
 ```
 mcp__serena__find_referencing_symbols({ symbol_name: "targetSymbol" })
 ```
 
-## Step 6: シンボル編集（必要時）
+## Step 6: Symbol Editing (When Needed)
 
 ```
 mcp__serena__replace_symbol_body({ symbol_name: "ClassName/methodName", new_body: "..." })
 ```
 
-## 検索優先度
+## Search Priority
 
-| 優先度 | ツール | 用途 |
-|--------|--------|------|
-| 1 | `find_symbol` | シンボル名が分かる場合 |
-| 2 | `find_file` | ファイル名が分かる場合 |
-| 3 | `search_for_pattern` | 上記で見つからない場合（最終手段） |
+| Priority | Tool | Use Case |
+|----------|------|----------|
+| 1 | `find_symbol` | When symbol name is known |
+| 2 | `find_file` | When file name is known |
+| 3 | `search_for_pattern` | When above methods fail (last resort) |
 
-## トークン最適化
+## Token Optimization
 
-| 手法 | 効果 |
-|------|------|
-| 検索パスを絞る | `src/services/` > `src/` |
-| `include_body: false` 先行 | 概要把握後に詳細取得 |
-| 500行以上のファイルは分割取得 | 必要部分のみ取得 |
-| 目標: 2000トークン以下/検索 | 大量結果を回避 |
+| Technique | Effect |
+|-----------|--------|
+| Narrow search path | `src/services/` > `src/` |
+| `include_body: false` first | Get overview before details |
+| Split retrieval for 500+ line files | Retrieve only needed parts |
+| Target: <2000 tokens/search | Avoid large result sets |
 
-## シンボル操作一覧
+## Symbol Operations
 
-| 操作 | ツール |
-|------|--------|
-| 概要取得 | `get_symbols_overview` |
-| シンボル検索 | `find_symbol` |
-| 参照検索 | `find_referencing_symbols` |
-| 本体置換 | `replace_symbol_body` |
-| 前に挿入 | `insert_before_symbol` |
-| 後に挿入 | `insert_after_symbol` |
-| リネーム | `rename_symbol` |
+| Operation | Tool |
+|-----------|------|
+| Get overview | `get_symbols_overview` |
+| Search symbol | `find_symbol` |
+| Search references | `find_referencing_symbols` |
+| Replace body | `replace_symbol_body` |
+| Insert before | `insert_before_symbol` |
+| Insert after | `insert_after_symbol` |
+| Rename | `rename_symbol` |
 
-## name_path パターン
+## name_path Patterns
 
-| パターン | 説明 |
-|----------|------|
-| `ClassName` | クラス全体 |
-| `ClassName/method` | クラス内メソッド |
-| `ClassName/__init__` | コンストラクタ（Python） |
-| `function_name` | トップレベル関数 |
+| Pattern | Description |
+|---------|-------------|
+| `ClassName` | Entire class |
+| `ClassName/method` | Method within class |
+| `ClassName/__init__` | Constructor (Python) |
+| `function_name` | Top-level function |
 
-## 検証チェックリスト
+## Verification Checklist
 
-- [ ] オンボーディング完了確認
-- [ ] メモリに関連情報がないか確認
-- [ ] シンボル検索を優先している
-- [ ] 編集前に参照シンボルを確認（後方互換性）
+- [ ] Onboarding check completed
+- [ ] Checked memories for relevant info
+- [ ] Prioritizing symbol search
+- [ ] Checked referencing symbols before editing (backward compatibility)

@@ -1,51 +1,81 @@
-# グローバル Claude Code 設定
+# Global Claude Code Settings
 
-## 言語設定
-- 常に日本語で応答する（明示的に英語を指定された場合を除く）
-- コード・コメント・ドキュメントは英語で記述
-- 技術用語は原語のまま使用（例: API, Docker, Kubernetes）
+## Language
+- Always respond in Japanese (unless English is explicitly requested)
+- Write code, comments, and documentation in English
+- Use technical terms in their original form (e.g., API, Docker, Kubernetes)
 
-## 応答スタイル
-- **結論ファースト**: 解決策を最初に提示し、詳細は後から
-- **コード重複を避ける**: ユーザー提供のコードは不必要に再表示しない
-- **簡潔でカジュアル**: 過度な丁寧語や長い導入は省略
-- **コード参照**: `file_path:line_number` 形式で記載
+## Response Style
+- **Conclusion first**: Present the solution first, details later
+- **Avoid code duplication**: Do not unnecessarily redisplay user-provided code
+- **Concise and casual**: Skip excessive politeness and long introductions
+- **Code references**: Use `file_path:line_number` format
 
-## 実装前の必須ステップ
-1. **Context7 で最新 API 確認**: フレームワーク/ライブラリ使用時は `resolve-library-id` → `query-docs` を実行
-2. **既存パターン確認**: Grep/Glob でプロジェクト内の既存実装パターンを確認
-3. **影響範囲の特定**: 変更が及ぶファイル・モジュールを事前に洗い出す
+## Pre-Implementation Steps
+1. **Context7 API check**: Run `resolve-library-id` → `query-docs` when using frameworks/libraries
+2. **Existing patterns**: Use Grep/Glob to check existing implementation patterns in the project
+3. **Impact analysis**: Identify affected files/modules before making changes
 
-## コミット前チェック
-- テスト通過（`npm test` / `pytest` / プロジェクト固有コマンド）
-- lint/型チェック通過
-- `git diff --staged` で意図した変更のみか確認
-- 機密情報（.env, credentials）が含まれていないか確認
+## Pre-Commit Checklist
+- Tests pass (`npm test` / `pytest` / project-specific command)
+- Lint/type checks pass
+- `git diff --staged` confirms only intended changes
+- No secrets (.env, credentials) included
 
-## MCP ツール使い分け
-| 用途 | ツール | 使用場面 |
-|------|--------|----------|
-| ライブラリ API 確認 | Context7 | 実装前の最新ドキュメント参照 |
-| 外部リサーチ | Gemini | ベストプラクティス・技術比較・トレンド調査 |
-| コード解析 | Serena | シンボル検索・依存関係・リファクタ影響調査 |
-| GitHub 操作 | GitHub MCP | PR作成・Issue管理・コード検索 |
-| Azure 操作 | Azure MCP | リソース管理・ドキュメント参照 |
-| ブラウザ操作 | Playwright | E2Eテスト・Webスクレイピング |
+## MCP Tool Selection
+| Purpose | Tool | Use Case |
+|---------|------|----------|
+| Library API reference | Context7 | Latest docs before implementation |
+| External research | Gemini | Best practices, tech comparison, trend analysis |
+| Code analysis | Serena | Symbol search, dependency analysis, refactor impact |
+| GitHub operations | GitHub MCP | PR creation, issue management, code search |
+| Azure operations | Azure MCP | Resource management, documentation reference |
+| Browser automation | Playwright | E2E testing, web scraping |
 
-## ワークフロー原則
-- **Worktree 必須**: ブランチ作業は `git worktree add` で分離
-- **過剰設計禁止**: 依頼された内容のみ実装、「念のため」機能は作らない
-- **既存パターン尊重**: プロジェクトのコードスタイル・アーキテクチャに従う
-- **破壊的操作は確認**: force push, reset --hard 等は必ずユーザー確認
+## Workflow Principles
+- **No direct work on main**: All changes via feature/topic branches; main updated only through approved PR merges
+- **Worktree required**: Use `git worktree add` for branch isolation. Create under `.git/worktrees/` (e.g., `git worktree add .git/worktrees/<name> <branch>`)
+- **No over-engineering**: Implement only what's requested; no "just in case" features
+- **Respect existing patterns**: Follow the project's code style and architecture
+- **Confirm destructive operations**: Always ask before force push, reset --hard, etc.
 
-## コンパクション指示
-コンテキスト圧縮時に以下を保持すること:
-- 現在のタスク目標と進捗状況
-- 変更済みファイルの一覧と変更内容の要約
-- 未解決の問題・ブロッカー
-- ユーザーの明示的な指示・好み
+## Context Management
 
-## 重要なリマインダー
-- ユーザーに聞かれていないファイル作成・ドキュメント生成は行わない
-- テストコードは振る舞いをテスト、実装詳細はテストしない
-- エラー発生時は根本原因を調査、安易なリトライやバイパスは避ける
+Before starting any task, analyze the request and propose the optimal strategy:
+
+| Task Type | Recommended Strategy |
+|-----------|---------------------|
+| Large exploration (many files) | Delegate to subagents; only summary enters parent context |
+| Multiple approaches to try | `/fork` to branch session, compare results |
+| Long implementation | `/compact <focus>` proactively at ~60%; Plan Mode first |
+| Quick fix / small change | Direct execution, no special management needed |
+| Code review / investigation | Subagent with read-only tools |
+| Unrelated follow-up task | `/clear` then start fresh |
+
+Techniques:
+- **Subagent delegation**: Research/exploration in isolated context; parent receives summary only
+- **`/compact <focus>`**: Proactive compression with explicit preservation instructions
+- **`/rewind` (Esc×2)**: "Conversation only" resets context keeping code; "Summarize from here" for partial compaction
+- **`/fork`**: Branch session for alternative approaches without polluting main session
+- **`/btw`**: Side questions with zero context cost (not stored in history)
+- **Plan Mode (Shift+Tab×2)**: Read-only exploration before implementation
+- **`/context`**: Monitor token usage periodically
+
+## Session Naming
+- Rename sessions with `/rename` to reflect the task (15-20 chars)
+- Update the name as the task evolves
+- Format: `<action>-<target>` (e.g., "設定最適化-CLAUDE.md", "API実装-認証機能")
+- Rename at: session start, major task change, or when scope becomes clear
+
+## Compact Instructions
+Preserve on compaction:
+- Current task goal and progress
+- Modified file paths with change summaries
+- Unresolved issues and blockers
+- User's explicit preferences
+- Architecture decisions with reasoning
+
+## Important Reminders
+- Do not create files or generate documentation unless explicitly asked
+- Test behavior, not implementation details
+- Investigate root causes on errors; avoid naive retries or bypasses
