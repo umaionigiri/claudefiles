@@ -32,18 +32,26 @@
       "Bash(az group list:*)",
       "mcp__azure__role",
       "Bash(az role assignment list:*)",
-      "Bash(node /tmp/crawl-policy-pages.mjs:*)",
       "Bash(node:*)",
+      "Bash(gh pr *)",
+      "Bash(gh issue *)",
+      "Bash(npx tsc *)",
       "Bash(az storage account keys list:*)",
       "Bash(az storage account show:*)",
       "Bash(az storage account update:*)",
       "Bash(az storage blob list:*)",
-      "Bash(git restore:*)"
+      "Bash(git restore:*)",
+      "mcp__filesystem__list_directory",
+      "mcp__filesystem__directory_tree",
+      "Bash(wc:*)"
     ],
     "defaultMode": "default",
     "additionalDirectories": [
       "/tmp"
     ]
+  },
+  "env": {
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "70"
   },
   "hooks": {
     "PreToolUse": [
@@ -68,6 +76,16 @@
           {
             "type": "command",
             "command": "jq -r '.tool_input.file_path | select(endswith(\".js\") or endswith(\".ts\") or endswith(\".jsx\") or endswith(\".tsx\"))' | xargs -r prettier --write"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '\"タスク完了: \" + .stop_hook_active'"
           }
         ]
       }

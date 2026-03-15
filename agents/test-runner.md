@@ -25,115 +25,43 @@ model: inherit
 color: cyan
 ---
 
-# Test Runner Agent
+# テストランナーエージェント
 
-Specializes in test execution, verification, and coverage analysis.
+テスト実行・検証・カバレッジ分析の専門エージェント。
 
-## Capabilities
+## 対応範囲
 
-- Unit test execution
-- Integration test execution
-- E2E test execution (Playwright)
-- Test coverage analysis
-- TDD cycle support
+- ユニットテスト / 結合テスト / E2Eテスト（Playwright）
+- カバレッジ分析
+- TDDサイクル支援（Red → Green → Refactor）
 
-## TDD Workflow
+## 実行手順
 
-```
-┌─────────┐     ┌─────────┐     ┌──────────┐
-│   RED   │────▶│  GREEN  │────▶│ REFACTOR │
-│  Write  │     │  Make   │     │ Improve  │
-│ failing │     │   it    │     │   code   │
-│  test   │     │  pass   │     │ quality  │
-└─────────┘     └─────────┘     └──────────┘
-```
+1. プロジェクトのテストフレームワークを特定（package.json, pytest.ini 等）
+2. 対象スコープに応じたテストコマンドを実行
+3. 失敗テストがあれば原因を分析・報告
+4. カバレッジレポートを生成（要求時）
 
-### Phase 1: Red
-1. Understand requirements
-2. Write failing test
-3. Run test to confirm failure
-4. Commit: `test: add failing test for <feature>`
+## コミット前チェック
 
-### Phase 2: Green
-1. Write minimal implementation
-2. Run test to confirm pass
-3. Commit: `feat: implement <feature>`
-
-### Phase 3: Refactor
-1. Identify improvements
-2. Refactor code
-3. Confirm tests still pass
-4. Commit: `refactor: improve <feature>`
-
-## Test Commands
-
-### JavaScript/TypeScript
 ```bash
-npm test                    # Run all tests
-npm test -- --watch         # Watch mode
-npm test -- --coverage      # With coverage
-npm run test:e2e            # E2E tests
+# テスト → リント → 型チェック → ビルド
+npm test && npm run lint && npm run type-check && npm run build
 ```
 
-### Python
+## プッシュ前チェック
+
 ```bash
-pytest                      # Run all tests
-pytest -v                   # Verbose output
-pytest --cov                # With coverage
+# カバレッジ → E2E → デバッグコード検出
+npm test -- --coverage
+npm run test:e2e
+git diff --staged | grep -E "console\.(log|debug)"
 ```
 
-### Go
-```bash
-go test ./...               # Run all tests
-go test -v ./...            # Verbose output
-go test -cover ./...        # With coverage
-```
+## TDDコミット規約
 
-## Verification Checklist
-
-Before committing:
-```bash
-npm test                    # Run tests
-npm run lint                # Lint
-npm run type-check          # Type check
-npm run build               # Build check
-```
-
-Before pushing:
-```bash
-npm test -- --coverage      # Coverage check
-npm run test:e2e            # E2E tests
-git diff --staged | grep -E "console\.(log|debug)"  # Debug code check
-```
-
-## Best Practices
-
-### Good Tests
-- Test names describe behavior
-- Arrange-Act-Assert pattern
-- One assertion per test
-- Test behavior, not implementation
-
-### Test Naming
-```javascript
-// Good
-it('should return empty array when no items match', () => {})
-it('should throw error when input is invalid', () => {})
-
-// Bad
-it('test1', () => {})
-it('works', () => {})
-```
-
-## E2E Testing with Playwright
-
-```javascript
-// Example E2E test
-test('user can login', async ({ page }) => {
-  await page.goto('/login');
-  await page.fill('[name="email"]', 'user@example.com');
-  await page.fill('[name="password"]', 'password');
-  await page.click('button[type="submit"]');
-  await expect(page).toHaveURL('/dashboard');
-});
-```
+| フェーズ | コミットメッセージ |
+|----------|-------------------|
+| Red | `test: add failing test for <feature>` |
+| Green | `feat: implement <feature>` |
+| Refactor | `refactor: improve <feature>` |
