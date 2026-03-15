@@ -73,21 +73,10 @@ Preserve on compaction:
 - Architecture decisions with reasoning
 
 ## Task Management
-- 3+ steps → Use TaskCreate/TaskUpdate/TaskList to track progress visibly
+- On every prompt: analyze complexity → choose execution mode (Direct / SubAgent / Agent Teams)
+- 3+ steps → Use TaskCreate/TaskUpdate/TaskList to track progress
 - Always update task status: pending → in_progress → completed
-- After completing a task, check TaskList for next available work
-
-### SubAgents vs Agent Teams dispatch
-| Criteria | SubAgents | Agent Teams |
-|----------|-----------|-------------|
-| Result only needed (no discussion) | ✅ | |
-| Research / read-only exploration | ✅ | |
-| Parallel independent tasks | ✅ | |
-| Cross-agent discussion needed | | ✅ |
-| Shared task list coordination | | ✅ |
-| Long-running multi-file implementation | | ✅ |
-| Cost-sensitive | ✅ (lower) | |
-| Speed-sensitive (large project) | | ✅ (faster) |
+- → See `rules/task-dispatch.md` for full dispatch rules and patterns
 
 ## Important Reminders
 - Do not create files or generate documentation unless explicitly asked

@@ -875,6 +875,7 @@ const ruleDescJa = {
   'security': 'シークレット禁止、入力バリデーション、認証・認可のセキュリティルール',
   'code-quality': '命名規則、関数設計、エラー処理、コメントのコード品質ルール',
   'pre-commit': 'コミット前に確認すべきチェックリスト',
+  'naming': 'ディレクトリ・ファイルの命名規則（docs は English_日本語 形式）',
 };
 
 function collectCommands() {
