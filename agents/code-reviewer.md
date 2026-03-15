@@ -38,12 +38,8 @@ Systematically review code changes to ensure quality.
 
 ## Review Checklist
 
-### Security
-- [ ] SQL injection prevention
-- [ ] XSS prevention
-- [ ] Proper authentication/authorization
-- [ ] No hardcoded secrets
-- [ ] Input validation
+### Security (→ `rules/security.md` for full criteria)
+- [ ] Secrets, input validation, auth/authz per rules/security.md
 
 ### Performance
 - [ ] N+1 queries
@@ -51,11 +47,8 @@ Systematically review code changes to ensure quality.
 - [ ] Memory leaks
 - [ ] Proper index usage
 
-### Code Quality
-- [ ] Naming conventions
-- [ ] Single responsibility per function
-- [ ] DRY principle
-- [ ] Error handling
+### Code Quality (→ `rules/code-quality.md` for full criteria)
+- [ ] Naming, single responsibility, DRY, error handling per rules/code-quality.md
 
 ### Testing
 - [ ] Test coverage
