@@ -1,119 +1,131 @@
 # claudefiles
 
-Configuration files for Claude Code (`~/.claude/`).
+Claude Code（`~/.claude/`）の設定ファイルを管理するリポジトリ。
 
-## Structure
+## 構成
 
 ```
 ~/.claude/
-├── .gitignore             # Exclude runtime data
-├── CLAUDE.md              # Global instructions (all projects)
-├── settings.json          # Permissions, hooks, env vars, MCP config
-├── agents/                # Custom agents (6 types)
-├── commands/              # Slash commands
+├── .gitignore             # ランタイムデータ除外
+├── CLAUDE.md              # グローバル指示（全プロジェクト共通）
+├── settings.json          # 権限・Hooks・環境変数・MCP設定
+├── agents/                # カスタムエージェント（6種）
+├── commands/              # スラッシュコマンド
 │   ├── slash-guide.md
-│   └── kiro/              # Spec-driven development workflow (11 commands)
-└── skills/                # Custom skills (7 types)
-    ├── development-rules/
-    ├── testing-rules/
-    ├── git-workflow/
-    ├── gemini-research/
-    ├── serena-codebase/
-    ├── document-converter/
-    └── rough-estimate/
+│   └── kiro/              # 仕様駆動開発ワークフロー（11コマンド）
+├── skills/                # カスタムスキル（7種）
+│   ├── development-rules/
+│   ├── testing-rules/
+│   ├── git-workflow/
+│   ├── gemini-research/
+│   ├── serena-codebase/
+│   ├── document-converter/
+│   └── rough-estimate/
+└── scripts/               # 自動化スクリプト
+    ├── generate-dashboard.mjs  # ダッシュボード HTML + README 生成
+    └── auto-sync.sh            # 設定変更時の自動 commit & push
 ```
 
 ## CLAUDE.md
 
-Global instruction file applied to all projects.
+全プロジェクトに適用されるグローバル指示ファイル。
 
-- **Language**: Respond in Japanese; code in English
-- **Style**: Conclusion-first, concise and casual
-- **Principles**: Only do what's asked; minimize file creation
+- **言語**: 日本語で応答、コードは英語
+- **スタイル**: 結論ファースト、簡潔でカジュアル
+- **原則**: 依頼されたことだけを行う、ファイル作成は最小限
+- **コンテキスト管理**: タスク種別に応じた最適な戦略を提案
 
 ## settings.json
 
-### Permissions
+### 権限
 
-Allows git read operations (`status`, `diff`, `log`, `branch`, `worktree`), `npm run`, `pnpm`, MCP tools (Context7, Azure, o3), etc.
+Git 読み取り系（`status`, `diff`, `log`, `branch`, `worktree`）、`npm run`, `pnpm`、MCP ツール（Context7, Azure, o3）等を許可。
 
 ### Hooks
 
-| Hook | Description |
-|------|-------------|
-| **PreToolUse** | Block dangerous commands (`rm -rf`, etc.) and `git push --force` |
-| **PostToolUse** | Auto-format `.js/.ts/.jsx/.tsx` files with prettier on save |
-| **Stop** | Notification on task completion |
-| **Notification** | Desktop notification via terminal-notifier |
+| Hook | 内容 |
+|------|------|
+| **PreToolUse** | 破壊的コマンド（`rm -rf` 等）と `git push --force` をブロック |
+| **PostToolUse** | JS/TS ファイル保存時に prettier 自動整形 + 設定変更時にダッシュボード再生成 & 自動 push |
+| **Stop** | タスク完了時の通知 |
+| **Notification** | terminal-notifier でデスクトップ通知 |
 
-### Environment
+### 環境変数
 
-| Variable | Value | Description |
-|----------|-------|-------------|
-| `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` | `70` | Auto-compaction at 70% context |
+| 変数 | 値 | 説明 |
+|------|-----|------|
+| `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE` | `70` | コンテキスト70%でオートコンパクション |
 
-### MCP Integrations
+### MCP 連携
 
-- **Azure** — Azure resource operations and documentation
-- **Context7** — Library documentation search
-- **o3** — OpenAI o3 model integration
-- **Serena** — Semantic code analysis
-- **Playwright** — Browser automation
-- **GitHub** — GitHub API integration
-- **Notion** — Notion API integration
-- **Gemini** — Google Gemini integration
+- **Azure** — Azure リソース操作・ドキュメント参照
+- **Context7** — ライブラリドキュメント検索
+- **o3** — OpenAI o3 モデル連携
+- **Serena** — セマンティックコード解析
+- **Playwright** — ブラウザ自動操作
+- **GitHub** — GitHub API 連携
+- **Notion** — Notion API 連携
+- **Gemini** — Google Gemini 連携
 
-## Agents
+## エージェント
 
-| Agent | Purpose |
-|-------|---------|
-| `estimation-agent` | Project estimation and quotation |
-| `senior-consultant-reviewer` | Requirements, design, and estimate review |
-| `code-reviewer` | Code quality and security review |
-| `test-runner` | Test execution and code verification |
-| `task-decomposer` | Project breakdown and task planning |
-| `devops-problem-solver` | Error response, incidents, debugging |
+| エージェント | 用途 |
+|-------------|------|
+| `code-reviewer` | コードレビューエージェント |
+| `devops-problem-solver` | DevOps 問題解決エージェント |
+| `estimation-agent` | 見積りエージェント |
+| `senior-consultant-reviewer` | シニアコンサルタントレビューエージェント |
+| `task-decomposer` | タスク分解エージェント |
+| `test-runner` | テストランナーエージェント |
 
-## Commands
+## スキル
+
+| スキル | 用途 |
+|--------|------|
+| `development-rules` | 開発ルール |
+| `document-converter` | ドキュメント変換スキル |
+| `gemini-research` | Gemini リサーチスキル |
+| `git-workflow` | Git ワークフロー |
+| `rough-estimate` | 概算見積り作成スキル |
+| `serena-codebase` | Serena コードベース分析スキル |
+| `testing-rules` | テストルール |
+
+## コマンド
 
 ### `/slash-guide`
 
-Explains all Claude Code slash commands in Japanese.
+Claude Code の全スラッシュコマンドを日本語で解説。
 
-### `/kiro/*` — Spec-Driven Development Workflow
+### `/kiro/*` — 仕様駆動開発ワークフロー
 
-| Command | Purpose |
-|---------|---------|
-| `spec-init` | Initialize specification |
-| `spec-requirements` | Generate requirements |
-| `spec-design` | Create technical design |
-| `spec-tasks` | Generate implementation tasks |
-| `spec-impl` | Execute implementation via TDD |
-| `spec-status` | Check specification progress |
-| `steering` / `steering-custom` | Manage project knowledge |
-| `validate-design` | Review technical design |
-| `validate-gap` | Gap analysis between requirements and implementation |
-| `validate-impl` | Validate implementation |
+| コマンド | 用途 |
+|---------|------|
+| `spec-init` | 仕様の初期化 |
+| `spec-requirements` | 要件定義の生成 |
+| `spec-design` | 技術設計の作成 |
+| `spec-tasks` | 実装タスクの生成 |
+| `spec-impl` | TDD による実装実行 |
+| `spec-status` | 仕様の進捗確認 |
+| `steering` / `steering-custom` | プロジェクト知識の管理 |
+| `validate-design` | 技術設計のレビュー |
+| `validate-gap` | 要件と実装のギャップ分析 |
+| `validate-impl` | 実装の検証 |
 
-## Skills
+## 自動同期
 
-| Skill | Purpose |
-|-------|---------|
-| `development-rules` | SOLID/DRY/KISS-based development rules |
-| `testing-rules` | TDD cycle-based testing rules |
-| `git-workflow` | Branch management with worktree requirement |
-| `gemini-research` | External research via Gemini MCP |
-| `serena-codebase` | Code exploration via Serena MCP |
-| `document-converter` | Markdown → Word/Excel/PDF conversion |
-| `rough-estimate` | Rough estimate creation (Scibit LLC) |
+設定ファイル（CLAUDE.md, settings.json, agents/*.md, skills/*/SKILL.md, commands/*.md）を変更すると、PostToolUse hook により以下が自動実行される:
 
-## Setup
+1. ダッシュボード HTML（`claudesettings-CLAUDE設定.html`）を再生成
+2. README.md を再生成
+3. 全変更を `git commit` + `git push origin main`
+
+## セットアップ
 
 ```bash
 git clone git@github.com:umaionigiri/claudefiles.git ~/.claude
 ```
 
-If `~/.claude/` already exists, copy or symlink individual files:
+既に `~/.claude/` が存在する場合:
 
 ```bash
 git clone git@github.com:umaionigiri/claudefiles.git /tmp/claudefiles

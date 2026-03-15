@@ -75,7 +75,26 @@ Preserve on compaction:
 - User's explicit preferences
 - Architecture decisions with reasoning
 
+## Task Management
+- 3+ steps → Use TaskCreate/TaskUpdate/TaskList to track progress visibly
+- Independent tasks → Launch SubAgents in parallel (Agent tool with run_in_background)
+- Always update task status: pending → in_progress → completed
+- After completing a task, check TaskList for next available work
+
 ## Important Reminders
 - Do not create files or generate documentation unless explicitly asked
 - Test behavior, not implementation details
 - Investigate root causes on errors; avoid naive retries or bypasses
+
+## Config Self-Improvement
+On every user prompt, silently evaluate:
+1. Is the user giving an instruction that should become a permanent rule? → Add to appropriate config file
+2. Does an existing rule conflict with or duplicate this request? → Update/consolidate
+3. Where does it belong? Use this decision tree:
+   - Mechanically enforced, no exceptions → `settings.json` hooks
+   - Always apply, short → `CLAUDE.md`
+   - Always apply, long → `.claude/rules/*.md` (no paths)
+   - File-type specific → `.claude/rules/*.md` (with paths frontmatter)
+   - Multi-step workflow with checklist → `skills/`
+   - Needs tool restrictions or isolated context → `agents/`
+4. After adding/updating config, run `node ~/.claude/scripts/generate-dashboard.mjs` to sync

@@ -1170,7 +1170,7 @@ header .sub { color: var(--text2); font-size: .8rem; }
 header .sub a { color: var(--accent); text-decoration: none; }
 
 /* Sidebar tabs */
-.tabs { display: flex; flex-direction: column; width: 180px; flex-shrink: 0; border-right: 1px solid var(--surface2); padding-right: 0; }
+.tabs { display: flex; flex-direction: column; width: 180px; flex-shrink: 0; border-right: 1px solid var(--surface2); padding-right: 0; position: sticky; top: 1rem; align-self: flex-start; }
 .tab { padding: .625rem 1rem; cursor: pointer; color: var(--text2); font-size: .8rem; font-weight: 500; border-right: 3px solid transparent; white-space: nowrap; transition: all .15s; user-select: none; display: flex; align-items: center; gap: .4rem; border-radius: .375rem 0 0 .375rem; }
 .tab:hover { color: var(--text); background: var(--accent-dim); }
 .tab.active { color: var(--accent); border-right-color: var(--accent); background: var(--accent-dim); font-weight: 600; }
@@ -1240,6 +1240,10 @@ tr:hover td { background: var(--accent-dim); }
 .stat { text-align: center; }
 .stat-num { font-size: 1.75rem; font-weight: 700; color: var(--accent); }
 .stat-label { font-size: .7rem; color: var(--text3); text-transform: uppercase; letter-spacing: .05em; }
+
+/* Nav links */
+.nav-link { color: var(--accent); text-decoration: none; }
+.nav-link:hover { text-decoration: underline; }
 
 /* File block (per-file view) */
 .file-block { background: var(--bg); border: 1px solid var(--surface2); border-radius: .625rem; padding: 1.25rem; margin-bottom: 1rem; }
@@ -1330,7 +1334,7 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
     <tr><th>エージェント</th><th>用途</th><th>使用ツール</th><th>カラー</th></tr>
     ${agents.map(a => {
       const full = agentFullJa[a.name];
-      return `<tr><td><code>${esc(a.name)}</code></td><td>${esc(full?.summary || a.description)}</td><td style="font-size:.7rem;">${esc(a.tools)}</td><td><span class="card-dot" style="background:${colorMap[a.color] || colorMap.gray};display:inline-block;vertical-align:middle;margin-right:.25rem;"></span>${esc(a.color)}</td></tr>`;
+      return `<tr><td><a href="#" class="nav-link" data-tab="agents" data-target="file-agent-${a.name}"><code>${esc(a.name)}</code></a></td><td>${esc(full?.summary || a.description)}</td><td style="font-size:.7rem;">${esc(a.tools)}</td><td><span class="card-dot" style="background:${colorMap[a.color] || colorMap.gray};display:inline-block;vertical-align:middle;margin-right:.25rem;"></span>${esc(a.color)}</td></tr>`;
     }).join('\n    ')}
   </table>
 
@@ -1341,7 +1345,19 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
     <tr><th>スキル</th><th>用途</th><th>トリガー例</th></tr>
     ${skills.map(s => {
       const full = skillFullJa[s.name];
-      return `<tr><td><code>${esc(s.name)}</code></td><td>${esc(full?.summary || s.description)}</td><td style="font-size:.7rem;">${s.triggers.slice(0, 3).map(t => esc(t)).join('、') || '—'}</td></tr>`;
+      return `<tr><td><a href="#" class="nav-link" data-tab="skills" data-target="file-skill-${s.name}"><code>${esc(s.name)}</code></a></td><td>${esc(full?.summary || s.description)}</td><td style="font-size:.7rem;">${s.triggers.slice(0, 3).map(t => esc(t)).join('、') || '—'}</td></tr>`;
+    }).join('\n    ')}
+  </table>
+
+  <div class="sep"></div>
+  <h3>コマンド一覧</h3>
+  <p class="section-desc">Claude Code で /コマンド名 として呼び出せるカスタムコマンド。</p>
+  <table>
+    <tr><th>コマンド</th><th>説明</th></tr>
+    ${commands.map(c => {
+      const descJa = commandDescJa[c.name] || '';
+      const cmdId = c.name.split('/').join('-');
+      return `<tr><td><a href="#" class="nav-link" data-tab="commands" data-target="file-cmd-${cmdId}"><code>/${esc(c.name)}</code></a></td><td style="font-size:.8rem;">${esc(descJa).slice(0, 60)}${descJa.length > 60 ? '…' : ''}</td></tr>`;
     }).join('\n    ')}
   </table>
 
@@ -1462,7 +1478,7 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
   ${agents.map(a => {
     const full = agentFullJa[a.name];
     return `
-    <div class="file-block">
+    <div class="file-block" id="file-agent-${a.name}">
       <div class="file-header">
         <span class="card-dot" style="background:${colorMap[a.color] || colorMap.gray}"></span>
         <span class="file-name">agents/${esc(a.name)}.md</span>
@@ -1486,7 +1502,7 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
   ${skills.map(s => {
     const full = skillFullJa[s.name];
     return `
-    <div class="file-block">
+    <div class="file-block" id="file-skill-${s.name}">
       <div class="file-header">
         <span class="card-dot" style="background:var(--accent)"></span>
         <span class="file-name">skills/${esc(s.name)}/SKILL.md</span>
@@ -1510,7 +1526,7 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
   ${commands.map(c => {
     const descJa = commandDescJa[c.name] || '';
     return `
-    <div class="file-block">
+    <div class="file-block" id="file-cmd-${c.name.replace(/\//g, '-')}">
       <div class="file-header">
         <span class="card-dot" style="background:var(--purple)"></span>
         <span class="file-name">commands/${esc(c.name)}.md</span>
@@ -1561,17 +1577,177 @@ ${tabs.map((t, i) => `  <div class="tab${i === 0 ? ' active' : ''}" role="tab" d
 </div><!-- /.container -->
 
 <script>
+// Tab switching
+function switchTab(tabId) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  const tabEl = document.querySelector('.tab[data-tab="' + tabId + '"]');
+  if (tabEl) tabEl.classList.add('active');
+  const panel = document.getElementById('tab-' + tabId);
+  if (panel) panel.classList.add('active');
+}
+
 document.querySelectorAll('.tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+});
+
+// Navigation links: switch tab + scroll to target
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const tabId = link.dataset.tab;
+    const targetId = link.dataset.target;
+    switchTab(tabId);
+    requestAnimationFrame(() => {
+      const el = document.getElementById(targetId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        el.style.outline = '2px solid var(--accent)';
+        setTimeout(() => { el.style.outline = ''; }, 2000);
+      }
+    });
   });
 });
 </script>
 </body>
 </html>`;
+}
+
+// --- README Generation ---
+
+function generateReadme() {
+  const settings = readJson(join(ROOT, 'settings.json')) || {};
+  const agents = collectAgents();
+  const skills = collectSkills();
+  const commands = collectCommands();
+
+  return `# claudefiles
+
+Claude Code（\`~/.claude/\`）の設定ファイルを管理するリポジトリ。
+
+## 構成
+
+\`\`\`
+~/.claude/
+├── .gitignore             # ランタイムデータ除外
+├── CLAUDE.md              # グローバル指示（全プロジェクト共通）
+├── settings.json          # 権限・Hooks・環境変数・MCP設定
+├── agents/                # カスタムエージェント（${agents.length}種）
+├── commands/              # スラッシュコマンド
+│   ├── slash-guide.md
+│   └── kiro/              # 仕様駆動開発ワークフロー（11コマンド）
+├── skills/                # カスタムスキル（${skills.length}種）
+│   ├── development-rules/
+│   ├── testing-rules/
+│   ├── git-workflow/
+│   ├── gemini-research/
+│   ├── serena-codebase/
+│   ├── document-converter/
+│   └── rough-estimate/
+└── scripts/               # 自動化スクリプト
+    ├── generate-dashboard.mjs  # ダッシュボード HTML + README 生成
+    └── auto-sync.sh            # 設定変更時の自動 commit & push
+\`\`\`
+
+## CLAUDE.md
+
+全プロジェクトに適用されるグローバル指示ファイル。
+
+- **言語**: 日本語で応答、コードは英語
+- **スタイル**: 結論ファースト、簡潔でカジュアル
+- **原則**: 依頼されたことだけを行う、ファイル作成は最小限
+- **コンテキスト管理**: タスク種別に応じた最適な戦略を提案
+
+## settings.json
+
+### 権限
+
+Git 読み取り系（\`status\`, \`diff\`, \`log\`, \`branch\`, \`worktree\`）、\`npm run\`, \`pnpm\`、MCP ツール（Context7, Azure, o3）等を許可。
+
+### Hooks
+
+| Hook | 内容 |
+|------|------|
+| **PreToolUse** | 破壊的コマンド（\`rm -rf\` 等）と \`git push --force\` をブロック |
+| **PostToolUse** | JS/TS ファイル保存時に prettier 自動整形 + 設定変更時にダッシュボード再生成 & 自動 push |
+| **Stop** | タスク完了時の通知 |
+| **Notification** | terminal-notifier でデスクトップ通知 |
+
+### 環境変数
+
+| 変数 | 値 | 説明 |
+|------|-----|------|
+| \`CLAUDE_AUTOCOMPACT_PCT_OVERRIDE\` | \`70\` | コンテキスト70%でオートコンパクション |
+
+### MCP 連携
+
+- **Azure** — Azure リソース操作・ドキュメント参照
+- **Context7** — ライブラリドキュメント検索
+- **o3** — OpenAI o3 モデル連携
+- **Serena** — セマンティックコード解析
+- **Playwright** — ブラウザ自動操作
+- **GitHub** — GitHub API 連携
+- **Notion** — Notion API 連携
+- **Gemini** — Google Gemini 連携
+
+## エージェント
+
+| エージェント | 用途 |
+|-------------|------|
+${agents.map(a => `| \`${a.name}\` | ${agentFullJa[a.name]?.summary || a.description} |`).join('\n')}
+
+## スキル
+
+| スキル | 用途 |
+|--------|------|
+${skills.map(s => `| \`${s.name}\` | ${skillFullJa[s.name]?.summary || s.description} |`).join('\n')}
+
+## コマンド
+
+### \`/slash-guide\`
+
+Claude Code の全スラッシュコマンドを日本語で解説。
+
+### \`/kiro/*\` — 仕様駆動開発ワークフロー
+
+| コマンド | 用途 |
+|---------|------|
+| \`spec-init\` | 仕様の初期化 |
+| \`spec-requirements\` | 要件定義の生成 |
+| \`spec-design\` | 技術設計の作成 |
+| \`spec-tasks\` | 実装タスクの生成 |
+| \`spec-impl\` | TDD による実装実行 |
+| \`spec-status\` | 仕様の進捗確認 |
+| \`steering\` / \`steering-custom\` | プロジェクト知識の管理 |
+| \`validate-design\` | 技術設計のレビュー |
+| \`validate-gap\` | 要件と実装のギャップ分析 |
+| \`validate-impl\` | 実装の検証 |
+
+## 自動同期
+
+設定ファイル（CLAUDE.md, settings.json, agents/*.md, skills/*/SKILL.md, commands/*.md）を変更すると、PostToolUse hook により以下が自動実行される:
+
+1. ダッシュボード HTML（\`claudesettings-CLAUDE設定.html\`）を再生成
+2. README.md を再生成
+3. 全変更を \`git commit\` + \`git push origin main\`
+
+## セットアップ
+
+\`\`\`bash
+git clone git@github.com:umaionigiri/claudefiles.git ~/.claude
+\`\`\`
+
+既に \`~/.claude/\` が存在する場合:
+
+\`\`\`bash
+git clone git@github.com:umaionigiri/claudefiles.git /tmp/claudefiles
+ln -sf /tmp/claudefiles/CLAUDE.md ~/.claude/CLAUDE.md
+ln -sf /tmp/claudefiles/settings.json ~/.claude/settings.json
+ln -sf /tmp/claudefiles/agents ~/.claude/agents
+ln -sf /tmp/claudefiles/commands ~/.claude/commands
+ln -sf /tmp/claudefiles/skills ~/.claude/skills
+\`\`\`
+`;
 }
 
 // --- Main ---
@@ -1580,7 +1756,11 @@ try {
   const html = generateHtml();
   writeFileSync(OUTPUT, html, 'utf-8');
   console.log(`Dashboard generated: ${OUTPUT}`);
+
+  const readme = generateReadme();
+  writeFileSync(join(ROOT, 'README.md'), readme, 'utf-8');
+  console.log('README.md generated');
 } catch (err) {
-  console.error('Dashboard generation failed:', err.message);
+  console.error('Generation failed:', err.message);
   process.exit(1);
 }
