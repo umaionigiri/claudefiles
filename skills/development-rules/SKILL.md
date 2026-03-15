@@ -24,15 +24,10 @@ mcp__context7__query-docs({ libraryId: "/lib/xxx", topic: "implementation patter
 - Identify impact scope
 - Parallelize independent tasks with Task tool
 
-## Step 3: Code Quality Standards
+## Step 3: Code Quality
 
-| Item | Standard |
-|------|----------|
-| Naming | Meaningful names, follow project conventions |
-| Error handling | Appropriate handling |
-| Comments | Explain "why" (not "what") |
-| Magic numbers | Extract to constants |
-| Supplementary notes | Japanese comments acceptable |
+→ See `rules/code-quality.md` for standards (naming, functions, error handling, comments)
+→ See `rules/security.md` for security checks
 
 ## Verification Checklist
 
@@ -44,7 +39,6 @@ mcp__context7__query-docs({ libraryId: "/lib/xxx", topic: "implementation patter
 **Post-implementation:**
 - [ ] Each function/class has single responsibility
 - [ ] No unnecessary features added
-- [ ] No duplicated code
 - [ ] Simplest possible solution
 - [ ] Tests present with adequate coverage
-- [ ] No security risks
+- [ ] `rules/security.md` criteria satisfied
