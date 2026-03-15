@@ -155,7 +155,7 @@ tr:hover td { background: var(--accent-dim); }
   <h1>Claude Code 設定ダッシュボード</h1>
   <div class="sub">
     <a href="https://github.com/umaionigiri/claudefiles">umaionigiri/claudefiles</a>
-    &nbsp;·&nbsp; 最終生成: 2026/3/16 0:10:03
+    &nbsp;·&nbsp; 最終生成: 2026/3/16 0:15:50
   </div>
 </header>
 
@@ -262,6 +262,10 @@ tr:hover td { background: var(--accent-dim); }
 <span class="tree-line">├── <span class="tree-name tree-dir">plugins/</span>  <span class="tree-comment"># プラグイン管理</span></span>
 <span class="tree-line">│   ├── <span class="tree-name">installed_plugins.json</span>  <span class="tree-comment"># インストール済みプラグイン</span></span>
 <span class="tree-line">│   └── <span class="tree-name">known_marketplaces.json</span>  <span class="tree-comment"># 公式マーケットプレイス定義</span></span>
+<span class="tree-line">├── <span class="tree-name tree-dir">rules/</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">code-quality.md</span></span>
+<span class="tree-line">│   ├── <span class="tree-name">pre-commit.md</span></span>
+<span class="tree-line">│   └── <span class="tree-name">security.md</span></span>
 <span class="tree-line">├── <span class="tree-name tree-dir">scripts/</span>  <span class="tree-comment"># 自動化スクリプト</span></span>
 <span class="tree-line">│   ├── <span class="tree-name">auto-sync.sh</span></span>
 <span class="tree-line">│   └── <span class="tree-name">generate-dashboard.mjs</span>  <span class="tree-comment"># 設定ダッシュボード HTML 生成</span></span>
@@ -654,6 +658,7 @@ tr:hover td { background: var(--accent-dim); }
   <table>
     <tr><th>設定</th><th>値</th><th>説明</th></tr>
     <tr><td><code>CLAUDE_AUTOCOMPACT_PCT_OVERRIDE</code></td><td>70</td><td>コンテキスト使用量 70% でオートコンパクション</td></tr>
+    <tr><td><code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS</code></td><td>1</td><td></td></tr>
     <tr><td><code>language</code></td><td>japanese</td><td>応答言語（日本語）</td></tr>
     <tr><td><code>model</code></td><td>opus[1m]</td><td>使用モデル</td></tr>
     <tr><td><code>includeCoAuthoredBy</code></td><td>false</td><td>コミットの Co-authored-by</td></tr>
