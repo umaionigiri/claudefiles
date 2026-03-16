@@ -877,6 +877,7 @@ const ruleDescJa = {
   'pre-commit': 'コミット前に確認すべきチェックリスト',
   'naming': 'ディレクトリ・ファイルの命名規則（docs は English_日本語 形式）',
   'task-dispatch': 'プロンプト解析→実行モード選択（Direct / SubAgent / Agent Teams）の判断基準とパターン',
+  'version-check': 'セッション開始時に Claude Code の最新バージョンを確認し、新機能の設定取り込みを評価',
 };
 
 function collectCommands() {
