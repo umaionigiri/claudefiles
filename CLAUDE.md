@@ -49,7 +49,7 @@
 | Code review | SubAgent with read-only tools |
 | Unrelated follow-up | `/clear` then start fresh |
 
-Key techniques: `/compact`, `/rewind` (Esc×2), `/fork`, `/btw`, Plan Mode (Shift+Tab×2), `/context`
+Key techniques: `/compact`, `/rewind` (Esc×2), `/fork`, `/btw`, Plan Mode (Shift+Tab×2), `/context`, `/effort` (low/med/high for cost control)
 
 ## Session Naming
 - `/rename` with task-reflecting name (15-20 chars), format: `<action>-<target>`
