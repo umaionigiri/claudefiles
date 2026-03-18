@@ -55,9 +55,73 @@
       "Bash(git fetch:*)",
       "Bash(git ls-tree:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git clone:*)",
+      "Bash(git pull:*)",
+      "Bash(git merge:*)",
+      "Bash(git rebase:*)",
+      "Bash(docker:*)",
+      "Bash(kubectl:*)",
+      "Bash(aws:*)",
+      "Bash(az:*)",
+      "Bash(gcloud:*)",
+      "Bash(terraform apply:*)",
+      "Bash(terraform destroy:*)",
+      "Bash(npm publish:*)",
+      "Bash(npm install:*)",
+      "Bash(npm i:*)",
+      "Bash(pip install:*)",
+      "Bash(pip3 install:*)",
+      "Bash(pipenv install:*)",
+      "Bash(poetry add:*)",
+      "Bash(go get:*)",
+      "Bash(go install:*)",
+      "Bash(yarn add:*)",
+      "Bash(yarn install:*)",
+      "Bash(bundle install:*)",
+      "Bash(cargo install:*)",
+      "Bash(cargo build:*)",
+      "Bash(composer require:*)",
+      "Bash(composer install:*)",
+      "Bash(mvn install:*)",
+      "Bash(gradle install:*)",
+      "Bash(apt install:*)",
+      "Bash(apt-get install:*)",
+      "Bash(yum install:*)",
+      "Bash(brew install:*)",
+      "Bash(choco install:*)",
+      "Bash(wget:*)",
+      "Bash(make:*)",
+      "Bash(cmake:*)",
+      "Read(**/.env*)",
+      "Read(**/secrets/**)",
+      "Read(**/*secret*)",
+      "Read(**/*password*)",
+      "Read(**/*token*)",
+      "Read(**/.git/config)",
+      "Write(**/Dockerfile)",
+      "Write(**/.github/workflows/*)",
+      "Write(**/*.sh)",
+      "Write(**/*.bash)",
+      "Write(**/*.ps1)",
+      "Edit(**/Dockerfile)",
+      "Edit(**/.github/workflows/*)",
+      "Edit(**/*.sh)",
+      "Edit(**/*.bash)",
+      "Edit(**/*.ps1)",
+      "Edit(**/package-lock.json)",
+      "Edit(**/yarn.lock)",
+      "Edit(**/pnpm-lock.yaml)",
+      "Edit(**/Gemfile.lock)",
+      "Edit(**/poetry.lock)",
+      "Edit(**/Pipfile.lock)",
+      "Edit(**/composer.lock)",
+      "Edit(**/Cargo.lock)",
+      "Edit(**/go.sum)",
+      "Edit(**/.git/**)"
     ],
-    "defaultMode": "default",
+    "defaultMode": "dontAsk",
     "additionalDirectories": [
       "/tmp"
     ]
@@ -70,11 +134,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r 'if .tool_input.command | test(\"rm -rf|dd if=|:(){ :|:& };:\") then {\"decision\": \"block\", \"reason\": \"Dangerous command blocked. Consider an alternative approach.\"} else empty end'"
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const cmd=JSON.parse(d).tool_input.command||'';if(/rm -rf|dd if=|:\\(\\)\\{ :\\|:& \\};:/.test(cmd))console.log(JSON.stringify({decision:'block',reason:'Dangerous command blocked. Consider an alternative approach.'}))})\""
           },
           {
             "type": "command",
-            "command": "jq -r 'if .tool_input.command | test(\"^git push.*(--force|-f)\") then {\"decision\": \"block\", \"reason\": \"Force push blocked. Run manually if truly needed.\"} else empty end'"
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const cmd=JSON.parse(d).tool_input.command||'';if(/^git push.*(--force|-f)/.test(cmd))console.log(JSON.stringify({decision:'block',reason:'Force push blocked. Run manually if truly needed.'}))})\""
           }
         ]
       }
@@ -85,11 +149,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.file_path | select(endswith(\".js\") or endswith(\".ts\") or endswith(\".jsx\") or endswith(\".tsx\"))' | xargs -r prettier --write"
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const f=JSON.parse(d).tool_input.file_path||'';if(/\\.(js|ts|jsx|tsx)$/.test(f))console.log(f)})\" | xargs -r prettier --write"
           },
           {
             "type": "command",
-            "command": "bash /Users/so/.claude/scripts/auto-sync.sh",
+            "command": "bash \"${USERPROFILE:-/Users/so}/.claude/scripts/auto-sync.sh\"",
             "async": true
           }
         ]
@@ -100,7 +164,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "cd /Users/so/.claude && git fetch origin 2>/dev/null && BEHIND=$(git rev-list HEAD..origin/main --count 2>/dev/null || echo 0) && echo \"[セッション開始] ブランチ: $(git rev-parse --abbrev-ref HEAD) / 最新コミット: $(git log --oneline -1) / リモート差分: ${BEHIND}件遅れ\""
+            "command": "cd \"${USERPROFILE:-/Users/so}/.claude\" && git fetch origin 2>/dev/null && BEHIND=$(git rev-list HEAD..origin/main --count 2>/dev/null || echo 0) && echo \"[セッション開始] ブランチ: $(git rev-parse --abbrev-ref HEAD) / 最新コミット: $(git log --oneline -1) / リモート差分: ${BEHIND}件遅れ\""
           }
         ]
       }
@@ -110,7 +174,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '\"Task complete: \\(.stop_hook_active)\"'"
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const j=JSON.parse(d);console.log('Task complete: '+j.stop_hook_active)})\""
           }
         ]
       }
@@ -120,7 +184,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo \"Claude Code: $(jq -r '.message')\" | terminal-notifier -title 'Claude Code'"
+            "command": "node -e \"let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{const m=JSON.parse(d).message||'';console.log('Claude Code: '+m)})\""
           }
         ]
       }
