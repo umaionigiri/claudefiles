@@ -153,7 +153,7 @@ tr:hover td { background: var(--accent-dim); }
 
 <header>
   <h1>Claude Code 設定ダッシュボード</h1>
-  <div class="sub">最終生成: 2026/3/16 23:42:50</div>
+  <div class="sub">最終生成: 2026/3/18 10:47:37</div>
 </header>
 
 <div class="layout">
@@ -184,7 +184,7 @@ tr:hover td { background: var(--accent-dim); }
     <div class="stat"><div class="stat-num">6</div><div class="stat-label">Rules</div></div>
     <div class="stat"><div class="stat-num">8</div><div class="stat-label">MCP 連携</div></div>
     <div class="stat"><div class="stat-num">50</div><div class="stat-label">許可ルール</div></div>
-    <div class="stat"><div class="stat-num">6</div><div class="stat-label">Hook</div></div>
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">Hook</div></div>
   </div>
 
   <h3>ディレクトリ構成</h3>
@@ -666,6 +666,17 @@ tr:hover td { background: var(--accent-dim); }
     <div style="margin-top:.5rem;">
       <div style="margin-bottom:.25rem;"><span class="chip chip-accent">matcher: Write|Edit|MultiEdit</span></div>
       <div style="margin-bottom:.375rem;"><div style="color:var(--text2);font-size:.75rem;margin-bottom:.125rem;">→ JS/TS ファイルを prettier で自動整形</div><div class="hook-cmd">jq -r '.tool_input.file_path | select(endswith(&quot;.js&quot;) or endswith(&quot;.ts&quot;) or endswith(&quot;.jsx&quot;) or endswith(&quot;.tsx&quot;))' | xargs -r prettier --write</div></div><div style="margin-bottom:.375rem;"><div style="color:var(--text2);font-size:.75rem;margin-bottom:.125rem;"></div><div class="hook-cmd">bash /Users/so/.claude/scripts/auto-sync.sh</div></div>
+    </div>
+  </div>
+  <div class="hook-card">
+    <div class="hook-head">
+      <span class="hook-type">SessionStart</span>
+      <span class="hook-desc"></span>
+    </div>
+    
+    <div style="margin-top:.5rem;">
+      
+      <div style="margin-bottom:.375rem;"><div style="color:var(--text2);font-size:.75rem;margin-bottom:.125rem;"></div><div class="hook-cmd">cd /Users/so/.claude &amp;&amp; git fetch origin 2&gt;/dev/null &amp;&amp; echo &quot;[session-init] $(git rev-parse --abbrev-ref HEAD) | $(git log --oneline -1) | behind: $(git rev-list HEAD..origin/main --count 2&gt;/dev/null || echo 0)&quot;</div></div>
     </div>
   </div>
   <div class="hook-card">
