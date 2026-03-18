@@ -9,11 +9,11 @@ Claude Code（`~/.claude/`）の設定ファイルを管理するリポジトリ
 ├── .gitignore             # ランタイムデータ除外
 ├── CLAUDE.md              # グローバル指示（全プロジェクト共通）
 ├── settings.json          # 権限・Hooks・環境変数・MCP設定
-├── agents/                # カスタムエージェント（6種）
+├── agents/                # カスタムエージェント（7種）
 ├── commands/              # スラッシュコマンド
 │   ├── slash-guide.md
 │   └── kiro/              # 仕様駆動開発ワークフロー（11コマンド）
-├── skills/                # カスタムスキル（7種）
+├── skills/                # カスタムスキル（12種）
 │   ├── development-rules/
 │   ├── testing-rules/
 │   ├── git-workflow/
@@ -77,17 +77,23 @@ Git 読み取り系（`status`, `diff`, `log`, `branch`, `worktree`）、`npm ru
 | `senior-consultant-reviewer` | シニアコンサルタントレビューエージェント |
 | `task-decomposer` | タスク分解エージェント |
 | `test-runner` | テストランナーエージェント |
+| `workflow-recorder` | ワークフロー記録エージェント |
 
 ## スキル
 
 | スキル | 用途 |
 |--------|------|
+| `acnpptx` | Accenture PowerPoint 生成スキル |
+| `claude-assist` | マルチライン入力GUI スキル |
 | `development-rules` | 開発ルール |
 | `document-converter` | ドキュメント変換スキル |
 | `gemini-research` | Gemini リサーチスキル |
 | `git-workflow` | Git ワークフロー |
+| `login-eso` | Accenture SSO 認証スキル |
+| `reserve-space` | Accenture Places スペース予約スキル |
 | `rough-estimate` | 概算見積り作成スキル |
 | `serena-codebase` | Serena コードベース分析スキル |
+| `skill-maker` | スキル自動構築・改善スキル |
 | `testing-rules` | テストルール |
 
 ## コマンド

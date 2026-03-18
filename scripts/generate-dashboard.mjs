@@ -440,6 +440,35 @@ git diff --staged | grep -E "console\\.(log|debug)"
 • Green — feat: implement <feature>
 • Refactor — refactor: improve <feature>`
   },
+  'workflow-recorder': {
+    summary: 'ワークフロー記録エージェント',
+    body: `タスク実行時に構造化ワークフロートレースを自動記録する。
+
+【出力ファイル】
+• workflow_trace.json — 常時上書き（最新のトレース）
+• workflow_trace_<timestamp>.json — タイムスタンプ付きアーカイブ
+
+【記録内容】
+• メタデータ — タスク概要、開始/終了時刻、ツール一覧
+• ステップ配列 — 各ステップの入力・出力・判断ポイント
+• エラー回復 — 失敗時の対応記録
+• パターン検出 — 再利用可能なパターンの特定
+• 効率ノート — 最適化の余地
+
+【各ステップの判定】
+• decision_point — 判断が必要だったか
+• generalizable — 他のタスクに一般化可能か
+• 理由記載 — なぜその判断をしたか
+
+【完了時レトロスペクティブ】
+1. 効率監査 — 冗長なステップ、最適化の余地
+2. 決定点監査 — 判断の妥当性、代替案の検討
+
+【ユースケース】
+• "record this" — ワークフロー記録を開始
+• "trace this" — トレース記録を開始
+• "skillify this" — 記録したワークフローをスキル化`
+  },
 };
 
 // Skill full Japanese descriptions
@@ -717,6 +746,115 @@ Step 7: 免責事項
 6. 変動要因を説明
 7. 概算精度（ROM ±25〜50%）を免責事項に明記
 8. 内部用見積書を必ず同時作成（工数・原価・粗利の見積根拠を記録）`
+  },
+  'acnpptx': {
+    summary: 'Accenture PowerPoint 生成スキル',
+    body: `Accenture ブランド準拠の PowerPoint プレゼンテーションを自動生成・編集・再スタイルする。
+
+【対応機能】
+• 新規デッキ作成 — カバー、アジェンダ、コンテンツスライド
+• 既存デッキ編集 — コンテンツ更新、スライド追加/削除
+• 再スタイル — テーマ変更、ブランドアセット適用
+• リテーマ — カラーパレット変更、フォント変更
+
+【スライドパターン】
+• 40+ のコンテンツパターン（A〜AN）
+• チャート、アイコングリッド、テーブル、図解
+• カバー/アジェンダ/セクション区切り
+
+【ブランドアセット】
+• Accenture ロゴ、Greater Than シンボル
+• Graphik / Meiryo UI フォント
+• 公式カラーパレット・スライドマスター
+
+【技術スタック】
+• python-pptx による生成
+• ブランドガイドライン準拠チェック
+• アウトライン検証機能`
+  },
+  'claude-assist': {
+    summary: 'マルチライン入力GUI スキル',
+    body: `複数行入力 GUI を起動して Claude のチャット欄に送信する入力支援ツール。
+
+【機能】
+• customtkinter による GUI ウィンドウ起動
+• 長文の指示入力に対応
+• テンプレート活用
+• ファイル参照付き指示の作成
+
+【実行方法】
+• uv run で起動
+• 初回実行時は依存パッケージのインストールが必要
+
+【ユースケース】
+• 複雑な指示を整形して送信
+• テンプレートベースのプロンプト作成
+• 複数ファイルを参照する指示の組み立て`
+  },
+  'login-eso': {
+    summary: 'Accenture SSO 認証スキル',
+    body: `Accenture 社内システム（ESO/SSO）への認証を自動化する基盤ライブラリ。
+
+【認証フロー】
+1. Edge のプロファイルを一時コピー
+2. Playwright で msedge チャンネルとして起動
+3. マネージドデバイス認証を通過
+4. 認証済みセッションを返却
+
+【特徴】
+• 他スキルから import して使用可能（基盤認証）
+• セッションタイムアウト時はブラウザでログイン継続可能
+• マネージドデバイス認証対応
+
+【使用スキル】
+• reserve-space — 会議室予約時の認証
+• その他の社内システム連携スキル`
+  },
+  'reserve-space': {
+    summary: 'Accenture Places スペース予約スキル',
+    body: `Accenture Places（support-places.accenture.com/places）の会議室・作業席を自動予約する。
+
+【対応スペース】
+• Meeting Room — 会議室
+• Open Workspace — 作業席・グループワーク席
+
+【予約フロー】
+1. login-eso で SSO 認証
+2. Playwright で Places サイトを操作
+3. 自然言語の指示をパース（日時、場所、人数等）
+4. 条件に合うスペースを検索
+5. AI ビジョンスクリーニング（オフィスチェア判定等）
+6. 予約実行
+
+【対応条件】
+• 複数ビル・フロア対応
+• 設備指定（モニター、ホワイトボード等）
+• 日時・人数指定`
+  },
+  'skill-maker': {
+    summary: 'スキル自動構築・改善スキル',
+    body: `スキルの作成・改善・テスト・ベンチマークを自動化する。
+
+【自動ループ（Phase 0〜5）】
+• Phase 0 — 要件収集・分析
+• Phase 1 — スキル骨格生成
+• Phase 2 — ルール・チェックリスト定義
+• Phase 3 — eval テスト作成
+• Phase 4 — 実行・評価サイクル
+• Phase 5 — 品質チェック・セキュリティレビュー
+
+【機能】
+• 新スキルの一貫構築
+• 既存スキルの改善
+• 参照出力からの勾配ベース整列
+• eval サイクル実行・ベンチマーク
+• マニュアルモード対応
+
+【ユースケース】
+• "build a skill from scratch" — 新規スキル作成
+• "improve this skill" — 既存スキル改善
+• "run evals" — 評価サイクル実行
+• "skillify this" — ワークフローをスキル化`
   },
   'serena-codebase': {
     summary: 'Serena コードベース分析スキル',
@@ -1026,9 +1164,9 @@ function generateAnnotatedTree(agents, skills, commands) {
     'CLAUDE.md': '全プロジェクト共通のグローバル指示',
     'README.md': 'リポジトリの説明・セットアップ手順',
     'settings.json': '権限・Hook・環境変数・MCP 設定',
-    'agents/': 'カスタムエージェント定義（6種）',
+    'agents/': 'カスタムエージェント定義（7種）',
     'commands/': 'スラッシュコマンド定義',
-    'skills/': 'カスタムスキル定義（7種）',
+    'skills/': 'カスタムスキル定義（13種）',
     'scripts/': '自動化スクリプト',
     'plugins/': 'プラグイン管理',
     // Agents
@@ -1038,16 +1176,23 @@ function generateAnnotatedTree(agents, skills, commands) {
     'senior-consultant-reviewer.md': '要件・設計・見積りのレビュー',
     'task-decomposer.md': 'タスク分解・計画作成',
     'test-runner.md': 'テスト実行・カバレッジ分析',
+    'workflow-recorder.md': 'ワークフロートレース自動記録',
     // Commands
     'kiro/': '仕様駆動開発ワークフロー（11コマンド）',
     'slash-guide.md': '全スラッシュコマンドの日本語解説',
     // Skills directories
+    'acnpptx/': 'Accenture ブランド PowerPoint 生成',
+    'claude-assist/': 'マルチライン入力 GUI 支援',
     'development-rules/': 'Context7 リサーチ必須の開発ルール',
     'document-converter/': 'Markdown → Word/Excel/PDF 変換',
     'gemini-research/': 'Gemini MCP による外部リサーチ',
     'git-workflow/': 'Worktree 必須のブランチ管理',
+    'login-eso/': 'Accenture SSO 認証（基盤ライブラリ）',
+    'metacognition-skill/': 'メタ認知スキル',
+    'reserve-space/': 'Accenture Places スペース自動予約',
     'rough-estimate/': '概算見積書作成（Scibit LLC）',
     'serena-codebase/': 'Serena MCP によるコード解析',
+    'skill-maker/': 'スキル自動構築・改善・評価',
     'testing-rules/': 'TDD サイクルに基づくテストルール',
     // Scripts
     'generate-dashboard.mjs': '設定ダッシュボード HTML 生成',
