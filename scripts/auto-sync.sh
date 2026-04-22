@@ -26,4 +26,19 @@ cd "$CLAUDE_DIR"
 git add -A
 git diff --cached --quiet && exit 0
 git commit -m "chore: auto-sync config changes"
+
+# If gh is available and umaionigiri is authed, ensure that account is active for the push
+PREV_ACCOUNT=""
+if command -v gh >/dev/null 2>&1 && gh auth status 2>/dev/null | grep -q "account umaionigiri"; then
+  PREV_ACCOUNT=$(gh api user --jq .login 2>/dev/null)
+  if [ -n "$PREV_ACCOUNT" ] && [ "$PREV_ACCOUNT" != "umaionigiri" ]; then
+    gh auth switch -h github.com -u umaionigiri >/dev/null 2>&1
+  fi
+fi
+
 git push origin main
+
+# Restore prior active account if we switched
+if [ -n "$PREV_ACCOUNT" ] && [ "$PREV_ACCOUNT" != "umaionigiri" ]; then
+  gh auth switch -h github.com -u "$PREV_ACCOUNT" >/dev/null 2>&1
+fi
