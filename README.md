@@ -13,7 +13,7 @@ Claude Code（`~/.claude/`）の設定ファイルを管理するリポジトリ
 ├── commands/              # スラッシュコマンド
 │   ├── slash-guide.md
 │   └── kiro/              # 仕様駆動開発ワークフロー（11コマンド）
-├── skills/                # カスタムスキル（12種）
+├── skills/                # カスタムスキル（13種）
 │   ├── development-rules/
 │   ├── testing-rules/
 │   ├── git-workflow/
@@ -85,6 +85,7 @@ Git 読み取り系（`status`, `diff`, `log`, `branch`, `worktree`）、`npm ru
 |--------|------|
 | `acnpptx` | Accenture PowerPoint 生成スキル |
 | `claude-assist` | マルチライン入力GUI スキル |
+| `delivery-folder-creator` | delivery-folder-creator |
 | `development-rules` | 開発ルール |
 | `document-converter` | ドキュメント変換スキル |
 | `gemini-research` | Gemini リサーチスキル |
