@@ -1,7 +1,7 @@
 # Global Claude Code Settings
 
 ## Core Philosophy
-1. **Agent-First** — Delegate complex/parallelizable work to subagents (`Agent` tool); keep main context lean
+1. **Agent-First** — Delegate complex/parallelizable work to subagents (`Agent` tool) or teammates (`TeamCreate`); keep main context lean. **Default to teammates over solo SubAgent when work is multi-perspective, multi-phase, or benefits from cross-critique** (review、debug仮説競合、設計検討など)
 2. **Plan-First** — Plan Mode (Shift+Tab×2) before destructive or multi-file work
 3. **Research-First** — Verify with Context7/Gemini before coding; trust your training data less than current docs
 4. **Test-Behavior** — Test what users observe, not implementation internals
@@ -9,6 +9,7 @@
 
 ## Task Management — MOST VIOLATED RULE
 - On every prompt: analyze complexity → choose execution mode (Direct / SubAgent / Agent Teams)
+- **Bias toward Agent Teams** when 2つ以上当てはまる: ①multi-file 影響、②独立した観点（security / perf / test など）が並列、③仮説競合や設計議論が有益、④3+ subtask が独立並列可能。SubAgent ではなく `TeamCreate` を選ぶ
 - 3+ steps → TaskCreate/TaskUpdate/TaskList for visible progress tracking
 - → See `rules/task-dispatch.md` for dispatch criteria
 
@@ -26,24 +27,56 @@
 ## Modular Rules (`~/.claude/rules/`)
 | Rule | Purpose |
 |------|---------|
-| `task-dispatch.md` | Complexity score → execution mode (Direct/SubAgent/Team) |
+| `task-dispatch.md` | Phase 0 Research & Reuse → Complexity score → execution mode (Direct/SubAgent/Team) |
+| `agents.md` | Task type → which specific agent to dispatch (complements task-dispatch.md) |
 | `pre-commit.md` | Pre-commit checklist (tests/lint/secrets/debug code) |
-| `code-quality.md` | Naming, function size, error handling, comments |
-| `security.md` | Secrets, input validation, auth/authorization |
+| `code-quality.md` | Immutability, KISS/DRY/YAGNI, naming, function/file size, error handling, severity levels |
+| `security.md` | 8項目pre-commit、secret管理、auth、response protocol、common vulnerabilities |
+| `testing.md` | TDD RED-GREEN-IMPROVE、AAA pattern、80%カバレッジ、descriptive test naming |
+| `performance.md` | Model selection (Haiku/Sonnet/Opus)、Context window末尾20%回避、Extended Thinking予算 |
+| `git-workflow.md` | Conventional Commits、PR履歴全体要約、forbidden ops、amend vs new commit |
 | `smoke-test.md` | Step-by-step confirmation for high-impact tasks |
 | `naming.md` | Directory/file naming conventions |
 | `version-check.md` | Session-start version diff vs latest Claude Code |
+| `python/*.md` | Python-specific extensions (coding-style, hooks, patterns, security, testing) |
 
 ## Subagents (`~/.claude/agents/`)
 | Agent | Use when |
 |-------|----------|
 | `task-decomposer` | Breaking large tasks into parallel subtasks |
-| `code-reviewer` | Quality review of staged/unstaged changes |
+| `code-reviewer` | General quality+security review (OWASP-aware, confidence-filtered) |
 | `senior-consultant-reviewer` | Senior-level architectural/strategic review |
 | `test-runner` | Running test suites, interpreting failures |
 | `devops-problem-solver` | Build/deploy/infra failures |
 | `estimation-agent` | Effort/cost estimation for proposed work |
 | `workflow-recorder` | Capture multi-step workflow as a trace |
+| `security-reviewer` | OWASP Top 10 / secrets / npm-audit deep dive |
+| `database-reviewer` | PostgreSQL: query plan, RLS, index, N+1 |
+| `performance-optimizer` | Bundle / Lighthouse / profiling / memory leak |
+| `code-explorer` | Trace execution paths, map architecture (legacy onboarding) |
+| `pr-test-analyzer` | PR-level behavioral coverage, edge case validation |
+| `silent-failure-hunter` | catch{}, null fallback, missing-log detection |
+| `refactor-cleaner` | knip/depcheck/ts-prune driven dead-code removal |
+| `tdd-guide` | RED-GREEN-IMPROVE step-by-step facilitation |
+| `python-reviewer` | Python idioms (after generic code-reviewer) |
+| `typescript-reviewer` | TypeScript idioms (after generic code-reviewer) |
+
+## Agent Teams (tmux split panes)
+- **積極利用ポリシー**: 以下のいずれかが当てはまるなら、SubAgent ではなく teammate を選ぶ
+  - **Multi-perspective レビュー**: PR / 設計を security + performance + test など複数観点で並列レビュー
+  - **競合仮説**: バグ原因の仮説が複数あり、互いに論破させたい
+  - **SDLC パイプライン**: PM → Architect → Dev → QA を段階的に流したい
+  - **見積り三者**: Technical / Benchmark / Risk の三本立てで見積もりたい
+  - **3+ 独立タスクの並列実装**: ファイル無重複で teammate ごとに 5-6 タスク割当可能なとき
+- 機能フラグ: `settings.json` の `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` と `teammateMode: "tmux"` (両方とも設定済み)
+- **起動**: `bash ~/.claude/scripts/claude-team.sh` (tmux 外なら自動でセッションを張って claude を起動)
+- **既知の制限**: 公式ドキュメントは VS Code 内蔵ターミナル / Windows Terminal / Ghostty を split-pane 非対応と明記。ただし上記スクリプト経由で **必ず tmux pane 内から claude を起動** すれば、pane 分割は tmux 自身の責務になるためターミナル本体の制約は実質回避できる。
+- **使い方の例**:
+  - "3 人の teammate で PR #142 をレビューして (security/performance/test)"
+  - "2 人で原因仮説を競わせて、互いを論破させて"
+- **ペイン操作**: `Ctrl+b → h/j/k/l` で teammate 間を移動 (`~/.tmux.conf` 既設定)
+- **片付け**: lead に「team を cleanup して」と頼む。孤児セッションが残ったら `tmux ls` → `tmux kill-session -t <name>`
+- 詳細仕様は公式: <https://code.claude.com/docs/en/agent-teams>
 
 ## Language
 - Always respond in Japanese (unless English is explicitly requested)
@@ -52,6 +85,7 @@
 
 ## Response Style
 - **Conclusion first**: Present the solution first, details later
+- **平易な表現を最優先 (初心者にも分かる文章で書く)**: チャット欄に出力する応答文では、専門用語・カタカナ英語・略語の多用を避ける。技術的な固有名詞 (例: WebFetch / SubAgent / raw URL / frontmatter / monkey-patch / SPA / allowlist 等) を使うときは、**初出時のみ** 直後の括弧で 1 行の日本語補足を入れる: 例「WebFetch (Web ページの中身を取り出す機能)」「allowlist (許可リスト)」。2 回目以降の同じ用語は補足不要。可能な限り「何をしているか」を平易な日本語で先に伝え、技術名は補助的に使う。**この規則は CLI 応答文に適用、コード本体・コメント・ファイル名には適用しない**
 - **Avoid code duplication**: Do not unnecessarily redisplay user-provided code
 - **Concise and casual**: Skip excessive politeness and long introductions
 - **Code references**: Use `file_path:line_number` format
@@ -64,6 +98,7 @@
 ## Workflow Principles
 - **No direct work on main**: All changes via feature/topic branches
 - **Worktree required**: `git worktree add .git/worktrees/<name> <branch>`
+- **PR は必ず `/create-pr` 経由**: `gh pr create` の直叩き禁止（テンプレ準拠強制、詳細は `rules/git-workflow.md`）
 - **Plugin install via `/plugin`** (not `claude plugin install` CLI directly): UIから入れて `/reload-plugins` で反映
 - **No over-engineering**: Implement only what's requested. Don't create files/docs unless explicitly asked
 - **Respect existing patterns**: Follow project's code style and architecture
@@ -80,7 +115,7 @@ find ~/.claude/agents -maxdepth 1 -name '*.md'       # subagent 一覧
 
 ## Slash Commands
 **Built-in:** `/plugin`, `/reload-plugins`, `/compact <focus>`, `/fork`, `/clear`, `/context`, `/effort low|med|high`, `/init`, `/rename`, `/rewind` (=Esc×2)
-**User-defined (`~/.claude/commands/`):** `/create-pr`, `/slash-guide`, `/learn` (skill化), `/kiro:*` (spec-init, spec-design, spec-impl, validate-* など)
+**User-defined (`~/.claude/commands/`):** `/create-pr`, `/slash-guide`, `/learn` (skill化), `/kiro:*` (spec-init, spec-design, spec-impl, validate-* など), `/code-review` (PR+local), `/build-fix`, `/test-coverage`, `/feature-dev`, `/refactor-clean`, `/quality-gate`, `/save-session` + `/resume-session`, `/model-route`, `/learn-eval`
 **Plugin-provided:** `/revise-claude-md` (claude-md-management)
 
 ## Context Management

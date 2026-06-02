@@ -469,6 +469,190 @@ git diff --staged | grep -E "console\\.(log|debug)"
 • "trace this" — トレース記録を開始
 • "skillify this" — 記録したワークフローをスキル化`
   },
+  'security-reviewer': {
+    summary: 'セキュリティレビュー専門エージェント (OWASP / シークレット検出)',
+    body: `Web アプリケーションのセキュリティ脆弱性を OWASP Top 10 観点で検出・修正提案する専門エージェント。
+
+【主な責任】
+1. OWASP Top 10 検出 — Injection / Broken Auth / XSS / XXE / Broken Access / Misconfiguration ほか
+2. シークレット検出 — ハードコード API キー、トークン、パスワードを発見
+3. 入力バリデーション検証 — ユーザー入力のサニタイズ確認
+4. 認証・認可検証 — アクセス制御の適切性
+5. 依存関係スキャン — npm audit / pip-audit で既知脆弱性検出
+6. ベストプラクティス強制 — セキュアコーディング徹底
+
+【自動実行コマンド】
+• npm audit --audit-level=high
+• npx eslint . --plugin security
+• 高リスク領域を grep（auth / API endpoint / DB query / file upload / payments / webhooks）
+
+【優先順位】
+auth → payment → user data → file ops → crypto → API → logs
+
+【委譲タイミング】
+auth/payment/暗号/外部 API 変更時は code-reviewer から security-reviewer へ自動委譲する設計。`
+  },
+  'database-reviewer': {
+    summary: 'PostgreSQL/Supabase データベース専門レビュー',
+    body: `PostgreSQL クエリ最適化、スキーマ設計、RLS、index、N+1 検出の専門エージェント。Supabase ベストプラクティスを取り込み済み。
+
+【主な責任】
+1. クエリ性能 — index 不足、Seq Scan、N+1 検出
+2. スキーマ設計 — bigint / text / timestamptz / numeric / boolean の適切な型選択
+3. セキュリティ・RLS — Row Level Security 設計、最小権限
+4. コネクション管理 — pooling、timeout、limit
+5. 並行処理 — deadlock 防止、ロック戦略
+6. 監視 — pg_stat_statements 解析
+
+【診断コマンド】
+• psql -c "SELECT query, mean_exec_time, calls FROM pg_stat_statements ORDER BY mean_exec_time DESC LIMIT 10"
+• psql -c "SELECT relname, pg_size_pretty(pg_total_relation_size(relid)) FROM pg_stat_user_tables ORDER BY pg_total_relation_size(relid) DESC"
+• EXPLAIN ANALYZE で実行計画チェック
+
+【チェック観点】
+• WHERE/JOIN カラムが index されているか
+• composite index のカラム順（equality 優先 → range）
+• ON DELETE 等の制約定義
+• RLS ポリシーで個別ユーザー隔離`
+  },
+  'performance-optimizer': {
+    summary: 'パフォーマンス最適化スペシャリスト',
+    body: `ボトルネック特定とアプリ速度・メモリ使用量・効率化の専門エージェント。
+
+【主な責任】
+1. プロファイリング — 遅いコードパス、メモリリーク、ボトルネック
+2. バンドル最適化 — JS bundle サイズ削減、lazy loading、code splitting
+3. ランタイム最適化 — アルゴリズム効率、不要計算の削減
+4. React/レンダリング — re-render 防止、コンポーネントツリー最適化
+5. DB & ネットワーク — クエリ最適化、API call 削減、caching
+6. メモリ管理 — leak 検出、最適化、リソース cleanup
+
+【解析コマンド】
+• npx bundle-analyzer / npx source-map-explorer
+• npx lighthouse https://your-app.com --view
+• node --prof / node --inspect
+• React DevTools Profiler
+
+【出力形式】
+ボトルネック箇所 → 計測値（ms / MB） → 推奨修正 → 期待改善幅`
+  },
+  'code-explorer': {
+    summary: '既存コードベース探索エージェント (onboarding 用)',
+    body: `新規参画したプロジェクトや legacy code の理解を深めるための深掘り解析エージェント。
+
+【解析プロセス】
+1. エントリーポイント特定 — feature/area の主要 entry point を発見、user action から trace 開始
+2. 実行パス追跡 — 完了までの call chain、分岐ロジック、async 境界、データ変換、エラーパス
+3. アーキテクチャ階層マッピング — 触れる layer の特定、layer 間通信、再利用可能境界とアンチパターン
+4. パターン認識 — 既存の pattern と abstraction、命名規則、組織原則
+5. 依存関係文書化 — 外部ライブラリ、内部 module、再利用すべき shared utility
+
+【ユースケース】
+• クライアントの legacy codebase に参画する
+• 新機能開発前に関連コードを理解したい
+• リファクタ前に影響範囲を把握したい`
+  },
+  'pr-test-analyzer': {
+    summary: 'PR テストカバレッジ品質レビュー',
+    body: `PR が変更した behavior を実際にテストがカバーしているかを評価する専門エージェント。
+
+【解析プロセス】
+1. 変更コード特定 — 関数・class・module の変更箇所を mapping、対応 test を locate、未 test な path を特定
+2. behavioral coverage — 機能ごとの test 存在、edge case と error path、重要な統合点のカバレッジ
+3. test 品質 — 意味ある assertion vs no-throw のみ、flaky pattern、test 名の明瞭性、isolation
+4. coverage gap 影響度判定 — critical / important / nice-to-have
+
+【出力】
+• 変更箇所 → 既存 test 状況 → 不足 test → 追加すべき test の提案
+• gap を critical / important / nice-to-have で分類`
+  },
+  'silent-failure-hunter': {
+    summary: 'サイレント失敗・エラー無視ハンター',
+    body: `silent failure（飲み込まれた exception、悪い fallback、伝播しないエラー）を 0 トレランスで狩り出す専門エージェント。
+
+【ハンティング対象】
+1. 空 catch block — catch{} や ignored exceptions、エラーを null/[] に変換して context 失う実装
+2. ログ不足 — context が足りない log、不適切な severity、log-and-forget な扱い
+3. 危険な fallback — エラー時にデフォルト値を返してエラー存在を隠す実装
+4. 伝播しないエラー — 上位レイヤーに到達しないエラー、UI に出ないバックエンドエラー
+
+【ユースケース】
+特に Claude 生成コードで頻出するアンチパターン（try/except: pass、Promise.catch(() => null)）の検出に最適。
+
+【出力】
+file:line → 問題のパターン → 想定される実害 → 修正案（throw / log + rethrow / 明示的なエラー型 等）`
+  },
+  'refactor-cleaner': {
+    summary: 'Dead code 除去・consolidation 専門',
+    body: `unused code・重複・unused dependency を発見し、安全に除去するリファクタリング専門エージェント。
+
+【主な責任】
+1. Dead code 検出 — unused code / exports / dependencies
+2. Duplicate elimination — 重複コードの consolidation
+3. Dependency cleanup — unused npm package と import の削除
+4. Safe refactoring — test を走らせて挙動を保証しつつ削除
+
+【検出コマンド】
+• npx knip — unused files / exports / dependencies
+• npx depcheck — unused npm dependencies
+• npx ts-prune — unused TS exports
+• npx eslint . --report-unused-disable-directives — unused eslint directives
+
+【削除フロー】
+検出 → 削除候補リスト → 削除前 test → 削除実行 → 削除後 test → 全 green なら commit、red ならロールバック`
+  },
+  'tdd-guide': {
+    summary: 'TDD ファシリテーター (RED-GREEN-REFACTOR)',
+    body: `Test-Driven Development を step ごとに facilitate するエージェント。
+
+【プロセス】
+1. RED — まず失敗する test を書く（仕様の明文化）
+2. GREEN — test を pass させる最小限の実装
+3. REFACTOR — test を green に保ったまま改善
+
+【役割】
+• 機能要件を test に翻訳する手助け
+• minimal implementation の判断
+• refactor 時にどこまで test がカバーしているかの確認
+• 80%+ coverage の維持
+
+【関連 rules】
+testing.md（AAA pattern、descriptive test naming、80% coverage 目標）と連携。`
+  },
+  'python-reviewer': {
+    summary: 'Python 言語特化レビュー (idiom / type hint / EAFP)',
+    body: `Python コードの言語イディオム・型ヒント・テストパターンを専門レビュー。汎用 code-reviewer の後段で動く。
+
+【チェック観点】
+• PEP 8 / type annotation の網羅性
+• EAFP vs LBYL の適切な選択
+• context manager / generator の活用
+• dataclass / NamedTuple / Protocol の使用
+• mutable default argument のような典型バグ
+• black / isort / ruff の format ルール遵守
+• pytest fixture / parametrize の妥当性
+• Django / FastAPI / SQLAlchemy 固有のパターン
+
+【委譲フロー】
+generic code-reviewer → python-reviewer の二段階。汎用が universal な issue を、特化が言語 idiom を catch。`
+  },
+  'typescript-reviewer': {
+    summary: 'TypeScript 言語特化レビュー (strict null / type guard)',
+    body: `TypeScript/JavaScript コードの言語イディオム・型安全・React パターンを専門レビュー。汎用 code-reviewer の後段で動く。
+
+【チェック観点】
+• strict null check 違反
+• type guard と discriminated union の適切な使用
+• any 型の混入、unknown への置換余地
+• exhaustiveness check（never type を活用した switch のチェック）
+• React: hook dependency 配列、stale closure、Server vs Client component 境界
+• Next.js: app router / pages router の混在、server action の安全性
+• import の DI vs 静的依存
+• prettier / eslint / tsc strict 設定遵守
+
+【委譲フロー】
+generic code-reviewer → typescript-reviewer の二段階。`
+  },
 };
 
 // Skill full Japanese descriptions
@@ -950,6 +1134,135 @@ mcp__serena__replace_symbol_body({ symbol_name: "ClassName/methodName", new_body
 • 型チェック通過
 • ビルド成功`
   },
+  // ECC adopted skills (Phase 2)
+  'api-design': {
+    summary: 'REST API 設計標準 (resource naming / pagination / error format)',
+    body: 'リソース命名、HTTP ステータスコード、ページネーション、フィルタリング、エラーレスポンス、バージョニング、レートリミットなどの本番 API 設計パターン。'
+  },
+  'postgres-patterns': {
+    summary: 'PostgreSQL 設計パターン (Supabase ベストプラクティス)',
+    body: 'クエリ最適化、スキーマ設計、index 設計、セキュリティの PostgreSQL パターン集。Supabase team のベストプラクティスを取り込み。'
+  },
+  'database-migrations': {
+    summary: 'DB マイグレーション運用 (zero-downtime / rollback)',
+    body: 'PostgreSQL / MySQL / Prisma / Drizzle / Kysely / Django / TypeORM / golang-migrate を対象としたスキーマ変更・データ移行・ロールバック・ゼロダウンタイムデプロイのベストプラクティス。'
+  },
+  'python-patterns': {
+    summary: 'Python イディオム集 (PEP 8 / type hint / EAFP / DI)',
+    body: 'Pythonic な書き方、PEP 8、type hint、堅牢で効率的・保守しやすい Python アプリ構築のためのパターン集。'
+  },
+  'python-testing': {
+    summary: 'Python テスト戦略 (pytest / fixture / coverage)',
+    body: 'pytest を中心とした TDD、fixture、mock、parametrize、coverage 要件を扱う Python テスト戦略。'
+  },
+  'pytorch-patterns': {
+    summary: 'PyTorch 深層学習パターン',
+    body: 'PyTorch の training pipeline、model architecture、data loading の堅牢で効率的・再現性のあるパターン。'
+  },
+  'e2e-testing': {
+    summary: 'Playwright E2E テスト (Page Object Model)',
+    body: 'Playwright を使った E2E テストパターン、Page Object Model、設定、CI/CD 統合、artifact 管理、flaky test 対策。'
+  },
+  'tdd-workflow': {
+    summary: 'TDD ワークフロー (RED-GREEN-IMPROVE / 80%+ coverage)',
+    body: '新機能・バグ修正・リファクタリング時に TDD を徹底するスキル。unit / integration / E2E を含む 80%+ coverage を強制。'
+  },
+  'eval-harness': {
+    summary: '形式的 eval フレームワーク (eval-driven development)',
+    body: 'Claude Code セッションを EDD (eval-driven development) 原則で評価する formal evaluation framework。'
+  },
+  'nestjs-patterns': {
+    summary: 'NestJS アーキテクチャパターン',
+    body: 'modules / controllers / providers / DTO validation / guards / interceptors / config の NestJS 本番グレード TS バックエンドパターン。'
+  },
+  'nextjs-turbopack': {
+    summary: 'Next.js 16+ と Turbopack',
+    body: 'incremental bundling、FS caching、dev 速度、Turbopack vs webpack の使い分け。'
+  },
+  'frontend-patterns': {
+    summary: 'フロントエンド開発パターン (React / Next.js / 状態管理)',
+    body: 'React / Next.js / 状態管理 / パフォーマンス最適化 / UI ベストプラクティス。'
+  },
+  'deep-research': {
+    summary: '多源 deep research (firecrawl + exa)',
+    body: 'firecrawl + exa MCP を使った多源 deep research。Web 検索 → 知見統合 → cited report を引用付きで提示。'
+  },
+  'exa-search': {
+    summary: 'Exa MCP ニューラル検索',
+    body: 'Web/code/会社調査を Exa MCP のニューラル検索で行う。AI ベース deep research。'
+  },
+  'search-first': {
+    summary: 'コーディング前検索 methodology',
+    body: 'カスタムコードを書く前に既存ツール・ライブラリ・パターンを検索する methodology。researcher agent を呼び出す。'
+  },
+  'codebase-onboarding': {
+    summary: '未知 codebase の onboarding ガイド生成',
+    body: 'unfamiliar codebase を解析し、architecture map / 主要 entry point / 規約 / starter CLAUDE.md を含む onboarding guide を生成。'
+  },
+  'documentation-lookup': {
+    summary: 'Context7 経由のライブラリ最新ドキュメント',
+    body: '訓練データの代わりに Context7 MCP で最新ライブラリ・フレームワークドキュメントを参照。setup / API / code example の質問で起動。'
+  },
+  'context-budget': {
+    summary: 'コンテキスト窓予算管理',
+    body: 'agents / skills / MCP / rules を横断して context 消費を audit、bloat と冗長性を特定し、トークン削減を提案。'
+  },
+  'strategic-compact': {
+    summary: '戦略的 /compact 実行タイミング',
+    body: 'タスクフェーズ間の論理的タイミングで manual compaction を提案、自動 compaction より context を保全。'
+  },
+  'token-budget-advisor': {
+    summary: 'トークン予算アドバイザー',
+    body: 'ユーザーが応答深度・トークン量を明示的に制御したいときに、十分な情報の上で選択肢を提示。'
+  },
+  'iterative-retrieval': {
+    summary: '反復的 retrieval パターン',
+    body: 'subagent context 問題を解決するため、context retrieval を progressively refine するパターン。'
+  },
+  'security-review': {
+    summary: '本番出し前セキュリティチェックリスト',
+    body: '認証実装、入力処理、シークレット扱い、API endpoint、payment / 機微機能を実装する際の comprehensive チェックリストとパターン。'
+  },
+  'security-scan': {
+    summary: 'AgentShield ベース設定セキュリティスキャン',
+    body: 'CLAUDE.md / settings.json / MCP / hooks / agents の脆弱性・誤設定・injection リスクを AgentShield でスキャン。'
+  },
+  'agentic-engineering': {
+    summary: 'agentic engineer 操作モデル',
+    body: 'eval-first 実行、decomposition、cost-aware モデルルーティングで AI agent を活用するエンジニア操作モデル。'
+  },
+  'ai-first-engineering': {
+    summary: 'AI ファースト工学操作モデル',
+    body: 'AI agent が実装の大部分を担うチームの engineering operating model。'
+  },
+  'architecture-decision-records': {
+    summary: 'ADR (Architecture Decision Record) 記録',
+    body: 'Claude Code セッション中の architectural decision を構造化 ADR として記録。decision moment 自動検出、context / 代替案 / 根拠を保存し、ADR ログを維持。'
+  },
+  'market-research': {
+    summary: '市場調査・競合分析・投資デューデリ',
+    body: '市場調査、競合分析、投資 due diligence、業界 intelligence を出典付き・意思決定向けサマリで実行。'
+  },
+  'lead-intelligence': {
+    summary: 'AI ネイティブ営業リード調査・アウトリーチ',
+    body: 'Apollo / Clay / ZoomInfo の代替。signal scoring、相互ランク、warm path 発見、source-derived voice modeling、email/LinkedIn/X チャンネル別アウトリーチ。'
+  },
+  'brand-voice': {
+    summary: 'source-derived ブランドボイスプロファイル',
+    body: '実際の posts / essay / launch note / docs / site copy から writing style profile を構築し、コンテンツ・アウトリーチ・ソーシャルワークフロー全体で再利用。'
+  },
+  'agent-eval': {
+    summary: '複数コーディング agent のヘッドツーヘッド比較',
+    body: 'Claude Code / Aider / Codex などの coding agent を、カスタムタスクで pass rate / cost / time / consistency 指標で比較。'
+  },
+  'verification-loop': {
+    summary: 'Claude Code セッションの検証ループ',
+    body: 'Claude Code セッションのための包括的検証システム。'
+  },
+  'agent-introspection-debugging': {
+    summary: 'AI agent 障害の構造化セルフデバッグ',
+    body: 'capture / diagnosis / contained recovery / introspection report を使った AI agent 障害の構造化セルフデバッグワークフロー。'
+  },
 };
 
 function collectAgents() {
@@ -1010,12 +1323,17 @@ function collectRules() {
 
 // Rule Japanese descriptions
 const ruleDescJa = {
-  'security': 'シークレット禁止、入力バリデーション、認証・認可のセキュリティルール',
-  'code-quality': '命名規則、関数設計、エラー処理、コメントのコード品質ルール',
-  'pre-commit': 'コミット前に確認すべきチェックリスト',
+  'security': '8項目 pre-commit チェック + シークレット管理 + 違反時の停止→agent→ローテーション手順',
+  'code-quality': 'Immutability CRITICAL、KISS/DRY/YAGNI、関数50行・ファイル800行・ネスト4階層、severity 4段階',
+  'pre-commit': 'コミット前に確認すべきチェックリスト（テスト・lint・secrets・debug code）',
   'naming': 'ディレクトリ・ファイルの命名規則（docs は English_日本語 形式）',
-  'task-dispatch': 'プロンプト解析→実行モード選択（Direct / SubAgent / Agent Teams）の判断基準とパターン',
+  'task-dispatch': 'Phase 0 Research & Reuse → 複雑度スコア → 実行モード（Direct / SubAgent / Agent Teams）',
   'version-check': 'セッション開始時に Claude Code の最新バージョンを確認し、新機能の設定取り込みを評価',
+  'smoke-test': '高インパクトタスクで段階確認モードを発動するルール',
+  'agents': 'タスク種別 → どのエージェントを起動するかの mapping。task-dispatch.md（実行モード）と補完',
+  'testing': 'TDD RED-GREEN-IMPROVE、AAA pattern、80%+ カバレッジ、descriptive test naming',
+  'performance': 'モデル選択戦略（Haiku/Sonnet/Opus）、Context window 末尾20%回避、Extended Thinking 予算',
+  'git-workflow': 'Conventional Commits、PR 全コミット履歴要約、worktree 必須、forbidden ops、amend vs new commit',
 };
 
 function collectCommands() {
@@ -1052,6 +1370,19 @@ const commandDescJa = {
   'kiro/validate-design': '技術設計の品質をインタラクティブにレビュー。整合性、拡張性、セキュリティ、パフォーマンスの観点から評価。',
   'kiro/validate-gap': '要件定義と既存コードベースのギャップを分析。未実装の要件、乖離している実装、不足しているテストを特定。',
   'kiro/validate-impl': '実装が要件・設計・タスクと整合しているか検証。コード品質、テストカバレッジ、設計準拠を確認。',
+  // ECC adopted commands (Phase 2)
+  'create-pr': 'gh pr create で PR を作成。テンプレートに沿った PR 本文を自動生成し、コミット履歴全体を要約してテスト計画を含める。',
+  'learn': '現在のセッションから再利用可能なパターンを抽出し、スキル候補として保存する。',
+  'code-review': 'PR + ローカル統合レビュー。引数に PR 番号/URL を渡すと GitHub PR レビューモード、引数なしでローカル未コミット変更レビューモード。',
+  'build-fix': 'ビルドシステム（npm/tsc/cargo/mvn/gradle/go/mypy）を自動検出し、ビルド・型エラーを最小 diff で段階的に修復。',
+  'test-coverage': 'jest/vitest/pytest/cargo llvm-cov/jacoco を検出してカバレッジ JSON を解析、低カバレッジファイルを特定して 80%+ を目標に不足テストを生成。',
+  'feature-dev': 'discovery → exploration（code-explorer agent 起動）→ clarifying questions → design → implement → review の 6 フェーズワークフロー。',
+  'refactor-clean': 'knip / depcheck / ts-prune / vulture / deadcode / cargo-udeps を起動し、削除候補を提示、削除ごとに test verify。',
+  'quality-gate': 'on-demand format / lint / typecheck パイプライン。`/quality-gate [path] [--fix] [--strict]` でファイル/プロジェクトスコープ指定。',
+  'save-session': 'セッション状態（作成物・成功・失敗・残課題）を ~/.claude/session-data/ に日付付き Markdown で保存。',
+  'resume-session': '最新の save-session 出力を読み込んで前セッションの context を復帰。',
+  'model-route': 'タスク内容と予算フラグから haiku / sonnet / opus を推奨。`performance.md` rule のコマンド版。',
+  'learn-eval': '/learn の eval 強化版。スキル候補に対し evaluation を生成・実行して挙動を検証してから保存。',
 };
 
 function parseGitignore() {
@@ -1141,10 +1472,14 @@ const sectionFullJa = {
 
 // Hook description mapping (Japanese)
 const hookDescJa = {
-  'PreToolUse': 'ツール実行前のセーフティチェック',
-  'PostToolUse': 'ファイル保存後の自動処理',
-  'Stop': 'タスク完了時の通知',
-  'Notification': 'デスクトップ通知',
+  'PreToolUse': 'ツール実行前のセーフティチェック・品質ゲート・dispatcher',
+  'PostToolUse': 'ツール実行後の自動処理（format / quality-gate / accumulator / governance）',
+  'PostToolUseFailure': 'ツール実行失敗時のリカバリ（MCP health 等）',
+  'Stop': 'タスク完了時の batch 処理（format-typecheck / cost-tracker / desktop-notify ほか）',
+  'SessionStart': 'セッション開始時のコンテキストロード・git fetch・package manager 検出',
+  'SessionEnd': 'セッション終了の lifecycle marker',
+  'PreCompact': '/compact 前にセッション state を保存し、compact 後の復帰に活用',
+  'Notification': 'デスクトップ通知の整形・転送',
 };
 
 const hookDetailJa = {
@@ -1154,6 +1489,21 @@ const hookDetailJa = {
   'generate-dashboard': '設定ファイル変更時にダッシュボード HTML を再生成',
   'Task complete': 'タスク完了メッセージを出力',
   'terminal-notifier': 'macOS デスクトップ通知を送信',
+  'pre-bash-dispatcher': 'Bash 実行前の品質ゲート (npm/pnpm/yarn/cargo/pytest 起動時の tmux 確認、push、GateGuard 統合)',
+  'config-protection': 'lint/format 設定ファイル(.eslintrc, .prettierrc, ruff.toml 等)の改竄をブロック',
+  'gateguard-fact-force': 'ファイル初回 Edit/Write をブロックし、importers / schemas / user 指示の事前調査を強制',
+  'design-quality-check': 'フロント UI が template 風になっていないか警告（Tailwind デフォルト乱用検出）',
+  'post-edit-accumulator': '編集された JS/TS ファイル一覧を Stop 時の batch 処理用に記録',
+  'quality-gate': 'Edit 後に lint/typecheck を非同期実行（Stop の batch と二重実行に注意）',
+  'post-edit-console-warn': 'Edit 後に console.log が含まれていれば警告',
+  'stop:format-typecheck': 'Stop 時に accumulator が記録した JS/TS ファイルを Biome/Prettier + tsc で batch 処理',
+  'stop:check-console-log': 'Stop 時に変更ファイルの console.log を再 audit',
+  'stop:desktop-notify': 'Stop 時に macOS/WSL デスクトップ通知（task サマリ付き）',
+  'stop:evaluate-session': 'Stop 時にセッション内の再利用可能パターンを評価し提案',
+  'stop:cost-tracker': 'Stop 時にトークン入出力 + コスト推定を ~/.claude/metrics/costs.jsonl に追記',
+  'session-activity-tracker': 'tool 利用回数とファイル活動を per-session で集計（ECC2 metrics）',
+  'pre:compact': '/compact 直前にセッション state（作業中ファイル・未解決課題・タスクリスト）を保存',
+  'auto-sync': '設定変更を Git 同期し、ダッシュボード再生成（PostToolUse:Write|Edit|MultiEdit）',
 };
 
 /** Generate annotated directory tree with Japanese comments */
@@ -1163,39 +1513,128 @@ function generateAnnotatedTree(agents, skills, commands) {
     '.gitignore': 'ランタイムデータの除外ルール',
     'CLAUDE.md': '全プロジェクト共通のグローバル指示',
     'README.md': 'リポジトリの説明・セットアップ手順',
-    'settings.json': '権限・Hook・環境変数・MCP 設定',
-    'agents/': 'カスタムエージェント定義（7種）',
-    'commands/': 'スラッシュコマンド定義',
-    'skills/': 'カスタムスキル定義（13種）',
-    'scripts/': '自動化スクリプト',
+    'settings.json': '権限・Hook・環境変数・MCP 設定（ECC_DISABLED_HOOKS で 14 hook を制御）',
+    'settings.json.bak.before-ecc': 'ECC 取り込み前の settings.json バックアップ',
+    'agents/': 'カスタムエージェント定義（17種: 既存7 + ECC 10）',
+    'commands/': 'スラッシュコマンド定義（13: 既存4 + ECC 9）',
+    'skills/': 'カスタムスキル定義（47: 既存ベース + ECC 32）',
+    'rules/': 'モジュラールール定義（12 + python サブ）',
+    'scripts/': '自動化スクリプトと ECC hook 実装',
     'plugins/': 'プラグイン管理',
-    // Agents
-    'code-reviewer.md': 'コード品質・セキュリティレビュー',
+    'memory/': '自動メモリ（ユーザー嗜好・プロジェクト・参照リンクなど）',
+    'plans/': 'Plan Mode で生成された実装プラン（.md）',
+    // Existing Agents
+    'code-reviewer.md': 'コード品質・セキュリティ汎用レビュー（ECC本文+example形式 frontmatter）',
+    'code-reviewer.md.bak': 'ECC 取り込み前の code-reviewer バックアップ',
     'devops-problem-solver.md': 'システム障害の診断・解決',
     'estimation-agent.md': 'プロジェクト見積り・見積書作成',
     'senior-consultant-reviewer.md': '要件・設計・見積りのレビュー',
     'task-decomposer.md': 'タスク分解・計画作成',
     'test-runner.md': 'テスト実行・カバレッジ分析',
     'workflow-recorder.md': 'ワークフロートレース自動記録',
+    // ECC Agents
+    'security-reviewer.md': 'OWASP Top 10 / シークレット / npm-audit 専門レビュー',
+    'database-reviewer.md': 'PostgreSQL: index / RLS / N+1 / 型選択 専門',
+    'performance-optimizer.md': 'bundle / Lighthouse / プロファイリング / re-render',
+    'code-explorer.md': 'execution path 追跡・architecture mapping（onboarding 用）',
+    'pr-test-analyzer.md': 'PR の behavioral coverage / edge case / flaky 評価',
+    'silent-failure-hunter.md': 'catch{} / null fallback / ログ不足の検出',
+    'refactor-cleaner.md': 'knip / depcheck / ts-prune による dead code 除去',
+    'tdd-guide.md': 'RED-GREEN-REFACTOR の step ファシリテーション',
+    'python-reviewer.md': 'Python idiom / type hint / EAFP 特化レビュー',
+    'typescript-reviewer.md': 'TS strict null / type guard / React hook 特化レビュー',
     // Commands
     'kiro/': '仕様駆動開発ワークフロー（11コマンド）',
     'slash-guide.md': '全スラッシュコマンドの日本語解説',
-    // Skills directories
+    'create-pr.md': 'gh pr create で PR 作成（テンプレート自動生成・履歴要約）',
+    'learn.md': 'セッションから再利用可能パターンをスキル候補として保存',
+    // ECC Commands
+    'code-review.md': 'PR + ローカル両モードのレビュー（$ARGUMENTS で切替）',
+    'build-fix.md': 'ビルドシステム自動検出 + 最小 diff でエラー修復',
+    'test-coverage.md': 'カバレッジ JSON 解析 + 不足テスト生成（80%目標）',
+    'feature-dev.md': '6フェーズワークフロー（discovery→exploration→clarify→design→implement→review）',
+    'refactor-clean.md': 'dead code 検出ツール起動 + 削除ごとに test verify',
+    'quality-gate.md': 'on-demand format/lint/typecheck パイプライン',
+    'save-session.md': '~/.claude/session-data/ にセッション state を保存',
+    'resume-session.md': '保存したセッション state を読み込んで context 復帰',
+    'model-route.md': 'タスク内容 + 予算から haiku/sonnet/opus を推奨',
+    'learn-eval.md': '/learn の eval 強化版（保存前に挙動検証）',
+    // Existing Skills directories
     'acnpptx/': 'Accenture ブランド PowerPoint 生成',
     'claude-assist/': 'マルチライン入力 GUI 支援',
+    'claude-api/': 'Claude API / Anthropic SDK 開発・最適化',
     'development-rules/': 'Context7 リサーチ必須の開発ルール',
     'document-converter/': 'Markdown → Word/Excel/PDF 変換',
+    'fewer-permission-prompts/': 'transcript からよく使うコマンドを allowlist 自動追加',
     'gemini-research/': 'Gemini MCP による外部リサーチ',
     'git-workflow/': 'Worktree 必須のブランチ管理',
+    'keybindings-help/': 'キーバインド設定支援',
     'login-eso/': 'Accenture SSO 認証（基盤ライブラリ）',
+    'loop/': 'インターバル/自己ペース実行ループ',
     'metacognition-skill/': 'メタ認知スキル',
     'reserve-space/': 'Accenture Places スペース自動予約',
     'rough-estimate/': '概算見積書作成（Scibit LLC）',
+    'schedule/': 'cron スケジュールでリモート agent 実行',
     'serena-codebase/': 'Serena MCP によるコード解析',
+    'simplify/': '変更コードのシンプル化レビュー',
     'skill-maker/': 'スキル自動構築・改善・評価',
+    'slash-guide/': 'Claude Code スラッシュコマンド日本語ガイド',
     'testing-rules/': 'TDD サイクルに基づくテストルール',
+    'update-config/': 'settings.json の hook / permission / env 設定支援',
+    // ECC Skills directories
+    'api-design/': 'REST API 設計標準（resource naming/pagination/error format）',
+    'postgres-patterns/': 'PostgreSQL クエリ・スキーマ・index・RLS パターン',
+    'database-migrations/': 'zero-downtime DB マイグレーション運用',
+    'python-patterns/': 'Python idiom / PEP 8 / type hint / EAFP',
+    'python-testing/': 'pytest / fixture / coverage 戦略',
+    'pytorch-patterns/': 'PyTorch training pipeline / GPU / 分散学習',
+    'e2e-testing/': 'Playwright Page Object Model',
+    'tdd-workflow/': 'RED-GREEN-IMPROVE TDD ワークフロー',
+    'eval-harness/': 'Eval-Driven Development 評価フレームワーク',
+    'nestjs-patterns/': 'NestJS DI / モジュール / production-grade パターン',
+    'nextjs-turbopack/': 'Next.js 16+ + Turbopack 設定',
+    'frontend-patterns/': 'React / Next.js / 状態管理 / 性能最適化',
+    'deep-research/': 'firecrawl + exa による多源 deep research',
+    'exa-search/': 'Exa MCP ニューラル検索',
+    'search-first/': '検索ファースト methodology（カスタムコード前に既存検索）',
+    'codebase-onboarding/': '未知 codebase の onboarding ガイド生成',
+    'documentation-lookup/': 'Context7 ライブラリ最新ドキュメント参照',
+    'context-budget/': 'コンテキスト窓予算 audit と削減提案',
+    'strategic-compact/': '戦略的 /compact タイミング提案',
+    'token-budget-advisor/': 'トークン予算アドバイザー',
+    'iterative-retrieval/': 'subagent context 問題のための反復 retrieval',
+    'security-review/': '本番出し前セキュリティチェックリスト',
+    'security-scan/': 'AgentShield ベース設定脆弱性スキャン',
+    'agentic-engineering/': 'agentic engineer の操作モデル',
+    'ai-first-engineering/': 'AI ファースト工学操作モデル',
+    'architecture-decision-records/': 'ADR 記録（context / 代替案 / 根拠）',
+    'market-research/': '市場調査・競合分析・投資デューデリ',
+    'lead-intelligence/': '営業リード調査・アウトリーチ（Apollo 代替）',
+    'brand-voice/': 'source-derived ブランドボイスプロファイル',
+    'agent-eval/': '複数コーディング agent のヘッドツーヘッド比較',
+    'verification-loop/': 'セッション検証ループ',
+    'agent-introspection-debugging/': 'AI agent 障害セルフデバッグ',
+    // Rules
+    'task-dispatch.md': 'Phase 0 Research → スコア → 実行モード（Direct/Sub/Team）',
+    'agents.md': 'タスク種別 → 起動 agent の mapping',
+    'pre-commit.md': 'コミット前チェックリスト',
+    'code-quality.md': 'Immutability / KISS-DRY-YAGNI / 50行・800行 / severity',
+    'security.md': '8項目チェックリスト + 違反時の停止→agent→ローテーション',
+    'testing.md': 'TDD RED-GREEN-IMPROVE / AAA / 80%+',
+    'performance.md': 'モデル選択 (Haiku/Sonnet/Opus) / context 窓管理',
+    'git-workflow.md': 'Conventional Commits / PR / forbidden ops',
+    'smoke-test.md': '高インパクトタスクの段階確認モード',
+    'naming.md': 'ディレクトリ・ファイルの命名規則',
+    'version-check.md': 'セッション開始時のバージョン差分チェック',
+    'python/': 'Python 言語特化ルール一式（5ファイル）',
     // Scripts
     'generate-dashboard.mjs': '設定ダッシュボード HTML 生成',
+    'auto-sync.sh': '設定変更を Git 同期する hook 起動スクリプト',
+    'merge-ecc-hooks.mjs': 'ECC hooks を settings.json にマージするインポートスクリプト',
+    'hooks/': 'ECC ポート済み hook スクリプト群（pre/post/stop の各 .js、43ファイル）',
+    'lib/': 'hook が require する共通ユーティリティ（utils.js / hook-flags.js ほか、31ファイル）',
+    // Plans
+    'https-github-com-affaan-m-everything-cla-agile-firefly.md': 'ECC 選択取り込みの実装プラン（6ラウンド・3フェーズ）',
     // Skill sub-files
     'SKILL.md': 'スキル定義ファイル',
     // Kiro commands
@@ -1213,6 +1652,108 @@ function generateAnnotatedTree(agents, skills, commands) {
     // Other files
     'known_marketplaces.json': '公式マーケットプレイス定義',
     'installed_plugins.json': 'インストール済みプラグイン',
+    // Python rule sub-files
+    'coding-style.md': 'Python: PEP 8 / type hint / dataclass(frozen) / NamedTuple',
+    'hooks.md': 'Python: black/ruff post-edit format / mypy/pyright typecheck',
+    'patterns.md': 'Python: Protocol / dataclass DTO / context manager / generator',
+    // Backups & generated artifacts
+    'claudesettings-CLAUDE設定.html': '本ダッシュボード（自動生成）',
+    // Root-level files
+    'docs/': 'ドキュメント・参考資料',
+    'enterprise-restrictions.md': 'エンタープライズ環境での制限事項メモ',
+    'install-counts-cache.json': 'プラグインインストール数のキャッシュ',
+    'keybindings.json': 'キーバインド定義',
+    'remote-settings.json': 'リモート設定キャッシュ',
+    'policy-limits.json': 'ポリシー上限値（subagent/team 数等）',
+    'learned/': '学習済みパターンの保存先（/learn-eval 出力）',
+    // Skill sub-files / sub-dirs
+    'metacognition.md': 'metacognition-skill 本体（SKILL.md 形式ではない非標準スキル）',
+    'search-patterns.md': '検索パターン参考',
+    'docx-rules.md': 'DOCX 出力ルール（document-converter）',
+    'xlsx-rules.md': 'XLSX 出力ルール（document-converter）',
+    'cloud-infrastructure-security.md': 'クラウドインフラセキュリティ参考',
+    'assets/': 'スキルアセット（画像・ブランドファイル等）',
+    'references/': 'スキル参考資料',
+    'evals/': 'スキル eval 用テストケース',
+    'eval-viewer/': 'eval 結果ビューア',
+    // ECC scripts/hooks/*.js — adopted hooks (active in settings.json)
+    'pre-bash-dispatcher.js': '[adopted] Bash 実行前の品質ゲート dispatcher（tmux/push/GateGuard 統合）',
+    'config-protection.js': '[adopted] lint/format 設定ファイル改竄をブロック',
+    'gateguard-fact-force.js': '[adopted] 初回 Edit/Write をブロックし事前調査を強制',
+    'design-quality-check.js': '[adopted] フロント UI のテンプレ感を警告',
+    'post-edit-accumulator.js': '[adopted] 編集 JS/TS ファイルを Stop 時 batch 用に記録',
+    'quality-gate.js': '[adopted] Edit 後の lint/typecheck 非同期実行',
+    'post-edit-console-warn.js': '[adopted] Edit 後に console.log があれば警告',
+    'session-activity-tracker.js': '[adopted] tool 利用統計（per-session）',
+    'stop-format-typecheck.js': '[adopted] Stop 時に accumulator 記録ファイルを Biome/Prettier+tsc で batch 処理',
+    'check-console-log.js': '[adopted] Stop 時の console.log 再 audit',
+    'desktop-notify.js': '[adopted] Stop 時に macOS/WSL デスクトップ通知',
+    'evaluate-session.js': '[adopted] Stop 時に再利用パターンを評価し提案',
+    'cost-tracker.js': '[adopted] Stop 時にトークン+コストを ~/.claude/metrics/costs.jsonl に追記',
+    'pre-compact.js': '[adopted] /compact 直前にセッション state を保存',
+    // ECC scripts/hooks/*.js — not adopted (present but disabled)
+    'auto-tmux-dev.js': 'tmux dev サーバー自動起動（pre-bash-dispatcher から呼ばれる）',
+    'bash-hook-dispatcher.js': 'Bash 実行時の dispatcher 共通基盤',
+    'block-no-verify.js': 'git commit --no-verify をブロック（pre-bash-dispatcher から呼ばれる）',
+    'check-hook-enabled.js': 'hook 有効/無効判定（ECC_DISABLED_HOOKS 評価）',
+    'doc-file-warning.js': '[未採用] 標準外ドキュメント作成時の警告（Round 2 でスキップ）',
+    'governance-capture.js': '[未採用] シークレット検出 + policy 違反トラッキング（ECC_GOVERNANCE_CAPTURE=1 必須）',
+    'mcp-health-check.js': '[未採用] MCP サーバー健全性チェック（Round 2 でスキップ）',
+    'observe-runner.js': '[未採用] continuous learning 用 tool 利用観察',
+    'plugin-hook-bootstrap.js': 'hook 起動時の plugin-root 解決ブートストラップ',
+    'post-bash-build-complete.js': 'ビルド完了通知',
+    'post-bash-command-log.js': 'Bash コマンドログ記録',
+    'post-bash-dispatcher.js': '[未採用] Bash 実行後の dispatcher（PR 通知等）',
+    'post-bash-pr-created.js': 'PR 作成通知',
+    'post-edit-format.js': 'Edit 後 format（accumulator+stop パターンに置換済み）',
+    'post-edit-typecheck.js': 'Edit 後 typecheck（accumulator+stop パターンに置換済み）',
+    'pre-bash-commit-quality.js': 'コミット前の品質チェック',
+    'pre-bash-dev-server-block.js': '直接 dev サーバー起動を抑止し tmux 経由を推奨',
+    'pre-bash-git-push-reminder.js': 'git push 前のリマインダー',
+    'pre-bash-tmux-reminder.js': '長時間コマンドで tmux 利用をリマインド',
+    'pre-write-doc-warn.js': 'doc-file-warning の旧名',
+    'session-end-marker.js': '[未採用] SessionEnd の lifecycle marker',
+    'session-end.js': 'Stop hook の セッション state 永続化',
+    'session-start-bootstrap.js': 'SessionStart の package manager 検出 + コンテキストロード',
+    'session-start.js': 'SessionStart 共通エントリ',
+    'suggest-compact.js': '[未採用] /compact 提案（既存 Context Management ガイドでカバー）',
+    'suggest-compact.sh': '/compact 提案 shell ラッパー',
+    'run-with-flags.js': 'hook ランナー（hook 有効/無効・profile を解釈して起動）',
+    'run-with-flags-shell.sh': 'run-with-flags の shell ラッパー',
+    'insaits-security-monitor.py': 'Insaits セキュリティモニター（ECC 拡張用、別途有効化必要）',
+    'insaits-security-wrapper.js': 'Insaits セキュリティラッパー',
+    // ECC scripts/lib/*.js / *.d.ts — utility libs
+    'utils.js': '共通ユーティリティ（ensureDir / appendFile / getClaudeDir 等、629行）',
+    'utils.d.ts': 'utils.js の型定義',
+    'hook-flags.js': 'ECC_DISABLED_HOOKS / ECC_HOOK_PROFILE の解釈',
+    'inspection.js': 'tool 入出力の inspection ユーティリティ',
+    'agent-compress.js': 'agent コンテキスト圧縮ユーティリティ',
+    'cursor-agent-names.js': 'Cursor 連携用 agent 名 mapping',
+    'mcp-config.js': 'MCP 設定読み書きユーティリティ',
+    'observer-sessions.js': 'observer セッションコンテキスト解決',
+    'orchestration-session.js': '複数 agent オーケストレーションセッション管理',
+    'package-manager.js': 'package manager (npm/pnpm/yarn) 検出',
+    'package-manager.d.ts': 'package-manager.js の型定義',
+    'project-detect.js': 'プロジェクト種別検出（言語・FW）',
+    'resolve-ecc-root.js': 'ECC root ディレクトリの解決',
+    'resolve-formatter.js': 'フォーマッタ（Biome / Prettier）の検出',
+    'session-aliases.js': 'セッションエイリアス管理',
+    'session-aliases.d.ts': 'session-aliases.js の型定義',
+    'session-manager.js': 'セッション管理',
+    'session-manager.d.ts': 'session-manager.js の型定義',
+    'shell-split.js': 'シェルコマンド分割ユーティリティ',
+    'tmux-worktree-orchestrator.js': 'tmux + worktree のオーケストレータ',
+    'install-executor.js': 'ECC インストール実行（採用時の影響なし）',
+    'install-lifecycle.js': 'ECC インストールライフサイクル',
+    'install-manifests.js': 'ECC インストールマニフェスト',
+    'install-state.js': 'ECC インストール state store',
+    'install/': 'ECC インストールサブモジュール',
+    'install-targets/': 'ECC インストールターゲット定義',
+    'session-adapters/': 'セッション形式アダプタ',
+    'skill-evolution/': 'スキル進化（自己改善）モジュール',
+    'skill-improvement/': 'スキル改善ロジック',
+    'state-store/': 'state store 実装（SQLite）',
+    'ecc_dashboard_runtime.py': 'ECC ダッシュボード Python ランタイム（参考実装）',
   };
 
   function buildTree(dir, depth = 0) {
