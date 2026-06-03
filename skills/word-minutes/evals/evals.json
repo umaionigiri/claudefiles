@@ -1,0 +1,51 @@
+{
+  "skill_name": "word-minutes",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "以下の会議メモから議事録のWordファイルを作ってください。\n\n---\n日時: 2026/03/10 (火) 14:00-15:30\n場所: オンライン（Zoom）\n参加者:\n- アクセンチュア側: 長井（進行）、國下（記録）、奥野（リモート）\n- クライアント（東京交通局 TT）側: 山田部長、鈴木課長、田中（リモート）\n\n議題: DX推進プロジェクト 第1回定例\n\n話し合った内容:\n[スコープ確認]\n長井: 今回のスコープは保守業務のデジタル化で、フェーズ1は現状調査・ヒアリング。範囲は車両部のみ。\n山田: 範囲が車両部のみなのは今年度予算の都合。来年度は拡大予定。\n田中（リモート）: ヒアリング対象者リストはいつまでに準備できるか。\n長井: 来週金曜（3/20）までに準備する。\n\n[スケジュール確認]\n國下: マイルストーンとして現状調査完了を4月末としたい。\n鈴木: 4月末は連休があるため5月初週にずらしてほしい。\n長井: 5月9日(金)を目標にする。\n\n決定事項:\n- フェーズ1スコープ: 車両部の保守業務のデジタル化調査\n- 現状調査完了目標: 2026/05/09\n\nToDo:\n- ACN長井: ヒアリング対象者リスト作成（締切: 3/20）\n- TT鈴木: 社内調整・ヒアリング日程候補提示（締切: 3/27）\n---",
+      "expected_output": "20260310_東京交通局様_DX推進_第1回定例_議事メモ_v01.docx が生成される。必須セクション（議題・日時場所・参加者・決定事項・ToDo・議事概要・議事詳細）を全て含み、▶・→マーカーが正しく使われ、フォントはMeiryo UI、以上で締まること。",
+      "files": [],
+      "expectations": [
+        "Output .docx file is generated and exists (file size > 5KB)",
+        "All 5 required sections present: <アジェンダ>, <決定事項>, <ToDos>, <議事詳細>, <次回ミーティング>",
+        "Numbered agenda items (1., 2.) for スコープ確認 and スケジュール確認",
+        "議事詳細 uses Word numbering bullets (● for level 1, → for level 2/3) via numPr",
+        "決定事項 section contains フェーズ1スコープ and 2026/05/09 target date",
+        "ToDo section mentions ヒアリング対象者リスト and 3/20 deadline",
+        "Document ends with 以上",
+        "validate_minutes.py reports all checks PASS"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "昨日の打ち合わせ内容をWordの議事録にまとめてほしい。\n\n日付: 今日は2026/03/03なので昨日は3/2(月)。時間は13:00-13:45。場所は弊社会議室B。\n参加: 私（横川、記録）とお客さんのABC物流 物流部 渡辺さん。リモートでうちの上司の田中も参加。\n\n話した内容:\n- 渡辺さんから現状の配送管理がExcelベースで属人化しているという課題を共有してもらった。特に月次集計が手動で3日かかるとのこと。\n- うちから自動集計ツールの提案をした。渡辺さんは前向きだが予算承認が必要と言っていた。\n- 次のステップとして、来週中に提案書を送る予定。\n- 特に決定事項はなし。ToDoは私が提案書を来週金曜3/9までに送ること。",
+      "expected_output": "20260302_ABC物流様_...議事メモ_v01.docx が生成される。参加者にACN横川(記)とACN田中(※)が含まれ、自動集計ツール提案・予算承認の流れが議事詳細に含まれ、ToDoに提案書送付3/9が記載されること。",
+      "files": [],
+      "expectations": [
+        "Output .docx file is generated and exists (file size > 5KB)",
+        "Participant list includes 横川 with (記) marker and 田中 with (※) remote marker",
+        "ABC物流 appears in participant section with 渡辺 as a member",
+        "議事詳細 contains content about Excel-based workflow issue and automation proposal",
+        "ToDo section mentions 提案書 and 3/9 deadline",
+        "決定事項 is '特記事項なし' (no decisions made)",
+        "Document ends with 以上",
+        "validate_minutes.py reports all checks PASS"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "以下のような最小限の情報から議事録を作ってほしい。\n\n会議: 社内チームMTG\n日時: 2026/03/03 10:00-10:30\n参加者: 私(木村、記)と上司(長井)\n話した内容: 来月の発表資料の担当分けを決めた。木村が前半(背景・現状)、長井が後半(提案・まとめ)を担当。発表は4月15日。",
+      "expected_output": "20260303_社内_チームMTG_議事メモ_v01.docx (ファイル名は多少異なっても可)。最小情報でも正しい議事録フォーマットで出力。決定事項に担当分けが記載され、以上で締まること。",
+      "files": [],
+      "expectations": [
+        "Output .docx file is generated and exists (file size > 5KB)",
+        "All 5 required sections present even with minimal input: <アジェンダ>, <決定事項>, <ToDos>, <議事詳細>, <次回ミーティング>",
+        "決定事項 section contains the role assignment (木村=前半 and 長井=後半)",
+        "Speaker attribution uses correct （名前） or （組織名前） format in 議事詳細",
+        "Document ends with 以上",
+        "validate_minutes.py reports all checks PASS"
+      ]
+    }
+  ]
+}

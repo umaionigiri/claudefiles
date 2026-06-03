@@ -10,6 +10,16 @@
         "lastUpdated": "2026-05-02T16:59:36.616Z",
         "gitCommitSha": "b392f51899343f35a203260a4b344803de236d13"
       }
+    ],
+    "frontend-design@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/home/shokenohshiro/.claude/plugins/cache/claude-plugins-official/frontend-design/c64eb673d105",
+        "version": "c64eb673d105",
+        "installedAt": "2026-05-15T11:30:54.752Z",
+        "lastUpdated": "2026-05-15T11:30:54.752Z",
+        "gitCommitSha": "c64eb673d10511f096e4e843718e370581da345a"
+      }
     ]
   }
 }

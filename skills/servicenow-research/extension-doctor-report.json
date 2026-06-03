@@ -1,0 +1,31 @@
+{
+  "target_path": "/home/shokenohshiro/.claude/skills/servicenow-research",
+  "target_form": "skill",
+  "findings": [
+    {
+      "pattern_id": "P2",
+      "title_ja": "Python の依存関係マニフェストが見つかりません",
+      "title_en": "Python dependency manifest not found",
+      "severity": "warn",
+      "fix_class": "needs-review",
+      "file": null,
+      "line": null,
+      "detail_ja": "`*.py` ファイルが 9 件見つかりましたが、`pyproject.toml` または `requirements.txt` がありません。再現性確保のため追加してください。**推奨は `uv` ＋ `pyproject.toml` ＋ `uv.lock`** です（`uv add <dep>` で 1 コマンド）。`uv` 未導入の場合は <https://docs.astral.sh/uv/> を参照、またはレガシー形式の `requirements.txt` で代替可能。",
+      "detail_en": "Found 9 *.py files but no pyproject.toml or requirements.txt. Add one for reproducibility. **Preferred: `uv` + `pyproject.toml` + `uv.lock`** (one command via `uv add <dep>`). If `uv` is not installed, see <https://docs.astral.sh/uv/>, or fall back to the legacy `requirements.txt` format.",
+      "proposed_patch": null
+    },
+    {
+      "pattern_id": "P9",
+      "title_ja": "非標準のレイアウトです（root の SKILL.md）",
+      "title_en": "Non-canonical layout (root SKILL.md)",
+      "severity": "info",
+      "fix_class": "safe",
+      "file": null,
+      "line": null,
+      "detail_ja": "`repackage` Skill で `skills/<slug>/SKILL.md` 形式に再構成できます。Claude Hub アップロード時に同じ処理が行われます。",
+      "detail_en": "`repackage` skill will move it to `skills/<slug>/SKILL.md`. Claude Hub does the same on upload.",
+      "proposed_patch": null
+    }
+  ],
+  "schema_version": "1.0.0"
+}

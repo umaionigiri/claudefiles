@@ -9,11 +9,11 @@ Claude Code（`~/.claude/`）の設定ファイルを管理するリポジトリ
 ├── .gitignore             # ランタイムデータ除外
 ├── CLAUDE.md              # グローバル指示（全プロジェクト共通）
 ├── settings.json          # 権限・Hooks・環境変数・MCP設定
-├── agents/                # カスタムエージェント（7種）
+├── agents/                # カスタムエージェント（17種）
 ├── commands/              # スラッシュコマンド
 │   ├── slash-guide.md
 │   └── kiro/              # 仕様駆動開発ワークフロー（11コマンド）
-├── skills/                # カスタムスキル（13種）
+├── skills/                # カスタムスキル（46種）
 │   ├── development-rules/
 │   ├── testing-rules/
 │   ├── git-workflow/
@@ -71,12 +71,22 @@ Git 読み取り系（`status`, `diff`, `log`, `branch`, `worktree`）、`npm ru
 
 | エージェント | 用途 |
 |-------------|------|
+| `code-explorer` | 既存コードベース探索エージェント (onboarding 用) |
 | `code-reviewer` | コードレビューエージェント |
+| `database-reviewer` | PostgreSQL/Supabase データベース専門レビュー |
 | `devops-problem-solver` | DevOps 問題解決エージェント |
 | `estimation-agent` | 見積りエージェント |
+| `performance-optimizer` | パフォーマンス最適化スペシャリスト |
+| `pr-test-analyzer` | PR テストカバレッジ品質レビュー |
+| `python-reviewer` | Python 言語特化レビュー (idiom / type hint / EAFP) |
+| `refactor-cleaner` | Dead code 除去・consolidation 専門 |
+| `security-reviewer` | セキュリティレビュー専門エージェント (OWASP / シークレット検出) |
 | `senior-consultant-reviewer` | シニアコンサルタントレビューエージェント |
+| `silent-failure-hunter` | サイレント失敗・エラー無視ハンター |
 | `task-decomposer` | タスク分解エージェント |
+| `tdd-guide` | TDD ファシリテーター (RED-GREEN-REFACTOR) |
 | `test-runner` | テストランナーエージェント |
+| `typescript-reviewer` | TypeScript 言語特化レビュー (strict null / type guard) |
 | `workflow-recorder` | ワークフロー記録エージェント |
 
 ## スキル
@@ -84,18 +94,51 @@ Git 読み取り系（`status`, `diff`, `log`, `branch`, `worktree`）、`npm ru
 | スキル | 用途 |
 |--------|------|
 | `acnpptx` | Accenture PowerPoint 生成スキル |
+| `agent-eval` | 複数コーディング agent のヘッドツーヘッド比較 |
+| `agent-introspection-debugging` | AI agent 障害の構造化セルフデバッグ |
+| `agentic-engineering` | agentic engineer 操作モデル |
+| `ai-first-engineering` | AI ファースト工学操作モデル |
+| `api-design` | REST API 設計標準 (resource naming / pagination / error format) |
+| `architecture-decision-records` | ADR (Architecture Decision Record) 記録 |
+| `brand-voice` | source-derived ブランドボイスプロファイル |
 | `claude-assist` | マルチライン入力GUI スキル |
-| `delivery-folder-creator` | delivery-folder-creator |
+| `codebase-onboarding` | 未知 codebase の onboarding ガイド生成 |
+| `context-budget` | コンテキスト窓予算管理 |
+| `database-migrations` | DB マイグレーション運用 (zero-downtime / rollback) |
+| `deep-research` | 多源 deep research (firecrawl + exa) |
 | `development-rules` | 開発ルール |
 | `document-converter` | ドキュメント変換スキル |
+| `documentation-lookup` | Context7 経由のライブラリ最新ドキュメント |
+| `e2e-testing` | Playwright E2E テスト (Page Object Model) |
+| `eval-harness` | 形式的 eval フレームワーク (eval-driven development) |
+| `exa-search` | Exa MCP ニューラル検索 |
+| `frontend-patterns` | フロントエンド開発パターン (React / Next.js / 状態管理) |
 | `gemini-research` | Gemini リサーチスキル |
 | `git-workflow` | Git ワークフロー |
+| `iterative-retrieval` | 反復的 retrieval パターン |
+| `lead-intelligence` | AI ネイティブ営業リード調査・アウトリーチ |
 | `login-eso` | Accenture SSO 認証スキル |
+| `market-research` | 市場調査・競合分析・投資デューデリ |
+| `nestjs-patterns` | NestJS アーキテクチャパターン |
+| `nextjs-turbopack` | Next.js 16+ と Turbopack |
+| `postgres-patterns` | PostgreSQL 設計パターン (Supabase ベストプラクティス) |
+| `python-patterns` | Python イディオム集 (PEP 8 / type hint / EAFP / DI) |
+| `python-testing` | Python テスト戦略 (pytest / fixture / coverage) |
+| `pytorch-patterns` | PyTorch 深層学習パターン |
 | `reserve-space` | Accenture Places スペース予約スキル |
 | `rough-estimate` | 概算見積り作成スキル |
+| `search-first` | コーディング前検索 methodology |
+| `security-review` | 本番出し前セキュリティチェックリスト |
+| `security-scan` | AgentShield ベース設定セキュリティスキャン |
 | `serena-codebase` | Serena コードベース分析スキル |
+| `servicenow-research` | servicenow-research |
 | `skill-maker` | スキル自動構築・改善スキル |
+| `strategic-compact` | 戦略的 /compact 実行タイミング |
+| `tdd-workflow` | TDD ワークフロー (RED-GREEN-IMPROVE / 80%+ coverage) |
 | `testing-rules` | テストルール |
+| `token-budget-advisor` | トークン予算アドバイザー |
+| `verification-loop` | Claude Code セッションの検証ループ |
+| `word-minutes` | word-minutes |
 
 ## コマンド
 

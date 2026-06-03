@@ -1,0 +1,111 @@
+{
+  "skill_name": "servicenow-research",
+  "version": "1.0.0",
+  "evals": [
+    {
+      "id": "concept-now-assist",
+      "prompt": "Australiaリリースで Now Assist for ITSM の主要機能を教えてください。初心者にも理解できるように説明してください。",
+      "expected_output": "結論/理由/具体例/出典 の4セクション、本文に [N] 脚注番号、## 出典 に番号付き Markdown リンク (GitHub raw URL を主)、Now Assist 用語の補足、フッタに対象リリース表記",
+      "files": [],
+      "expectations": [
+        "回答に '## 結論' '## 理由 / 背景' '## 具体例 / 手順' '## 出典' のセクションヘッダがすべて含まれる",
+        "本文 (## 結論〜## 補足) 内に [title](url) 形式の Markdown インラインリンクが0個",
+        "本文の各主要セクション (結論/理由/具体例) に少なくとも1つの脚注番号 [N] が含まれる",
+        "## 出典 セクション内に番号付き Markdown リンク (例: '1. [Title](URL)') が少なくとも1件含まれる",
+        "## 出典 内の全URL host が allowlist (github.com / raw.githubusercontent.com / developer.servicenow.com / docs.servicenow.com / community.servicenow.com / support.servicenow.com / www.servicenow.com) に属する",
+        "## 出典 内に raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/ で始まる URL が少なくとも1つ含まれる",
+        "Now Assist の用語に対し括弧内で1〜2行の日本語補足が初出時に付与されている",
+        "フッタに '対象リリース: Australia' を含む行が存在する",
+        "回答内に Markdown テーブル / 番号付きリスト / ASCII図 (box-drawing 文字 ┌─┐│└┘├┤┬┴┼→←↑↓ を含むコードブロック) / 標準アイコンセット (✅⚠️❌📌📊🔧🔗🆕🗑️💡🎯) のいずれか1つ以上が使われており、長文の散文一辺倒になっていない。Mermaid コードブロック (```mermaid) は CLI で描画されないため使用していない"
+      ]
+    },
+    {
+      "id": "api-reference",
+      "prompt": "GlideRecord クラスの addQuery メソッドの使い方を、Australia リリースの公式情報を元に教えてください。コード例も欲しいです。",
+      "expected_output": "結論/理由/具体例/出典 の4セクション、コード例を含む具体例セクション、GlideRecord 用語の補足、## 出典 に developer.servicenow.com もしくは GitHub の API Reference カテゴリへの番号付き出典",
+      "files": [],
+      "expectations": [
+        "回答に '## 結論' '## 理由 / 背景' '## 具体例 / 手順' '## 出典' のセクションヘッダがすべて含まれる",
+        "本文に [title](url) 形式の Markdown インラインリンクが0個",
+        "具体例セクションにコードブロック (```で囲まれたコード) が含まれる",
+        "GlideRecord 用語に対し括弧内で日本語補足が付与されている",
+        "## 出典 内に番号付きリンクが少なくとも1件含まれる",
+        "## 出典 内の全URL host が allowlist に属する",
+        "## 出典 内に developer.servicenow.com もしくは GitHub raw URL が少なくとも1つ含まれる",
+        "## 出典 内の全URL が HTTP 2xx/3xx を返す (NotFound 0)",
+        "回答内に Markdown テーブル / 番号付きリスト / ASCII図 (box-drawing 文字 ┌─┐│└┘├┤┬┴┼→←↑↓ を含むコードブロック) / 標準アイコンセット (✅⚠️❌📌📊🔧🔗🆕🗑️💡🎯) のいずれか1つ以上が使われており、長文の散文一辺倒になっていない。Mermaid コードブロック (```mermaid) は CLI で描画されないため使用していない"
+      ]
+    },
+    {
+      "id": "release-specific-new",
+      "prompt": "Australia リリースで Workflow Studio に追加された新機能を教えてください。",
+      "expected_output": "結論で「Australia の追加機能」を明示、変更点の列挙、各変更点に [N] 脚注番号、## 出典 に GitHub raw (australia branch) の番号付き出典、Workflow Studio の用語補足",
+      "files": [],
+      "expectations": [
+        "回答に '## 結論' '## 理由 / 背景' '## 具体例 / 手順' '## 出典' のセクションヘッダがすべて含まれる",
+        "本文に [title](url) 形式の Markdown インラインリンクが0個",
+        "結論または理由セクションで 'Australia' のリリース名が明示的に言及されている",
+        "## 出典 内に raw.githubusercontent.com/ServiceNow/ServiceNowDocs/australia/ で始まる URL が少なくとも1つ含まれる",
+        "Workflow Studio の用語に対し括弧内で日本語補足が付与されている",
+        "## 出典 内の全URL host が allowlist に属する",
+        "フッタに '対象リリース: Australia' を含む行が存在する",
+        "回答内に Markdown テーブル / 番号付きリスト / ASCII図 (box-drawing 文字 ┌─┐│└┘├┤┬┴┼→←↑↓ を含むコードブロック) / 標準アイコンセット (✅⚠️❌📌📊🔧🔗🆕🗑️💡🎯) のいずれか1つ以上が使われており、長文の散文一辺倒になっていない。Mermaid コードブロック (```mermaid) は CLI で描画されないため使用していない"
+      ]
+    },
+    {
+      "id": "older-release-task",
+      "prompt": "Yokohama リリースで MID Server を構成する手順を教えてください。",
+      "expected_output": "対象リリース=Yokohama として branch=yokohama で raw fetch、結論/理由/具体例(手順番号付き)/出典 の構成、MID Server の用語補足、フッタに「対象リリース: Yokohama」",
+      "files": [],
+      "expectations": [
+        "回答に '## 結論' '## 理由 / 背景' '## 具体例 / 手順' '## 出典' のセクションヘッダがすべて含まれる",
+        "本文に [title](url) 形式の Markdown インラインリンクが0個",
+        "具体例セクションに番号付きリスト (例: '1.' '2.' '3.') が含まれる",
+        "## 出典 内に raw.githubusercontent.com/ServiceNow/ServiceNowDocs/yokohama/ で始まる URL が少なくとも1つ含まれる",
+        "MID Server の用語に対し括弧内で日本語補足が付与されている",
+        "## 出典 内の全URL host が allowlist に属する",
+        "フッタに '対象リリース: Yokohama' を含む行が存在する",
+        "回答内に Markdown テーブル / 番号付きリスト / ASCII図 (box-drawing 文字 ┌─┐│└┘├┤┬┴┼→←↑↓ を含むコードブロック) / 標準アイコンセット (✅⚠️❌📌📊🔧🔗🆕🗑️💡🎯) のいずれか1つ以上が使われており、長文の散文一辺倒になっていない。Mermaid コードブロック (```mermaid) は CLI で描画されないため使用していない"
+      ]
+    },
+    {
+      "id": "version-unknown",
+      "prompt": "CMDB の health dashboard について教えてください。",
+      "expected_output": "リリース名が未指定のため AskUserQuestion でリリース確認を行うこと。回答前に質問が走る挙動を確認する",
+      "files": [],
+      "expectations": [
+        "ServiceNow リリースが未指定の質問を受けた際、回答前に AskUserQuestion ツールを呼び出してリリース (Australia / Zurich / Yokohama / Xanadu / 共通) を確認している",
+        "AskUserQuestion の選択肢に最低でも 'Australia' が含まれる",
+        "AskUserQuestion を呼ばずに即座に固定リリースで回答していない (AskUserQuestion の発火が必須)"
+      ]
+    },
+    {
+      "id": "non-existent",
+      "prompt": "ServiceNow の XYZModule123 (架空のモジュール) の使い方を教えてください。",
+      "expected_output": "render_unknown 形式の回答 (「公式情報源では該当する情報が見つかりませんでした」)、検索クエリ/対象リリース/検索ソースの開示、## 出典 セクションは無し",
+      "files": [],
+      "expectations": [
+        "回答に '公式情報源では該当する情報が見つかりませんでした' に相当する一文が含まれる",
+        "検索したクエリ・対象リリース・検索ソースのいずれかが開示されている",
+        "回答内に github.com / servicenow.com 系以外のURLは含まれない (allowlist違反0)",
+        "公式以外のソース (Qiita / Stack Overflow / blog 等) を出典として引用していない",
+        "ServiceNow の機能を捏造していない (XYZModule123 という存在しない機能を実在するかのように説明していない)",
+        "## 出典 セクションは含まれない (該当無いため意図的に省略)"
+      ]
+    },
+    {
+      "id": "community-fallback",
+      "prompt": "Service Portal で widget が表示されない問題の一般的な原因と対処方法を教えてください (Australia)。",
+      "expected_output": "GitHubに該当が薄い実務トラブルなので、community.servicenow.com への fallback が走ること、結論/理由/具体例/出典 構成、Service Portal/widget の用語補足",
+      "files": [],
+      "expectations": [
+        "回答に '## 結論' '## 理由 / 背景' '## 具体例 / 手順' '## 出典' のセクションヘッダがすべて含まれる",
+        "本文に [title](url) 形式の Markdown インラインリンクが0個",
+        "## 出典 内に GitHub raw URL もしくは community.servicenow.com の URL が少なくとも1つ含まれる",
+        "Service Portal または widget の用語に対し括弧内で日本語補足が付与されている",
+        "## 出典 内の全URL host が allowlist に属する",
+        "フッタに '対象リリース: Australia' を含む行が存在する"
+      ]
+    }
+  ]
+}

@@ -29,6 +29,8 @@ keybindings.json
 
 # Credentials & secrets
 .credentials.json
+skills/**/.env
+skills/**/.env.local
 
 # Remote/managed settings (auto-fetched from enterprise tenant)
 remote-settings.json
@@ -45,6 +47,36 @@ settings.local.json
 # Python cache
 __pycache__/
 *.pyc
+
+# Python virtual environments
+.venv/
+venv/
+
+# Backup files
+*.bak
+*.bak.*
+
+# Plugin cache, binaries & extracted plugins (managed via /plugin)
+plugins/plugin-catalog-cache.json
+plugins/extension-doctor/
+plugins/extension-doctor.zip*
+
+# Windows Alternate Data Streams
+*:Zone.Identifier
+*:6E53BFF5-*
+
+# Large generated/reference files
+**/*.pptx
+
+# Auto-generated state & cache
+.last-cleanup
+.last-update-result.json
+
+# Agent team runtime state
+teams/
+
+# Skill runtime workspaces (iteration scratch data, may contain client info)
+skills/*-workspace/
 
 # ===== Tracked files =====
 # CLAUDE.md, README.md, settings.json
