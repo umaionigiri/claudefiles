@@ -10,6 +10,12 @@ import { join } from 'node:path';
 const ROOT = join(import.meta.dirname, '..');
 const OUTPUT = join(ROOT, 'claudesettings-CLAUDE設定.html');
 
+// Directories excluded from tree views and skill collection
+// 1. Runtime dirs (keys, transcripts, browser data)
+// 2. Client-engagement skill prefixes (internal project info)
+const EXCLUDED_DIRS = ['daemon', 'jobs', 'chrome'];
+const EXCLUDED_DIR_PREFIXES = ['osaka-cx-'];
+
 // --- Helpers ---
 
 function readFile(path) {
@@ -187,10 +193,12 @@ function getDirectoryTree(dir, prefix = '', depth = 0) {
   let result = '';
   const ignoreList = ['.git', '.playwright-mcp', 'node_modules', 'projects', 'debug', 'sessions',
     'file-history', 'session-env', 'shell-snapshots', 'downloads', 'telemetry', 'paste-cache',
-    'backups', 'ide', 'todos', 'tasks', 'plans', 'data', 'statsig', 'cache'];
+    'backups', 'ide', 'todos', 'tasks', 'plans', 'data', 'statsig', 'cache',
+    ...EXCLUDED_DIRS];
   try {
     const entries = readdirSync(dir, { withFileTypes: true })
-      .filter(e => !ignoreList.includes(e.name) && !e.name.startsWith('.DS_Store'))
+      .filter(e => !ignoreList.includes(e.name) && !e.name.startsWith('.DS_Store')
+        && !EXCLUDED_DIR_PREFIXES.some(p => e.name.startsWith(p)))
       .sort((a, b) => {
         if (a.isDirectory() && !b.isDirectory()) return -1;
         if (!a.isDirectory() && b.isDirectory()) return 1;
@@ -1286,7 +1294,9 @@ function collectSkills() {
   const dir = join(ROOT, 'skills');
   if (!existsSync(dir)) return [];
   return readdirSync(dir, { withFileTypes: true })
-    .filter(e => e.isDirectory())
+    .filter(e => e.isDirectory()
+      && !EXCLUDED_DIRS.includes(e.name)
+      && !EXCLUDED_DIR_PREFIXES.some(p => e.name.startsWith(p)))
     .map(e => {
       const skillFile = join(dir, e.name, 'SKILL.md');
       const content = readFile(skillFile);
@@ -1762,11 +1772,12 @@ function generateAnnotatedTree(agents, skills, commands) {
       'file-history', 'session-env', 'shell-snapshots', 'downloads', 'telemetry', 'paste-cache',
       'backups', 'ide', 'todos', 'tasks', 'plans', 'data', 'statsig', 'cache',
       'history.jsonl', 'mcp-needs-auth-cache.json', 'stats-cache.json', 'settings.local.json',
-      'blocklist.json', 'marketplaces'];
+      'blocklist.json', 'marketplaces', ...EXCLUDED_DIRS];
     try {
       const entries = readdirSync(dir, { withFileTypes: true })
         .filter(e => !ignoreList.includes(e.name) && !e.name.startsWith('.DS_Store')
-          && !e.name.startsWith('blocklist.json.') && !e.name.startsWith('.'))
+          && !e.name.startsWith('blocklist.json.') && !e.name.startsWith('.')
+          && !EXCLUDED_DIR_PREFIXES.some(p => e.name.startsWith(p)))
         .sort((a, b) => {
           if (a.isDirectory() && !b.isDirectory()) return -1;
           if (!a.isDirectory() && b.isDirectory()) return 1;

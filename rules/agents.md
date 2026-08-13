@@ -60,7 +60,7 @@ For complex problems, deploy a **team** with split roles:
 - Security expert (what could break?)
 - Consistency reviewer (does it match the rest of the codebase?)
 
-Use `TeamCreate` for this. See task-dispatch.md "Agent Teams Best Practices".
+Use multiple `Agent` calls + `SendMessage` + a shared task list (`TaskCreate`/`TaskList`) for this. See task-dispatch.md "Agent Teams Best Practices".
 
 ## Anti-Patterns
 

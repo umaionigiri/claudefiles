@@ -1,7 +1,7 @@
 # Global Claude Code Settings
 
 ## Core Philosophy
-1. **Agent-First** — Delegate complex/parallelizable work to subagents (`Agent` tool) or teammates (`TeamCreate`); keep main context lean. **Default to teammates over solo SubAgent when work is multi-perspective, multi-phase, or benefits from cross-critique** (review、debug仮説競合、設計検討など)
+1. **Agent-First** — Delegate complex/parallelizable work to subagents (`Agent` tool) or teammates (複数 `Agent` 協調 + `SendMessage`); keep main context lean. **Default to teammates over solo SubAgent when work is multi-perspective, multi-phase, or benefits from cross-critique** (review、debug仮説競合、設計検討など)
 2. **Plan-First** — Plan Mode (Shift+Tab×2) before destructive or multi-file work
 3. **Research-First** — Verify with Context7/Gemini before coding; trust your training data less than current docs
 4. **Test-Behavior** — Test what users observe, not implementation internals
@@ -9,8 +9,10 @@
 
 ## Task Management — MOST VIOLATED RULE
 - On every prompt: analyze complexity → choose execution mode (Direct / SubAgent / Agent Teams)
-- **Bias toward Agent Teams** when 2つ以上当てはまる: ①multi-file 影響、②独立した観点（security / perf / test など）が並列、③仮説競合や設計議論が有益、④3+ subtask が独立並列可能。SubAgent ではなく `TeamCreate` を選ぶ
+- **Bias toward Agent Teams** when 2つ以上当てはまる: ①multi-file 影響、②独立した観点（security / perf / test など）が並列、③仮説競合や設計議論が有益、④3+ subtask が独立並列可能。単発 SubAgent ではなく複数 `Agent` 協調（+ `SendMessage` + 共有タスクリスト）を選ぶ
+- **【MUST】lead で抱え込まず、PM として適切な AGENT に差配する**: 案件作業は該当プロジェクトの PM エージェント（例: 各案件の `<project>-pm`）を起点にワーカーへ差配する
 - 3+ steps → TaskCreate/TaskUpdate/TaskList for visible progress tracking
+- **【MUST】エージェント／teammate へ委譲したら即座に `/loop` 監視を開始する**: `Agent(run_in_background: true)` でバックグラウンド委譲したとき、または複数 `Agent` 協調（teammate）へ差配したときは、直後に `/loop 1分ごとに各エージェント／teammate の状況をチェックして。` を実行し、全タスク完了までループ監視する。詳細 → `rules/task-dispatch.md`「Delegation Monitoring」
 - → See `rules/task-dispatch.md` for dispatch criteria
 
 ## Repo Layout (`~/.claude/`)
@@ -27,7 +29,7 @@
 ## Modular Rules (`~/.claude/rules/`)
 | Rule | Purpose |
 |------|---------|
-| `task-dispatch.md` | Phase 0 Research & Reuse → Complexity score → execution mode (Direct/SubAgent/Team) |
+| `task-dispatch.md` | Phase 0 Research & Reuse → Complexity score → execution mode → 委譲後の `/loop` 監視 |
 | `agents.md` | Task type → which specific agent to dispatch (complements task-dispatch.md) |
 | `pre-commit.md` | Pre-commit checklist (tests/lint/secrets/debug code) |
 | `code-quality.md` | Immutability, KISS/DRY/YAGNI, naming, function/file size, error handling, severity levels |
@@ -39,6 +41,7 @@
 | `naming.md` | Directory/file naming conventions |
 | `version-check.md` | Session-start version diff vs latest Claude Code |
 | `python/*.md` | Python-specific extensions (coding-style, hooks, patterns, security, testing) |
+| `excel-generation.md` | xlsxwriter必須・Meiryo UI 10.5・/tmp経由コピー・openpyxl読み直し検証 |
 
 ## Subagents (`~/.claude/agents/`)
 | Agent | Use when |
@@ -62,6 +65,8 @@
 | `typescript-reviewer` | TypeScript idioms (after generic code-reviewer) |
 
 ## Agent Teams (tmux split panes)
+- **【MUST】効果的な場面では必ず複数エージェント協調を使う。** memory 任せにせず毎プロンプトで判定する。次のいずれか2つ以上が当てはまれば、単発 SubAgent でなく協調（複数 `Agent` 並列 + `SendMessage` + 共有タスクリスト）を選ぶ: ①multi-file 影響 ②独立観点の並列（security/perf/test 等）③仮説競合や設計議論が有益 ④3+ の独立タスクを並列。逆に明確な分業で議論不要なら単発 `Agent` で十分（過剰なチーム化はしない＝適材適所）。
+- **【実装メモ】協調は複数 `Agent` 起動（`teammateMode:"tmux"`）+ `SendMessage` + 共有タスクリスト（`TaskCreate`/`TaskList`）で構成する**（専用のチーム一括作成/削除ツールはこの環境に無い＝ToolSearch 確認済み。片付けは不要ペインを tmux kill-pane で）。
 - **積極利用ポリシー**: 以下のいずれかが当てはまるなら、SubAgent ではなく teammate を選ぶ
   - **Multi-perspective レビュー**: PR / 設計を security + performance + test など複数観点で並列レビュー
   - **競合仮説**: バグ原因の仮説が複数あり、互いに論破させたい
@@ -119,6 +124,8 @@ find ~/.claude/agents -maxdepth 1 -name '*.md'       # subagent 一覧
 **Plugin-provided:** `/revise-claude-md` (claude-md-management)
 
 ## Context Management
+
+- **【MUST】本筋と別系統の付随作業は別コンテキストに切り出す**: そのセッションの主目的と別系統の付随作業（設定変更・ルール化・調査・レビュー等）は、メイン文脈を汚さないようサブエージェント（別コンテキスト）または `/fork` に隔離し、メインは主目的に集中させる。
 
 | Task Type | Strategy |
 |-----------|----------|
