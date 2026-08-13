@@ -13,7 +13,7 @@ Claude Code（`~/.claude/`）の設定ファイルを管理するリポジトリ
 ├── commands/              # スラッシュコマンド
 │   ├── slash-guide.md
 │   └── kiro/              # 仕様駆動開発ワークフロー（11コマンド）
-├── skills/                # カスタムスキル（46種）
+├── skills/                # カスタムスキル（48種）
 │   ├── development-rules/
 │   ├── testing-rules/
 │   ├── git-workflow/
@@ -112,8 +112,10 @@ Git 読み取り系（`status`, `diff`, `log`, `branch`, `worktree`）、`npm ru
 | `e2e-testing` | Playwright E2E テスト (Page Object Model) |
 | `eval-harness` | 形式的 eval フレームワーク (eval-driven development) |
 | `exa-search` | Exa MCP ニューラル検索 |
+| `excel-update` | excel-update |
 | `frontend-patterns` | フロントエンド開発パターン (React / Next.js / 状態管理) |
 | `gemini-research` | Gemini リサーチスキル |
+| `git-pull-safe` | git-pull-safe |
 | `git-workflow` | Git ワークフロー |
 | `iterative-retrieval` | 反復的 retrieval パターン |
 | `lead-intelligence` | AI ネイティブ営業リード調査・アウトリーチ |

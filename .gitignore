@@ -78,6 +78,20 @@ teams/
 # Skill runtime workspaces (iteration scratch data, may contain client info)
 skills/*-workspace/
 
+# Client/project-specific skills (case-work skills stay out of the public config repo)
+skills/osaka-cx-*/
+
+# Daemon / background job runtime (control keys, rosters, transcripts, logs)
+daemon/
+daemon.log
+jobs/
+chrome/
+
+# Consent / sweep markers & doctor backups (machine-local, auto-generated)
+remote-settings-consent.json
+plugins/.last_inuse_sweep
+settings.json.doctor-bak-*
+
 # ===== Tracked files =====
 # CLAUDE.md, README.md, settings.json
 # agents/, commands/, skills/
