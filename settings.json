@@ -102,11 +102,6 @@
       "Read(**/*password*)",
       "Read(**/*token*)",
       "Read(**/.git/config)",
-      "Write(**/Dockerfile)",
-      "Write(**/.github/workflows/*)",
-      "Write(**/*.sh)",
-      "Write(**/*.bash)",
-      "Write(**/*.ps1)",
       "Edit(**/Dockerfile)",
       "Edit(**/.github/workflows/*)",
       "Edit(**/*.sh)",
@@ -163,7 +158,33 @@
       "Bash(pylint:*)",
       "Bash(black:*)",
       "Bash(rustfmt:*)",
-      "Bash(gofmt:*)"
+      "Bash(gofmt:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_screenshot",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_type",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_close",
+      "mcp__playwright__browser_pdf_save",
+      "mcp__playwright__browser_scroll",
+      "mcp__playwright__browser_select_option",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_network_requests",
+      "mcp__playwright__browser_tab_new",
+      "mcp__playwright__browser_tab_list",
+      "mcp__playwright__browser_tab_select",
+      "mcp__playwright__browser_tab_close",
+      "mcp__playwright__browser_file_upload",
+      "mcp__playwright__browser_handle_dialog",
+      "mcp__playwright__browser_resize",
+      "mcp__playwright__browser_drag",
+      "mcp__playwright__browser_hover",
+      "mcp__playwright__browser_press_key",
+      "mcp__playwright__browser_check",
+      "mcp__playwright__browser_uncheck"
     ],
     "deny": [
       "Read(~/.aws/**)",
@@ -229,29 +250,29 @@
       "WebFetch(domain:172.31.*)",
       "WebFetch(domain:192.168.*)",
       "WebFetch(domain:169.254.*)",
-      "Write(**/authorized_keys)",
-      "Write(**/sudoers*)",
-      "Write(**/shadow)",
-      "Write(**/passwd)",
-      "Write(**/group)",
-      "Write(**/hosts)",
-      "Write(**/hostname)",
-      "Write(**/resolv.conf)",
-      "Write(**/crontab)",
-      "Write(/etc/cron.d/**)",
-      "Write(/etc/cron.daily/**)",
-      "Write(/etc/cron.hourly/**)",
-      "Write(/etc/cron.weekly/**)",
-      "Write(/etc/cron.monthly/**)",
-      "Write(**/.bashrc)",
-      "Write(**/.zshrc)",
-      "Write(**/.profile)",
-      "Write(**/.bash_profile)",
-      "Write(**/.zprofile)",
-      "Write(**/.bash_login)",
-      "Write(**/known_hosts)",
-      "Write(**/ssh_config)",
-      "Write(/etc/ssh/**)"
+      "Edit(**/authorized_keys)",
+      "Edit(**/sudoers*)",
+      "Edit(**/shadow)",
+      "Edit(**/passwd)",
+      "Edit(**/group)",
+      "Edit(**/hosts)",
+      "Edit(**/hostname)",
+      "Edit(**/resolv.conf)",
+      "Edit(**/crontab)",
+      "Edit(/etc/cron.d/**)",
+      "Edit(/etc/cron.daily/**)",
+      "Edit(/etc/cron.hourly/**)",
+      "Edit(/etc/cron.weekly/**)",
+      "Edit(/etc/cron.monthly/**)",
+      "Edit(**/.bashrc)",
+      "Edit(**/.zshrc)",
+      "Edit(**/.profile)",
+      "Edit(**/.bash_profile)",
+      "Edit(**/.zprofile)",
+      "Edit(**/.bash_login)",
+      "Edit(**/known_hosts)",
+      "Edit(**/ssh_config)",
+      "Edit(/etc/ssh/**)"
     ],
     "ask": [
       "Read(**/.env*)",
@@ -290,8 +311,6 @@
       "Bash(yum install:*)",
       "Bash(brew install:*)",
       "Bash(choco install:*)",
-      "Write(**/Dockerfile)",
-      "Write(**/.github/workflows/*)",
       "Edit(**/Dockerfile)",
       "Edit(**/.github/workflows/*)",
       "Bash(curl:*)",
@@ -306,9 +325,6 @@
       "Bash(cargo build:*)",
       "Bash(make:*)",
       "Bash(cmake:*)",
-      "Write(**/*.sh)",
-      "Write(**/*.bash)",
-      "Write(**/*.ps1)",
       "Edit(**/*.sh)",
       "Edit(**/*.bash)",
       "Edit(**/*.ps1)",
@@ -323,13 +339,13 @@
       "Edit(**/go.sum)",
       "Edit(**/.git/**)"
     ],
-    "defaultMode": "plan",
+    "defaultMode": "auto",
     "disableBypassPermissionsMode": "disable",
     "additionalDirectories": [
       "/tmp"
     ]
   },
-  "model": "opus[1m]",
+  "model": "claude-sonnet-4-6[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -547,11 +563,14 @@
     }
   },
   "language": "japanese",
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
+  "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark-ansi",
   "editorMode": "normal",
+  "verbose": true,
   "teammateMode": "tmux",
+  "remoteControlAtStartup": true,
   "skipAutoPermissionPrompt": true,
   "useAutoModeDuringPlan": true,
   "_eccAdoptedHooks": {
@@ -572,5 +591,18 @@
       "post:session-activity-tracker",
       "pre:compact"
     ]
+  },
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest",
+        "--headless"
+      ],
+      "env": {
+        "PLAYWRIGHT_BROWSERS_PATH": "/home/shokenohshiro/.cache/ms-playwright",
+        "DISPLAY": ""
+      }
+    }
   }
 }
