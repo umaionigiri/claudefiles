@@ -20,11 +20,12 @@
 - `rules/*.md` — long/topic-specific rules referenced from here (see Modular Rules below)
 - `skills/<name>/SKILL.md` — invocable workflows (`Skill` tool)
 - `agents/<name>.md` — subagent definitions (`Agent` tool, see Subagents below)
-- `commands/<name>.md` — user-defined slash commands
+- `commands/<name>.md` — user-defined slash commands; `commands/sc/*.md` — SuperClaude `/sc:` commands (do not hand-edit; regenerate with `superclaude update`)
 - `memory/MEMORY.md` + `memory/*.md` — auto memory (managed by system)
 - `plugins/` — installed plugins (managed by `/plugin`)
 - `scripts/` — `generate-dashboard.mjs` (regen dashboard.html), `auto-sync.sh` (config Git sync)
-- `settings.json` — permissions (156 allow rules) + 5種 hooks: `SessionStart` (git fetch/同期チェック), `PreToolUse:Bash` (危険コマンド検知), `PostToolUse:Write|Edit|MultiEdit` (auto-sync 起動), `Stop` (完了通知), `Notification` (通知整形)
+- **SuperClaude Framework v4.3.0** — installed via `uv tool install SuperClaude` (isolated env; `pip3 --user` is blocked by PEP 668). Manage with `superclaude install|update|doctor|mcp`. Supplies `agents/` Layer 2, `commands/sc/`, and `rules/superclaude/`
+- `settings.json` — permissions (177 allow rules) + 6種 hooks: `SessionStart` (git fetch/同期チェック), `PreToolUse` (危険コマンド検知), `PostToolUse:Write|Edit|MultiEdit` (auto-sync 起動), `Stop` (完了通知), `Notification` (通知整形), `PreCompact`
 
 ## Modular Rules (`~/.claude/rules/`)
 | Rule | Purpose |
@@ -42,8 +43,27 @@
 | `version-check.md` | Session-start version diff vs latest Claude Code |
 | `python/*.md` | Python-specific extensions (coding-style, hooks, patterns, security, testing) |
 | `excel-generation.md` | xlsxwriter必須・Meiryo UI 10.5・/tmp経由コピー・openpyxl読み直し検証 |
+| `superclaude/*.md` | SuperClaude v4.3.0 の補完ドキュメント13点（下表）。**規範が競合したら常に上記の既存 rules/ を優先** |
 
-## Subagents (`~/.claude/agents/`)
+### `rules/superclaude/` — 自動ロードしない。必要なときだけ Read する
+全文比較の結果、既存 rules/ との**真の矛盾はゼロ**（重なる箇所は同じ内容の言い換え）。安心して参照してよいが、重複部分は既存 rules/ を正とする。既存に無い固有の価値は: フラグ体系（`FLAGS.md`）／経営思想家9人パネル／日付を必ず確認する Temporal Awareness／作業後の一時ファイル掃除／誇大表現の禁止／多ホップ調査の信頼度設計。
+| File | 中身 | いつ読むか |
+|------|------|-----------|
+| `FLAGS.md` | 振る舞い切替フラグ一覧（`--think`/`--think-hard`/`--ultrathink`、`--uc` 圧縮、`--safe-mode`、`--delegate`、MCP 選択 `--c7`/`--seq`/`--serena` 等） | フラグを使う**前に必ず Read**。CLI スイッチではなく規約なので、この表を読み込まないとフラグは効かない |
+| `RULES.md` | SuperClaude 版の行動規範（最大 16KB） | 既存 rules/ に無い観点が欲しいときだけ |
+| `PRINCIPLES.md` | ソフトウェア工学の原則 | 設計判断の拠り所が欲しいとき |
+| `MODE_Brainstorming.md` | 要求を対話で掘る心構え | 要件が曖昧 / `/sc:brainstorm` |
+| `MODE_Introspection.md` | 自分の推論を点検する心構え | 判断を誤った / 振り返るとき |
+| `MODE_Orchestration.md` | ツール選択の最適化 | どの MCP・ツールを使うか迷うとき |
+| `MODE_Task_Management.md` | 階層タスク管理と記憶の持続 | 多段階で長い作業のとき |
+| `MODE_Token_Efficiency.md` | 記号による圧縮表現 | 文脈が逼迫したとき |
+| `MODE_DeepResearch.md` + `RESEARCH_CONFIG.md` | 深掘り調査の戦略と設定 | `/sc:research` を使うとき |
+| `MODE_Business_Panel.md` + `BUSINESS_SYMBOLS.md` + `BUSINESS_PANEL_EXAMPLES.md` | 経営思想家パネルの進め方・記号・実例 | `/sc:business-panel` を使うとき |
+
+## Subagents (`~/.claude/agents/`) — 37 agents in 2 layers
+
+**Layer 1 — 実行手順書 (hand-written, 17).** `tools:`/`model:` declared, concrete CLI (`npm audit`/`knip`/`ruff`/`lighthouse`), phased checklists, output templates. Dispatch when work must be **performed and verified**.
+
 | Agent | Use when |
 |-------|----------|
 | `task-decomposer` | Breaking large tasks into parallel subtasks |
@@ -63,6 +83,11 @@
 | `tdd-guide` | RED-GREEN-IMPROVE step-by-step facilitation |
 | `python-reviewer` | Python idioms (after generic code-reviewer) |
 | `typescript-reviewer` | TypeScript idioms (after generic code-reviewer) |
+
+**Layer 2 — 人格定義 (SuperClaude v4.3.0, 20).** `category:` only — no `tools:`/`model:`, no CLI commands. These reframe *how you think*, not what you run. Dispatch for design / exploration / spec / teaching:
+`backend-architect` `business-panel-experts` `deep-research` `deep-research-agent` `devops-architect` `frontend-architect` `learning-guide` `performance-engineer` `pm-agent` `python-expert` `quality-engineer` `refactoring-expert` `repo-index` `requirements-analyst` `root-cause-analyst` `security-engineer` `self-review` `socratic-mentor` `system-architect` `technical-writer`
+
+**【MUST】名前が似ていても役割は別物。** `security-reviewer` は `npm audit` を実行し、`security-engineer` は設計時の脅威モデルを語るだけ。**「go do it → Layer 1 / help me decide → Layer 2」**。7組の紛らわしいペアの振り分け表は `rules/agents.md`「Look-Alike Pairs」を必ず参照する。
 
 ## Agent Teams (tmux split panes)
 - **【MUST】効果的な場面では必ず複数エージェント協調を使う。** memory 任せにせず毎プロンプトで判定する。次のいずれか2つ以上が当てはまれば、単発 SubAgent でなく協調（複数 `Agent` 並列 + `SendMessage` + 共有タスクリスト）を選ぶ: ①multi-file 影響 ②独立観点の並列（security/perf/test 等）③仮説競合や設計議論が有益 ④3+ の独立タスクを並列。逆に明確な分業で議論不要なら単発 `Agent` で十分（過剰なチーム化はしない＝適材適所）。
@@ -122,6 +147,9 @@ find ~/.claude/agents -maxdepth 1 -name '*.md'       # subagent 一覧
 **Built-in:** `/plugin`, `/reload-plugins`, `/compact <focus>`, `/fork`, `/clear`, `/context`, `/effort low|med|high`, `/init`, `/rename`, `/rewind` (=Esc×2)
 **User-defined (`~/.claude/commands/`):** `/create-pr`, `/slash-guide`, `/learn` (skill化), `/kiro:*` (spec-init, spec-design, spec-impl, validate-* など), `/code-review` (PR+local), `/build-fix`, `/test-coverage`, `/feature-dev`, `/refactor-clean`, `/quality-gate`, `/save-session` + `/resume-session`, `/model-route`, `/learn-eval`
 **Plugin-provided:** `/revise-claude-md` (claude-md-management)
+**SuperClaude (`~/.claude/commands/sc/`, 30個):** `/sc:brainstorm` (要求を対話で掘る), `/sc:research` (外部Web深掘り調査), `/sc:spec-panel` (専門家パネルで仕様レビュー), `/sc:business-panel` (経営思想家9人で戦略分析), `/sc:index-repo` (リポジトリ索引化・トークン94%削減), `/sc:load`+`/sc:save` (serena経由のセッション文脈保存/復元), `/sc:select-tool`, `/sc:recommend` (どの `/sc:` を使うか推薦), `/sc:help` (全一覧)。他に analyze/build/cleanup/design/document/estimate/explain/git/implement/improve/pm/reflect/spawn/task/test/troubleshoot/workflow/agent/index/sc
+- 名前空間が `sc:` で分離されているため既存コマンド・`/kiro:*` と衝突しない
+- 既存の自作コマンドと機能が重なる場合は**既存を優先**（`/create-pr` は `/sc:git` より優先、`/code-review` は `/sc:analyze` より優先）
 
 ## Context Management
 

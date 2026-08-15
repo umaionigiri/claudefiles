@@ -14,11 +14,11 @@
     "frontend-design@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/home/shokenohshiro/.claude/plugins/cache/claude-plugins-official/frontend-design/f5468f4e03b2",
-        "version": "f5468f4e03b2",
+        "installPath": "/home/shokenohshiro/.claude/plugins/cache/claude-plugins-official/frontend-design/6693311950b9",
+        "version": "6693311950b9",
         "installedAt": "2026-05-15T11:30:54.752Z",
-        "lastUpdated": "2026-06-23T04:31:27.506Z",
-        "gitCommitSha": "f5468f4e03b297fd046d13113963172e44520142"
+        "lastUpdated": "2026-08-15T16:28:59.609Z",
+        "gitCommitSha": "6693311950b9982b572525989cb6c4310ed4b1bd"
       }
     ]
   }
