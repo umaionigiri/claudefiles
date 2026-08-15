@@ -9,7 +9,7 @@ Claude Code（`~/.claude/`）の設定ファイルを管理するリポジトリ
 ├── .gitignore             # ランタイムデータ除外
 ├── CLAUDE.md              # グローバル指示（全プロジェクト共通）
 ├── settings.json          # 権限・Hooks・環境変数・MCP設定
-├── agents/                # カスタムエージェント（17種）
+├── agents/                # カスタムエージェント（37種）
 ├── commands/              # スラッシュコマンド
 │   ├── slash-guide.md
 │   └── kiro/              # 仕様駆動開発ワークフロー（11コマンド）
@@ -71,20 +71,40 @@ Git 読み取り系（`status`, `diff`, `log`, `branch`, `worktree`）、`npm ru
 
 | エージェント | 用途 |
 |-------------|------|
+| `backend-architect` | backend-architect |
+| `business-panel-experts` | business-panel-experts |
 | `code-explorer` | 既存コードベース探索エージェント (onboarding 用) |
 | `code-reviewer` | コードレビューエージェント |
 | `database-reviewer` | PostgreSQL/Supabase データベース専門レビュー |
+| `deep-research-agent` | deep-research-agent |
+| `deep-research` | deep-research |
+| `devops-architect` | devops-architect |
 | `devops-problem-solver` | DevOps 問題解決エージェント |
 | `estimation-agent` | 見積りエージェント |
+| `frontend-architect` | frontend-architect |
+| `learning-guide` | learning-guide |
+| `performance-engineer` | performance-engineer |
 | `performance-optimizer` | パフォーマンス最適化スペシャリスト |
+| `pm-agent` | pm-agent |
 | `pr-test-analyzer` | PR テストカバレッジ品質レビュー |
+| `python-expert` | python-expert |
 | `python-reviewer` | Python 言語特化レビュー (idiom / type hint / EAFP) |
+| `quality-engineer` | quality-engineer |
 | `refactor-cleaner` | Dead code 除去・consolidation 専門 |
+| `refactoring-expert` | refactoring-expert |
+| `repo-index` | repo-index |
+| `requirements-analyst` | requirements-analyst |
+| `root-cause-analyst` | root-cause-analyst |
+| `security-engineer` | security-engineer |
 | `security-reviewer` | セキュリティレビュー専門エージェント (OWASP / シークレット検出) |
+| `self-review` | self-review |
 | `senior-consultant-reviewer` | シニアコンサルタントレビューエージェント |
 | `silent-failure-hunter` | サイレント失敗・エラー無視ハンター |
+| `socratic-mentor` | socratic-mentor |
+| `system-architect` | system-architect |
 | `task-decomposer` | タスク分解エージェント |
 | `tdd-guide` | TDD ファシリテーター (RED-GREEN-REFACTOR) |
+| `technical-writer` | technical-writer |
 | `test-runner` | テストランナーエージェント |
 | `typescript-reviewer` | TypeScript 言語特化レビュー (strict null / type guard) |
 | `workflow-recorder` | ワークフロー記録エージェント |
