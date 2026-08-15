@@ -563,6 +563,7 @@
     }
   },
   "language": "japanese",
+  "preferredNotifChannel": "terminal_bell",
   "effortLevel": "xhigh",
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
